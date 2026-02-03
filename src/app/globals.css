@@ -55,6 +55,12 @@
 }
 
 :root {
+  /* base colors  */
+  --background: #fafafa;
+  --surface: #ffffff;
+  --muted: #f3f3f3;
+  --line: #e8e9e9;
+  /* text/icon colors  */
   --primary: #121212;
   --secondary: #97989a;
   --tertiary: #e1e1e1;
@@ -129,6 +135,10 @@
 }
 
 @theme inline {
+  --color-background: var(--background);
+  --color-surface: var(--surface);
+  --color-muted: var(--muted);
+  --color-line: var(--line);
   /* Colors  */
   --color-primary: var(--primary);
   --color-secondary: var(--secondary);
@@ -208,15 +218,38 @@
   --font-sans-medium: "DMSansMedium", sans-serif;
   --font-sans-semibold: "DMSansSemiBold", sans-serif;
   --font-sans-bold: "DMSansBold", sans-serif;
-  --font-sans-extrabold: "DMSansExtraBold", sans-serif; 
+  --font-sans-extrabold: "DMSansExtraBold", sans-serif;
+  /* Button hover placeholders (light) */
+  --btn-p300-hover: var(--p500);
+  --btn-s300-hover: var(--s500);
+  --btn-muted-hover: var(--muted);
+  --btn-transparent-hover: transparent;
+  --btn-sc300-hover: var(--sc500);
+  --btn-d300-hover: var(--d500);
+  --btn-w300-hover: var(--w500);
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
+    /* base colors  */
+    --background: #2a2a2a;
+    --surface: #1212121;
+    --muted: #2a2a2a;
+    --line: #414141;
+    /* text/icon colors  */
     --primary: #fafafa;
     --secondary: #717171;
     --tertiary: #444444;
     --inverted: #fafafa;
+    /* Button hover placeholders (dark) */
+    --btn-p300-hover: var(--p100);
+    --btn-s300-hover: var(--s100);
+    --btn-muted-hover: var(--muted);
+    --btn-transparent-hover: transparent;
+    --btn-sc300-hover: var(--sc100);
+    --btn-d300-hover: var(--d100);
+    --btn-w300-hover: var(--w100);
+    
     /* Primary Colors  */
     --p50: #181527;
     --p75: #23203a;
