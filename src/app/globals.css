@@ -1,5 +1,59 @@
 @import "tailwindcss";
 
+@font-face {
+  font-family: "DMSansLight";
+  font-style: normal;
+  font-weight: 300;
+  font-display: swap;
+  src: url("../assets/fonts/DM_Sans/DMSans-VariableFont_opsz\,wght.ttf")
+    format("truetype");
+}
+
+@font-face {
+  font-family: "DMSansRegular";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("../assets/fonts/DM_Sans/DMSans-VariableFont_opsz\,wght.ttf")
+    format("truetype");
+}
+
+@font-face {
+  font-family: "DMSansMedium";
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("../assets/fonts/DM_Sans/DMSans-VariableFont_opsz\,wght.ttf")
+    format("truetype");
+}
+
+@font-face {
+  font-family: "DMSansSemiBold";
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("../assets/fonts/DM_Sans/DMSans-VariableFont_opsz\,wght.ttf")
+    format("truetype");
+}
+
+@font-face {
+  font-family: "DMSansBold";
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("../assets/fonts/DM_Sans/DMSans-VariableFont_opsz\,wght.ttf")
+    format("truetype");
+}
+
+@font-face {
+  font-family: "DMSansExtraBold";
+  font-style: normal;
+  font-weight: 800;
+  font-display: swap;
+  src: url("../assets/fonts/DM_Sans/DMSans-VariableFont_opsz\,wght.ttf")
+    format("truetype");
+}
+
 :root {
   --primary: #121212;
   --secondary: #97989a;
@@ -147,6 +201,14 @@
   --color-mossgreen-fore: var(--mossgreen-fore);
   --color-magenta-back: var(--magenta-back);
   --color-magenta-fore: var(--magenta-fore);
+
+  /* Fonts  */
+  --font-sans: "DMSansRegular", sans-serif;
+  --font-sans-light: "DMSansLight", sans-serif;
+  --font-sans-medium: "DMSansMedium", sans-serif;
+  --font-sans-semibold: "DMSansSemiBold", sans-serif;
+  --font-sans-bold: "DMSansBold", sans-serif;
+  --font-sans-extrabold: "DMSansExtraBold", sans-serif; 
 }
 
 @media (prefers-color-scheme: dark) {
@@ -225,5 +287,77 @@
   }
 }
 
+@layer utilities {
+  .text-h1 {
+    @apply font-sans-bold  text-[48px] leading-[1.2];
+  }
+  .text-h2 {
+    @apply font-sans-bold text-[32px] leading-tight;
+  }
+  .text-h3 {
+    @apply font-sans-bold text-[24px] leading-[1.2];
+  }
+  .text-h4 {
+    @apply font-sans-bold text-[18px] leading-[1.2];
+  }
+  .text-h5 {
+    @apply font-sans-semibold text-[16px] leading-[1.2];
+  }
+
+  .text-body-lg {
+    @apply font-sans text-[20px] leading-normal;
+  }
+  .text-body-md {
+    @apply font-sans text-[16px] leading-normal;
+  }
+  .text-body-sm {
+    @apply font-sans text-[14px] leading-[1.4];
+  }
+  .text-body-xs {
+    @apply font-sans text-[12px] leading-[1.4];
+  }
+
+  .text-action-button {
+    @apply font-sans-bold text-[14px] leading-[1.4];
+  }
+  .text-action-label {
+    @apply font-sans-medium text-[14px] leading-[1.4];
+  }
+
+  @media (max-width: 1024px) {
+    .text-h1 {
+      @apply text-[36px];
+    }
+    .text-h2 {
+      @apply text-[28px];
+    }
+    .text-h3 {
+      @apply text-[22px];
+    }
+    .text-body-lg {
+      @apply text-[18px];
+    }
+  }
+
+  @media (max-width: 640px) {
+    .text-h1 {
+      @apply text-[32px];
+    }
+    .text-h2 {
+      @apply text-[24px];
+    }
+    .text-h3 {
+      @apply text-[20px];
+    }
+    .text-h4 {
+      @apply text-[16px];
+    }
+    .text-h5 {
+      @apply text-[14px];
+    }
+  }
+}
+
 body {
+  font-family: var(--font-sans);
 }
