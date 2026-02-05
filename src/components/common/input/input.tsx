@@ -1,7 +1,7 @@
 "use client";
 import { ComponentTypes } from "@/types";
 import * as React from "react";
-import Text from "../text/text";
+import { Text } from "../text/text";
 import { Container } from "../container/container";
 
 export const Input = ({
@@ -30,7 +30,7 @@ export const Input = ({
     .trim();
 
   return (
-    <Container className="p-4">
+    <Container className="w-full mb-4">
       <Container className="mb-2">
         <Text as="label" variant="body-sm" tone="primary">
           {label}

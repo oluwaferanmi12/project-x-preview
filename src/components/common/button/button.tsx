@@ -19,6 +19,7 @@ type ButtonProps<T extends React.ElementType = "button"> = {
   shorter?: boolean;
   leftIcon?: React.ReactNode;
   rightIcon?: React.ReactNode;
+  fullWidth?: boolean;
 } & React.ComponentPropsWithoutRef<T>;
 
 const variantClass: Record<ButtonVariant, string> = {
@@ -26,7 +27,8 @@ const variantClass: Record<ButtonVariant, string> = {
   s300: "bg-[var(--s300)] text-[var(--inverted)] hover:bg-[var(--btn-s300-hover)]",
   muted:
     "bg-[var(--muted)] text-[var(--primary)] hover:bg-[var(--btn-muted-hover)]",
-  transparentRed: "",
+  transparentRed:
+    "bg-transparent text-[var(--s500)] hover:bg-[var(--btn-transparent-hover)]",
   transparent:
     "bg-transparent text-[var(--primary)] hover:bg-[var(--btn-transparent-hover)]",
   sc300:
@@ -42,11 +44,12 @@ const Button = <T extends React.ElementType = "button">({
   leftIcon,
   rightIcon,
   className,
+  fullWidth,
   ...props
 }: ButtonProps<T>) => {
   const Component = as ?? "button";
   const classes = [
-    `inline-flex  items-center justify-center gap-2 rounded-lg  ${shorter ? "py-2 px-2" : "py-3 px-4"} cursor-pointer text-sm transition-colors`,
+    `inline-flex ${fullWidth ? "w-full" : "w-auto"} items-center justify-center gap-2 rounded-lg  ${shorter ? "py-2 px-2" : "py-3 px-4"} cursor-pointer text-sm transition-colors`,
     "disabled:cursor-not-allowed disabled:opacity-60",
     "aria-disabled:cursor-not-allowed aria-disabled:opacity-60 text-action-button",
     variantClass[variant],

@@ -229,6 +229,14 @@
   --btn-w300-hover: var(--w500);
 }
 
+.house-bg {
+  background-image: url("../assets/images/house-bg-light.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-position: center;
+  background-size: cover;
+}
+
 @media (prefers-color-scheme: dark) {
   :root {
     /* base colors  */
@@ -249,7 +257,7 @@
     --btn-sc300-hover: var(--sc100);
     --btn-d300-hover: var(--d100);
     --btn-w300-hover: var(--w100);
-    
+
     /* Primary Colors  */
     --p50: #181527;
     --p75: #23203a;
@@ -317,6 +325,13 @@
     --mossgreen-fore: #80894f;
     --magenta-back: #1f131b;
     --magenta-fore: #715969;
+  }
+  .house-bg {
+    background-image: url("../assets/images/bg.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-position: center;
+    background-size: cover;
   }
 }
 

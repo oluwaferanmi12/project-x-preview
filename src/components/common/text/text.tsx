@@ -22,7 +22,8 @@ type TextTone =
   | "danger"
   | "success"
   | "warning"
-  | "info";
+  | "info"
+  | "s500";
 
 type TextProps<T extends React.ElementType = "p"> = {
   as?: T;
@@ -54,9 +55,10 @@ const toneClass: Record<TextTone, string> = {
   success: "text-sc300",
   warning: "text-w300",
   info: "text-i300",
+  s500: "text-s500",
 };
 
-const Text = <T extends React.ElementType = "p">({
+export const Text = <T extends React.ElementType = "p">({
   as,
   variant = "body-md",
   tone = "primary",
@@ -70,7 +72,5 @@ const Text = <T extends React.ElementType = "p">({
   return <Component className={classes} {...props} />;
 };
 
-Text.displayName = "Text";
 
-export default Text;
 export type { TextProps, TextVariant, TextTone };
