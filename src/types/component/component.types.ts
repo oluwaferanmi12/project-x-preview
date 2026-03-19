@@ -8,3 +8,9 @@ export type InputProps = ComponentPropsWithoutRef<"input"> & {
   showPasswordIcon?: ReactNode;
   hidePasswordIcon?: ReactNode;
 };
+
+export type MultiStepOptionsProps = {
+  num: number;
+  title: string;
+  subtitle: string;
+}
