@@ -2,8 +2,7 @@ import React from "react";
 import { Container } from "@/components/common/container/container";
 import { Input } from "@/components/common/input/input";
 import { Text } from "@/components/common/text/text";
-import EyeOpenIcon from "@/assets/svgs/eye-opened.svg";
-import EyeCloseIcon from "@/assets/svgs/eye-closed.svg";
+import Button from "@/components/common/button/button";
 
 export default function CreateNewPassword() {
   return (
@@ -19,16 +18,17 @@ export default function CreateNewPassword() {
           type="password"
           label="New Password"
           placeholder="Enter your new password"
-          showPasswordIcon={<EyeOpenIcon />}
-          hidePasswordIcon={<EyeCloseIcon />}
         />
         <Input
           type="password"
           label="Confirm Password"
           placeholder="Confirm your new password"
-          showPasswordIcon={<EyeOpenIcon />}
-          hidePasswordIcon={<EyeCloseIcon />}
         />
+        <Container>
+          <Button variant="disabled" fullWidth>
+            Create Password
+          </Button>
+        </Container>
       </Container>
     </>
   );

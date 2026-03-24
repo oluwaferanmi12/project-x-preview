@@ -23,7 +23,8 @@ type TextTone =
   | "success"
   | "warning"
   | "info"
-  | "s500";
+  | "s500"
+  | 'p300'
 
 type TextProps<T extends React.ElementType = "p"> = {
   as?: T;
@@ -56,6 +57,7 @@ const toneClass: Record<TextTone, string> = {
   warning: "text-w300",
   info: "text-i300",
   s500: "text-s500",
+  p300: "text-p300"
 };
 
 export const Text = <T extends React.ElementType = "p">({

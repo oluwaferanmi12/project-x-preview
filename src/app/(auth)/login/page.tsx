@@ -2,8 +2,6 @@ import { Text } from "@/components/common/text/text";
 import { Container } from "@/components/common/container/container";
 import { Input } from "@/components/common/input/input";
 import Button from "@/components/common/button/button";
-import EyeOpenIcon from "@/assets/svgs/eye-opened.svg";
-import EyeCloseIcon from "@/assets/svgs/eye-closed.svg";
 import GoogleIcon from "@/assets/svgs/google-icon.svg";
 import Link from "next/link";
 
@@ -25,21 +23,19 @@ function Login() {
           type="password"
           label="Password"
           placeholder="Enter your password"
-          showPasswordIcon={<EyeOpenIcon />}
-          hidePasswordIcon={<EyeCloseIcon />}
         />
         <Container className="flex justify-end">
           <Link href={"/forgot-password"}>
             <Button
               className="relative -top-3 -right-2 text-right"
-              variant="transparentRed"
+              variant="transparent"
             >
               Forgot Password
             </Button>
           </Link>
         </Container>
         <Container className="" as="div">
-          <Button fullWidth variant="p300">
+          <Button fullWidth variant="primary">
             Log In
           </Button>
         </Container>

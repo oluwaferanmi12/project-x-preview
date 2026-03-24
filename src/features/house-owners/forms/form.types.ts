@@ -1,5 +1,3 @@
-
-
 export type FormData = {
   relationship?: "owner" | "agent";
   propertyType?: string;

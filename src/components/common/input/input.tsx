@@ -1,21 +1,20 @@
 "use client";
-import { ComponentTypes } from "@/types";
 import * as React from "react";
 import { Text } from "../text/text";
 import { Container } from "../container/container";
+import EyeOpenIcon from "@/assets/svgs/eye-opened.svg";
+import EyeCloseIcon from "@/assets/svgs/eye-closed.svg";
+import { InputProps } from "./input.types";
 
 export const Input = ({
   label,
   error,
   rightIcon,
-  passwordToggle,
-  showPasswordIcon,
-  hidePasswordIcon,
   className,
   ...props
-}: ComponentTypes.InputProps) => {
+}: InputProps) => {
   const [isPasswordVisible, setIsPasswordVisible] = React.useState(false);
-  const isPasswordField = Boolean(passwordToggle || props.type === "password");
+  const isPasswordField = props.type === "password";
   const inputType = isPasswordField
     ? isPasswordVisible
       ? "text"
@@ -45,9 +44,7 @@ export const Input = ({
             className="absolute right-3 top-1/2 -translate-y-1/2 text-secondary"
             aria-label={isPasswordVisible ? "Hide password" : "Show password"}
           >
-            {isPasswordVisible
-              ? (hidePasswordIcon ?? "Hide")
-              : (showPasswordIcon ?? "Show")}
+            {isPasswordVisible ? <EyeCloseIcon /> : <EyeOpenIcon />}
           </button>
         ) : rightIcon ? (
           <span className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-secondary">

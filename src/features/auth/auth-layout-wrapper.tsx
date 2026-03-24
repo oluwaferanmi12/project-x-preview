@@ -2,7 +2,6 @@ import { Col, Row } from "antd";
 import React from "react";
 import Logo from "@/assets/svgs/logo-placeholder.svg";
 import { Container } from "@/components/common/container/container";
-import Image from "next/image";
 
 export const AuthLayoutWrapper = ({
   children,

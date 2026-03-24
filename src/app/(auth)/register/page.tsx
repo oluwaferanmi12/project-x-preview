@@ -2,8 +2,6 @@ import { Container } from "@/components/common/container/container";
 import { Text } from "@/components/common/text/text";
 import GoogleIcon from "@/assets/svgs/google-icon.svg";
 import { Input } from "@/components/common/input/input";
-import EyeOpenIcon from "@/assets/svgs/eye-opened.svg";
-import EyeCloseIcon from "@/assets/svgs/eye-closed.svg";
 import Button from "@/components/common/button/button";
 
 function Register() {
@@ -44,17 +42,13 @@ function Register() {
           label="Password"
           type="password"
           placeholder="Enter your password"
-          showPasswordIcon={<EyeOpenIcon />}
-          hidePasswordIcon={<EyeCloseIcon />}
         />
         <Input
           label="Confirm Password"
           type="password"
           placeholder="Confirm your password"
-          showPasswordIcon={<EyeOpenIcon className="text-secondary" />}
-          hidePasswordIcon={<EyeCloseIcon className="text-secondary" />}
         />
-        <Button fullWidth className="mt-2" variant="p300">
+        <Button fullWidth className="mt-2" variant="primary">
           Create Account
         </Button>
       </Container>

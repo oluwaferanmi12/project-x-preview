@@ -1,4 +1,4 @@
-import { StepProps } from "@/types/house-owners/forms/form";
+import { StepProps } from "@/features/house-owners/forms/form.types";
 import { StepHeading } from "../step-heading";
 import { IconSelectCard } from "../../input/IconSelectCard";
 import RedCrownIcon from "@/assets/svgs/red-crown.svg";
