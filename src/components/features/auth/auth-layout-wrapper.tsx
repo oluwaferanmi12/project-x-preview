@@ -15,7 +15,7 @@ export const AuthLayoutWrapper = ({
       className="house-bg min-h-screen pt-20 h-full bg-background"
     >
       <Row justify={"center"} align={"middle"} className="h-full">
-        <Col xs={8}>
+        <Col xs={6}>
           <Logo />
           <Container className="mt-8">{children}</Container>
         </Col>

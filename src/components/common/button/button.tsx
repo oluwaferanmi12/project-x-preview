@@ -35,6 +35,7 @@ const variantClass: Record<ButtonVariant, string> = {
     "bg-[var(--sc300)] text-[var(--inverted)] hover:bg-[var(--btn-sc300-hover)]",
   d300: "bg-[var(--d300)] text-[var(--inverted)] hover:bg-[var(--btn-d300-hover)]",
   w300: "bg-[var(--w300)] text-[var(--inverted)] hover:bg-[var(--btn-w300-hover)]",
+  // disabled: "bg",
 };
 
 const Button = <T extends React.ElementType = "button">({
