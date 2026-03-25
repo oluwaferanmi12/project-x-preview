@@ -24,7 +24,7 @@ type TextTone =
   | "warning"
   | "info"
   | "s500"
-  | 'p300'
+  | "p300";
 
 type TextProps<T extends React.ElementType = "p"> = {
   as?: T;
@@ -63,12 +63,16 @@ const toneClass: Record<TextTone, string> = {
 export const Text = <T extends React.ElementType = "p">({
   as,
   variant = "body-md",
-  tone = "primary",
+  tone,
   className,
   ...props
 }: TextProps<T>) => {
   const Component = as ?? "p";
-  const classes = [variantClass[variant], toneClass[tone], className ?? ""]
+  const classes = [
+    variantClass[variant],
+    className ?? "",
+    tone ? toneClass[tone] : "",
+  ]
     .join(" ")
     .trim();
   return <Component className={classes} {...props} />;

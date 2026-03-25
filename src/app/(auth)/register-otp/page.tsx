@@ -1,9 +1,5 @@
-import React from 'react'
+import { RegisterOtpScreen } from "@/features/auth/screens/register-otp.screen";
 
-function RegisterationOtp() {
-  return (
-    <div>RegisterationOtp</div>
-  )
+export default function Page() {
+  return <RegisterOtpScreen />;
 }
-
-export default RegisterationOtp

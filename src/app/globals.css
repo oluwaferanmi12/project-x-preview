@@ -132,6 +132,8 @@
   --mossgreen-fore: #606c23;
   --magenta-back: #edeaec;
   --magenta-fore: #9b5e85;
+  /* others */
+  --choose-option-text: var(--p300);
 }
 
 @theme inline {
@@ -227,6 +229,7 @@
   --btn-sc300-hover: var(--sc500);
   --btn-d300-hover: var(--d500);
   --btn-w300-hover: var(--w500);
+  --color-choose-option-text: var(--choose-option-text);
 }
 
 .house-bg {
@@ -342,6 +345,9 @@ select:-webkit-autofill:focus {
     --mossgreen-fore: #80894f;
     --magenta-back: #1f131b;
     --magenta-fore: #715969;
+
+    /* Others  */
+    --choose-option-text: var(--primary);
   }
   .house-bg {
     background-image: url("../assets/images/bg.png");
