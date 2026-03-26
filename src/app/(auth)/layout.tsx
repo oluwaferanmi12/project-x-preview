@@ -1,4 +1,4 @@
-import { AuthLayoutWrapper } from "@/components/features/auth/auth-layout-wrapper";
+import { AuthLayoutWrapper } from "@/features/auth/auth-layout-wrapper";
 import React from "react";
 
 function layout({ children }: { children: React.ReactNode }) {

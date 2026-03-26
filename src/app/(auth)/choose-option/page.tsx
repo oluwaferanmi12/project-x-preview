@@ -1,9 +1,5 @@
-import React from "react";
+import { ChooseOptionScreen } from "@/features/auth/screens/choose-option.screen";
 
-function ChooseOption() {
-  return <>
-  
-  </>;
+export default function Page() {
+  return <ChooseOptionScreen />;
 }
-
-export default ChooseOption;

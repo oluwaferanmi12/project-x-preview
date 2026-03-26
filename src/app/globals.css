@@ -132,6 +132,8 @@
   --mossgreen-fore: #606c23;
   --magenta-back: #edeaec;
   --magenta-fore: #9b5e85;
+  /* others */
+  --choose-option-text: var(--p300);
 }
 
 @theme inline {
@@ -223,10 +225,11 @@
   --btn-p300-hover: var(--p500);
   --btn-s300-hover: var(--s500);
   --btn-muted-hover: var(--muted);
-  --btn-transparent-hover: transparent;
+  --btn-transparent-hover: var(--s50);
   --btn-sc300-hover: var(--sc500);
   --btn-d300-hover: var(--d500);
   --btn-w300-hover: var(--w500);
+  --color-choose-option-text: var(--choose-option-text);
 }
 
 .house-bg {
@@ -237,11 +240,28 @@
   background-size: cover;
 }
 
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+textarea:-webkit-autofill,
+textarea:-webkit-autofill:hover,
+textarea:-webkit-autofill:focus,
+select:-webkit-autofill,
+select:-webkit-autofill:hover,
+select:-webkit-autofill:focus {
+  -webkit-text-fill-color: var(--primary);
+  -webkit-box-shadow: 0 0 0px 1000px var(--surface) inset;
+  box-shadow: 0 0 0px 1000px var(--surface) inset;
+  caret-color: var(--primary);
+  border-color: var(--line);
+  transition: background-color 9999s ease-out 0s;
+}
+
 @media (prefers-color-scheme: dark) {
   :root {
     /* base colors  */
     --background: #2a2a2a;
-    --surface: #1212121;
+    --surface: #121212;
     --muted: #2a2a2a;
     --line: #414141;
     /* text/icon colors  */
@@ -253,7 +273,7 @@
     --btn-p300-hover: var(--p100);
     --btn-s300-hover: var(--s100);
     --btn-muted-hover: var(--muted);
-    --btn-transparent-hover: transparent;
+    --btn-transparent-hover: var(--s50);
     --btn-sc300-hover: var(--sc100);
     --btn-d300-hover: var(--d100);
     --btn-w300-hover: var(--w100);
@@ -325,6 +345,9 @@
     --mossgreen-fore: #80894f;
     --magenta-back: #1f131b;
     --magenta-fore: #715969;
+
+    /* Others  */
+    --choose-option-text: var(--primary);
   }
   .house-bg {
     background-image: url("../assets/images/bg.png");
@@ -408,4 +431,11 @@
 
 body {
   font-family: var(--font-sans);
+}
+
+.nav-listing-background {
+  background-image: url("../assets/images/65e8791b6879dde28c957f5b2005e858c2b974d0.png");
+  background-repeat: no-repeat;
+  background-position: bottom;
+  background-size: contain;
 }
