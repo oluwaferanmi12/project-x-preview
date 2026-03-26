@@ -9,7 +9,7 @@ export default function HouseOwnerlayout({
   children: React.ReactNode;
 }>) {
   return (
-    <Container as="div" className="bg-background h-full min-h-screen  pt-28">
+    <Container as="div" className="bg-background h-full  pt-28">
       <Navbar />
       <Container as="div" >
         <GeneralSpacer>{children}</GeneralSpacer>

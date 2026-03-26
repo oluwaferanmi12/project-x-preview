@@ -7,7 +7,7 @@ import { Col, Row } from "antd";
 function ListPropertyScreen() {
   const { formData, updateForm } = useListingScreen();
   return (
-    <Row gutter={16} className="h-[calc(100vh-8rem)] ">
+    <Row gutter={16} className="h-[90vh] pb-10 ">
       <Col xs={8}>
         <ListingNavigation />
       </Col>
