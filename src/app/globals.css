@@ -432,3 +432,10 @@ select:-webkit-autofill:focus {
 body {
   font-family: var(--font-sans);
 }
+
+.nav-listing-background {
+  background-image: url("../assets/images/65e8791b6879dde28c957f5b2005e858c2b974d0.png");
+  background-repeat: no-repeat;
+  background-position: bottom;
+  background-size: contain;
+}

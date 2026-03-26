@@ -7,7 +7,7 @@ export const steps = [
   {
     num: 2,
     title: "Property Details",
-    subtitle: "Provide key details about the property.",
+    subtitle: "Provide key details about the property. and testing to know if this works as expected",
   },
   {
     num: 3,
