@@ -6,6 +6,7 @@ import { Radio } from "@/components/common/radio/radio";
 import { Text } from "@/components/common/text/text";
 import { Input } from "@/components/common/input/input";
 import { Switch } from "@/components/common/switch/switch";
+import { Textarea } from "@/components/common/textarea/textarea";
 
 export const StepTwo = ({ activeSubStep }: { activeSubStep: number }) => {
   const [propertyCondition, setPropertyCondition] = useState<"new" | "old">(
@@ -71,7 +72,11 @@ export const StepTwo = ({ activeSubStep }: { activeSubStep: number }) => {
             </NumberWrapper>
           )}
 
-          <NumberWrapper serialNo="ii" text="Is the property furnished?">
+          <NumberWrapper
+            showToolTip
+            serialNo="ii"
+            text="Is the property furnished?"
+          >
             <Container className="flex gap-4">
               <ContentWrapper>
                 <Container className="flex items-center gap-3">
@@ -239,11 +244,11 @@ export const StepTwo = ({ activeSubStep }: { activeSubStep: number }) => {
             <Input label="" placeholder="Others" />
           </NumberWrapper>
 
-          <NumberWrapper
-            serialNo="vii"
-            text="Describe this property?"
-          >
-            <Input label="" placeholder="Others" />
+          <NumberWrapper serialNo="vii" text="Describe this property?">
+            <Text variant="body-sm" tone="danger">
+              Minimum of 100 words
+            </Text>
+            <Textarea label="" placeholder="Enter description" />
           </NumberWrapper>
         </>
       )}
