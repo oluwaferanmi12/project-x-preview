@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { Container } from "@/components/common/container/container";
@@ -9,8 +11,8 @@ const layoutTransition = {
   ease: [0.22, 1, 0.36, 1] as const,
 };
 
-export const ListingNavigation = () => {
-  const [active, setActive] = useState(1);
+export const ListingNavigation = ({ active }: { active: number }) => {
+ 
 
   return (
     <Container className="bg-muted nav-listing-background relative flex h-full flex-col overflow-hidden rounded-xl px-13 py-12">
@@ -20,7 +22,7 @@ export const ListingNavigation = () => {
           layout
           key={step.num}
           type="button"
-          onClick={() => setActive(step.num)}
+          // onClick={() => setActive(step.num)}
           className="flex cursor-pointer gap-4 bg-transparent text-left"
           transition={{ layout: layoutTransition }}
         >
@@ -51,7 +53,9 @@ export const ListingNavigation = () => {
               <Container className="relative z-10">
                 <Text
                   variant="h5"
-                  className={active === step.num ? "text-inverted" : "text-p400"}
+                  className={
+                    active === step.num ? "text-inverted" : "text-p400"
+                  }
                 >
                   {step.num}
                 </Text>

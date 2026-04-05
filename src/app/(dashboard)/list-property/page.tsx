@@ -1,6 +1,4 @@
-"use client";
-
-import ListPropertyScreen from "@/features/house-owners/screens/list-property.screen";
+import ListPropertyScreen from "@/features/list-property/screens/list-property.screen";
 
 const ListProperty = () => {
   return <ListPropertyScreen />;

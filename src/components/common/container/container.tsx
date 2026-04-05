@@ -8,8 +8,16 @@ type ContainerProps<T extends React.ElementType = "div"> = {
 
 export const Container = <T extends React.ElementType = "div">({
   as,
+  className,
   ...props
 }: ContainerProps<T>) => {
   const Component = as ?? "div";
-  return <Component {...props} />;
+  const containerClassName = [
+    Component === "div" ? "leading-none" : "",
+    className ?? "",
+  ]
+    .join(" ")
+    .trim();
+
+  return <Component className={containerClassName || undefined} {...props} />;
 };

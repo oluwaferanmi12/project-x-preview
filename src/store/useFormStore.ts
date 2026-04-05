@@ -1,4 +1,4 @@
-import { FormData } from "@/features/house-owners/forms/form.types";
+import { FormData } from "@/features/list-property/forms/form.types";
 import { useState } from "react";
 
 export const useFormStore = () => {
