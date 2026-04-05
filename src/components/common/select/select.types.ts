@@ -6,10 +6,14 @@ export type SelectOption = {
   disabled?: boolean;
 };
 
+export type SelectVariant = "surface" | "secondary";
+
+
 export type SelectProps = ComponentPropsWithoutRef<"select"> & {
   label: string;
   error?: ReactNode;
   options?: SelectOption[];
   placeholder?: string;
-  noBottomMargin ?: boolean
+  noBottomMargin ?: boolean;
+  variant?: SelectVariant;
 };

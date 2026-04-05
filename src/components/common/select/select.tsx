@@ -4,7 +4,18 @@ import * as React from "react";
 import ChevronDownIcon from "@/assets/svgs/chevron-arrow-down.svg";
 import { Container } from "../container/container";
 import { Text } from "../text/text";
-import { SelectProps } from "./select.types";
+import { SelectProps, SelectVariant } from "./select.types";
+
+
+
+const variantClass: Record<SelectVariant, string> = {
+  surface:
+    "bg-surface text-secondary border border-line ]",
+  secondary:
+    "bg-[var(--s50)] text-[var(--s300)]",
+
+};
+
 
 export const Select = ({
   label,
@@ -14,10 +25,12 @@ export const Select = ({
   className,
   children,
   noBottomMargin,
+  variant = "surface",
   ...props
 }: SelectProps) => {
   const selectClasses = [
-    "bg-surface outline-none focus:border-p75 focus:border-2 text-primary text-sm p-3 placeholder:text-secondary border border-line rounded-xl font-sans w-full appearance-none pr-10",
+    ` outline-none focus:border-p75 focus:border-2 text-sm p-3 placeholder:text-secondary rounded-xl font-sans w-full appearance-none pr-10 ` ,
+    variantClass[variant],
     className ?? "",
   ]
     .join(" ")
@@ -51,8 +64,8 @@ export const Select = ({
             children
           )}
         </select>
-        <span className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-secondary">
-          <ChevronDownIcon aria-hidden="true" />
+        <span className={` pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 ${variant === "secondary" ? "text-s300" : "text-secondary"}  `}>
+          <ChevronDownIcon  aria-hidden="true" />
         </span>
       </Container>
       {error && (
