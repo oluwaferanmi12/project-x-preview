@@ -268,7 +268,7 @@ select:-webkit-autofill:focus {
     --primary: #fafafa;
     --secondary: #717171;
     --tertiary: #444444;
-    --inverted: #121212;
+    --inverted: #fafafa;
     /* Button hover placeholders (dark) */
     --btn-p300-hover: var(--p100);
     --btn-s300-hover: var(--s100);

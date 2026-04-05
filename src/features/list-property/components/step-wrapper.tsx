@@ -7,6 +7,8 @@ import { useStepWrapper } from "../hooks/useStepWrapper";
 import { StepTwo } from "./steps/step-two";
 import { StepThree } from "./steps/step-three";
 import { StepFour } from "./steps/step-four";
+import { StepFive } from "./steps/step-five";
+import { StepSix } from "./steps/step-six";
 
 // The step the user is ideally passed down to this component
 // Also once the user makes the first call to the api , we have to append the id of the property that has been created to the url
@@ -33,6 +35,8 @@ export const StepWrapper = ({
             {step === 2 && <StepTwo activeSubStep={activeSubStep} />}
             {step === 3 && <StepThree activeSubstep={activeSubStep} />}
             {step === 4 && <StepFour activeSubstep={activeSubStep} />}
+            {step === 5 && <StepFive activeSubstep={activeSubStep} />}
+            {step === 6 && <StepSix activeSubstep={activeSubStep} />}
           </Container>
           <ButtonNavigation
             handleNextStep={handleNextStep}
