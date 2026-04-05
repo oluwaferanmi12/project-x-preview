@@ -5,9 +5,11 @@ import React, { useEffect, useState } from "react";
 
 export const useListingScreen = () => {
   const params = useSearchParams();
-  const [activeStep, setActiveStep] = useState(Number(params.get("step")) ?? 1);
+  const [activeStep, setActiveStep] = useState(
+    Number(params.get("step")) ? Number(params.get("step")) : 1,
+  );
   const [activeSubStep, setActiveSubStep] = useState(
-    Number(params.get("substep")) ?? 1,
+    Number(params.get("substep")) ? Number(params.get("substep")) : 1,
   );
 
   const router = useRouter();
