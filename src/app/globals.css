@@ -262,7 +262,7 @@ select:-webkit-autofill:focus {
     /* base colors  */
     --background: #2a2a2a;
     --surface: #121212;
-    --muted: #2a2a2a;
+    --muted: #343434;
     --line: #414141;
     /* text/icon colors  */
     --primary: #fafafa;

@@ -1,9 +1,12 @@
-"use client";
-
-import ListPropertyScreen from "@/features/house-owners/screens/list-property.screen";
+import ListPropertyScreen from "@/features/list-property/screens/list-property.screen";
+import { Suspense } from "react";
 
 const ListProperty = () => {
-  return <ListPropertyScreen />;
+  return (
+    <Suspense fallback={null}>
+      <ListPropertyScreen />
+    </Suspense>
+  );
 };
 
 export default ListProperty;
