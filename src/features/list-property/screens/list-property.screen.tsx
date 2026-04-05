@@ -11,7 +11,7 @@ function ListPropertyScreen() {
   const { activeStep, handleNextStep, handlePrevStep, activeSubStep } =
     useListingScreen();
   return (
-    <Row gutter={16} className="h-[90vh] pb-10 ">
+    <Row gutter={16} className="min-h-[90vh] pb-10 ">
       <Col xs={8}>
         <ListingNavigation active={activeStep} />
       </Col>

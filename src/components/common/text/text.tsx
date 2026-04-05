@@ -24,7 +24,8 @@ type TextTone =
   | "warning"
   | "info"
   | "s500"
-  | "p300";
+  | "p300"
+  | "inverted";
 
 type TextProps<T extends React.ElementType = "p"> = {
   as?: T;
@@ -57,7 +58,8 @@ const toneClass: Record<TextTone, string> = {
   warning: "text-w300",
   info: "text-i300",
   s500: "text-s500",
-  p300: "text-p300"
+  p300: "text-p300",
+  inverted: "text-inverted",
 };
 
 export const Text = <T extends React.ElementType = "p">({
