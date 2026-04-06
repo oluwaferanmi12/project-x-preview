@@ -1,24 +1,23 @@
 import { Container } from "@/components/common/container/container";
 import { useState } from "react";
 import { NumberWrapper } from "../nuggets/number-wrapper";
-import LocationIcon from "@/assets/svgs/location.svg";
-import SelectIcon1 from "@/assets/svgs/bulb.svg";
-import SelectIcon2 from "@/assets/svgs/security-guard.svg";
-import SelectIcon3 from "@/assets/svgs/cctv.svg";
-import SelectIcon4 from "@/assets/svgs/multi-select-icons/construction.svg";
-import SelectIcon5 from "@/assets/svgs/multi-select-icons/national-park.svg";
-import SelectIcon6 from "@/assets/svgs/multi-select-icons/clapper-board.svg";
-import SelectIcon7 from "@/assets/svgs/multi-select-icons/elevator.svg";
-import SelectIcon8 from "@/assets/svgs/multi-select-icons/person-swimming.svg";
-import SelectIcon9 from "@/assets/svgs/multi-select-icons/basketball.svg";
-import SelectIcon10 from "@/assets/svgs/multi-select-icons/soccer-ball.svg";
-import SelectIcon11 from "@/assets/svgs/multi-select-icons/tennis.svg";
-import SelectIcon12 from "@/assets/svgs/multi-select-icons/safety-vest.svg";
-import SelectIcon13 from "@/assets/svgs/multi-select-icons/battery.svg";
-import SelectIcon14 from "@/assets/svgs/multi-select-icons/antenna-bars.svg";
-import SelectIcon15 from "@/assets/svgs/multi-select-icons/officer.svg";
-import SelectIcon16 from "@/assets/svgs/multi-select-icons/window.svg";
-import SelectIcon17 from "@/assets/svgs/multi-select-icons/light-bulb.svg";
+import SelectIcon1 from "@/assets/images/multi-select-icons/light-bulb.png";
+import SelectIcon2 from "@/assets/images/multi-select-icons/police-officer.png";
+import SelectIcon3 from "@/assets/images/multi-select-icons/camera-flash.png";
+import SelectIcon4 from "@/assets/images/multi-select-icons/construction.png";
+import SelectIcon5 from "@/assets/images/multi-select-icons/national-park.png";
+import SelectIcon6 from "@/assets/images/multi-select-icons/clapper-board.png";
+import SelectIcon7 from "@/assets/images/multi-select-icons/elevator.png";
+import SelectIcon8 from "@/assets/images/multi-select-icons/person-swimming.png";
+import SelectIcon9 from "@/assets/images/multi-select-icons/basketball.png";
+import SelectIcon10 from "@/assets/images/multi-select-icons/soccer-ball.png";
+import SelectIcon11 from "@/assets/images/multi-select-icons/tennis.png";
+import SelectIcon12 from "@/assets/images/multi-select-icons/safety-vest.png";
+import SelectIcon13 from "@/assets/images/multi-select-icons/battery.png";
+import SelectIcon14 from "@/assets/images/multi-select-icons/antenna-bars.png";
+import SelectIcon15 from "@/assets/images/multi-select-icons/officer.png";
+import SelectIcon16 from "@/assets/images/multi-select-icons/window.png";
+import SelectIcon17 from "@/assets/images/multi-select-icons/light-bulb.png";
 
 import { ContentWrapper } from "../nuggets/content-wrapper";
 import { Radio } from "@/components/common/radio/radio";
@@ -33,29 +32,29 @@ export const StepFive = ({ activeSubstep }: { activeSubstep: number }) => {
   const [selected, setSelected] = useState<string[]>([]);
 
   const options: MultiSelectOption[] = [
-    { label: "24hrs Electricity", value: "01", icon: <LocationIcon /> },
-    { label: "Security Guard(s)", value: "02", icon: <SelectIcon2  /> },
-    { label: "CCTV", value: "03", icon: <SelectIcon3 /> },
-    { label: "Regulated Entry", value: "04", icon: <SelectIcon4 /> },
-    { label: "Park Area/Playground", value: "05", icon: <SelectIcon5 /> },
-    { label: "Cinema", value: "06", icon: <SelectIcon6 /> },
-    { label: "Elevator", value: "07", icon: <SelectIcon7 /> },
-    { label: "Swimming Pool", value: "08", icon: <SelectIcon8 /> },
-    { label: "Basketball Court", value: "09", icon: <SelectIcon9 /> },
-    { label: "Football Pitch", value: "10", icon: <SelectIcon10 /> },
-    { label: "Tennis Lawn", value: "11", icon: <SelectIcon11 /> },
-    { label: "Waste Management", value: "12", icon: <SelectIcon12 /> },
-    { label: "Inverter", value: "13", icon: <SelectIcon13 /> },
-    { label: "Internet/WiFi", value: "14", icon: <SelectIcon14 /> },
-    { label: "Facility Manager", value: "15", icon: <SelectIcon15 /> },
-    { label: "Balcony", value: "16", icon: <SelectIcon16 /> },
-    { label: "Prepaid Meter", value: "17", icon: <SelectIcon17 /> },
-    { label: "Dedicated Transformer", value: "18", icon: <SelectIcon17 /> },
-    { label: "Gym/Fitness", value: "19", icon: <SelectIcon17 /> },
-    { label: "Restaurant", value: "20", icon: <SelectIcon17 /> },
-    { label: "Generator", value: "21", icon: <SelectIcon17 /> },
-    { label: "Estate Intercom", value: "22", icon: <SelectIcon17 /> },
-    { label: "Estate Shuttle Service", value: "23", icon: <SelectIcon17 /> },
+    { label: "24hrs Electricity", value: "01", icon: SelectIcon1 },
+    { label: "Security Guard(s)", value: "02", icon: SelectIcon2  },
+    { label: "CCTV", value: "03", icon: SelectIcon3 },
+    { label: "Regulated Entry", value: "04", icon: SelectIcon4 },
+    { label: "Park Area/Playground", value: "05", icon: SelectIcon5 },
+    { label: "Cinema", value: "06", icon: SelectIcon6 },
+    { label: "Elevator", value: "07", icon: SelectIcon7 },
+    { label: "Swimming Pool", value: "08", icon: SelectIcon8 },
+    { label: "Basketball Court", value: "09", icon: SelectIcon9 },
+    { label: "Football Pitch", value: "10", icon: SelectIcon10 },
+    { label: "Tennis Lawn", value: "11", icon: SelectIcon11 },
+    { label: "Waste Management", value: "12", icon: SelectIcon12 },
+    { label: "Inverter", value: "13", icon: SelectIcon13 },
+    { label: "Internet/WiFi", value: "14", icon: SelectIcon14 },
+    { label: "Facility Manager", value: "15", icon: SelectIcon15 },
+    { label: "Balcony", value: "16", icon: SelectIcon16 },
+    { label: "Prepaid Meter", value: "17", icon: SelectIcon17 },
+    { label: "Dedicated Transformer", value: "18", icon: SelectIcon17 },
+    { label: "Gym/Fitness", value: "19", icon: SelectIcon17 },
+    { label: "Restaurant", value: "20", icon: SelectIcon17 },
+    { label: "Generator", value: "21", icon: SelectIcon17 },
+    { label: "Estate Intercom", value: "22", icon: SelectIcon17 },
+    { label: "Estate Shuttle Service", value: "23", icon: SelectIcon17 },
   ];
 
   return (
