@@ -53,7 +53,7 @@ export const MultiSelect = ({
                         }
                         leftIcon={option.icon}
                     >
-                        <span>{option.label}</span>
+                        <Container as="span">{option.label}</Container>
                     </Button>
                 );
             })}
