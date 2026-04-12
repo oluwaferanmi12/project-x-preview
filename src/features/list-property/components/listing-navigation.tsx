@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { Container } from "@/components/common/container/container";
 import { Text } from "@/components/common/text/text";
@@ -12,10 +12,15 @@ const layoutTransition = {
 };
 
 export const ListingNavigation = ({ active }: { active: number }) => {
- 
-
   return (
-    <Container className="bg-muted nav-listing-background relative flex h-full flex-col overflow-hidden rounded-xl px-13 py-12">
+    <Container className="bg-muted  relative flex h-full flex-col overflow-hidden rounded-xl px-13 py-12">
+      <Container
+        as="div"
+        className="pointer-events-none nav-listing-background absolute h-50 inset-x-0 bottom-0  overflow-hidden "
+      >
+        {/* <ListingBackground className="block w-[140%] max-w-none -translate-x-[14%] text-s300" /> */}
+      </Container>
+
       {steps.map((step) => (
         <Container
           as={motion.button}
