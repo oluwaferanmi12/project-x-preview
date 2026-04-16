@@ -2,6 +2,7 @@ import { Container } from "@/components/common/container/container";
 import React, { useState } from "react";
 import { NumberWrapper } from "../nuggets/number-wrapper";
 import { UploadBox } from "../nuggets/upload-container";
+import { Text } from "@/components/common/text/text";
 
 export const StepSix = ({ activeSubstep }: { activeSubstep: number }) => {
   const [images, setImages] = useState<(string | null)[]>(
@@ -36,12 +37,12 @@ export const StepSix = ({ activeSubstep }: { activeSubstep: number }) => {
           serialNo="i"
           text="Upload photos of the property (min. of 6)"
         >
-          <p className="text-sm text-gray-500 mb-4">
+          <Text tone="secondary" variant="body-sm" className=" mb-4">
             Make sure to cover most of the property, e.g living room,
             bedroom, kitchen, bathroom, exterior, etc.
-          </p>
+          </Text>
 
-          <div className="grid grid-cols-3 gap-4">
+          <Container className="grid grid-cols-3 gap-4">
             {images.map((img, i) => (
               <UploadBox
                 key={i}
@@ -50,7 +51,7 @@ export const StepSix = ({ activeSubstep }: { activeSubstep: number }) => {
                 className="h-32"
               />
             ))}
-          </div>
+          </Container>
         </NumberWrapper>
       )}
 
@@ -60,10 +61,10 @@ export const StepSix = ({ activeSubstep }: { activeSubstep: number }) => {
           serialNo="ii"
           text="Upload a 6 minutes video of the property"
         >
-          <p className="text-sm text-gray-500 mb-4">
+          <Text tone="secondary" variant="body-sm" className="mb-4">
             Uploaded video must show key areas of the property, e.g
             compound, sitting room, kitchen, rooms, bathroom & toilet, etc.
-          </p>
+          </Text>
 
           <UploadBox
             value={video}
