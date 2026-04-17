@@ -34,64 +34,82 @@ export const StepThree = ({ activeSubstep }: { activeSubstep: number }) => {
               />
             </NumberWrapper>
             <NumberWrapper serialNo="ii" text="Provide Property address">
-              <Input label="" placeholder="Enter address" rightIcon={<LocationIcon size="sm" />} />
+              <Input
+                label=""
+                placeholder="Enter address"
+                rightIcon={
+                  <LocationIcon className="text-secondary" size="sm" />
+                }
+              />
             </NumberWrapper>
           </>
         )}
-        {
-          activeSubstep === 2 && (
-            <>
-              <NumberWrapper serialNo="iii" text="Is there a nearby landmark? (optional)">
-                <Input label="" placeholder="eg. bus stop, school, market, hospital, e.t.c." />
-              </NumberWrapper>
-              <NumberWrapper serialNo="iv" text="Would you like to share this address with house seekers?">
-                <Container className="flex gap-4">
-                  <ContentWrapper>
-                    <Container className="flex items-center gap-3">
-                      <Radio
-                        value="new"
-                        checked={shareAddress === "yes"}
-                        onChange={() => {
-                          setShareAddress("yes");
-                        }}
-                      />
-                      <Text tone="primary" variant="action-label">
-                        Yes, that&apos;s fine
-                      </Text>
-                    </Container>
-                  </ContentWrapper>
-                  <ContentWrapper>
-                    <Container className="flex items-center gap-3">
-                      <Radio
-                        value="new"
-                        checked={shareAddress === "no"}
-                        onChange={() => {
-                          setShareAddress("no");
-                        }}
-                      />
-                      <Text tone="primary" variant="action-label">
-                        No, I&apos;d rather not
-                      </Text>
-                    </Container>
-                  </ContentWrapper>
-                </Container>
-              </NumberWrapper>
-
-              {/* NOTE CONTAINER */}
-              <Container className="flex items-start bg-i400 rounded-2xl p-2 pb-4 gap-2">
-                <WhiteInfo width="28" height="28" />
-                <Container>
-                  <Text tone="inverted" variant="body-md" className="font-semibold">
-                    Note
-                  </Text>
-                  <Text tone="inverted">
-                    Sharing this property&apos;s address helps house seekers find the location easily.
-                  </Text>
-                </Container>
+        {activeSubstep === 2 && (
+          <>
+            <NumberWrapper
+              serialNo="iii"
+              text="Is there a nearby landmark? (optional)"
+            >
+              <Input
+                label=""
+                placeholder="eg. bus stop, school, market, hospital, e.t.c."
+              />
+            </NumberWrapper>
+            <NumberWrapper
+              serialNo="iv"
+              text="Would you like to share this address with house seekers?"
+            >
+              <Container className="flex gap-4">
+                <ContentWrapper>
+                  <Container className="flex items-center gap-3">
+                    <Radio
+                      value="new"
+                      checked={shareAddress === "yes"}
+                      onChange={() => {
+                        setShareAddress("yes");
+                      }}
+                    />
+                    <Text tone="primary" variant="action-label">
+                      Yes, that&apos;s fine
+                    </Text>
+                  </Container>
+                </ContentWrapper>
+                <ContentWrapper>
+                  <Container className="flex items-center gap-3">
+                    <Radio
+                      value="new"
+                      checked={shareAddress === "no"}
+                      onChange={() => {
+                        setShareAddress("no");
+                      }}
+                    />
+                    <Text tone="primary" variant="action-label">
+                      No, I&apos;d rather not
+                    </Text>
+                  </Container>
+                </ContentWrapper>
               </Container>
-            </>
-          )
-        }
+            </NumberWrapper>
+
+            {/* NOTE CONTAINER */}
+            <Container className="flex items-start bg-i400 rounded-2xl p-2 pb-4 gap-2">
+              <WhiteInfo width="28" height="28" />
+              <Container>
+                <Text
+                  tone="inverted"
+                  variant="body-md"
+                  className="font-semibold"
+                >
+                  Note
+                </Text>
+                <Text tone="inverted">
+                  Sharing this property&apos;s address helps house seekers find
+                  the location easily.
+                </Text>
+              </Container>
+            </Container>
+          </>
+        )}
       </Container>
     </>
   );
