@@ -26,7 +26,7 @@ export const steps = [
   },
   {
     num: 6,
-    title: "Photos",
+    title: "Media Upload",
     subtitle: "Upload actual photos of the property.",
   },
   {

@@ -48,21 +48,7 @@ export const MultiSelect = ({
                         }
                         <Container as="span">{option.label}</Container>
                     </Container>
-                    // <Button
-                    //     key={option.value}
-                    //     type="button"
-                    //     onClick={() => toggleOption(option.value)}
-                    //      variant="primary"
-                    //     className={`border
-                    //         ${isSelected
-                    //             ? "bg-p100 text-primary border-primary"
-                    //             : "bg-surface text-primary border-line hover:border-primary"
-                    //         }
-                    //     `}
-                    //     leftIcon={option.icon}
-                    // >
-                    //     <Container as="span">{option.label}</Container>
-                    // </Button>
+                   
                 );
             })}
         </Container>
