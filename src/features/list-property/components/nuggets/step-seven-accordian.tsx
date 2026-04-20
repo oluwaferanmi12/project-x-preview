@@ -11,6 +11,7 @@ import SelectIcon3 from "@/assets/images/multi-select-icons/camera-flash.png";
 import SelectIcon4 from "@/assets/images/multi-select-icons/construction.png";
 import SelectIcon5 from "@/assets/images/multi-select-icons/national-park.png";
 import SelectIcon6 from "@/assets/images/multi-select-icons/clapper-board.png";
+import PricingSection from "./pricing-chart";
 
 
 
@@ -167,12 +168,7 @@ const AmenitiesSection = () => (
   </Container>
 );
 
-// Pricing Section Component
-const PricingSection = () => (
-  <Container className="text-sm text-secondary">
-    Pricing content goes here
-  </Container>
-);
+
 
 export const PropertyAccordion = () => {
   const sections: AccordionSection[] = [

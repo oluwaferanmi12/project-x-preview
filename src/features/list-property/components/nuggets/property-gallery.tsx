@@ -14,7 +14,6 @@ import img7 from "@/assets/images/gallery/image-inactive-6.png";
 import img8 from "@/assets/images/gallery/image-inactive-7.png";
 import img9 from "@/assets/images/gallery/image-inactive-8.png";
 import { Container } from "@/components/common/container/container";
-import Button from "@/components/common/button/button";
 
 const images: StaticImageData[] = [
   largeView,
@@ -45,7 +44,7 @@ export const PropertyGallery = () => {
         />
       </Container>
 
-      <Container className="flex justify-between items-center gap-1.5 overflow-x-auto whitespace-nowrap scrollbar-hide">
+      <Container className="flex justify-between cursor-grabbing items-center gap-1.5 overflow-x-auto whitespace-nowrap scrollbar-hide">
         {images.slice(0, 9).map((img, i) => {
           const isActive = activeIndex === i;
 
