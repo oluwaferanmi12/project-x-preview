@@ -93,7 +93,7 @@ export const StepThree = ({ activeSubstep }: { activeSubstep: number }) => {
 
             {/* NOTE CONTAINER */}
             <Container className="flex items-start bg-i400 rounded-2xl p-2 pb-4 gap-2">
-              <WhiteInfo width="28" height="28" />
+              <WhiteInfo className="text-inverted" width="28" height="28" />
               <Container>
                 <Text
                   tone="inverted"
