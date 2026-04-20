@@ -34,7 +34,7 @@ export const Footer = () => {
         <GeneralSpacer>
           <Row>
             <Col xs={8}>
-              <BrandLogo />
+              <BrandLogo className="text-inverted" />
               <Container className="mt-5">
                 <Text variant="h2" tone="inverted">
                   Connecting every{" "}
