@@ -1,7 +1,6 @@
 "use client";
 
 import React from "react";
-import Image from "next/image";
 import { Container } from "@/components/common/container/container";
 import { Text } from "@/components/common/text/text";
 import { Accordion, AccordionSection } from "@/components/common/accordion/accordion";
@@ -12,6 +11,7 @@ import SelectIcon4 from "@/assets/images/multi-select-icons/construction.png";
 import SelectIcon5 from "@/assets/images/multi-select-icons/national-park.png";
 import SelectIcon6 from "@/assets/images/multi-select-icons/clapper-board.png";
 import PricingSection from "./pricing-chart";
+import { IconText } from "@/components/common/icon-text-group/icon-text";
 
 
 
@@ -68,7 +68,7 @@ const amenities = [
   { label: "Tennis Lawn", icon: SelectIcon5 },
   { label: "Waste Management", icon: SelectIcon6 },
   { label: "Intercom", icon: SelectIcon1 },
-  { label: "Internet/WiFi", icon: SelectIcon2},
+  { label: "Internet/WiFi", icon: SelectIcon2 },
   { label: "Facility Manager", icon: SelectIcon3 },
   { label: "Balcony", icon: SelectIcon4 },
 ];
@@ -144,19 +144,12 @@ const AmenitiesSection = () => (
 
     <Container className="flex flex-wrap gap-2">
       {amenities.map(({ label, icon }) => (
-        <Container
+        <IconText
           key={label}
-          className="inline-flex items-center gap-1.5 rounded-full border border-line bg-surface px-2 py-1"
-        >
-          <Image
-            src={icon}
-            alt={label}
-            width={12}
-            height={12}
-            className="h-4 w-4"
-          />
-          <Container as="span" className="text-xs text-primary">{label}</Container>
-        </Container>
+          isClickable={false}
+          icon={icon}
+          label={label}
+        />
       ))}
     </Container>
 
@@ -164,7 +157,7 @@ const AmenitiesSection = () => (
       <SectionTitle title="Property ID" />
       <Text className="text-sm text-secondary">PTL-1234</Text>
     </Container>
-  
+
   </Container>
 );
 

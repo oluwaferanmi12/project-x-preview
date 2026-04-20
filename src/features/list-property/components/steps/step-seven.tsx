@@ -10,6 +10,7 @@ import SelectIcon2 from "@/assets/images/multi-select-icons/police-officer.png";
 import SelectIcon3 from "@/assets/images/multi-select-icons/camera-flash.png";
 import SelectIcon4 from "@/assets/images/multi-select-icons/construction.png";
 import Image from "next/image";
+import { IconText } from "@/components/common/icon-text-group/icon-text";
 
 const amenities = [
   { label: "3 Apartment", icon: SelectIcon1 },
@@ -42,19 +43,12 @@ export const StepSeven = () => {
 
       <Container className="flex flex-wrap gap-2">
         {amenities.map(({ label, icon }) => (
-          <Container
+          <IconText
             key={label}
-            className="inline-flex items-center gap-1.5 rounded-lg border border-line bg-surface px-2 py-1"
-          >
-            <Image
-              src={icon}
-              alt={label}
-              width={12}
-              height={12}
-              className="h-4 w-4"
-            />
-            <Container as="span" className="text-xs text-primary">{label}</Container>
-          </Container>
+            isClickable={false}
+            icon={icon}
+            label={label}
+          />
         ))}
       </Container>
 
