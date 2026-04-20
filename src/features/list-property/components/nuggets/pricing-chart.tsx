@@ -12,10 +12,10 @@ type PricingItem = {
 };
 
 const pricingItems: PricingItem[] = [
-    { label: "Rent", amount: 300000, color: "#A855F7" },
-    { label: "Agency", amount: 30000, color: "#F43F5E" },
-    { label: "Caution", amount: 30000, color: "#0B84FE" },
-    { label: "Service Charge", amount: 50000, color: "#667085" },
+    { label: "Rent", amount: 300000, color: "#af52de" },
+    { label: "Agency", amount: 30000, color: "#ff2d55" },
+    { label: "Caution", amount: 30000, color: "#007AFF" },
+    { label: "Service Charge", amount: 50000, color: "#595f85" },
 ];
 
 const formatCurrency = (value: number) => `₦${value.toLocaleString("en-NG")}`;
@@ -47,6 +47,10 @@ const PricingSection = () => {
         <Container className="flex flex-col items-center">
             <Container className="relative flex h-47.5 w-full items-center justify-center">
                 <DonutChart />
+            </Container>
+            <Container className="mt-5">
+                <Text tone="secondary" variant="body-xs" className="text-center">Total Amount</Text>
+                <Text variant="h3" className="text-primary ">{formatCurrency(410000)}</Text>
             </Container>
 
             <Container className="mt-2 w-full border-t border-line" />

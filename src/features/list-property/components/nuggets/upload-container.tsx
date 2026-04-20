@@ -68,7 +68,7 @@ export const UploadBox = ({
                 )
             ) : (
                 <Container className="flex flex-col items-center gap-2">
-                    <UploadIcon />
+                    <UploadIcon className="text-s300" />
                     <Text variant="body-sm" tone="p300" className="text-center">
                         Click to upload or drag & drop
                     </Text>

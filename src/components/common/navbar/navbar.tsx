@@ -47,7 +47,7 @@ export const Navbar = () => {
       <GeneralSpacer>
         <Container as="div" className="flex justify-between items-center">
           <Container as="span">
-            <BrandLogo />
+            <BrandLogo className="text-primary" />
           </Container>
           <Container as="div" className="flex gap-3">
             {navLinks.map((link) => {
