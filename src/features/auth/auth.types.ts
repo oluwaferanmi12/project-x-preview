@@ -1,3 +1,7 @@
-// API and shared UI types for the auth feature live here.
-
-export {};
+export interface Register {
+  firstName: string;
+  lastName: string;
+  email: string;
+  phoneNumber: string;
+  password: string;
+}

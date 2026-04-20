@@ -15,13 +15,15 @@ export const Input = ({
 }: InputProps) => {
   const [isPasswordVisible, setIsPasswordVisible] = React.useState(false);
   const isPasswordField = props.type === "password";
+  const hasError = Boolean(error);
   const inputType = isPasswordField
     ? isPasswordVisible
       ? "text"
       : "password"
     : props.type;
   const inputClasses = [
-    "bg-surface outline-none focus:border-p75 focus:border-2 text-primary text-sm p-3 placeholder:text-secondary border border-line rounded-xl font-sans w-full",
+    "bg-surface outline-none focus:border-p75 focus:border-2 text-primary text-sm p-3 border border-line rounded-xl font-sans w-full",
+    hasError ? "placeholder:text-d300" : "placeholder:text-secondary",
     rightIcon || isPasswordField ? "pr-10" : "",
     className ?? "",
   ]
@@ -36,7 +38,12 @@ export const Input = ({
         </Text>
       </Container>
       <Container className="relative">
-        <input className={inputClasses} {...props} type={inputType} />
+        <input
+          aria-invalid={hasError || undefined}
+          className={inputClasses}
+          {...props}
+          type={inputType}
+        />
         {isPasswordField ? (
           <button
             type="button"

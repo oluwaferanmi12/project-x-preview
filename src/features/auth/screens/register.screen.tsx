@@ -5,32 +5,30 @@ import { Container } from "@/components/common/container/container";
 import { Input } from "@/components/common/input/input";
 import { Text } from "@/components/common/text/text";
 import { useRouter } from "next/navigation";
+import { useRegister } from "../hooks/useRegister";
 
 export function RegisterScreen() {
   const router = useRouter();
+  const {
+    handleCreateUser,
+    userPayload,
+    errorPayload,
+    setErrorPayload,
+    handleUpdateUserPayload,
+    isPending,
+  } = useRegister();
   return (
     <>
       <Text as="p" variant="h3" tone="primary">
-        Register for account
+        Set up your account
       </Text>
-      <Button
-        fullWidth
-        variant="muted"
-        leftIcon={<GoogleIcon className="text-secondary" />}
-        className="mt-6 border border-line rounded-xl"
-      >
-        <Text as="span">Sign up with Google</Text>
-      </Button>
-      <Container className="flex gap-6 mt-6 mb-8 w-full">
-        <Container className="border-b border-line relative -top-2 w-full" />
-        <Text variant="body-xs">or</Text>
-        <Container className="border-b border-line w-full relative -top-2" />
-      </Container>
+
       <Container
         onSubmit={(e) => {
           e.preventDefault();
+          handleCreateUser();
         }}
-        className="mb-6"
+        className="my-6 "
         as="form"
       >
         <Container as="div" className="flex gap-8">
@@ -41,26 +39,36 @@ export function RegisterScreen() {
           label="Email Address"
           type="email"
           placeholder="Enter your email address"
+          onChange={({ target }) => {
+            handleUpdateUserPayload("email", target.value);
+          }}
         />
         <Input
           label="Phone Number"
           type="tel"
           placeholder="Enter your phone number"
+          onChange={({ target }) => {
+            handleUpdateUserPayload("phoneNumber", target.value);
+          }}
         />
         <Input
           label="Password"
           type="password"
           placeholder="Enter your password"
+          onChange={({ target }) => {
+            handleUpdateUserPayload("password", target.value);
+          }}
         />
         <Input
           label="Confirm Password"
           type="password"
           placeholder="Confirm your password"
+          onChange={({ target }) => {
+            handleUpdateUserPayload("confirmPassword", target.value);
+          }}
         />
         <Button
-          onClick={() => {
-            router.replace("/verify-account");
-          }}
+          loading={isPending}
           fullWidth
           className="mt-2"
           variant="primary"
