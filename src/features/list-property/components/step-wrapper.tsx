@@ -29,7 +29,7 @@ export const StepWrapper = ({
   useStepWrapper();
   return (
     <Row justify={"center"} className="flex-1">
-      <Col xs={12}>
+      <Col xs={24} lg={12}>
         <Container className="flex flex-col justify-between h-full">
           <Container>
             {step === 1 && <StepOne />}
