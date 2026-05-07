@@ -6,6 +6,7 @@ import { Col, Row } from "antd";
 import { StepWrapper } from "../components/step-wrapper";
 import Button from "@/components/common/button/button";
 import { useRouter } from "next/navigation";
+import { MobileListingNavigation } from "../components/mobile-listing-navigation";
 
 function ListPropertyScreen() {
   const router = useRouter();
@@ -19,14 +20,20 @@ function ListPropertyScreen() {
 
   return (
     <Row gutter={16} className="min-h-[90vh] pb-10 ">
-      <Col xs={8}>
+      {/* Mobile Navigation */}
+      <Col xs={24} className="block lg:hidden">
+        <MobileListingNavigation active={activeStep} />
+      </Col>
+
+      {/* Desktop Navigation */}
+      <Col lg={8} className="hidden lg:block">
         <ListingNavigation active={activeStep} />
       </Col>
-      <Col xs={16}>
-        <Container className="relative flex flex-col py-12 bg-surface w-full h-full rounded-xl px-5">
+      <Col xs={24} lg={16}>
+        <Container className="relative flex flex-col py-12 lg:bg-surface w-full h-full rounded-xl px-5">
           {isCompleted ? (
             <Row justify={"center"} align={'middle'} className="flex-1 items-center">
-              <Col xs={12}>
+              <Col xs={24} lg={12}>
                 <Container className="flex flex-col items-center justify-between h-full">
                   <Container className="flex flex-col gap-16 items-center justify-center h-full">
                     <Container as="div">
