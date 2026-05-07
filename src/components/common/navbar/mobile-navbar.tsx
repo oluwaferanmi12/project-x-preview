@@ -22,6 +22,7 @@ import SubscriptionIcon from "@/assets/svgs/subscription-icon.svg";
 import LogoutIcon from "@/assets/svgs/logout-icon.svg";
 import ThemeToggleIcon from "@/assets/svgs/theme-toggle-icon.svg";
 import ProfileSync from "@/assets/svgs/profile-sync.svg";
+import { Switch } from "../switch/switch";
 
 const navLinks = [
     {
@@ -67,6 +68,8 @@ const bottomLinks = [
 export const MobileNavbar = () => {
     const router = useRouter();
     const [open, setOpen] = useState(false);
+    const [switchDark, setSwitchDark] = useState(false);
+
 
     const handleRoute = (href: string) => {
         router.push(href);
@@ -168,7 +171,7 @@ export const MobileNavbar = () => {
                         })}
                     </Container>
 
-                    <Container className="my-4 h-[1px] bg-[#E7E7E7]" />
+                    <Container className="my-4 h-[1px] bg-line" />
 
                     <Container className="flex flex-col gap-1">
                         {bottomLinks.map((link) => {
@@ -199,11 +202,13 @@ export const MobileNavbar = () => {
                             <ThemeToggleIcon className="text-p300" />
                             <Text className="font-medium text-primary">Dark Mode</Text>
                         </Container>
-                        
-
-                        <Container className="relative h-6 w-11 rounded-full bg-[#E5E5EA]">
-                            <Container className="absolute left-1 top-1 h-4 w-4 rounded-full bg-white shadow-sm" />
-                        </Container>
+                        {/* switch */}
+                        <Switch
+                            checked={switchDark}
+                            onChange={() => {
+                                setSwitchDark((prev) => !prev);
+                            }}
+                        />
                     </Container>
                 </Container>
 
@@ -225,7 +230,7 @@ export const MobileNavbar = () => {
                                 </Text>
                             </Container>
                         </Container>
-                            <ProfileSync className="text-s300" />
+                        <ProfileSync className="text-s300" />
 
                     </Container>
 
