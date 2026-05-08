@@ -2,7 +2,7 @@
 
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Container } from "../container/container";
 import { Text } from "../text/text";
 import { useRouter } from "next/navigation";
@@ -76,10 +76,23 @@ export const MobileNavbar = () => {
         setOpen(false);
     };
 
+    // prevent body scroll when menu is open
+    useEffect(() => {
+        if (open) {
+            document.body.style.overflow = "hidden";
+        } else {
+            document.body.style.overflow = "auto";
+        }
+    
+        return () => {
+            document.body.style.overflow = "auto";
+        };
+    }, [open]);
+
     return (
         <>
             {/* Top Navbar */}
-            <Container className="lg:hidden fixed top-0 left-0 z-[1000] w-full bg-surface border-b ">
+            <Container className="lg:hidden fixed top-0 left-0 z-1000 w-full bg-surface border-b ">
                 <Container className="flex items-center justify-between px-4 py-4">
                     <Container className="flex items-center gap-4">
                         <button onClick={() => setOpen(true)}>
@@ -106,7 +119,7 @@ export const MobileNavbar = () => {
             {/* Overlay */}
             {open && (
                 <Container
-                    className="fixed inset-0 bg-black/40 z-[1100]"
+                    className="lg:hidden fixed inset-0 bg-black/40 z-1100"
                     onClick={() => setOpen(false)}
                 />
             )}
@@ -114,26 +127,34 @@ export const MobileNavbar = () => {
             {/* Sidebar */}
             <Container
                 className={`
-          fixed top-0 left-0 h-dvh w-[82%] max-w-[320px]
-          bg-background z-[1200] transition-transform duration-300
+          fixed top-0 left-0 h-dvh w-[90%] max-w-[330px]
+          bg-background z-1200 transition-transform duration-300
           flex flex-col
           ${open ? "translate-x-0" : "-translate-x-full"}
         `}
             >
                 {/* Header */}
-                <Container className="bg-p300 px-4 pt-5 pb-6 relative overflow-hidden">
+                <Container className="relative overflow-hidden px-4 pt-5 pb-8 h-60 w-full bg-no-repeat bg-cover bg-center
+                "
+                style={{
+                    backgroundImage: "url('/menu-drawer-background.svg')",
+                }}
+                >
                     {/* Close */}
                     <button
                         onClick={() => setOpen(false)}
-                        className="absolute right-4 top-4"
+                        className="absolute right-4 top-18 z-50"
                     >
-                        <CloseIcon className="text-p300" />
+                        <CloseIcon className="text-inverted" />
                     </button>
 
-                    {/* Profile */}
-                    <Container className="mt-8 flex items-center gap-3 rounded-2xl bg-inverted p-3">
+                    {/* Profile Card */}
+                    <Container className="absolute bottom-4 left-4 right-4 z-10 mt-16 flex items-center gap-3 rounded-2xl bg-inverted p-3 shadow-sm">
+
                         <Container className="flex h-11 w-11 items-center justify-center rounded-xl bg-p200">
-                            <Text className="font-semibold text-inverted">MS</Text>
+                            <Text className="font-semibold text-inverted">
+                                MS
+                            </Text>
                         </Container>
 
                         <Container>
@@ -141,7 +162,9 @@ export const MobileNavbar = () => {
                                 Micheal Scofield
                             </Text>
 
-                            <Text className="text-sm text-secondary">Agent</Text>
+                            <Text className="text-sm text-secondary">
+                                Agent
+                            </Text>
                         </Container>
                     </Container>
                 </Container>
@@ -171,7 +194,7 @@ export const MobileNavbar = () => {
                         })}
                     </Container>
 
-                    <Container className="my-4 h-[1px] bg-line" />
+                    <Container className="my-4 h-px bg-line" />
 
                     <Container className="flex flex-col gap-1">
                         {bottomLinks.map((link) => {
