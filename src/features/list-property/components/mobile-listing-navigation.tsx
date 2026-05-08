@@ -59,7 +59,7 @@ export const MobileListingNavigation = ({
                       ${
                         active > step.num
                           ? "bg-p300"
-                          : "bg-[#D9D9D9]"
+                          : "bg-s300"
                       }
                     `}
                   />
