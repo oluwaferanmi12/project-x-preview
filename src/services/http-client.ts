@@ -47,7 +47,6 @@ export const apiClient = axios.create({
   headers: {
     "Content-Type": "application/json",
   },
-  withCredentials: true,
 });
 
 export const refreshClient = axios.create({
@@ -59,10 +58,7 @@ export const refreshClient = axios.create({
 });
 
 apiClient.interceptors.request.use(attachBearerToken);
-apiClient.interceptors.response.use(
-  handleResponseSuccess,
-  handleResponseError,
-);
+apiClient.interceptors.response.use(handleResponseSuccess, handleResponseError);
 refreshClient.interceptors.request.use(attachRefreshBearerToken);
 refreshClient.interceptors.response.use(
   handleResponseSuccess,
