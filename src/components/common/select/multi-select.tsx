@@ -1,8 +1,8 @@
 "use client";
 
 import { Container } from "@/components/common/container/container";
-import Button from "../button/button";
 import Image, { StaticImageData } from "next/image";
+import { IconText } from "../icon-text-group/icon-text";
 
 
 export type MultiSelectOption = {
@@ -39,30 +39,25 @@ export const MultiSelect = ({
                 const isSelected = value.includes(option.value);
 
                 return (
-                    <Container as="button" key={option.value} onClick={() => toggleOption(option.value)}
-                        className={`border 
-                        flex items-center gap-2 px-4 py-2 rounded-lg
-                    ${isSelected ? "bg-p100 text-primary border-primary" : "bg-surface text-primary border-line hover:border-primary"} `
-                        }>
-                        {option.icon && <Image src={option.icon} alt={option.label} width={16} height={16} />
-                        }
-                        <Container as="span">{option.label}</Container>
-                    </Container>
-                    // <Button
-                    //     key={option.value}
-                    //     type="button"
-                    //     onClick={() => toggleOption(option.value)}
-                    //      variant="primary"
-                    //     className={`border
-                    //         ${isSelected
-                    //             ? "bg-p100 text-primary border-primary"
-                    //             : "bg-surface text-primary border-line hover:border-primary"
-                    //         }
-                    //     `}
-                    //     leftIcon={option.icon}
-                    // >
+                    // <Container as="button" key={option.value} onClick={() => toggleOption(option.value)}
+                    //     className={`border 
+                    //     flex items-center gap-2 px-4 py-2 rounded-lg
+                    // ${isSelected ? "bg-p100 text-primary border-primary" : "bg-surface text-primary border-line hover:border-primary"} `
+                    //     }>
+                    //     {option.icon && <Image src={option.icon} alt={option.label} width={16} height={16} />
+                    //     }
                     //     <Container as="span">{option.label}</Container>
-                    // </Button>
+                    // </Container>
+                    <IconText 
+                        key={option.value} 
+                        isClickable={true}
+                        isActive={isSelected}
+                        icon={option.icon} 
+                        label={option.label}
+                        handleClick={() => toggleOption(option.value)}
+                    />
+
+                   
                 );
             })}
         </Container>

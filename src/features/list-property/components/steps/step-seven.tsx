@@ -1,98 +1,60 @@
 import { Container } from "@/components/common/container/container";
-import React from "react";
-import { NumberWrapper } from "../nuggets/number-wrapper";
-import { Select } from "@/components/common/select/select";
-import { Input } from "@/components/common/input/input";
-import LocationIcon from "@/assets/svgs/location.svg";
-import { ContentWrapper } from "../nuggets/content-wrapper";
-import { Radio } from "@/components/common/radio/radio";
 import { Text } from "@/components/common/text/text";
-import WhiteInfo from "@/assets/svgs/white-info.svg";
+import React from "react";
+import { PropertyGallery } from "../nuggets/property-gallery";
+import { AgentCard } from "../nuggets/agent-card";
+import { PropertyAccordion } from "../nuggets/step-seven-accordian";
+import LightClock from "@/assets/svgs/light-clock.svg";
+import SelectIcon1 from "@/assets/images/multi-select-icons/light-bulb.png";
+import SelectIcon2 from "@/assets/images/multi-select-icons/police-officer.png";
+import SelectIcon3 from "@/assets/images/multi-select-icons/camera-flash.png";
+import SelectIcon4 from "@/assets/images/multi-select-icons/construction.png";
+import Image from "next/image";
+import { IconText } from "@/components/common/icon-text-group/icon-text";
 
-export const StepSeven = ({ activeSubstep }: { activeSubstep: number }) => {
-  const [shareAddress, setShareAddress] = React.useState<"yes" | "no">("no");
+const amenities = [
+  { label: "3 Apartment", icon: SelectIcon1 },
+  { label: "3 Beds", icon: SelectIcon2 },
+  { label: "3 Baths", icon: SelectIcon3 },
+  { label: "3 Toilets", icon: SelectIcon4 },
+];
+
+
+export const StepSeven = () => {
   return (
-    <>
-      <Container>
-        {activeSubstep === 1 && (
-          <>
-            <NumberWrapper serialNo="i" text="Where is the property located ?">
-              <Select
-                label=""
-                options={[{ label: "Select state", value: "" }]}
-                noBottomMargin
-              />
-              <Select
-                label=""
-                options={[{ label: "Local government area", value: "" }]}
-                noBottomMargin
-              />
-              <Select
-                label=""
-                options={[{ label: "Area/Neighborhood", value: "" }]}
-                noBottomMargin
-              />
-            </NumberWrapper>
-            <NumberWrapper serialNo="ii" text="Provide Property address">
-              <Input label="" placeholder="Enter address" rightIcon={<LocationIcon size="sm" />} />
-            </NumberWrapper>
-          </>
-        )}
-        {
-          activeSubstep === 2 && (
-            <>
-              <NumberWrapper serialNo="iii" text="Is there a nearby landmark? (optional)">
-                <Input label="" placeholder="eg. bus stop, school, market, hospital, e.t.c." />
-              </NumberWrapper>
-              <NumberWrapper serialNo="iv" text="Would you like to share this address with house seekers?">
-                <Container className="flex gap-4">
-                  <ContentWrapper>
-                    <Container className="flex items-center gap-3">
-                      <Radio
-                        value="new"
-                        checked={shareAddress === "yes"}
-                        onChange={() => {
-                          setShareAddress("yes");
-                        }}
-                      />
-                      <Text tone="primary" variant="action-label">
-                        Yes, that&apos;s fine
-                      </Text>
-                    </Container>
-                  </ContentWrapper>
-                  <ContentWrapper>
-                    <Container className="flex items-center gap-3">
-                      <Radio
-                        value="new"
-                        checked={shareAddress === "no"}
-                        onChange={() => {
-                          setShareAddress("no");
-                        }}
-                      />
-                      <Text tone="primary" variant="action-label">
-                        No, I&apos;d rather not
-                      </Text>
-                    </Container>
-                  </ContentWrapper>
-                </Container>
-              </NumberWrapper>
+    <Container className="space-y-6">
+      <PropertyGallery />
 
-              {/* NOTE CONTAINER */}
-              <Container className="flex items-start bg-i400 rounded-2xl p-2 pb-4 gap-2">
-                <WhiteInfo width="28" height="28" />
-                <Container>
-                  <Text tone="inverted" variant="body-md" className="font-semibold">
-                    Note
-                  </Text>
-                  <Text tone="inverted">
-                    Sharing this property&apos;s address helps house seekers find the location easily.
-                  </Text>
-                </Container>
-              </Container>
-            </>
-          )
-        }
+      <Container className="flex items-center justify-between">
+        <Container className="flex items-center gap-1">
+          <Text as="h2" className="text-2xl font-bold text-primary">
+            ₦300,000
+          </Text>
+          <Container as="span" className="text-sm text-secondary">(Annually)</Container>
+        </Container>
+
+        <Container className="flex items-center justify-between text-secondary">
+          <Container className="flex items-center gap-1">
+            <LightClock className="h-4 w-4" />
+            <Container as="span" className="text-xs">9 Apr, 2020</Container>
+          </Container>
+        </Container>
       </Container>
-    </>
+
+      <Container className="flex flex-wrap gap-2">
+        {amenities.map(({ label, icon }) => (
+          <IconText
+            key={label}
+            isClickable={false}
+            icon={icon}
+            label={label}
+          />
+        ))}
+      </Container>
+
+      <AgentCard />
+
+      <PropertyAccordion />
+    </Container>
   );
 };

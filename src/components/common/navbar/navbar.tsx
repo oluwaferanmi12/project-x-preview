@@ -43,11 +43,11 @@ export const Navbar = () => {
   const router = useRouter();
 
   return (
-    <Container as="nav" className="w-full bg-surface py-4 top-0  fixed z-1000">
+    <Container as="nav" className="w-full hidden sm:flex bg-surface py-4 top-0  fixed z-1000">
       <GeneralSpacer>
         <Container as="div" className="flex justify-between items-center">
           <Container as="span">
-            <BrandLogo />
+            <BrandLogo className="text-primary" />
           </Container>
           <Container as="div" className="flex gap-3">
             {navLinks.map((link) => {

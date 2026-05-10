@@ -31,7 +31,7 @@ export function RegisterScreen() {
         className="my-6 "
         as="form"
       >
-        <Container as="div" className="flex gap-8">
+        <Container as="div" className="flex flex-col sm:flex-row sm:gap-8">
           <Input label="First Name" placeholder="Enter your first name" />
           <Input label="Last Name" placeholder="Enter your last name" />
         </Container>

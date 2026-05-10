@@ -41,7 +41,7 @@ export const Checkbox = ({
     .trim();
 
   const boxClasses = [
-    "relative block h-5 w-5 shrink-0 box-border overflow-hidden rounded-[4px] border border-line leading-none transition-colors",
+    "relative block h-5 w-5 shrink-0 box-border overflow-hidden rounded-sm border border-line leading-none transition-colors",
     checked ? "bg-p300 text-inverted" : "bg-transparent",
     disabled ? "opacity-60" : "opacity-100",
     boxClassName ?? "",

@@ -24,14 +24,11 @@ export const useListingScreen = () => {
   };
 
   const handleNextStep = () => {
-    if (
-      activeStep < Object.keys(stepVariation).length ||
-      stepVariation[activeStep] < activeSubStep
-    ) {
-      if (activeSubStep < stepVariation[activeStep]) {
-        setActiveSubStep((prev) => prev + 1);
-        return;
-      }
+    const currentStepVariations = stepVariation[activeStep] || 1;
+    
+    if (activeSubStep < currentStepVariations) {
+      setActiveSubStep((prev) => prev + 1);
+    } else {
       setActiveStep((prev) => prev + 1);
       setActiveSubStep(1);
     }
