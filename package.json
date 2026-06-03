@@ -19,7 +19,9 @@
     "react": "19.2.3",
     "react-chartjs-2": "^5.3.1",
     "react-dom": "19.2.3",
-    "zustand": "^5.0.10"
+    "zustand": "^5.0.10",
+    "@repo/ui": "workspace:*",
+    "@repo/icons": "workspace:*"
   },
   "devDependencies": {
     "@svgr/webpack": "^8.1.0",

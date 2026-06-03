@@ -1,7 +1,7 @@
-import { Container } from "@/components/common/container/container";
-import { Input } from "@/components/common/input/input";
-import EyeOpened from "@/assets/svgs/eye-opened.svg";
-import Button from "@/components/common/button/button";
+import { Container } from "@repo/ui";
+import { Input } from "@repo/ui";
+import { EyeOpened } from "@repo/icons";
+import { Button } from "@repo/ui";
 import WalletIcon from "@/assets/svgs/wallet.svg";
 
 function Components() {

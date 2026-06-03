@@ -5,9 +5,9 @@ import ArrowRight from "@/assets/svgs/arrow-right.svg";
 import HandIcon from "@/assets/svgs/hand-rent-icon.svg";
 import HomeIcon from "@/assets/svgs/home-icon.svg";
 import RadioIcon from "@/assets/svgs/radio-icon.svg";
-import Button from "@/components/common/button/button";
-import { Container } from "@/components/common/container/container";
-import { Text } from "@/components/common/text/text";
+import { Button } from "@repo/ui";
+import { Container } from "@repo/ui";
+import { Text } from "@repo/ui";
 
 export function ChooseOptionScreen() {
   const [activeState, setActiveState] = useState(0);

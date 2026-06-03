@@ -1,9 +1,7 @@
-import { Container } from "@/components/common/container/container";
+import { Container } from "@repo/ui";
 import React from "react";
 import { NumberWrapper } from "../nuggets/number-wrapper";
-import { Input } from "@/components/common/input/input";
-import { Text } from "@/components/common/text/text";
-import WhiteInfo from "@/assets/svgs/white-info.svg";
+import { Input } from "@repo/ui";
 import { SingleSelectForm } from "../nuggets/single-select-form";
 import { UnitInputDropdown } from "../nuggets/unit-input-dropdown";
 

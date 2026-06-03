@@ -1,6 +1,6 @@
-import { Container } from "@/components/common/container/container";
+import { Container } from "@repo/ui";
 import React from "react";
-import { Text } from "@/components/common/text/text";
+import { Text } from "@repo/ui";
 
 export const NumberHeader = ({
   serialNo,

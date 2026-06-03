@@ -1,10 +1,10 @@
 "use client";
-import { Container } from "@/components/common/container/container";
+import { Container } from "@repo/ui";
 import { useListingScreen } from "../hooks/useListingScreen";
 import { ListingNavigation } from "../components/listing-navigation";
 import { Col, Row } from "antd";
 import { StepWrapper } from "../components/step-wrapper";
-import Button from "@/components/common/button/button";
+import { Button } from "@repo/ui";
 import { useRouter } from "next/navigation";
 import { MobileListingNavigation } from "../components/mobile-listing-navigation";
 
@@ -43,7 +43,7 @@ function ListPropertyScreen() {
                       </Container>
                     </Container>
 
-                    <Button variant="primary" fullWidth className="px-8 py-2 rounded-lg font-medium" onClick={() => router.replace('/')}>
+                    <Button variant="primary" fullWidth className="px-8 py-2 rounded-lg font-medium" onClick={() => router.replace('/properties')}>
                       Go to dashboard
                     </Button>
                   </Container>

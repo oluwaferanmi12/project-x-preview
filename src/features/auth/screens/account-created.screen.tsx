@@ -1,9 +1,9 @@
 "use client";
-import Button from "@/components/common/button/button";
-import { Container } from "@/components/common/container/container";
-import { Text } from "@/components/common/text/text";
+// import { Button } from "@repo/ui";
+import { Container } from "@repo/ui";
+import { Text } from "@repo/ui";
 import { useRouter } from "next/navigation";
-import React from "react";
+import { Button } from "@repo/ui";
 
 function AccountCreatedScreen() {
   const router = useRouter();

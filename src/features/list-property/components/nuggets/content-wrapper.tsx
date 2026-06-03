@@ -1,4 +1,4 @@
-import { Container } from "@/components/common/container/container";
+import { Container } from "@repo/ui";
 import React, { ReactNode } from "react";
 
 export const ContentWrapper = ({ children }: { children: ReactNode }) => {

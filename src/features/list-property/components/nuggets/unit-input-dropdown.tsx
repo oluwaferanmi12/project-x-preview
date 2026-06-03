@@ -1,5 +1,5 @@
-import { Container } from "@/components/common/container/container";
-import { Select } from "@/components/common/select/select";
+import { Container } from "@repo/ui";
+import { Select } from "@repo/ui";
 
 
 type Unit = "currency" | "percent";

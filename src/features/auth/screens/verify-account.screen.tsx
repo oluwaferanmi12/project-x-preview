@@ -1,8 +1,8 @@
 "use client";
-import Button from "@/components/common/button/button";
-import { Container } from "@/components/common/container/container";
-import { OtpField } from "@/components/common/input/otp-field";
-import { Text } from "@/components/common/text/text";
+import { Button } from "@repo/ui";
+import { Container } from "@repo/ui";
+import { OtpField } from "@repo/ui";
+import { Text } from "@repo/ui";
 import { useRouter } from "next/navigation";
 
 export function VerifyAccountScreen() {

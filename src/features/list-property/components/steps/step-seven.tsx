@@ -1,5 +1,5 @@
-import { Container } from "@/components/common/container/container";
-import { Text } from "@/components/common/text/text";
+import { Container } from "@repo/ui";
+import { Text } from "@repo/ui";
 import React from "react";
 import { PropertyGallery } from "../nuggets/property-gallery";
 import { AgentCard } from "../nuggets/agent-card";
@@ -10,17 +10,21 @@ import SelectIcon2 from "@/assets/images/multi-select-icons/police-officer.png";
 import SelectIcon3 from "@/assets/images/multi-select-icons/camera-flash.png";
 import SelectIcon4 from "@/assets/images/multi-select-icons/construction.png";
 import Image from "next/image";
-import { IconText } from "@/components/common/icon-text-group/icon-text";
-
-const amenities = [
-  { label: "3 Apartment", icon: SelectIcon1 },
-  { label: "3 Beds", icon: SelectIcon2 },
-  { label: "3 Baths", icon: SelectIcon3 },
-  { label: "3 Toilets", icon: SelectIcon4 },
-];
+import { IconText } from "@repo/ui";
 
 
 export const StepSeven = () => {
+
+  const iconSize = 16;
+  const amenities = [
+    { label: "3 Apartment", icon: <Image src={SelectIcon1} alt="" width={iconSize} height={iconSize} /> },
+    { label: "3 Beds", icon: <Image src={SelectIcon2} alt="" width={iconSize} height={iconSize} /> },
+    { label: "3 Baths", icon: <Image src={SelectIcon3} alt="" width={iconSize} height={iconSize} /> },
+    { label: "3 Toilets", icon: <Image src={SelectIcon4} alt="" width={iconSize} height={iconSize} /> },
+  ];
+
+
+  
   return (
     <Container className="space-y-6">
       <PropertyGallery />

@@ -2,8 +2,8 @@
 
 import React from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { Container } from "@/components/common/container/container";
-import { Text } from "@/components/common/text/text";
+import { Container } from "@repo/ui";
+import { Text } from "@repo/ui";
 import { steps } from "../data/listing-navigation-data";
 import CheckMark from "@/assets/svgs/check.svg";
 

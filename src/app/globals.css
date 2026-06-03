@@ -1,6 +1,12 @@
 @import "tailwindcss";
 
-@font-face {
+
+@source "../../../../packages/ui/src/**/*.{js,ts,jsx,tsx}";
+@source "../../../../packages/icons/src/**/*.{js,ts,jsx,tsx}";
+/* @source "../../packages/ui/src*.{js,ts,jsx,tsx}"; */
+@source "./**/*.{js,ts,jsx,tsx}";
+
+@font-face {  
   font-family: "DMSansLight";
   font-style: normal;
   font-weight: 300;

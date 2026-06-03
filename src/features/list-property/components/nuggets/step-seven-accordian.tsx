@@ -1,9 +1,10 @@
 "use client";
 
 import React from "react";
-import { Container } from "@/components/common/container/container";
-import { Text } from "@/components/common/text/text";
-import { Accordion, AccordionSection } from "@/components/common/accordion/accordion";
+import { Container } from "@repo/ui";
+import { Text } from "@repo/ui";
+// import { Accordion, AccordionSection } from "@/components/common/accordion/accordion";
+import { Accordion, AccordionSection } from "@repo/ui";
 import SelectIcon1 from "@/assets/images/multi-select-icons/light-bulb.png";
 import SelectIcon2 from "@/assets/images/multi-select-icons/police-officer.png";
 import SelectIcon3 from "@/assets/images/multi-select-icons/camera-flash.png";
@@ -11,8 +12,10 @@ import SelectIcon4 from "@/assets/images/multi-select-icons/construction.png";
 import SelectIcon5 from "@/assets/images/multi-select-icons/national-park.png";
 import SelectIcon6 from "@/assets/images/multi-select-icons/clapper-board.png";
 import PricingSection from "./pricing-chart";
-import { IconText } from "@/components/common/icon-text-group/icon-text";
-
+import { IconText } from "@repo/ui";
+import ChevronDownIcon from "@/assets/svgs/chevron-arrow-down.svg";
+import ChevronRightIcon from "@/assets/svgs/chevron-right.svg";
+import Image from "next/image";
 
 
 const propertyDescription = [
@@ -147,7 +150,7 @@ const AmenitiesSection = () => (
         <IconText
           key={label}
           isClickable={false}
-          icon={icon}
+          icon={<Image src={icon} alt="" width={16} height={16} />}
           label={label}
         />
       ))}
@@ -187,5 +190,11 @@ export const PropertyAccordion = () => {
     },
   ];
 
-  return <Accordion sections={sections} defaultOpen="about" />;
+  return (
+    <Accordion
+      sections={sections}
+      openIcon={<ChevronDownIcon className="h-5 w-5 text-secondary" />}
+      closedIcon={<ChevronRightIcon className="h-3 w-3 text-secondary" />}
+      defaultOpen="about"
+    />);
 };

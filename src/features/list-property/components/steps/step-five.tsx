@@ -1,4 +1,4 @@
-import { Container } from "@/components/common/container/container";
+import { Container } from "@repo/ui";
 import { useState } from "react";
 import { NumberWrapper } from "../nuggets/number-wrapper";
 import SelectIcon1 from "@/assets/images/multi-select-icons/light-bulb.png";
@@ -20,41 +20,48 @@ import SelectIcon16 from "@/assets/images/multi-select-icons/window.png";
 import SelectIcon17 from "@/assets/images/multi-select-icons/light-bulb.png";
 
 import { ContentWrapper } from "../nuggets/content-wrapper";
-import { Radio } from "@/components/common/radio/radio";
-import { Text } from "@/components/common/text/text";
-import { Checkbox } from "@/components/common/checkbox/checkbox";
-import { MultiSelect, MultiSelectOption } from "@/components/common/select/multi-select";
+import { Radio } from "@repo/ui";
+import { Text } from "@repo/ui";
+import { Checkbox } from "@repo/ui";
+import { MultiSelect, MultiSelectOption } from "@repo/ui";
+import Image from "next/image";
+
+
+
+
 
 export const StepFive = ({ activeSubstep }: { activeSubstep: number }) => {
   const [waterSource, setWaterSource] = useState<"borehole" | "well" | "waterboard" | "">("");
   const [hasParkingSpace, setHasParkingSpace] = useState<"yes" | "no" | "">("");
   const [isFenced, setIsFenced] = useState<"yes" | "no" | "">("");
   const [selected, setSelected] = useState<string[]>([]);
+  const iconSize = 16;
+
 
   const options: MultiSelectOption[] = [
-    { label: "24hrs Electricity", value: "01", icon: SelectIcon1 },
-    { label: "Security Guard(s)", value: "02", icon: SelectIcon2  },
-    { label: "CCTV", value: "03", icon: SelectIcon3 },
-    { label: "Regulated Entry", value: "04", icon: SelectIcon4 },
-    { label: "Park Area/Playground", value: "05", icon: SelectIcon5 },
-    { label: "Cinema", value: "06", icon: SelectIcon6 },
-    { label: "Elevator", value: "07", icon: SelectIcon7 },
-    { label: "Swimming Pool", value: "08", icon: SelectIcon8 },
-    { label: "Basketball Court", value: "09", icon: SelectIcon9 },
-    { label: "Football Pitch", value: "10", icon: SelectIcon10 },
-    { label: "Tennis Lawn", value: "11", icon: SelectIcon11 },
-    { label: "Waste Management", value: "12", icon: SelectIcon12 },
-    { label: "Inverter", value: "13", icon: SelectIcon13 },
-    { label: "Internet/WiFi", value: "14", icon: SelectIcon14 },
-    { label: "Facility Manager", value: "15", icon: SelectIcon15 },
-    { label: "Balcony", value: "16", icon: SelectIcon16 },
-    { label: "Prepaid Meter", value: "17", icon: SelectIcon17 },
-    { label: "Dedicated Transformer", value: "18", icon: SelectIcon17 },
-    { label: "Gym/Fitness", value: "19", icon: SelectIcon17 },
-    { label: "Restaurant", value: "20", icon: SelectIcon17 },
-    { label: "Generator", value: "21", icon: SelectIcon17 },
-    { label: "Estate Intercom", value: "22", icon: SelectIcon17 },
-    { label: "Estate Shuttle Service", value: "23", icon: SelectIcon17 },
+    { label: "24hrs Electricity", value: "01", icon: <Image src={SelectIcon1} alt="" width={iconSize} height={iconSize} /> },
+    { label: "Security Guard(s)", value: "02", icon:   <Image src={SelectIcon2} alt="" width={iconSize} height={iconSize} /> },
+    { label: "CCTV", value: "03", icon:  <Image src={SelectIcon3} alt="" width={iconSize} height={iconSize} /> },
+    { label: "Regulated Entry", value: "04", icon:  <Image src={SelectIcon4} alt="" width={iconSize} height={iconSize} /> },
+    { label: "Park Area/Playground", value: "05", icon:  <Image src={SelectIcon5} alt="" width={iconSize} height={iconSize} /> },
+    { label: "Cinema", value: "06", icon:  <Image src={SelectIcon6} alt="" width={iconSize} height={iconSize} /> },
+    { label: "Elevator", value: "07", icon:  <Image src={SelectIcon7} alt="" width={iconSize} height={iconSize} /> },
+    { label: "Swimming Pool", value: "08", icon:  <Image src={SelectIcon8} alt="" width={iconSize} height={iconSize} /> },
+    { label: "Basketball Court", value: "09", icon:  <Image src={SelectIcon9} alt="" width={iconSize} height={iconSize} /> },
+    { label: "Football Pitch", value: "10", icon:  <Image src={SelectIcon10} alt="" width={iconSize} height={iconSize} /> },
+    { label: "Tennis Lawn", value: "11", icon:  <Image src={SelectIcon11} alt="" width={iconSize} height={iconSize} /> },
+    { label: "Waste Management", value: "12", icon:  <Image src={SelectIcon12} alt="" width={iconSize} height={iconSize} /> },
+    { label: "Inverter", value: "13", icon:  <Image src={SelectIcon13} alt="" width={iconSize} height={iconSize} /> },
+    { label: "Internet/WiFi", value: "14", icon:  <Image src={SelectIcon14} alt="" width={iconSize} height={iconSize} /> },
+    { label: "Facility Manager", value: "15", icon:  <Image src={SelectIcon15} alt="" width={iconSize} height={iconSize} /> },
+    { label: "Balcony", value: "16", icon:  <Image src={SelectIcon16} alt="" width={iconSize} height={iconSize} /> },
+    { label: "Prepaid Meter", value: "17", icon:  <Image src={SelectIcon17} alt="" width={iconSize} height={iconSize} /> },
+    { label: "Dedicated Transformer", value: "18", icon:  <Image src={SelectIcon17} alt="" width={iconSize} height={iconSize} /> },
+    { label: "Gym/Fitness", value: "19", icon:  <Image src={SelectIcon17} alt="" width={iconSize} height={iconSize} /> },
+    { label: "Restaurant", value: "20", icon:  <Image src={SelectIcon17} alt="" width={iconSize} height={iconSize} /> },
+    { label: "Generator", value: "21", icon:  <Image src={SelectIcon17} alt="" width={iconSize} height={iconSize} /> },
+    { label: "Estate Intercom", value: "22", icon:  <Image src={SelectIcon17} alt="" width={iconSize} height={iconSize} /> },
+    { label: "Estate Shuttle Service", value: "23", icon:  <Image src={SelectIcon17} alt="" width={iconSize} height={iconSize} /> },
   ];
 
   return (

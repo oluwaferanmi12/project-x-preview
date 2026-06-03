@@ -13,7 +13,7 @@ import img6 from "@/assets/images/gallery/image-inactive-5.png";
 import img7 from "@/assets/images/gallery/image-inactive-6.png";
 import img8 from "@/assets/images/gallery/image-inactive-7.png";
 import img9 from "@/assets/images/gallery/image-inactive-8.png";
-import { Container } from "@/components/common/container/container";
+import { Container } from "@repo/ui";
 
 const images: StaticImageData[] = [
   largeView,

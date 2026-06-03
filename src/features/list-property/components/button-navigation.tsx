@@ -1,5 +1,5 @@
-import Button from "@/components/common/button/button";
-import { Container } from "@/components/common/container/container";
+import { Button } from "@repo/ui";
+import { Container } from "@repo/ui";
 import ArrowRight from "@/assets/svgs/arrow-right.svg";
 import ArrowLeft from "@/assets/svgs/arrow-left.svg";
 import React from "react";

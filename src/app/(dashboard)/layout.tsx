@@ -1,9 +1,8 @@
 import React from "react";
-import { Navbar } from "@/components/common/navbar/navbar";
-import { MobileNavbar } from "@/components/common/navbar/mobile-navbar";
-import { Container } from "@/components/common/container/container";
-import { GeneralSpacer } from "@/components/common/wrapper/general-spacer";
-import { Footer } from "@/components/common/footer/footer";
+import { Container } from "@repo/ui"
+import { GeneralSpacer } from "@repo/ui"
+import { Footer } from "@repo/ui"
+import { HouseOwnerNavigation } from "@/features/house-owners/house-owner-navigation";
 
 export default function HouseOwnerlayout({
   children,
@@ -12,11 +11,7 @@ export default function HouseOwnerlayout({
 }>) {
   return (
     <Container as="div" className="bg-background h-full  pt-28">
-      {/* mobile nav */}
-      <MobileNavbar />
-      {/* desktop nav */}
-      <Navbar />
-
+      <HouseOwnerNavigation />
       <Container as="div">
         <GeneralSpacer>{children}</GeneralSpacer>
         <Footer />

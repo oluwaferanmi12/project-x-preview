@@ -1,9 +1,9 @@
-import { Container } from "@/components/common/container/container";
+import { Container } from "@repo/ui";
 import React, { useState } from "react";
 import { NumberWrapper } from "../nuggets/number-wrapper";
 import { UploadBox } from "../nuggets/upload-container";
-import { Text } from "@/components/common/text/text";
-import { Select } from "@/components/common/select/select";
+import { Text } from "@repo/ui";
+import { Select } from "@repo/ui";
 
 export const StepSix = ({ activeSubstep }: { activeSubstep: number }) => {
   const [idImage, setIdImage] = useState<string | null>(null);

@@ -2,7 +2,7 @@ import { Col, Row } from "antd";
 import React from "react";
 import { StepOne } from "./steps/step-one";
 import { ButtonNavigation } from "./button-navigation";
-import { Container } from "@/components/common/container/container";
+import { Container } from "@repo/ui";
 import { useStepWrapper } from "../hooks/useStepWrapper";
 import { StepTwo } from "./steps/step-two";
 import { StepThree } from "./steps/step-three";

@@ -1,8 +1,8 @@
 "use client";
 
 import React from "react";
-import { Container } from "@/components/common/container/container";
-import { Text } from "@/components/common/text/text";
+import { Container } from "@repo/ui";
+import { Text } from "@repo/ui";
 import DonutChart from "./donut-chart";
 
 type PricingItem = {

@@ -1,6 +1,6 @@
 "use client";
 
-import { Container } from "@/components/common/container/container";
+import { Container } from "@repo/ui";
 import {
   Chart as ChartJS,
   ArcElement,

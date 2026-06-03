@@ -1,12 +1,12 @@
-import { Container } from "@/components/common/container/container";
+import { Container } from "@repo/ui";
 import React, { useState } from "react";
 import { NumberWrapper } from "../nuggets/number-wrapper";
 import { ContentWrapper } from "../nuggets/content-wrapper";
-import { Radio } from "@/components/common/radio/radio";
-import { Text } from "@/components/common/text/text";
-import { Input } from "@/components/common/input/input";
-import { Switch } from "@/components/common/switch/switch";
-import { Textarea } from "@/components/common/textarea/textarea";
+import { Radio } from "@repo/ui";
+import { Text } from "@repo/ui";
+import { Input } from "@repo/ui";
+import { Switch } from "@repo/ui";
+import { Textarea } from "@repo/ui";
 
 export const StepTwo = ({ activeSubStep }: { activeSubStep: number }) => {
   const [propertyCondition, setPropertyCondition] = useState<"new" | "old">(

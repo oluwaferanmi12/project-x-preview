@@ -1,9 +1,9 @@
-import { Container } from "@/components/common/container/container";
-import { Text } from "@/components/common/text/text";
+import { Container } from "@repo/ui";
+import { Text } from "@repo/ui";
 import React, { ReactNode } from "react";
 import { NumberHeader } from "./number-header";
 import ToolTipIcon from "@/assets/svgs/tooltip.svg";
-import { Tooltip } from "@/components/common/tooltip/tooltip";
+import { Tooltip } from "@repo/ui";
 
 export const NumberWrapper = ({
   children,

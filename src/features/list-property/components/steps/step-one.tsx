@@ -1,14 +1,14 @@
 'use client'
 
-import { Container } from "@/components/common/container/container";
+import { Container } from "@repo/ui";
 import { NumberWrapper } from "../nuggets/number-wrapper";
 import { ContentWrapper } from "../nuggets/content-wrapper";
-import { Checkbox } from "@/components/common/checkbox/checkbox";
+import { Checkbox } from "@repo/ui";
 import { useState } from "react";
 import CrownIcon from "@/assets/svgs/crown.svg";
 import BriefcaseIcon from "@/assets/svgs/briefcase.svg";
-import { Text } from "@/components/common/text/text";
-import { Radio } from "@/components/common/radio/radio";
+import { Text } from "@repo/ui";
+import { Radio } from "@repo/ui";
 
 export const StepOne = () => {
   const [checked, setChecked] = useState(false);

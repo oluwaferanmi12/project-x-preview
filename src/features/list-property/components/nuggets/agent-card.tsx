@@ -1,8 +1,8 @@
 "use client";
 
 import React from "react";
-import { Container } from "@/components/common/container/container";
-import { Text } from "@/components/common/text/text";
+import { Container } from "@repo/ui";
+import { Text } from "@repo/ui";
 import MessageCircleMore from "@/assets/svgs/chat-icon.svg";
 import Phone from "@/assets/svgs/phone.svg";
 import VerifiedCheck from "@/assets/svgs/verified-check.svg";

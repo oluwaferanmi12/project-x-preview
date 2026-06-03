@@ -1,7 +1,7 @@
-import { Container } from "@/components/common/container/container";
-import { Text } from "@/components/common/text/text";
+import { Container } from "@repo/ui";
+import { Text } from "@repo/ui";
 import { ContentWrapper } from "./content-wrapper";
-import { Radio } from "@/components/common/radio/radio";
+import { Radio } from "@repo/ui";
 
 export const SingleSelectForm = ({
     text,

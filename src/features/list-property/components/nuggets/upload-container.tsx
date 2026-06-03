@@ -1,7 +1,7 @@
 "use client";
 
-import { Container } from "@/components/common/container/container";
-import { Text } from "@/components/common/text/text";
+import { Container } from "@repo/ui";
+import { Text } from "@repo/ui";
 import React, { useRef } from "react";
 import UploadIcon from "@/assets/svgs/upload-image.svg"
 import Image from "next/image";
