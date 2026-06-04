@@ -5,18 +5,15 @@ import { Container } from "@/components/common/container/container";
 import { GeneralSpacer } from "@/components/common/wrapper/general-spacer";
 import { Footer } from "@/components/common/footer/footer";
 
-export default function HouseOwnerlayout({
+export default function DashboardLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
   return (
-    <Container as="div" className="bg-background h-full  pt-28">
-      {/* mobile nav */}
+    <Container as="div" className="bg-background h-full pt-28">
       <MobileNavbar />
-      {/* desktop nav */}
       <Navbar />
-
       <Container as="div">
         <GeneralSpacer>{children}</GeneralSpacer>
         <Footer />

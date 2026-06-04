@@ -8,9 +8,11 @@ import RadioIcon from "@/assets/svgs/radio-icon.svg";
 import Button from "@/components/common/button/button";
 import { Container } from "@/components/common/container/container";
 import { Text } from "@/components/common/text/text";
+import { useRouter } from "next/navigation";
 
 export function ChooseOptionScreen() {
   const [activeState, setActiveState] = useState(0);
+  const router = useRouter();
 
   return (
     <Container>
@@ -53,7 +55,11 @@ export function ChooseOptionScreen() {
         </Container>
       </Container>
       <Container className="mt-6">
-        <Button rightIcon={<ArrowRight />} fullWidth>
+        <Button
+          onClick={() => router.push("/list-property")}
+          rightIcon={<ArrowRight />}
+          fullWidth
+        >
           Continue
         </Button>
       </Container>

@@ -4,25 +4,19 @@ import type {
   AxiosResponse,
   InternalAxiosRequestConfig,
 } from "axios";
+import { useAuthStore } from "@/store/useAuthStore";
 
 const baseURL = process.env.NEXT_PUBLIC_API_BASE_URL;
-const accessTokenKey = "access_token";
-const refreshTokenKey = "refresh_token";
 
-const getStoredValue = (key: string) => {
-  if (typeof window === "undefined") {
-    return null;
-  }
+// ─── Token helpers (read from Zustand store, not localStorage directly) ───────
 
-  return window.localStorage.getItem(key);
-};
+const getAccessToken = () => useAuthStore.getState().accessToken;
+const getRefreshToken = () => useAuthStore.getState().refreshToken;
 
-const getAccessToken = () => getStoredValue(accessTokenKey);
-const getRefreshToken = () => getStoredValue(refreshTokenKey);
+// ─── Request interceptors ─────────────────────────────────────────────────────
 
 const attachBearerToken = (config: InternalAxiosRequestConfig) => {
   const token = getAccessToken();
-
   if (token) {
     config.headers.Authorization = `Bearer ${token}`;
   }
@@ -31,39 +25,109 @@ const attachBearerToken = (config: InternalAxiosRequestConfig) => {
 
 const attachRefreshBearerToken = (config: InternalAxiosRequestConfig) => {
   const token = getRefreshToken();
-
   if (token) {
     config.headers.Authorization = `Bearer ${token}`;
   }
-
   return config;
 };
 
-const handleResponseSuccess = (response: AxiosResponse) => response;
-const handleResponseError = (error: AxiosError) => Promise.reject(error);
+// ─── Axios instances ──────────────────────────────────────────────────────────
 
 export const apiClient = axios.create({
   baseURL: baseURL || undefined,
-  headers: {
-    "Content-Type": "application/json",
-  },
+  headers: { "Content-Type": "application/json" },
 });
 
 export const refreshClient = axios.create({
   baseURL: baseURL || undefined,
-  headers: {
-    "Content-Type": "application/json",
-  },
+  headers: { "Content-Type": "application/json" },
   withCredentials: true,
 });
 
+// ─── Refresh token queue (handles concurrent 401s) ───────────────────────────
+
+let isRefreshing = false;
+let failedQueue: Array<{
+  resolve: (value: unknown) => void;
+  reject: (reason?: unknown) => void;
+}> = [];
+
+const processQueue = (error: AxiosError | null, token: string | null = null) => {
+  failedQueue.forEach((prom) => {
+    if (error) {
+      prom.reject(error);
+    } else {
+      prom.resolve(token);
+    }
+  });
+  failedQueue = [];
+};
+
+// ─── Response interceptor with auto token refresh on 401 ─────────────────────
+
+const handleResponseSuccess = (response: AxiosResponse) => response;
+
+const handleResponseError = async (error: AxiosError) => {
+  const originalRequest = error.config as InternalAxiosRequestConfig & {
+    _retry?: boolean;
+  };
+
+  if (error.response?.status === 401 && !originalRequest._retry) {
+    if (isRefreshing) {
+      // Queue up subsequent 401s while a refresh is in flight
+      return new Promise((resolve, reject) => {
+        failedQueue.push({ resolve, reject });
+      })
+        .then((token) => {
+          originalRequest.headers.Authorization = `Bearer ${token}`;
+          return apiClient(originalRequest);
+        })
+        .catch((err) => Promise.reject(err));
+    }
+
+    originalRequest._retry = true;
+    isRefreshing = true;
+
+    const { user, refreshToken, setAuth, clearAuth } =
+      useAuthStore.getState();
+
+    try {
+      const response = await refreshClient.post(
+        "/auth/refresh",
+        {},
+        { headers: { Authorization: `Bearer ${refreshToken}` } },
+      );
+
+      const { accessToken: newAccessToken, refreshToken: newRefreshToken } =
+        response.data;
+
+      setAuth(user!, newAccessToken, newRefreshToken ?? refreshToken ?? undefined);
+      processQueue(null, newAccessToken);
+
+      originalRequest.headers.Authorization = `Bearer ${newAccessToken}`;
+      return apiClient(originalRequest);
+    } catch (refreshError) {
+      processQueue(refreshError as AxiosError, null);
+      clearAuth();
+      if (typeof window !== "undefined") {
+        window.location.replace("/login");
+      }
+      return Promise.reject(refreshError);
+    } finally {
+      isRefreshing = false;
+    }
+  }
+
+  return Promise.reject(error);
+};
+
+// ─── Wire interceptors ────────────────────────────────────────────────────────
+
 apiClient.interceptors.request.use(attachBearerToken);
 apiClient.interceptors.response.use(handleResponseSuccess, handleResponseError);
+
 refreshClient.interceptors.request.use(attachRefreshBearerToken);
-refreshClient.interceptors.response.use(
-  handleResponseSuccess,
-  handleResponseError,
-);
+refreshClient.interceptors.response.use(handleResponseSuccess, handleResponseError);
 
 export const getStoredAccessToken = getAccessToken;
 export const getStoredRefreshToken = getRefreshToken;

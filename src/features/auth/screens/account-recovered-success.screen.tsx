@@ -3,9 +3,7 @@ import Button from "@/components/common/button/button";
 import { Container } from "@/components/common/container/container";
 import { Text } from "@/components/common/text/text";
 import { useRouter } from "next/navigation";
-import React from "react";
-
-function AccountCreatedScreen() {
+export const AccountRecoveredSuccessScreen = () => {
   const router = useRouter();
   return (
     <Container
@@ -13,23 +11,21 @@ function AccountCreatedScreen() {
       className="flex justify-center h-[60vh] items-center flex-col"
     >
       <Text variant="h3" tone="primary">
-        Account Created Successfully
+        Account Recovered Successfully
       </Text>
       <Text tone="secondary" variant="body-sm" className="text-center mt-4">
-        Your can proceed to go into the application to being exploring or
-        listing properties
+        Your password has been changed successfully, proceed to log in with your
+        new password
       </Text>
       <Button
         onClick={() => {
-          router.replace("/choose-option");
+          router.replace("/login");
         }}
         fullWidth
         className="mt-7"
       >
-        Get Started
+        Continue to Login
       </Button>
     </Container>
   );
-}
-
-export default AccountCreatedScreen;
+};

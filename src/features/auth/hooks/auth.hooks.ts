@@ -9,17 +9,37 @@ import {
   register,
   verifyEmail,
 } from "../auth.service";
+import { useAuthStore } from "@/store/useAuthStore";
+import { ForgotPasswordReset, LoginResponse } from "../auth.types";
+import { useToastStore } from "@/store/useToastStore";
 
-export const useRegisterMutation = (sc: (data: any) => void) =>
-  useMutation({
+export const useRegisterMutation = (sc: (data: any) => void) => {
+  const { show } = useToastStore();
+  return useMutation({
     mutationFn: register,
     onSuccess: sc,
+    onError: (error) => {
+      show(
+        "Registration failed",
+        error instanceof Error ? error.message : "An error occurred",
+        "error",
+      );
+    },
   });
+};
 
-export const useLoginMutation = () =>
-  useMutation({
+export const useLoginMutation = (sc?: (data: LoginResponse) => void) => {
+  const { login: loginStore } = useAuthStore();
+  return useMutation({
     mutationFn: login,
+    onSuccess: (data) => {
+      if (data?.accessToken) {
+        loginStore(data);
+      }
+      sc?.(data);
+    },
   });
+};
 
 export const useRefreshTokenMutation = () =>
   useMutation({
@@ -31,22 +51,32 @@ export const useGenerateOtpMutation = () =>
     mutationFn: generateOtp,
   });
 
-export const useVerifyEmailMutation = () =>
-  useMutation({
+export const useVerifyEmailMutation = (sc: (data: any) => void) => {
+  const { login } = useAuthStore();
+  return useMutation({
     mutationFn: verifyEmail,
+    onSuccess: (data) => {
+      login(data);
+      sc(data);
+    },
+  });
+};
+
+export const useForgotPasswordOtpMutation = (sc: (val: any) => void) =>
+  useMutation({
+    mutationFn: (email: string) => forgotPasswordOtp(email),
+    onSuccess: sc,
   });
 
-export const useForgotPasswordOtpMutation = () =>
+export const useForgotPasswordVerifyOtpMutation = (sc?: (data: any) => void) =>
   useMutation({
-    mutationFn: forgotPasswordOtp,
+    mutationFn: (payload: { otp: string; email: string }) =>
+      forgotPasswordVerifyOtp(payload),
+    onSuccess: sc,
   });
 
-export const useForgotPasswordVerifyOtpMutation = () =>
+export const useForgotPasswordResetMutation = (sc: (data: any) => void) =>
   useMutation({
-    mutationFn: forgotPasswordVerifyOtp,
-  });
-
-export const useForgotPasswordResetMutation = () =>
-  useMutation({
-    mutationFn: forgotPasswordReset,
+    mutationFn: (payload: ForgotPasswordReset) => forgotPasswordReset(payload),
+    onSuccess: sc,
   });

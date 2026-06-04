@@ -1,10 +1,15 @@
+"use client";
+
 import Link from "next/link";
 import Button from "@/components/common/button/button";
 import { Container } from "@/components/common/container/container";
 import { Input } from "@/components/common/input/input";
 import { Text } from "@/components/common/text/text";
+import { useForgotPassword } from "../hooks/useAuth";
 
 export function ForgotPasswordScreen() {
+  const { setEmail, email, handleForgotPassword, isPending } =
+    useForgotPassword();
   return (
     <>
       <Text as="p" variant="h3" tone="primary">
@@ -14,10 +19,22 @@ export function ForgotPasswordScreen() {
         Enter your email address, we will send a 6-digit code.
       </Text>
       <Container as="form" className="mt-6">
-        <Input label="Email Address" placeholder="Enter your email address" />
+        <Input
+          label="Email Address"
+          placeholder="Enter your email address"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+        />
       </Container>
       <Container className="mt-6">
-        <Button fullWidth>Send Code</Button>
+        <Button
+          fullWidth
+          onClick={handleForgotPassword}
+          loading={isPending}
+          disabled={isPending}
+        >
+          Send Code
+        </Button>
       </Container>
       <Container className="mt-9 flex items-center justify-center">
         <Text variant="body-sm" tone="primary">

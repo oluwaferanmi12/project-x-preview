@@ -3,10 +3,15 @@ import Button from "@/components/common/button/button";
 import { Container } from "@/components/common/container/container";
 import { OtpField } from "@/components/common/input/otp-field";
 import { Text } from "@/components/common/text/text";
-import { useRouter } from "next/navigation";
+import { useVerifyAccount } from "../hooks/useAuth";
 
-export function VerifyAccountScreen() {
-  const router = useRouter();
+export function VerifyAccountScreen({
+  forgotPassword,
+}: {
+  forgotPassword?: boolean;
+}) {
+  const { handleVerifyAccount, isPending, email, setOtp } =
+    useVerifyAccount(forgotPassword);
   return (
     <>
       <Text as="h1" variant="h3" tone="primary">
@@ -16,23 +21,24 @@ export function VerifyAccountScreen() {
         Enter the 6-digit code sent to your email address,
       </Text>
       <Text tone="p300" as="p" variant="body-sm" className="my-2">
-        johndoe@yahoo.com
+        {email}
       </Text>
       <Container
         onSubmit={(e) => {
           e.preventDefault();
+          handleVerifyAccount();
         }}
         as="form"
         className="mt-7"
       >
-        <OtpField name="otp" />
+        <OtpField
+          name="otp"
+          onChange={(e) => {
+            setOtp(e);
+          }}
+        />
         <Container className="mt-6">
-          <Button
-            onClick={() => {
-              router.replace("/account-created");
-            }}
-            fullWidth
-          >
+          <Button loading={isPending} onClick={() => {}} fullWidth>
             Verify Account
           </Button>
         </Container>
