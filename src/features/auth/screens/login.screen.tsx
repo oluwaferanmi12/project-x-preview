@@ -15,6 +15,7 @@ export function LoginScreen() {
     payload,
     errors,
     handleSignInWithGoogle,
+    googleAuthLoading,
   } = useLogin();
   return (
     <>
@@ -51,13 +52,20 @@ export function LoginScreen() {
           </Link>
         </Container>
         <Container as="div">
-          <Button loading={isPending} fullWidth variant="primary">
+          <Button
+            loading={isPending}
+            fullWidth
+            variant="primary"
+            disabled={isPending || googleAuthLoading}
+            type="submit"
+          >
             Log In
           </Button>
         </Container>
       </Container>
       <Container>
         <Button
+          loading={googleAuthLoading}
           onClick={handleSignInWithGoogle}
           fullWidth
           variant="muted"

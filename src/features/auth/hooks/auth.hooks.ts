@@ -4,6 +4,7 @@ import {
   forgotPasswordReset,
   forgotPasswordVerifyOtp,
   generateOtp,
+  getAuthenticatedUser,
   login,
   refreshToken,
   register,
@@ -80,3 +81,14 @@ export const useForgotPasswordResetMutation = (sc: (data: any) => void) =>
     mutationFn: (payload: ForgotPasswordReset) => forgotPasswordReset(payload),
     onSuccess: sc,
   });
+
+export const useGetAuthenticatedUserMutation = (sc: (data: any) => void) => {
+  const { show } = useToastStore();
+  return useMutation({
+    mutationFn: getAuthenticatedUser,
+    onSuccess: sc,
+    onError: () => {
+      show("Sign-in failed", "Could not retrieve your account details.", "error");
+    },
+  });
+}

@@ -55,3 +55,8 @@ export const forgotPasswordReset = async (payload: ForgotPasswordReset) => {
   const result = await apiClient.post("/auth/forgot-password/reset", payload);
   return result.data;
 };
+
+export const getAuthenticatedUser = async () => {
+  const result = await apiClient.get("/user");
+  return result.data.data;
+};

@@ -3,13 +3,16 @@ import {
   useForgotPasswordOtpMutation,
   useForgotPasswordResetMutation,
   useForgotPasswordVerifyOtpMutation,
+  useGetAuthenticatedUserMutation,
   useLoginMutation,
 } from "./auth.hooks";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useVerifyEmailMutation } from "./auth.hooks";
 import { Register } from "../auth.types";
 import { useRegisterMutation } from "./auth.hooks";
+import { useAuthStore } from "@/store/useAuthStore";
+import { useToastStore } from "@/store/useToastStore";
 
 type ErrorPayload = Partial<Register> & { confirmPassword?: string };
 
@@ -25,6 +28,10 @@ export type LoginErrors = {
 
 export const useLogin = () => {
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const { login: loginStore, setAuth } = useAuthStore();
+  const { show } = useToastStore();
+
   const { mutate, isPending } = useLoginMutation((data) => {
     if (!data.userResponse.isEmailVerified) {
       router.push(
@@ -32,11 +39,34 @@ export const useLogin = () => {
       );
     }
   });
+
+  const { mutate: fetchAuthenticatedUser, isPending: googleAuthLoading } =
+    useGetAuthenticatedUserMutation((user) => {
+      // Only now — after user details are confirmed — do we fully authenticate
+      setAuth(user, useAuthStore.getState().accessToken!);
+      router.replace("/");
+    });
+
   const [payload, setPayload] = useState({ email: "", password: "" });
   const [errors, setErrors] = useState<LoginErrors>({});
 
+  // Handle social sign-in redirect — server sends back /login?token=<jwt>
+  useEffect(() => {
+    const token = searchParams.get("token");
+    if (!token) return;
+    try {
+      // Only set the token — NOT isAuthenticated, so the guard doesn't trigger yet
+      useAuthStore.setState({ accessToken: token });
+      // Fetch full user details — setAuth (which sets isAuthenticated: true) only
+      // runs in the success callback above, after the server confirms the user
+      fetchAuthenticatedUser();
+    } catch {
+      show("Sign-in failed", "Could not process the sign-in token.", "error");
+    }
+  }, [searchParams]);
+
   const handleSignInWithGoogle = () => {
-    window.location.href = `${process.env.NEXT_PUBLIC_API_BASE_URL}/oauth2/authorization/google`;
+    window.location.href = `${process.env.NEXT_PUBLIC_PLAIN_BASE_URL}/oauth2/authorization/google`;
   };
 
   const handleLogin = (e: React.FormEvent<HTMLFormElement>) => {
@@ -54,9 +84,7 @@ export const useLogin = () => {
     }
 
     setErrors(newErrors);
-
     if (Object.keys(newErrors).length > 0) return;
-
     mutate({ email: payload.email, password: payload.password });
   };
 
@@ -67,6 +95,7 @@ export const useLogin = () => {
     payload,
     errors,
     handleSignInWithGoogle,
+    googleAuthLoading
   };
 };
 
