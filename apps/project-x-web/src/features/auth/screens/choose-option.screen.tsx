@@ -8,6 +8,7 @@ import RadioIcon from "@/assets/svgs/radio-icon.svg";
 import { Button } from "@repo/ui";
 import { Container } from "@repo/ui";
 import { Text } from "@repo/ui";
+import { useRouter } from "next/navigation";
 
 export function ChooseOptionScreen() {
   const [activeState, setActiveState] = useState(0);
