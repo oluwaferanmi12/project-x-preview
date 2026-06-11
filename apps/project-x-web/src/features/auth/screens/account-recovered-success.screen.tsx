@@ -1,7 +1,6 @@
 "use client";
-import Button from "@/components/common/button/button";
-import { Container } from "@/components/common/container/container";
-import { Text } from "@/components/common/text/text";
+
+import { Button, Container, Text } from "@repo/ui";
 import { useRouter } from "next/navigation";
 export const AccountRecoveredSuccessScreen = () => {
   const router = useRouter();

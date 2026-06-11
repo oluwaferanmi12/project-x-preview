@@ -2,6 +2,7 @@ import { Button } from "@repo/ui";
 import { Container } from "@repo/ui";
 import { Input } from "@repo/ui";
 import { Text } from "@repo/ui";
+import { useCreateNewPassword } from "../hooks/useAuth";
 
 export function CreateNewPasswordScreen() {
   const { setPayload, payload, isPending, handleCreateNewPassword } =

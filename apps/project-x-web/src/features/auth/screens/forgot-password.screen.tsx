@@ -5,6 +5,7 @@ import { Button } from "@repo/ui";
 import { Container } from "@repo/ui";
 import { Input } from "@repo/ui";
 import { Text } from "@repo/ui";
+import { useForgotPassword } from "../hooks/useAuth";
 
 export function ForgotPasswordScreen() {
   const { setEmail, email, handleForgotPassword, isPending } =
