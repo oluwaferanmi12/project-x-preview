@@ -12,7 +12,8 @@
   "dependencies": {
     "@repo/icons": "workspace:*",
     "antd": "^6.4.3",
-    "clsx": "^2.1.1"
+    "clsx": "^2.1.1",
+    "framer-motion": "^12.38.0"
   },
   "peerDependencies": {
     "react": "^19.2.3",

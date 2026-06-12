@@ -13,7 +13,7 @@ function AccountCreatedScreen() {
       className="flex justify-center h-[60vh] items-center flex-col"
     >
       <Text variant="h3" tone="primary">
-        Account Created Successfullysss
+        Account Created Successfully
       </Text>
       <Text tone="secondary" variant="body-sm" className="text-center mt-4">
         Your can proceed to go into the application to being exploring or

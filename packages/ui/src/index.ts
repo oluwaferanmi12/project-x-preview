@@ -16,3 +16,4 @@ export * from "./textarea";
 export * from "./tooltip";
 export * from "./wrapper";
 export * from "./pagination";
+export * from "./toast";
