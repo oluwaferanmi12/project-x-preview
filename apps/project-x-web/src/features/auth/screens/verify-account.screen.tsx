@@ -4,6 +4,7 @@ import { Container } from "@repo/ui";
 import { OtpField } from "@repo/ui";
 import { Text } from "@repo/ui";
 import { useRouter } from "next/navigation";
+import { useVerifyAccount } from "../hooks/useAuth";
 
 export function VerifyAccountScreen({
   forgotPassword,
