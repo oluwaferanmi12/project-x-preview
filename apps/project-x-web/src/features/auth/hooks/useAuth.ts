@@ -53,12 +53,26 @@ export const useLogin = () => {
   const [errors, setErrors] = useState<LoginErrors>({});
 
   // Handle social sign-in redirect — server sends back /login?token=<jwt>
+  // or /login?oauth_error=true&message=<reason> on failure
   useEffect(() => {
+    const oauthError = searchParams.get("oauth_error");
+    const errorMessage = searchParams.get("message");
+
+    if (oauthError === "true") {
+      show(
+        "Sign-in failed",
+        errorMessage ? decodeURIComponent(errorMessage) : "Could not sign in with your social account.",
+        "error",
+      );
+      // Clean the URL so the params don't persist and don't re-trigger on re-render
+      router.replace("/login");
+      return;
+    }
+
     const token = searchParams.get("access_token");
     const refreshToken = searchParams.get("refresh_token");
     if (!token) return;
     try {
-      console.log("Got inside here");
       // Only set the token — NOT isAuthenticated, so the guard doesn't trigger yet
       useAuthStore.setState({ accessToken: token, refreshToken });
       // Fetch full user details — setAuth (which sets isAuthenticated: true) only
