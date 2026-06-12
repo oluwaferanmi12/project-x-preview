@@ -3,8 +3,8 @@ import type { SVGProps } from "react";
 const SvgBrandLogo = (props: SVGProps<SVGSVGElement>) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
-    width="10em"
-    height="3em"
+    width="1em"
+    height="1em"
     fill="none"
     viewBox="0 0 147 24"
     {...props}
