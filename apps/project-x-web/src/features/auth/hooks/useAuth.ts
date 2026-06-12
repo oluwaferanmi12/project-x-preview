@@ -54,11 +54,13 @@ export const useLogin = () => {
 
   // Handle social sign-in redirect — server sends back /login?token=<jwt>
   useEffect(() => {
-    const token = searchParams.get("token");
+    const token = searchParams.get("access_token");
+    const refreshToken = searchParams.get("refresh_token");
     if (!token) return;
     try {
+      console.log("Got inside here");
       // Only set the token — NOT isAuthenticated, so the guard doesn't trigger yet
-      useAuthStore.setState({ accessToken: token });
+      useAuthStore.setState({ accessToken: token, refreshToken });
       // Fetch full user details — setAuth (which sets isAuthenticated: true) only
       // runs in the success callback above, after the server confirms the user
       fetchAuthenticatedUser();
@@ -97,7 +99,7 @@ export const useLogin = () => {
     payload,
     errors,
     handleSignInWithGoogle,
-    googleAuthLoading
+    googleAuthLoading,
   };
 };
 
