@@ -31,7 +31,7 @@ const navLinks: NavLink[] = [
   {
     icon: DashIcon,
     label: "Dashboard",
-    href: "/",
+    href: "/list-property",
   },
   {
     icon: BuildingIcon,
