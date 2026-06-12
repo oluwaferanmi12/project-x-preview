@@ -88,7 +88,7 @@ const handleResponseError = async (error: AxiosError) => {
     originalRequest._retry = true;
     isRefreshing = true;
 
-    const { user, refreshToken, setAuth, clearAuth } =
+    const { user, refreshToken, setAuth, logout: clearAuth } =
       useAuthStore.getState();
 
     try {
