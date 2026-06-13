@@ -56,7 +56,7 @@ export function ChooseOptionScreen() {
       </Container>
       <Container className="mt-6">
         <Button
-          onClick={() => router.push("/list-property")}
+          onClick={() => router.push("/properties/list-property")}
           rightIcon={<ArrowRight />}
           fullWidth
         >

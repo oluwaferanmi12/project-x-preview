@@ -12,12 +12,12 @@ function GuestLoader() {
 }
 
 export function GuestGuard({ children }: { children: React.ReactNode }) {
-  const { isAuthenticated, _hasHydrated } = useAuthStore();
+  const { isAuthenticated, _hasHydrated  } = useAuthStore();
   const router = useRouter();
 
   useEffect(() => {
     if (_hasHydrated && isAuthenticated) {
-      router.replace("/list-property");
+      router.replace("/dashboard");
     }
   }, [_hasHydrated, isAuthenticated, router]);
 

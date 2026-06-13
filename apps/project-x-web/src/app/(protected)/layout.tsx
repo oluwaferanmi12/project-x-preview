@@ -1,4 +1,5 @@
 import { AuthProvider } from "@/features/auth/providers/AuthProvider";
+import { Container } from "@repo/ui";
 import React from "react";
 
 export default function ProtectedLayout({
@@ -6,5 +7,5 @@ export default function ProtectedLayout({
 }: {
   children: React.ReactNode;
 }) {
-  return <AuthProvider>{children}</AuthProvider>;
+  return <Container>{children}</Container>;
 }
