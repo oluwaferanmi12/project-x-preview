@@ -1,6 +1,6 @@
 "use client";
 
-import { isValidEmail } from "@/utils/validation";
+import { isValidEmail } from "@repo/utils";
 import {
   useForgotPasswordOtpMutation,
   useForgotPasswordResetMutation,

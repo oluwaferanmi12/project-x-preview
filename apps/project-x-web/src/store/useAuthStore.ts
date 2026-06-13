@@ -60,6 +60,15 @@ export const useAuthStore = create<AuthState>()(
     }),
     {
       name: "auth-storage",
+      // Exclude _hasHydrated from storage — it's a runtime-only flag.
+      // It always starts false on page load and is set to true once
+      // onRehydrateStorage fires, making the auth guard predictable.
+      partialize: (state) => ({
+        user: state.user,
+        accessToken: state.accessToken,
+        refreshToken: state.refreshToken,
+        isAuthenticated: state.isAuthenticated,
+      }),
       onRehydrateStorage: () => (state) => {
         state?.setHasHydrated(true);
       },

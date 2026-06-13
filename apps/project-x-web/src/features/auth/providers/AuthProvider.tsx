@@ -21,7 +21,15 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     }
   }, [_hasHydrated, isAuthenticated, router]);
 
-  if (!_hasHydrated || !isAuthenticated) {
+  // Show loader until hydration is complete so we never flash a redirect
+  // before the persisted auth state has been restored from localStorage
+  if (!_hasHydrated) {
+    return <AuthLoader />;
+  }
+
+  // Hydrated but not authenticated — useEffect above will redirect,
+  // show loader in the meantime so the protected page never renders
+  if (!isAuthenticated) {
     return <AuthLoader />;
   }
 
