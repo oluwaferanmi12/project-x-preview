@@ -3,11 +3,10 @@ import React from "react";
 import { NumberWrapper } from "../nuggets/number-wrapper";
 import { Select } from "@repo/ui";
 import { Input } from "@repo/ui";
-import LocationIcon from "@/assets/svgs/location.svg";
+import { Location as LocationIcon, WhiteInfo } from "@repo/icons";
 import { ContentWrapper } from "../nuggets/content-wrapper";
 import { Radio } from "@repo/ui";
 import { Text } from "@repo/ui";
-import WhiteInfo from "@/assets/svgs/white-info.svg";
 
 export const StepThree = ({ activeSubstep }: { activeSubstep: number }) => {
   const [shareAddress, setShareAddress] = React.useState<"yes" | "no">("no");

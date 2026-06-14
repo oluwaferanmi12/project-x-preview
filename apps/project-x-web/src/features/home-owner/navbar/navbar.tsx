@@ -5,7 +5,7 @@ import { Container, Text, GeneralSpacer } from "@repo/ui";
 import { ProfileDropdown } from "./profile-dropdown";
 import type { ProfileDropdownItem } from "./profile-dropdown";
 
-import BrandLogo from "@/assets/svgs/brand-logo.svg";
+import { BrandLogo } from "@/assets/images";
 import {
   DashIcon,
   BuildingIcon,
@@ -55,22 +55,6 @@ const navLinks: NavLink[] = [
 export const Navbar = ({ onNavigate }: NavbarProps) => {
   const { user } = useAuthStore();
 
-  const profileMenuItems: ProfileDropdownItem[] = [
-    {
-      key: "profile",
-      label: "Profile",
-    },
-    {
-      key: "settings",
-      label: "Settings",
-    },
-    {
-      key: "logout",
-      label: "Logout",
-      danger: true,
-    },
-  ];
-
   return (
     <Container
       as="nav"
@@ -79,7 +63,7 @@ export const Navbar = ({ onNavigate }: NavbarProps) => {
       <GeneralSpacer>
         <Container className="flex justify-between items-center">
           <Container as="span">
-            <BrandLogo className="text-primary" />
+            <img src={BrandLogo} alt="Brand Logo" className="text-primary" />
           </Container>
 
           <Container className="flex gap-3">
@@ -108,7 +92,7 @@ export const Navbar = ({ onNavigate }: NavbarProps) => {
 
             <BellBadge className="text-primary" />
 
-            <ProfileDropdown items={profileMenuItems}>
+            <ProfileDropdown>
               <Container className="p-2 rounded-xl bg-p50 flex items-center justify-center">
                 <Text tone="p300" variant="h4">
                   {user && getInitials(user?.firstName, user?.lastName)}

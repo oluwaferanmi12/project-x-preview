@@ -1,6 +1,6 @@
 import { Col, Row } from "antd";
 import React from "react";
-import Logo from "@/assets/svgs/logo-placeholder.svg";
+import { LogoPlaceholder } from "@/assets/images";
 import { Container } from "@repo/ui";
 
 export const AuthLayoutWrapper = ({
@@ -22,7 +22,7 @@ export const AuthLayoutWrapper = ({
           xl={6}
           className="mx-auto"
         >
-          <Logo />
+          <img src={LogoPlaceholder} alt="Logo" />
           <Container className="mt-8">{children}</Container>
         </Col>
       </Row>

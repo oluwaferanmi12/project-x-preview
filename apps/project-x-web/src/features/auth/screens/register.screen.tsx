@@ -1,5 +1,5 @@
 "use client";
-import GoogleIcon from "@/assets/svgs/google-icon.svg";
+import { GoogleIcon } from "@repo/icons";
 import { Button } from "@repo/ui";
 import { Container } from "@repo/ui";
 import { Input } from "@repo/ui";

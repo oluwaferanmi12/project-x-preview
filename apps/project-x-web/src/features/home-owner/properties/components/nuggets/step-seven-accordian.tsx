@@ -13,8 +13,7 @@ import SelectIcon5 from "@/assets/images/multi-select-icons/national-park.png";
 import SelectIcon6 from "@/assets/images/multi-select-icons/clapper-board.png";
 import PricingSection from "./pricing-chart";
 import { IconText } from "@repo/ui";
-import ChevronDownIcon from "@/assets/svgs/chevron-arrow-down.svg";
-import ChevronRightIcon from "@/assets/svgs/chevron-right.svg";
+import { ChevronArrowDown as ChevronDownIcon, ChevronRight as ChevronRightIcon } from "@repo/icons";
 import Image from "next/image";
 
 

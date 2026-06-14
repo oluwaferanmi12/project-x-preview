@@ -1,10 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import ArrowRight from "@/assets/svgs/arrow-right.svg";
-import HandIcon from "@/assets/svgs/hand-rent-icon.svg";
-import HomeIcon from "@/assets/svgs/home-icon.svg";
-import RadioIcon from "@/assets/svgs/radio-icon.svg";
+import { ArrowRight, HandRentIcon as HandIcon, HomeIcon, RadioIcon } from "@repo/icons";
 import { Button } from "@repo/ui";
 import { Container } from "@repo/ui";
 import { Text } from "@repo/ui";

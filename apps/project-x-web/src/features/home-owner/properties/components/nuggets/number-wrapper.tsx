@@ -2,7 +2,7 @@ import { Container } from "@repo/ui";
 import { Text } from "@repo/ui";
 import React, { ReactNode } from "react";
 import { NumberHeader } from "./number-header";
-import ToolTipIcon from "@/assets/svgs/tooltip.svg";
+import { Tooltip as ToolTipIcon } from "@repo/icons";
 import { Tooltip } from "@repo/ui";
 
 export const NumberWrapper = ({
