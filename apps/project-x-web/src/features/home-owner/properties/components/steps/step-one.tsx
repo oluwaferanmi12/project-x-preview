@@ -5,8 +5,7 @@ import { NumberWrapper } from "../nuggets/number-wrapper";
 import { ContentWrapper } from "../nuggets/content-wrapper";
 import { Checkbox } from "@repo/ui";
 import { useState } from "react";
-import CrownIcon from "@/assets/svgs/crown.svg";
-import BriefcaseIcon from "@/assets/svgs/briefcase.svg";
+import { Crown as CrownIcon, Briefcase as BriefcaseIcon } from "@repo/icons";
 import { Text } from "@repo/ui";
 import { Radio } from "@repo/ui";
 

@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import CheckIcon from "@/assets/svgs/check-icon.svg";
+import { CheckIcon } from "@repo/icons";
 import { Container } from "../container/container";
 
 type CheckboxProps = {

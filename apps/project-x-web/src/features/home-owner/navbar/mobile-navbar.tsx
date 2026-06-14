@@ -3,7 +3,8 @@
 import * as React from "react";
 import { Container, Text, Switch } from "@repo/ui";
 
-import BrandLogo from "@/assets/svgs/brand-logo.svg";
+import { BrandLogo } from "@/assets/images";
+import { useTheme } from "@/context/ThemeContext";
 import {
   DashIcon,
   BuildingIcon,
@@ -81,7 +82,7 @@ export const MobileNavbar = ({
   onNavigate,
 }: MobileNavbarProps) => {
   const [open, setOpen] = React.useState(false);
-  const [switchDark, setSwitchDark] = React.useState(false);
+  const { isDark, toggleTheme } = useTheme();
 
   const handleRoute = (href: string) => {
     onNavigate(href);
@@ -105,7 +106,7 @@ export const MobileNavbar = ({
               <Menu className="text-p300" />
             </button>
 
-            <BrandLogo className="text-primary h-7 w-auto" />
+            <img src={BrandLogo} alt="Brand Logo" className="h-7 w-auto" />
           </Container>
 
           <Container className="flex items-center gap-4">
@@ -221,10 +222,8 @@ export const MobileNavbar = ({
             </Container>
 
             <Switch
-              checked={switchDark}
-              onChange={() => {
-                setSwitchDark((prev) => !prev);
-              }}
+              checked={isDark}
+              onChange={toggleTheme}
             />
           </Container>
         </Container>

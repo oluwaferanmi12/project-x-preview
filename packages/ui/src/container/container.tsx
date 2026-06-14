@@ -4,7 +4,7 @@ import * as React from "react";
 
 type ContainerProps<T extends React.ElementType = "div"> = {
   as?: T;
-} & React.ComponentPropsWithoutRef<T>;
+} & React.ComponentPropsWithRef<T>;
 
 export const Container = <T extends React.ElementType = "div">({
   as,

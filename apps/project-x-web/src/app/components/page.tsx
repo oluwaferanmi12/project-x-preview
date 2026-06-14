@@ -1,8 +1,7 @@
 import { Container } from "@repo/ui";
 import { Input } from "@repo/ui";
-import { EyeOpened } from "@repo/icons";
+import { EyeOpened, Wallet as WalletIcon } from "@repo/icons";
 import { Button } from "@repo/ui";
-import WalletIcon from "@/assets/svgs/wallet.svg";
 
 function Components() {
   return (

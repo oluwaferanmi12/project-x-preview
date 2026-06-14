@@ -5,7 +5,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { Container } from "@repo/ui";
 import { Text } from "@repo/ui";
 import { steps } from "../data/listing-navigation-data";
-import CheckMark from "@/assets/svgs/check.svg";
+import { Check as CheckMark } from "@repo/icons";
 
 
 

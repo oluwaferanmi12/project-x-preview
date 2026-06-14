@@ -4,7 +4,7 @@ import React from "react";
 import { PropertyGallery } from "../nuggets/property-gallery";
 import { AgentCard } from "../nuggets/agent-card";
 import { PropertyAccordion } from "../nuggets/step-seven-accordian";
-import LightClock from "@/assets/svgs/light-clock.svg";
+import { LightClock } from "@repo/icons";
 import SelectIcon1 from "@/assets/images/multi-select-icons/light-bulb.png";
 import SelectIcon2 from "@/assets/images/multi-select-icons/police-officer.png";
 import SelectIcon3 from "@/assets/images/multi-select-icons/camera-flash.png";

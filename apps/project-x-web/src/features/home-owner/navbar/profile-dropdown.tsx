@@ -2,7 +2,17 @@
 
 import * as React from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { Container, Text } from "@repo/ui";
+import { Container, Switch, Text } from "@repo/ui";
+import { ProfileNameWrapper } from "./profile-name-wrapper";
+import {
+  ProfileIcon,
+  SettingsIcon,
+  SubscriptionIcon,
+  ThemeToggleIcon,
+  LogoutIcon,
+} from "@repo/icons";
+import { useTheme } from "@/context/ThemeContext";
+import { ProfileSwitchWrapper } from "./profile-switch-wrapper";
 
 export type ProfileDropdownItem = {
   key: string;
@@ -10,14 +20,48 @@ export type ProfileDropdownItem = {
   icon?: React.ReactNode;
   danger?: boolean;
   onClick?: () => void;
+  rightContent?: React.ReactNode;
+  keepOpen?: boolean;
 };
 
 type ProfileDropdownProps = {
-  items: ProfileDropdownItem[];
   children: React.ReactNode;
 };
 
-export const ProfileDropdown = ({ items, children }: ProfileDropdownProps) => {
+export const ProfileDropdown = ({ children }: ProfileDropdownProps) => {
+  const { isDark, toggleTheme } = useTheme();
+
+  console.log(isDark, "isDarkkkk");
+
+  const items: ProfileDropdownItem[] = [
+    {
+      key: "profile",
+      label: "Profile",
+      icon: <ProfileIcon size={20} className="text-p300" />,
+    },
+    {
+      key: "subscription",
+      label: "Subscription",
+      icon: <SubscriptionIcon size={20} className="text-p300" />,
+    },
+    {
+      key: "setting",
+      label: "Settings",
+      icon: <SettingsIcon size={20} className="text-p300" />,
+    },
+    {
+      key: "dark-mode",
+      label: "Dark mode",
+      icon: <ThemeToggleIcon size={20} className="text-p300" />,
+      onClick: toggleTheme,
+      keepOpen: true,
+      rightContent: (
+        <Container onClick={(e) => e.stopPropagation()}>
+          <Switch checked={isDark} onChange={toggleTheme} />
+        </Container>
+      ),
+    },
+  ];
   const [open, setOpen] = React.useState(false);
   const ref = React.useRef<HTMLDivElement>(null);
 
@@ -50,32 +94,45 @@ export const ProfileDropdown = ({ items, children }: ProfileDropdownProps) => {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: -8, scale: 0.97 }}
             transition={{ duration: 0.15, ease: "easeOut" }}
-            className="absolute right-0 mt-2 w-52 rounded-xl bg-surface shadow-lg border border-line overflow-hidden z-50"
+            className="absolute right-0 mt-2 w-60 rounded-3xl pb-4 shadow-lg overflow-hidden z-50 bg-surface"
           >
-            {items.map((item, index) => (
-              <React.Fragment key={item.key}>
-                {index > 0 && <div className="h-px bg-line mx-3" />}
-                <button
-                  onClick={() => {
-                    item.onClick?.();
-                    setOpen(false);
-                  }}
-                  className={`w-full flex items-center gap-3 px-4 py-3 text-left transition-colors hover:bg-p50 ${
-                    item.danger ? "text-error" : ""
-                  }`}
+            <Container className="h-21.5 px-4 py-3.5 bg-p200">
+              <ProfileNameWrapper />
+            </Container>
+            <Container className="flex flex-col gap-4 py-4">
+              {items.map((item, index) => (
+                <Container
+                  className="flex items-center justify-between px-4"
+                  key={item.key}
                 >
-                  {item.icon && (
-                    <span className="flex-shrink-0">{item.icon}</span>
-                  )}
-                  <Text
-                    variant="body-sm"
-                    tone={item.danger ? "error" : "primary"}
+                  <Container
+                    as="button"
+                    onClick={() => {
+                      item.onClick?.();
+                      if (!item.keepOpen) setOpen(false);
+                    }}
+                    className={`w-full flex items-center gap-3  text-left transition-colors  ${
+                      item.danger ? "text-error" : ""
+                    }`}
                   >
-                    {item.label}
-                  </Text>
-                </button>
-              </React.Fragment>
-            ))}
+                    {item.icon && <span className="shrink-0">{item.icon}</span>}
+                    <Text variant="action-label" tone="primary">
+                      {item.label}
+                    </Text>
+                  </Container>
+                  {item.rightContent && item.rightContent}
+                </Container>
+              ))}
+            </Container>
+            <Container className="px-4 py-2.5 border-t mb-3 border-b border-t-line border-b-line">
+              <ProfileSwitchWrapper />
+            </Container>
+            <Container className="px-4 flex items-center gap-2">
+              <LogoutIcon className="text-d300" />
+              <Text tone="danger" variant="action-label">
+                Log Out
+              </Text>
+            </Container>
           </motion.div>
         )}
       </AnimatePresence>

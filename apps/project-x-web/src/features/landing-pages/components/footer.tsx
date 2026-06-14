@@ -3,7 +3,7 @@
 import React from "react";
 import { Container, GeneralSpacer, Text } from "@repo/ui";
 import { Col, Row } from "antd";
-import BrandLogo from "@/assets/svgs/brand-logo.svg";
+import { BrandLogo } from "@/assets/images";
 import {
   FacebookIcon,
   LinkedinIcon,
@@ -36,7 +36,7 @@ export const Footer = () => {
         <GeneralSpacer>
           <Row>
             <Col xs={8}>
-              <BrandLogo className="text-inverted" />
+              <img src={BrandLogo} alt="Brand Logo" className="text-inverted" />
               <Container className="mt-5">
                 <Text variant="h2" tone="inverted">
                   Connecting every{" "}

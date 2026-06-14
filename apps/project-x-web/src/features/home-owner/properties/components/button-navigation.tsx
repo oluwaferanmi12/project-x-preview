@@ -1,7 +1,6 @@
 import { Button } from "@repo/ui";
 import { Container } from "@repo/ui";
-import ArrowRight from "@/assets/svgs/arrow-right.svg";
-import ArrowLeft from "@/assets/svgs/arrow-left.svg";
+import { ArrowRight, ArrowLeft } from "@repo/icons";
 import React from "react";
 
 export const ButtonNavigation = ({

@@ -3,9 +3,7 @@
 import React from "react";
 import { Container } from "@repo/ui";
 import { Text } from "@repo/ui";
-import MessageCircleMore from "@/assets/svgs/chat-icon.svg";
-import Phone from "@/assets/svgs/phone.svg";
-import VerifiedCheck from "@/assets/svgs/verified-check.svg";
+import { ChatIcon as MessageCircleMore, Phone, VerifiedCheck } from "@repo/icons";
 
 export const AgentCard = () => {
   return (
