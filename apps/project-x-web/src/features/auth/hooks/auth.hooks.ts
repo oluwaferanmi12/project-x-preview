@@ -8,6 +8,7 @@ import {
   generateOtp,
   getAuthenticatedUser,
   login,
+  logout,
   refreshToken,
   register,
   verifyEmail,
@@ -15,6 +16,7 @@ import {
 import { useAuthStore } from "@/store/useAuthStore";
 import { ForgotPasswordReset, LoginResponse } from "../auth.types";
 import { useToast } from "@repo/ui";
+import { useRouter } from "next/navigation";
 
 export const useRegisterMutation = (sc: (data: any) => void) => {
   const { show } = useToast();
@@ -90,7 +92,23 @@ export const useGetAuthenticatedUserMutation = (sc: (data: any) => void) => {
     mutationFn: getAuthenticatedUser,
     onSuccess: sc,
     onError: () => {
-      show("Sign-in failed", "Could not retrieve your account details.", "error");
+      show(
+        "Sign-in failed",
+        "Could not retrieve your account details.",
+        "error",
+      );
     },
   });
-}
+};
+
+export const useLogout = (sc?: (data: any) => void) => {
+  const router = useRouter();
+  const { logout: logoutFn } = useAuthStore();
+  return useMutation({
+    mutationFn: logout,
+    onSuccess: () => {
+      logoutFn();
+      router.replace("/login");
+    },
+  });
+};

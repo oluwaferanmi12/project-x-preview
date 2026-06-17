@@ -28,6 +28,7 @@ function AccountCreatedScreen() {
       >
         Get Started
       </Button>
+      
     </Container>
   );
 }

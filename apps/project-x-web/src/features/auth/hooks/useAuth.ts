@@ -61,7 +61,9 @@ export const useLogin = () => {
     if (oauthError === "true") {
       show(
         "Sign-in failed",
-        errorMessage ? decodeURIComponent(errorMessage) : "Could not sign in with your social account.",
+        errorMessage
+          ? decodeURIComponent(errorMessage)
+          : "Could not sign in with your social account.",
         "error",
       );
       // Clean the URL so the params don't persist and don't re-trigger on re-render
@@ -219,6 +221,14 @@ export const useRegister = () => {
       errors.password = "Password is required";
     } else if (userPayload.password.length < 8) {
       errors.password = "Password must be at least 8 characters";
+    } else if (!/[a-z]/.test(userPayload.password)) {
+      errors.password = "Password must contain at least one lowercase letter";
+    } else if (!/[A-Z]/.test(userPayload.password)) {
+      errors.password = "Password must contain at least one uppercase letter";
+    } else if (!/[0-9]/.test(userPayload.password)) {
+      errors.password = "Password must contain at least one number";
+    } else if (!/[^a-zA-Z0-9]/.test(userPayload.password)) {
+      errors.password = "Password must contain at least one special character";
     }
 
     if (!userPayload.confirmPassword) {
@@ -250,6 +260,14 @@ export const useRegister = () => {
     }));
   };
 
+  const passwordRules = {
+    hasLowercase: /[a-z]/.test(userPayload.password),
+    hasUppercase: /[A-Z]/.test(userPayload.password),
+    hasNumber: /[0-9]/.test(userPayload.password),
+    hasMinLength: userPayload.password.length >= 8,
+    hasSpecialChar: /[^a-zA-Z0-9]/.test(userPayload.password),
+  };
+
   return {
     handleCreateUser,
     userPayload,
@@ -257,6 +275,7 @@ export const useRegister = () => {
     setErrorPayload,
     handleUpdateUserPayload,
     isPending,
+    passwordRules,
   };
 };
 
@@ -280,6 +299,7 @@ export const useForgotPassword = () => {
 export const useCreateNewPassword = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
+  const { show } = useToast();
   const email = decodeURIComponent(searchParams.get("email") ?? "");
   const otp = decodeURIComponent(searchParams.get("otp") ?? "");
   const { mutate, isPending } = useForgotPasswordResetMutation(() => {
@@ -289,13 +309,54 @@ export const useCreateNewPassword = () => {
     newPassword: "",
     confirmNewPassword: "",
   });
+  const [errors, setErrors] = useState({
+    newPassword: "",
+    confirmNewPassword: "",
+  });
+
+  const passwordRules = {
+    hasLowercase: /[a-z]/.test(payload.newPassword),
+    hasUppercase: /[A-Z]/.test(payload.newPassword),
+    hasNumber: /[0-9]/.test(payload.newPassword),
+    hasMinLength: payload.newPassword.length >= 8,
+    hasSpecialChar: /[^a-zA-Z0-9]/.test(payload.newPassword),
+  };
+
   const handleCreateNewPassword = () => {
+    const newErrors = { newPassword: "", confirmNewPassword: "" };
+
+    if (!payload.newPassword) {
+      newErrors.newPassword = "Password is required";
+    } else if (!passwordRules.hasMinLength) {
+      newErrors.newPassword = "Password must be at least 8 characters";
+    } else if (!passwordRules.hasLowercase) {
+      newErrors.newPassword = "Password must contain at least one lowercase letter";
+    } else if (!passwordRules.hasUppercase) {
+      newErrors.newPassword = "Password must contain at least one uppercase letter";
+    } else if (!passwordRules.hasNumber) {
+      newErrors.newPassword = "Password must contain at least one number";
+    } else if (!passwordRules.hasSpecialChar) {
+      newErrors.newPassword = "Password must contain at least one special character";
+    }
+
+    if (!payload.confirmNewPassword) {
+      newErrors.confirmNewPassword = "Please confirm your password";
+    } else if (payload.newPassword !== payload.confirmNewPassword) {
+      newErrors.confirmNewPassword = "Passwords do not match";
+    }
+
+    setErrors(newErrors);
+    if (newErrors.newPassword || newErrors.confirmNewPassword) return;
+
     mutate({ ...payload, email, otp });
   };
+
   return {
     payload,
     setPayload,
     handleCreateNewPassword,
     isPending,
+    errors,
+    passwordRules,
   };
 };

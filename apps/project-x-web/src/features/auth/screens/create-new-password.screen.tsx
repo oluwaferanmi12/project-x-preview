@@ -5,10 +5,17 @@ import { Container } from "@repo/ui";
 import { Input } from "@repo/ui";
 import { Text } from "@repo/ui";
 import { useCreateNewPassword } from "../hooks/useAuth";
+import { PasswordRequirement } from "../components/password-requirement";
 
 export function CreateNewPasswordScreen() {
-  const { setPayload, payload, isPending, handleCreateNewPassword } =
-    useCreateNewPassword();
+  const {
+    setPayload,
+    payload,
+    isPending,
+    handleCreateNewPassword,
+    errors,
+    passwordRules,
+  } = useCreateNewPassword();
   return (
     <>
       <Text as="p" variant="h3" tone="primary">
@@ -30,15 +37,24 @@ export function CreateNewPasswordScreen() {
           label="New Password"
           placeholder="Enter your new password"
           value={payload.newPassword}
+          error={errors.newPassword}
           onChange={(e) =>
             setPayload({ ...payload, newPassword: e.target.value })
           }
         />
+        <Container className="flex items-center flex-wrap mb-4 gap-2">
+          <PasswordRequirement value="Lowercase" active={passwordRules.hasLowercase} />
+          <PasswordRequirement value="Uppercase" active={passwordRules.hasUppercase} />
+          <PasswordRequirement value="Number" active={passwordRules.hasNumber} />
+          <PasswordRequirement value="8 characters" active={passwordRules.hasMinLength} />
+          <PasswordRequirement value="Special characters" active={passwordRules.hasSpecialChar} />
+        </Container>
         <Input
           type="password"
           label="Confirm Password"
           placeholder="Confirm your new password"
           value={payload.confirmNewPassword}
+          error={errors.confirmNewPassword}
           onChange={(e) =>
             setPayload({ ...payload, confirmNewPassword: e.target.value })
           }
