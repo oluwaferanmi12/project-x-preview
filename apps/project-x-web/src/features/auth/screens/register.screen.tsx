@@ -6,6 +6,7 @@ import { Input } from "@repo/ui";
 import { Text } from "@repo/ui";
 import { useRouter } from "next/navigation";
 import { useRegister } from "../hooks/useAuth";
+import { PasswordRequirement } from "../components/password-requirement";
 
 export function RegisterScreen() {
   const router = useRouter();
@@ -16,6 +17,7 @@ export function RegisterScreen() {
     setErrorPayload,
     handleUpdateUserPayload,
     isPending,
+    passwordRules,
   } = useRegister();
   return (
     <>
@@ -76,6 +78,13 @@ export function RegisterScreen() {
             handleUpdateUserPayload("password", target.value);
           }}
         />
+        <Container className="flex items-center flex-wrap mb-4 gap-2">
+          <PasswordRequirement value="Lowercase" active={passwordRules.hasLowercase} />
+          <PasswordRequirement value="Uppercase" active={passwordRules.hasUppercase} />
+          <PasswordRequirement value="Number" active={passwordRules.hasNumber} />
+          <PasswordRequirement value="8 characters" active={passwordRules.hasMinLength} />
+          <PasswordRequirement value="Special characters" active={passwordRules.hasSpecialChar} />
+        </Container>
         <Input
           label="Confirm Password"
           type="password"

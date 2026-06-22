@@ -13,6 +13,7 @@ import {
 } from "@repo/icons";
 import { useTheme } from "@/context/ThemeContext";
 import { ProfileSwitchWrapper } from "./profile-switch-wrapper";
+import { useLogout } from "@/features/auth/hooks/auth.hooks";
 
 export type ProfileDropdownItem = {
   key: string;
@@ -30,9 +31,7 @@ type ProfileDropdownProps = {
 
 export const ProfileDropdown = ({ children }: ProfileDropdownProps) => {
   const { isDark, toggleTheme } = useTheme();
-
-  console.log(isDark, "isDarkkkk");
-
+  const { mutate, isPending } = useLogout();
   const items: ProfileDropdownItem[] = [
     {
       key: "profile",
@@ -127,7 +126,14 @@ export const ProfileDropdown = ({ children }: ProfileDropdownProps) => {
             <Container className="px-4 py-2.5 border-t mb-3 border-b border-t-line border-b-line">
               <ProfileSwitchWrapper />
             </Container>
-            <Container className="px-4 flex items-center gap-2">
+            <Container
+              as="button"
+              onClick={() => {
+                mutate();
+              }}
+              className="px-4 flex items-center gap-2"
+            
+            >
               <LogoutIcon className="text-d300" />
               <Text tone="danger" variant="action-label">
                 Log Out

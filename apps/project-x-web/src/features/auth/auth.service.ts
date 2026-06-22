@@ -60,3 +60,8 @@ export const getAuthenticatedUser = async () => {
   const result = await apiClient.get("/user");
   return result.data.data;
 };
+
+export const logout = async () => {
+  const result = await apiClient.post("/auth/logout");
+  return result.data;
+};
