@@ -21,6 +21,7 @@ import {
   ThemeToggleIcon,
   ProfileSync,
 } from "@repo/icons";
+import { Button } from "../button";
 
 type NavLink = {
   icon: React.ComponentType<React.SVGProps<SVGSVGElement>>;
@@ -103,9 +104,14 @@ export const MobileNavbar = ({
       <Container className="lg:hidden fixed top-0 left-0 z-1000 w-full bg-surface border-b">
         <Container className="flex items-center justify-between px-4 py-4">
           <Container className="flex items-center gap-4">
-            <button type="button" onClick={() => setOpen(true)}>
+            <Button
+              as="button"
+              onClick={() => setOpen(true)}
+            >
               <Menu className="text-p300" />
-            </button>
+
+              Label
+            </Button>
 
             <BrandLogo className="text-primary h-7 w-auto" />
           </Container>
@@ -146,13 +152,15 @@ export const MobileNavbar = ({
             backgroundImage: "url('/menu-drawer-background.svg')",
           }}
         >
-          <button
-            type="button"
-            onClick={() => setOpen(false)}
+          <Button
+            as="button"
             className="absolute right-4 top-18 z-50"
+            onClick={() => setOpen(false)}
           >
             <Close className="text-inverted" />
-          </button>
+
+            Label
+          </Button>
 
           <Container className="absolute bottom-4 left-4 right-4 z-10 mt-16 flex items-center gap-3 rounded-2xl bg-inverted p-3 shadow-sm">
             <Container className="flex h-11 w-11 items-center justify-center rounded-xl bg-p200">
@@ -177,18 +185,20 @@ export const MobileNavbar = ({
               const Icon = link.icon;
 
               return (
-                <button
-                  type="button"
-                  key={link.label}
-                  onClick={() => handleRoute(link.href)}
-                  className="flex items-center gap-3 rounded-xl px-3 py-3 transition-colors hover:bg-p50"
-                >
-                  <Icon className="text-p300" />
-
-                  <Text className="text-primary font-medium">
+                <Button
+                as="button"
+                key={link.label}
+                leftIcon={<Icon className="text-p300" />}
+                className="transition-colors hover:bg-p50"
+                onClick={() => handleRoute(link.href)}
+              >
+                <Text className="text-primary font-medium">
                     {link.label}
                   </Text>
-                </button>
+              
+    
+                Label
+              </Button>
               );
             })}
           </Container>
@@ -200,18 +210,17 @@ export const MobileNavbar = ({
               const Icon = link.icon;
 
               return (
-                <button
-                  type="button"
+                <Button
+                  as="button"
                   key={link.label}
+                  leftIcon={<Icon className="text-p300" />}
                   onClick={() => handleRoute(link.href)}
-                  className="flex items-center gap-3 rounded-xl px-3 py-3 transition-colors hover:bg-p50"
+                  className="transition-colors hover:bg-p50"
                 >
-                  <Icon className="text-p300" />
-
                   <Text className="text-primary font-medium">
                     {link.label}
                   </Text>
-                </button>
+                </Button>
               );
             })}
           </Container>

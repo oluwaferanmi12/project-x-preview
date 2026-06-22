@@ -20,7 +20,7 @@ export const properties: PropertyItem[] = [
   {
     id: "1",
     title: "Property 01",
-    status: "draft",
+    status: "published",
     step: 2,
     substep: 1,
     date: "5 Apr, 2026",
@@ -215,10 +215,10 @@ export const properties: PropertyItem[] = [
     id: "14",
     title: "15 Adewale Street, Oke-Baal...",
     image: "/draft-property.png",
-    status: "draft",
     step: 3,
     substep: 1,
     date: "5 Apr, 2026",
+    status: "under-review",
     meta: {
       type: "Apartment/Flat",
       beds: 3,

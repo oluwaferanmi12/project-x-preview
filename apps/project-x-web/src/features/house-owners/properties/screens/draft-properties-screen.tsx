@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import Image from "next/image";
 import { Button, Container, Pagination, Text } from "@repo/ui";
 import { properties } from "../data/properties.mock";
+import { ArrowRight } from "@repo/icons";
 
 export const DraftPropertiesScreen = () => {
   const router = useRouter();
@@ -80,16 +81,17 @@ export const DraftPropertiesScreen = () => {
                 <Text variant="body-xs" tone="secondary">
                   {property.date}
                 </Text>
-
-                <button
-                  type="button"
+                <Button
+                  shorter
+                  rightIcon={<ArrowRight />}
+                  as="button"
+                  variant="transparent"
                   onClick={() =>
                     continueDraft(property.step, property.substep)
                   }
-                  className="text-xs font-semibold text-d300"
                 >
-                  Continue →
-                </button>
+                  Continue
+                </Button>
               </Container>
             </Container>
           </Container>

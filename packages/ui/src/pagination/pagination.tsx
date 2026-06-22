@@ -1,5 +1,6 @@
 "use client";
 
+import { Button } from "../button";
 import { Container } from "../container";
 
 type PaginationProps = {
@@ -22,18 +23,19 @@ export const Pagination = ({
         const isActive = currentPage === page;
 
         return (
-          <button
+          <Button
             key={page}
-            type="button"
             onClick={() => onPageChange(page)}
-            className={`flex h-8 w-8 items-center justify-center rounded-lg text-xs font-medium transition-colors ${
-              isActive
-                ? "bg-p300 text-inverted"
-                : "bg-transparent text-secondary hover:bg-p50 hover:text-p300"
-            }`}
+            as="button"
+            // variant="transparent"
+            className={`${
+             isActive
+               ? "bg-p300 text-inverted"
+               : "bg-transparent text-secondary hover:bg-p50 hover:text-p300"
+           } `}
           >
             {page}
-          </button>
+          </Button>
         );
       })}
     </Container>
