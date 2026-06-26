@@ -13,7 +13,7 @@ export const useListingScreen = () => {
 
   const { data: payload, isLoading: isDraftLoading } = useGetDraftListing(propertyId);
 
-  const dropOffStep = propertyId && payload ? resolveDropOffStep(payload) : null;
+  const dropOffStep = propertyId && payload ? resolveDropOffStep(payload) : undefined;
 
   const didSeedStep = useRef(false);
   const [activeStep, setActiveStep] = useState(stepFromUrl || 1);

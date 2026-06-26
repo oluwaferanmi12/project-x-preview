@@ -5,11 +5,13 @@ import * as React from "react";
 type ContainerProps<T extends keyof React.JSX.IntrinsicElements = "div"> =
   React.ComponentPropsWithoutRef<T> & {
     as?: T;
+    ref?: React.Ref<React.ElementRef<T>>;
   };
 
 export const Container = <T extends keyof React.JSX.IntrinsicElements = "div">({
   as,
   className,
+  ref,
   ...props
 }: ContainerProps<T>) => {
   const Tag = (as ?? "div") as React.ElementType;
@@ -17,5 +19,5 @@ export const Container = <T extends keyof React.JSX.IntrinsicElements = "div">({
     .join(" ")
     .trim();
 
-  return <Tag className={containerClassName || undefined} {...props} />;
+  return <Tag ref={ref} className={containerClassName || undefined} {...props} />;
 };
