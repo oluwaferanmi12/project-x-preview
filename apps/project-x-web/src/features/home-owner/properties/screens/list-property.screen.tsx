@@ -10,24 +10,28 @@ import { MobileListingNavigation } from "../components/mobile-listing-navigation
 
 function ListPropertyScreen() {
   const router = useRouter();
-  // The step should be handled from the top of this screen
-  // Based on the api call, make an api call to determine the step the user is on
-  const { activeStep, handleNextStep, handlePrevStep, activeSubStep } =
-    useListingScreen();
+  const {
+    activeStep,
+    handleNextStep,
+    handlePrevStep,
+    activeSubStep,
+    payload,
+    dropOffStep,
+  } = useListingScreen();
 
-  // Check if all steps are completed (step 7 is the last step)
   const isCompleted = activeStep > 7;
 
   return (
     <Row gutter={16} className="min-h-[90vh] pb-10 ">
       {/* Mobile Navigation */}
       <Col xs={24} lg={0} className="block lg:hidden">
-        <MobileListingNavigation active={activeStep} />
+        <MobileListingNavigation active={activeStep} dropOffStep={dropOffStep} />
+        
       </Col>
 
       {/* Desktop Navigation */}
       <Col lg={8} xs={0} className="hidden lg:block">
-        <ListingNavigation active={activeStep} />
+        <ListingNavigation active={activeStep} dropOffStep={dropOffStep} />
       </Col>
       <Col xs={24} lg={16}>
         <Container className="relative flex flex-col py-12  lg:bg-surface w-full h-full rounded-xl px-5">
@@ -72,6 +76,7 @@ function ListPropertyScreen() {
               handleNextStep={handleNextStep}
               handlePrevStep={handlePrevStep}
               step={activeStep}
+              payload={payload}
             />
           )}
         </Container>

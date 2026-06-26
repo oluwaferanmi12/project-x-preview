@@ -20,6 +20,9 @@ import {
   ThemeToggleIcon,
   ProfileSync,
 } from "@repo/icons";
+import { ProfileNameWrapper } from "./profile-name-wrapper";
+import { ProfileSwitchWrapper } from "./profile-switch-wrapper";
+import { LogoutWrapper } from "./logout-wrapper";
 
 type NavLink = {
   icon: React.ComponentType<React.SVGProps<SVGSVGElement>>;
@@ -76,8 +79,6 @@ const bottomLinks: NavLink[] = [
 ];
 
 export const MobileNavbar = ({
-  userName = "Micheal Scofield",
-  userRole = "Agent",
   userInitials = "MS",
   onNavigate,
 }: MobileNavbarProps) => {
@@ -133,40 +134,27 @@ export const MobileNavbar = ({
 
       <Container
         className={`
-          fixed top-0 left-0 h-dvh w-[90%] max-w-[330px]
+          fixed top-0 left-0 h-dvh w-[90%] max-w-82.5
           bg-background z-1200 transition-transform duration-300
           flex flex-col
           ${open ? "translate-x-0" : "-translate-x-full"}
         `}
       >
         <Container
-          className="relative overflow-hidden px-4 pt-5 pb-8 h-60 w-full bg-no-repeat bg-cover bg-center"
+          className="flex items-center flex-col justify-end pb-3.5 px-2 h-46 w-full bg-no-repeat bg-cover bg-center"
           style={{
             backgroundImage: "url('/menu-drawer-background.svg')",
           }}
         >
-          <button
-            type="button"
+          <Container
+            as="button"
             onClick={() => setOpen(false)}
             className="absolute right-4 top-18 z-50"
           >
-            <Close className="text-inverted" />
-          </button>
-
-          <Container className="absolute bottom-4 left-4 right-4 z-10 mt-16 flex items-center gap-3 rounded-2xl bg-inverted p-3 shadow-sm">
-            <Container className="flex h-11 w-11 items-center justify-center rounded-xl bg-p200">
-              <Text className="font-semibold text-inverted">
-                {userInitials}
-              </Text>
-            </Container>
-
-            <Container>
-              <Text className="font-semibold text-primary leading-tight">
-                {userName}
-              </Text>
-
-              <Text className="text-sm text-secondary">{userRole}</Text>
-            </Container>
+            <Close className="text-inverted" size={20} />
+          </Container>
+          <Container className="w-full">
+            <ProfileNameWrapper />
           </Container>
         </Container>
 
@@ -176,18 +164,21 @@ export const MobileNavbar = ({
               const Icon = link.icon;
 
               return (
-                <button
-                  type="button"
+                <Container
+                  as="button"
                   key={link.label}
                   onClick={() => handleRoute(link.href)}
                   className="flex items-center gap-3 rounded-xl px-3 py-3 transition-colors hover:bg-p50"
                 >
                   <Icon className="text-p300" />
 
-                  <Text className="text-primary font-medium">
+                  <Text
+                    variant="action-label"
+                    className="text-primary font-medium"
+                  >
                     {link.label}
                   </Text>
-                </button>
+                </Container>
               );
             })}
           </Container>
@@ -199,18 +190,21 @@ export const MobileNavbar = ({
               const Icon = link.icon;
 
               return (
-                <button
-                  type="button"
+                <Container
+                  as="button"
                   key={link.label}
                   onClick={() => handleRoute(link.href)}
                   className="flex items-center gap-3 rounded-xl px-3 py-3 transition-colors hover:bg-p50"
                 >
                   <Icon className="text-p300" />
 
-                  <Text className="text-primary font-medium">
+                  <Text
+                    variant="action-label"
+                    className="text-primary font-medium"
+                  >
                     {link.label}
                   </Text>
-                </button>
+                </Container>
               );
             })}
           </Container>
@@ -221,40 +215,14 @@ export const MobileNavbar = ({
               <Text className="font-medium text-primary">Dark Mode</Text>
             </Container>
 
-            <Switch
-              checked={isDark}
-              onChange={toggleTheme}
-            />
+            <Switch checked={isDark} onChange={toggleTheme} />
           </Container>
         </Container>
 
-        <Container className="border-y border-line p-4">
-          <Container className="flex items-center justify-between rounded-2xl bg-s50 p-3">
-            <Container className="flex items-center gap-3">
-              <Container className="flex h-10 w-10 items-center justify-center rounded-xl border border-p75 bg-p50">
-                <Text className="font-semibold text-p300">
-                  {userInitials}
-                </Text>
-              </Container>
-
-              <Container>
-                <Text className="font-semibold text-primary leading-tight">
-                  {userName}
-                </Text>
-
-                <Text className="text-sm text-s200">Switch Profile</Text>
-              </Container>
-            </Container>
-
-            <ProfileSync className="text-s300" />
-          </Container>
-
-          <button type="button" className="mt-4 flex items-center gap-2 px-2 py-2">
-            <LogoutIcon className="text-d300" />
-
-            <Text className="font-medium text-d300">Log Out</Text>
-          </button>
+        <Container className="border-y border-line p-4 mb-6">
+          <ProfileSwitchWrapper />
         </Container>
+        <LogoutWrapper />
       </Container>
     </>
   );

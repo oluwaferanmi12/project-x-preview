@@ -7,8 +7,9 @@ import { Location as LocationIcon, WhiteInfo } from "@repo/icons";
 import { ContentWrapper } from "../nuggets/content-wrapper";
 import { Radio } from "@repo/ui";
 import { Text } from "@repo/ui";
+import { DraftProperty } from "../../types/property.types";
 
-export const StepThree = ({ activeSubstep }: { activeSubstep: number }) => {
+export const StepThree = ({ activeSubstep, payload }: { activeSubstep: number; payload?: DraftProperty }) => {
   const [shareAddress, setShareAddress] = React.useState<"yes" | "no">("no");
   return (
     <>

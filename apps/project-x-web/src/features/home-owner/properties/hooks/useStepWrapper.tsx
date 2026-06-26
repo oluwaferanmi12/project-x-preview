@@ -5,7 +5,6 @@ export const useStepWrapper = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
   const initialStep = Number(searchParams.get("step")) ?? 1;
-  const [activeStep, setActiveStep] = useState(initialStep);
 
   useEffect(() => {
     if (!searchParams.get("step")) {

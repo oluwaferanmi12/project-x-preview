@@ -8,8 +8,10 @@ import { Check as CheckMark } from "@repo/icons";
 
 export const MobileListingNavigation = ({
   active,
+  dropOffStep,
 }: {
   active: number;
+  dropOffStep?: number;
 }) => {
   return (
     <Container className="lg:hidden px-6">
@@ -26,6 +28,7 @@ export const MobileListingNavigation = ({
           const isActive = active === step.num;
           const isCompleted = active > step.num;
           const isLast = index === steps.length - 1;
+          const isDropOff = dropOffStep === step.num && !isActive && !isCompleted;
 
           return (
             <React.Fragment key={step.num}>
@@ -40,6 +43,8 @@ export const MobileListingNavigation = ({
                         ? "bg-p300 text-white"
                         : isActive
                         ? "bg-p300 text-white"
+                        : isDropOff
+                        ? "border border-warning bg-warning-subtle text-p400"
                         : "border border-p75 bg-p50 text-p400"
                     }
                   `}

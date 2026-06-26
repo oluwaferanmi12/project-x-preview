@@ -14,7 +14,13 @@ const layoutTransition = {
   ease: [0.22, 1, 0.36, 1] as const,
 };
 
-export const ListingNavigation = ({ active }: { active: number }) => {
+export const ListingNavigation = ({
+  active,
+  dropOffStep,
+}: {
+  active: number;
+  dropOffStep?: number;
+}) => {
   return (
     <Container className="bg-muted  relative flex h-full flex-col overflow-hidden rounded-xl px-13 py-12">
       <Container
@@ -24,7 +30,9 @@ export const ListingNavigation = ({ active }: { active: number }) => {
         {/* <ListingBackground className="block w-[140%] max-w-none -translate-x-[14%] text-s300" /> */}
       </Container>
 
-      {steps.map((step) => (
+      {steps.map((step) => {
+        const isDropOff = dropOffStep === step.num && active !== step.num && active < step.num;
+        return (
         <Container
           as={motion.button}
           layout
@@ -43,11 +51,15 @@ export const ListingNavigation = ({ active }: { active: number }) => {
             <Container
               as={motion.div}
               layout
-              className={`relative flex h-10 w-10 shrink-0 items-center justify-center rounded-xl p-1.5 ${active > step.num ? "bg-p300" :
-                  active === step.num
-                    ? "border border-p300 bg-p300"
-                    : "border border-p75 bg-p50"
-                } `}
+              className={`relative flex h-10 w-10 shrink-0 items-center justify-center rounded-xl p-1.5 ${
+                active > step.num
+                  ? "bg-p300"
+                  : active === step.num
+                  ? "border border-p300 bg-p300"
+                  : isDropOff
+                  ? "border border-warning bg-warning-subtle"
+                  : "border border-p75 bg-p50"
+              } `}
               transition={{ layout: layoutTransition }}
             >
               {/* {active === step.num ? (
@@ -121,7 +133,8 @@ export const ListingNavigation = ({ active }: { active: number }) => {
             </AnimatePresence>
           </Container>
         </Container>
-      ))}
+        );
+      })}
     </Container>
   );
 };

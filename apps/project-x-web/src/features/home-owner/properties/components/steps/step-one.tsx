@@ -8,8 +8,9 @@ import { useState } from "react";
 import { Crown as CrownIcon, Briefcase as BriefcaseIcon } from "@repo/icons";
 import { Text } from "@repo/ui";
 import { Radio } from "@repo/ui";
+import { DraftProperty } from "../../types/property.types";
 
-export const StepOne = () => {
+export const StepOne = ({ payload }: { payload?: DraftProperty }) => {
   const [checked, setChecked] = useState(false);
   const propertyTypes = [
     ["Apartment / Flat", "Duplex"],
