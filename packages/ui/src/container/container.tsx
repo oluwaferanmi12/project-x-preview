@@ -2,13 +2,15 @@
 
 import * as React from "react";
 
-type ContainerProps<T extends keyof React.JSX.IntrinsicElements = "div"> =
+type ContainerProps<T extends React.ElementType = "div"> =
   React.ComponentPropsWithoutRef<T> & {
     as?: T;
-    ref?: React.Ref<React.ElementRef<T>>;
+    ref?: T extends keyof React.JSX.IntrinsicElements
+      ? React.Ref<React.ElementRef<T>>
+      : React.Ref<unknown>;
   };
 
-export const Container = <T extends keyof React.JSX.IntrinsicElements = "div">({
+export const Container = <T extends React.ElementType = "div">({
   as,
   className,
   ref,
