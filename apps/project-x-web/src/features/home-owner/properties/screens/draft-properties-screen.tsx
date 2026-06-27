@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import Image from "next/image";
 import { Button, Container, Pagination, Text } from "@repo/ui";
 import { properties } from "../data/properties.mock";
+import { AddPropertyWrapper } from "../components/nuggets/add-property-wrapper";
 
 export const DraftPropertiesScreen = () => {
   const router = useRouter();
@@ -13,7 +14,7 @@ export const DraftPropertiesScreen = () => {
   const itemsPerPage = 8;
 
   const draftProperties = properties.filter(
-    (property) => property.status === "draft"
+    (property) => property.status === "draft",
   );
 
   const totalPages = Math.ceil(draftProperties.length / itemsPerPage);
@@ -31,23 +32,7 @@ export const DraftPropertiesScreen = () => {
 
   return (
     <Container>
-      <Container className="mb-8 flex items-center justify-between rounded-2xl bg-p200 px-6 py-5">
-        <Container>
-          <Text variant="h5" tone="inverted">
-            Add your properties
-          </Text>
-
-          <Text variant="body-sm" tone="inverted">
-            List your properties and get real life actions and trackable
-            engagements
-          </Text>
-        </Container>
-
-        <Button onClick={() => router.push("/properties/list-property")}>
-          + Add property
-        </Button>
-      </Container>
-
+      <AddPropertyWrapper />
       <Container className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
         {paginatedProperties.map((property) => (
           <Container
@@ -83,9 +68,7 @@ export const DraftPropertiesScreen = () => {
 
                 <button
                   type="button"
-                  onClick={() =>
-                    continueDraft(property.step, property.substep)
-                  }
+                  onClick={() => continueDraft(property.step, property.substep)}
                   className="text-xs font-semibold text-d300"
                 >
                   Continue →

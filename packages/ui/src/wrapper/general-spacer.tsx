@@ -3,11 +3,10 @@ import React, { ReactNode } from "react";
 
 export const GeneralSpacer = ({ children }: { children: ReactNode }) => {
   return (
-    <Row className="w-full">
-      <Col xs={24}
-        sm={22}
-        md={20}
-        className="lg:mx-auto">{children}</Col>
+    <Row justify={"center"} className="w-full">
+      <Col xs={22} md={20}>
+        {children}
+      </Col>
     </Row>
   );
 };

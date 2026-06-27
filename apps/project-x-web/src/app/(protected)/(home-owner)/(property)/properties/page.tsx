@@ -13,15 +13,12 @@ export default function PropertiesPage() {
 
   return (
     <Container className="min-h-[90vh] pb-10">
-      <Container className="mb-6 flex items-center justify-between">
-        <Text variant="h3" tone="primary">
+      <Container className="mb-6 flex lg:flex-row flex-col lg:items-center justify-between">
+        <Text variant="h3" tone="primary" className="lg:mb-0 mb-4">
           Properties
         </Text>
 
-        <PropertyStatusTabs
-          active={activeStatus}
-          onChange={setActiveStatus}
-        />
+        <PropertyStatusTabs active={activeStatus} onChange={setActiveStatus} />
       </Container>
 
       {activeStatus === "draft" && <DraftPropertiesScreen />}

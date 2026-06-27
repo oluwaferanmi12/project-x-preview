@@ -38,7 +38,7 @@ export const StepThree = ({ activeSubstep, payload }: { activeSubstep: number; p
                 label=""
                 placeholder="Enter address"
                 rightIcon={
-                  <LocationIcon className="text-secondary" size="sm" />
+                  <LocationIcon className="text-secondary" size="20" />
                 }
               />
             </NumberWrapper>

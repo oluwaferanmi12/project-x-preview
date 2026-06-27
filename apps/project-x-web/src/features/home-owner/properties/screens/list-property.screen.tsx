@@ -22,19 +22,21 @@ function ListPropertyScreen() {
   const isCompleted = activeStep > 7;
 
   return (
-    <Row gutter={16} className="min-h-[90vh] pb-10 ">
+    <Row gutter={16} className="lg:min-h-[90vh] pb-10">
       {/* Mobile Navigation */}
-      <Col xs={24} lg={0} className="block lg:hidden">
-        <MobileListingNavigation active={activeStep} dropOffStep={dropOffStep} />
-        
+      <Col xs={24} lg={0}>
+        <MobileListingNavigation
+          active={activeStep}
+          dropOffStep={dropOffStep}
+        />
       </Col>
 
       {/* Desktop Navigation */}
-      <Col lg={8} xs={0} className="hidden lg:block">
+      <Col lg={8} xs={0}>
         <ListingNavigation active={activeStep} dropOffStep={dropOffStep} />
       </Col>
       <Col xs={24} lg={16}>
-        <Container className="relative flex flex-col py-12  lg:bg-surface w-full h-full rounded-xl px-5">
+        <Container className="relative flex flex-col lg:py-12  lg:bg-surface w-full h-full rounded-xl">
           {isCompleted ? (
             <Row
               justify={"center"}
