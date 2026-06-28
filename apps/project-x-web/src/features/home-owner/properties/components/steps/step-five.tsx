@@ -25,12 +25,13 @@ import { Text } from "@repo/ui";
 import { Checkbox } from "@repo/ui";
 import { MultiSelect, MultiSelectOption } from "@repo/ui";
 import Image from "next/image";
+import { DraftProperty } from "../../types/property.types";
 
 
 
 
 
-export const StepFive = ({ activeSubstep }: { activeSubstep: number }) => {
+export const StepFive = ({ activeSubstep, payload }: { activeSubstep: number; payload?: DraftProperty }) => {
   const [waterSource, setWaterSource] = useState<"borehole" | "well" | "waterboard" | "">("");
   const [hasParkingSpace, setHasParkingSpace] = useState<"yes" | "no" | "">("");
   const [isFenced, setIsFenced] = useState<"yes" | "no" | "">("");

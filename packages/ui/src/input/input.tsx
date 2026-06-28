@@ -26,7 +26,7 @@ export const Input = ({
       : "password"
     : props.type;
   const inputClasses = [
-    "bg-surface outline-none focus:border-p75 focus:border-2 text-primary text-sm p-3 border border-line rounded-xl font-sans w-full",
+    "bg-surface outline-none focus:border-p75 focus:border-2 text-primary text-[16px] md:text-sm p-3 border border-line rounded-xl font-sans w-full",
     hasError ? "placeholder:text-d300" : "placeholder:text-secondary",
     rightIcon || isPasswordField ? "pr-10" : "",
     className ?? "",

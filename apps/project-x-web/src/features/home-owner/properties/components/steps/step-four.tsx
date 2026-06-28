@@ -4,8 +4,9 @@ import { NumberWrapper } from "../nuggets/number-wrapper";
 import { Input } from "@repo/ui";
 import { SingleSelectForm } from "../nuggets/single-select-form";
 import { UnitInputDropdown } from "../nuggets/unit-input-dropdown";
+import { DraftProperty } from "../../types/property.types";
 
-export const StepFour = ({ activeSubstep }: { activeSubstep: number }) => {
+export const StepFour = ({ activeSubstep, payload }: { activeSubstep: number; payload?: DraftProperty }) => {
     const [paymentPlan, setPaymentPlan] = React.useState<"monthly" | "biannually" | "annually">("monthly");
     return (
         <>

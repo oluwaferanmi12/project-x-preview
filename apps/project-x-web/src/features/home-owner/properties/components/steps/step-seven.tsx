@@ -11,9 +11,10 @@ import SelectIcon3 from "@/assets/images/multi-select-icons/camera-flash.png";
 import SelectIcon4 from "@/assets/images/multi-select-icons/construction.png";
 import Image from "next/image";
 import { IconText } from "@repo/ui";
+import { DraftProperty } from "../../types/property.types";
 
 
-export const StepSeven = () => {
+export const StepSeven = ({ payload }: { payload?: DraftProperty }) => {
 
   const iconSize = 16;
   const amenities = [

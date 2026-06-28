@@ -35,7 +35,7 @@ export const Footer = () => {
       <Container className="bg-p300 py-4 pt-20 pb-32">
         <GeneralSpacer>
           <Row>
-            <Col xs={8}>
+            <Col xs={24} lg={10}>
               <img src={BrandLogo} alt="Brand Logo" className="text-inverted" />
               <Container className="mt-5">
                 <Text variant="h2" tone="inverted">
@@ -52,55 +52,57 @@ export const Footer = () => {
                 </Text>
               </Container>
             </Col>
-            <Col xs={16}>
-              <Container className="">
-                <Container className="flex items-center max-w-3xl mx-auto justify-between">
-                  <Container className="flex flex-col gap-4">
-                    <Text variant="h5" tone="inverted">
-                      Quick links
-                    </Text>
-                    <Container className="flex flex-col gap-3">
-                      {quickLinks.map((item) => (
-                        <Text key={item.name} variant="body-sm" tone="line">
-                          {item.name}
-                        </Text>
-                      ))}
-                    </Container>
+            <Col xs={24} lg={14} className="lg:mt-0 mt-16">
+              <Row className="w-full">
+                <Col xs={12} lg={8} className="flex flex-col gap-4">
+                  <Text variant="h5" tone="inverted">
+                    Quick links
+                  </Text>
+                  <Container className="flex flex-col gap-3 mt-4">
+                    {quickLinks.map((item) => (
+                      <Text key={item.name} variant="body-sm" tone="line">
+                        {item.name}
+                      </Text>
+                    ))}
                   </Container>
-                  <Container className="flex flex-col gap-4">
-                    <Text variant="h5" tone="inverted">
-                      Company
-                    </Text>
-                    <Container className="flex flex-col gap-3">
-                      {company.map((item) => (
-                        <Text key={item.name} variant="body-sm" tone="line">
-                          {item.name}
-                        </Text>
-                      ))}
-                    </Container>
+                </Col>
+                <Col xs={12} lg={8} className="flex flex-col gap-4">
+                  <Text variant="h5" tone="inverted">
+                    Company
+                  </Text>
+                  <Container className="flex flex-col gap-3 mt-4">
+                    {company.map((item) => (
+                      <Text key={item.name} variant="body-sm" tone="line">
+                        {item.name}
+                      </Text>
+                    ))}
                   </Container>
-                  <Container className="flex flex-col gap-4">
-                    <Text variant="h5" tone="inverted">
-                      Resources
-                    </Text>
-                    <Container className="flex flex-col gap-3">
-                      {resource.map((item) => (
-                        <Text key={item.name} tone="line" variant="body-sm">
-                          {item.name}
-                        </Text>
-                      ))}
-                    </Container>
+                </Col>
+                <Col
+                  xs={12}
+                  lg={8}
+                  className="flex flex-col gap-4 lg:mt-0 mt-16"
+                >
+                  <Text variant="h5" tone="inverted">
+                    Resources
+                  </Text>
+                  <Container className="flex flex-col gap-3 mt-4">
+                    {resource.map((item) => (
+                      <Text key={item.name} tone="line" variant="body-sm">
+                        {item.name}
+                      </Text>
+                    ))}
                   </Container>
-                </Container>
+                </Col>
+              </Row>
 
-                <Container className="flex items-center max-w-3xl mx-auto mt-10">
-                  <Container className="flex gap-4">
-                    <FacebookIcon className="text-inverted" />
-                    <LinkedinIcon className="text-inverted" />
-                    <XIcon className="text-inverted" />
-                    <MediumIcon className="text-inverted" />
-                    <TiktokIcon className="text-inverted" />
-                  </Container>
+              <Container className="flex  mx-auto mt-10">
+                <Container className="flex gap-4">
+                  <FacebookIcon className="text-inverted" />
+                  <LinkedinIcon className="text-inverted" />
+                  <XIcon className="text-inverted" />
+                  <MediumIcon className="text-inverted" />
+                  <TiktokIcon className="text-inverted" />
                 </Container>
               </Container>
             </Col>

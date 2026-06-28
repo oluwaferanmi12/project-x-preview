@@ -7,8 +7,9 @@ import { Location as LocationIcon, WhiteInfo } from "@repo/icons";
 import { ContentWrapper } from "../nuggets/content-wrapper";
 import { Radio } from "@repo/ui";
 import { Text } from "@repo/ui";
+import { DraftProperty } from "../../types/property.types";
 
-export const StepThree = ({ activeSubstep }: { activeSubstep: number }) => {
+export const StepThree = ({ activeSubstep, payload }: { activeSubstep: number; payload?: DraftProperty }) => {
   const [shareAddress, setShareAddress] = React.useState<"yes" | "no">("no");
   return (
     <>
@@ -37,7 +38,7 @@ export const StepThree = ({ activeSubstep }: { activeSubstep: number }) => {
                 label=""
                 placeholder="Enter address"
                 rightIcon={
-                  <LocationIcon className="text-secondary" size="sm" />
+                  <LocationIcon className="text-secondary" size="20" />
                 }
               />
             </NumberWrapper>
@@ -92,7 +93,7 @@ export const StepThree = ({ activeSubstep }: { activeSubstep: number }) => {
 
             {/* NOTE CONTAINER */}
             <Container className="flex items-start bg-i400 rounded-2xl p-2 pb-4 gap-2">
-              <WhiteInfo className="text-inverted" width="28" height="28" />
+              <WhiteInfo className="text-inverted" size={28} />
               <Container>
                 <Text
                   tone="inverted"

@@ -9,17 +9,9 @@ export const HouseOwnerNavigation = () => {
 
   return (
     <>
-      <MobileNavbar
-        userName="Micheal Scofield"
-        userRole="Agent"
-        userInitials="MS"
-        onNavigate={(href) => router.push(href)}
-      />
+      <MobileNavbar onNavigate={(href) => router.push(href)} />
 
-      <Navbar
-        userInitials="MS"
-        onNavigate={(href) => router.push(href)}
-      />
+      <Navbar  onNavigate={(href) => router.push(href)} />
     </>
   );
 };
