@@ -1,25 +1,50 @@
+"use client";
+
 import { useMutation } from "@tanstack/react-query";
 import {
   forgotPasswordOtp,
   forgotPasswordReset,
   forgotPasswordVerifyOtp,
   generateOtp,
+  getAuthenticatedUser,
   login,
+  logout,
   refreshToken,
   register,
   verifyEmail,
 } from "../auth.service";
+import { useAuthStore } from "@/store/useAuthStore";
+import { ForgotPasswordReset, LoginResponse } from "../auth.types";
+import { useToast } from "@repo/ui";
+import { useRouter } from "next/navigation";
 
-export const useRegisterMutation = (sc: (data: any) => void) =>
-  useMutation({
+export const useRegisterMutation = (sc: (data: any) => void) => {
+  const { show } = useToast();
+  return useMutation({
     mutationFn: register,
     onSuccess: sc,
+    onError: (error) => {
+      show(
+        "Registration failed",
+        error instanceof Error ? error.message : "An error occurred",
+        "error",
+      );
+    },
   });
+};
 
-export const useLoginMutation = () =>
-  useMutation({
+export const useLoginMutation = (sc?: (data: LoginResponse) => void) => {
+  const { login: loginStore } = useAuthStore();
+  return useMutation({
     mutationFn: login,
+    onSuccess: (data) => {
+      if (data?.accessToken) {
+        loginStore(data);
+      }
+      sc?.(data);
+    },
   });
+};
 
 export const useRefreshTokenMutation = () =>
   useMutation({
@@ -31,22 +56,59 @@ export const useGenerateOtpMutation = () =>
     mutationFn: generateOtp,
   });
 
-export const useVerifyEmailMutation = () =>
-  useMutation({
+export const useVerifyEmailMutation = (sc: (data: any) => void) => {
+  const { login } = useAuthStore();
+  return useMutation({
     mutationFn: verifyEmail,
+    onSuccess: (data) => {
+      login(data);
+      sc(data);
+    },
+  });
+};
+
+export const useForgotPasswordOtpMutation = (sc: (val: any) => void) =>
+  useMutation({
+    mutationFn: (email: string) => forgotPasswordOtp(email),
+    onSuccess: sc,
   });
 
-export const useForgotPasswordOtpMutation = () =>
+export const useForgotPasswordVerifyOtpMutation = (sc?: (data: any) => void) =>
   useMutation({
-    mutationFn: forgotPasswordOtp,
+    mutationFn: (payload: { otp: string; email: string }) =>
+      forgotPasswordVerifyOtp(payload),
+    onSuccess: sc,
   });
 
-export const useForgotPasswordVerifyOtpMutation = () =>
+export const useForgotPasswordResetMutation = (sc: (data: any) => void) =>
   useMutation({
-    mutationFn: forgotPasswordVerifyOtp,
+    mutationFn: (payload: ForgotPasswordReset) => forgotPasswordReset(payload),
+    onSuccess: sc,
   });
 
-export const useForgotPasswordResetMutation = () =>
-  useMutation({
-    mutationFn: forgotPasswordReset,
+export const useGetAuthenticatedUserMutation = (sc: (data: any) => void) => {
+  const { show } = useToast();
+  return useMutation({
+    mutationFn: getAuthenticatedUser,
+    onSuccess: sc,
+    onError: () => {
+      show(
+        "Sign-in failed",
+        "Could not retrieve your account details.",
+        "error",
+      );
+    },
   });
+};
+
+export const useLogout = (sc?: (data: any) => void) => {
+  const router = useRouter();
+  const { logout: logoutFn } = useAuthStore();
+  return useMutation({
+    mutationFn: logout,
+    onSuccess: () => {
+      logoutFn();
+      router.replace("/login");
+    },
+  });
+};

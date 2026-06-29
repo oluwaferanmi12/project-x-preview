@@ -1,11 +1,12 @@
 "use client";
-import GoogleIcon from "@/assets/svgs/google-icon.svg";
+import { GoogleIcon } from "@repo/icons";
 import { Button } from "@repo/ui";
 import { Container } from "@repo/ui";
 import { Input } from "@repo/ui";
 import { Text } from "@repo/ui";
 import { useRouter } from "next/navigation";
-import { useRegister } from "../hooks/useRegister";
+import { useRegister } from "../hooks/useAuth";
+import { PasswordRequirement } from "../components/password-requirement";
 
 export function RegisterScreen() {
   const router = useRouter();
@@ -16,6 +17,7 @@ export function RegisterScreen() {
     setErrorPayload,
     handleUpdateUserPayload,
     isPending,
+    passwordRules,
   } = useRegister();
   return (
     <>
@@ -32,13 +34,28 @@ export function RegisterScreen() {
         as="form"
       >
         <Container as="div" className="flex flex-col sm:flex-row sm:gap-8">
-          <Input label="First Name" placeholder="Enter your first name" />
-          <Input label="Last Name" placeholder="Enter your last name" />
+          <Input
+            label="First Name"
+            placeholder="Enter your first name"
+            error={errorPayload.firstName}
+            onChange={({ target }) => {
+              handleUpdateUserPayload("firstName", target.value);
+            }}
+          />
+          <Input
+            label="Last Name"
+            error={errorPayload.lastName}
+            onChange={({ target }) => {
+              handleUpdateUserPayload("lastName", target.value);
+            }}
+            placeholder="Enter your last name"
+          />
         </Container>
         <Input
           label="Email Address"
           type="email"
           placeholder="Enter your email address"
+          error={errorPayload.email}
           onChange={({ target }) => {
             handleUpdateUserPayload("email", target.value);
           }}
@@ -47,6 +64,7 @@ export function RegisterScreen() {
           label="Phone Number"
           type="tel"
           placeholder="Enter your phone number"
+          error={errorPayload.phoneNumber}
           onChange={({ target }) => {
             handleUpdateUserPayload("phoneNumber", target.value);
           }}
@@ -55,14 +73,23 @@ export function RegisterScreen() {
           label="Password"
           type="password"
           placeholder="Enter your password"
+          error={errorPayload.password}
           onChange={({ target }) => {
             handleUpdateUserPayload("password", target.value);
           }}
         />
+        <Container className="flex items-center flex-wrap mb-4 gap-2">
+          <PasswordRequirement value="Lowercase" active={passwordRules.hasLowercase} />
+          <PasswordRequirement value="Uppercase" active={passwordRules.hasUppercase} />
+          <PasswordRequirement value="Number" active={passwordRules.hasNumber} />
+          <PasswordRequirement value="8 characters" active={passwordRules.hasMinLength} />
+          <PasswordRequirement value="Special characters" active={passwordRules.hasSpecialChar} />
+        </Container>
         <Input
           label="Confirm Password"
           type="password"
           placeholder="Confirm your password"
+          error={errorPayload.confirmPassword}
           onChange={({ target }) => {
             handleUpdateUserPayload("confirmPassword", target.value);
           }}

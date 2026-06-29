@@ -2,22 +2,14 @@
 
 import * as React from "react";
 
-type ContainerProps<T extends React.ElementType = "div"> = {
-  as?: T;
-} & React.ComponentPropsWithoutRef<T>;
+type ContainerProps = React.HTMLAttributes<HTMLElement> & {
+  as?: keyof JSX.IntrinsicElements;
+};
 
-export const Container = <T extends React.ElementType = "div">({
-  as,
-  className,
-  ...props
-}: ContainerProps<T>) => {
-  const Component = as ?? "div";
-  const containerClassName = [
-    Component === "div" ? "leading-none" : "",
-    className ?? "",
-  ]
+export const Container = ({ as: Tag = "div", className, ...props }: ContainerProps) => {
+  const containerClassName = [Tag === "div" ? "leading-none" : "", className ?? ""]
     .join(" ")
     .trim();
 
-  return <Component className={containerClassName || undefined} {...props} />;
+  return <Tag className={containerClassName || undefined} {...props} />;
 };
