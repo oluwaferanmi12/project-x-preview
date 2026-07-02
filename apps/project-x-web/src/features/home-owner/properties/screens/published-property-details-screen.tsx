@@ -9,39 +9,47 @@ import ShareBackgroundImage from "@/assets/images/gradient-bg-with-small-people.
 import {
   ArrowLeft,
   ArrowRight,
+  BuildingIcon,
+  CheckIcon,
   ChevronArrowDown,
   LightClock,
-  PlusIcon,
   RedStarIcon,
   MessagesIcon,
   BookeepIcon,
-
+  VideoPlayIcon,
 } from "@repo/icons";
 import { Button, Container, Switch, Text } from "@repo/ui";
 import { properties } from "../data/properties.mock";
 import largeView from "@/assets/images/gallery/large-view.png";
-import img1 from "@/assets/images/gallery/image-inactive.png";
-import img2 from "@/assets/images/gallery/image-inactive-1.png";
-import img3 from "@/assets/images/gallery/image-inactive-2.png";
-import img4 from "@/assets/images/gallery/image-inactive-3.png";
-import img5 from "@/assets/images/gallery/image-inactive-4.png";
-import img6 from "@/assets/images/gallery/image-inactive-5.png";
-import img7 from "@/assets/images/gallery/image-inactive-6.png";
-import img8 from "@/assets/images/gallery/image-inactive-7.png";
-import img9 from "@/assets/images/gallery/image-inactive-8.png";
+import img1 from "@/assets/images/image-thumbnail.png";
+import img2 from "@/assets/images/image-thumbnail.png";
+import img3 from "@/assets/images/image-thumbnail.png";
+import img4 from "@/assets/images/image-thumbnail.png";
+import img5 from "@/assets/images/image-thumbnail.png";
+import img6 from "@/assets/images/image-thumbnail.png";
+import img7 from "@/assets/images/image-thumbnail.png";
+import img8 from "@/assets/images/image-thumbnail.png";
+import img9 from "@/assets/images/image-thumbnail.png";
 
-const galleryImages: StaticImageData[] = [
-  largeView,
-  img1,
-  img2,
-  img3,
-  img4,
-  img5,
-  img6,
-  img7,
-  img8,
-  img9,
+type GalleryMediaItem = {
+  id: string;
+  type: "image" | "video";
+  src: StaticImageData;
+};
+
+const galleryItems: GalleryMediaItem[] = [
+  { id: "main", type: "image", src: largeView },
+  { id: "view-1", type: "image", src: img1 },
+  { id: "view-2", type: "image", src: img2 },
+  { id: "view-3", type: "image", src: img3 },
+  { id: "view-4", type: "image", src: img4 },
+  { id: "view-5", type: "image", src: img5 },
+  { id: "view-6", type: "image", src: img6 },
+  { id: "view-7", type: "image", src: img7 },
+  { id: "view-8", type: "image", src: img8 },
+  { id: "video-tour", type: "video", src: img9 },
 ];
+const defaultGalleryItem = galleryItems[0] as GalleryMediaItem;
 
 const chartData = [
   { month: "Jan", value: 25 },
@@ -57,13 +65,37 @@ const chartMaxValue = 250;
 
 export const PublishedPropertyDetailsScreen = ({
   propertyId,
+  mode = "published",
 }: {
   propertyId: string;
+  mode?: "published" | "archived";
 }) => {
   const router = useRouter();
   const [addressVisible, setAddressVisible] = useState(false);
   const [available, setAvailable] = useState(false);
+  const [isActionModalOpen, setIsActionModalOpen] = useState(false);
+  const [selectedMedia, setSelectedMedia] = useState<GalleryMediaItem>(
+    defaultGalleryItem
+  );
   const property = properties.find((item) => item.id === propertyId);
+  const isArchived = mode === "archived";
+  const actionConfig = isArchived
+    ? {
+        title: "Unarchive this property",
+        description: "Make this property public to viewers",
+        actionLabel: "Unarchive",
+        actionVariant: "success" as const,
+        tone: "success" as const,
+        rightIcon: <CheckIcon size={14} />,
+      }
+    : {
+        title: "Archive this property",
+        description: "Hide this property from public view",
+        actionLabel: "Archive",
+        actionVariant: "warning" as const,
+        tone: "warning" as const,
+        rightIcon: <ArrowRight size={14} />,
+      };
 
   if (!property) {
     return (
@@ -96,31 +128,44 @@ export const PublishedPropertyDetailsScreen = ({
 
             <Container className="relative h-56 w-full overflow-hidden rounded-xl bg-muted">
               <Image
-                src={largeView}
+                src={selectedMedia.src}
                 alt={property.title}
                 fill
                 className="object-cover"
               />
+              {selectedMedia.type === "video" && (
+                <Container className="absolute inset-0 flex items-center justify-center bg-primary/25 text-inverted">
+                  <VideoPlayIcon size={48} />
+                </Container>
+              )}
             </Container>
 
-            <Container className="mt-3 flex gap-2 overflow-x-auto">
-              {galleryImages.slice(1).map((image, index) => (
-                <Container
-                  key={image}
-                  className="relative h-12 w-16 shrink-0 overflow-hidden rounded-md bg-muted"
+            <Container className="scrollbar-hide mt-3 flex gap-2 overflow-x-auto">
+              {galleryItems.map((item, index) => (
+                <button
+                  key={item.id}
+                  type="button"
+                  onClick={() => setSelectedMedia(item)}
+                  aria-label={`View ${item.type} ${index + 1}`}
+                  className={`relative h-11 w-14 shrink-0 cursor-pointer overflow-hidden rounded-md bg-muted transition ${
+                    selectedMedia.id === item.id
+                      ? " border-4 border-p200 "
+                      : ""
+                  }`}
                 >
                   <Image
-                    src={image}
+                    src={item.src}
                     alt={`${property.title} ${index + 1}`}
                     fill
-                    className="object-cover"
+                    sizes="56px"
+                    className="object-cover object-center"
                   />
-                  {index === galleryImages.length - 2 && (
+                  {item.type === "video" && (
                     <Container className="absolute inset-0 flex items-center justify-center bg-primary/40 text-inverted">
-                      <PlusIcon size={16} />
+                      <VideoPlayIcon size={24} />
                     </Container>
                   )}
-                </Container>
+                </button>
               ))}
             </Container>
 
@@ -150,10 +195,8 @@ export const PublishedPropertyDetailsScreen = ({
             </Container>
 
             <PropertyActionCard
-              title="Archive this property"
-              description="Hide this property from public view"
-              actionLabel="Archive"
-              actionVariant="warning"
+              {...actionConfig}
+              onAction={() => setIsActionModalOpen(true)}
             />
 
             <Container className="mt-5 rounded-xl border border-line bg-surface px-4 py-3">
@@ -196,6 +239,12 @@ export const PublishedPropertyDetailsScreen = ({
           <ViewsChart />
         </Container>
       </Container>
+
+      <PropertyStatusActionModal
+        mode={mode}
+        isOpen={isActionModalOpen}
+        onClose={() => setIsActionModalOpen(false)}
+      />
     </Container>
   );
 };
@@ -205,34 +254,148 @@ const PropertyActionCard = ({
   description,
   actionLabel,
   actionVariant,
+  tone,
+  rightIcon,
+  onAction,
 }: {
   title: string;
   description: string;
   actionLabel: string;
-  actionVariant: "warning" | "primary";
-}) => (
-  <Container className="mt-5 rounded-xl border border-w75 bg-w50 px-4 py-3">
-    <Container className="flex items-center justify-between gap-4">
-      <Container>
-        <Text variant="body-sm" tone="primary" className="font-normal">
-          {title}
-        </Text>
-        <Text variant="body-xs" tone="secondary" className="mt-1">
-          {description}
-        </Text>
-      </Container>
+  actionVariant: "warning" | "success";
+  tone: "warning" | "success";
+  rightIcon: ReactNode;
+  onAction: () => void;
+}) => {
+  const toneClassName =
+    tone === "success" ? "border-sc75 bg-sc50" : "border-w75 bg-w50";
 
-      <Button
-        shorter
-        type="button"
-        variant={actionVariant}
-        rightIcon={<ArrowRight size={14} />}
-      >
-        {actionLabel}
-      </Button>
+  return (
+    <Container className={`mt-5 rounded-xl border px-4 py-3 ${toneClassName}`}>
+      <Container className="flex items-center justify-between gap-4">
+        <Container>
+          <Text variant="body-sm" tone="primary" className="font-normal">
+            {title}
+          </Text>
+          <Text variant="body-xs" tone="secondary" className="mt-1">
+            {description}
+          </Text>
+        </Container>
+
+        <Button
+          shorter
+          type="button"
+          variant={actionVariant}
+          onClick={onAction}
+          rightIcon={rightIcon}
+        >
+          {actionLabel}
+        </Button>
+      </Container>
     </Container>
-  </Container>
-);
+  );
+};
+
+const PropertyStatusActionModal = ({
+  mode,
+  isOpen,
+  onClose,
+}: {
+  mode: "published" | "archived";
+  isOpen: boolean;
+  onClose: () => void;
+}) => {
+  if (!isOpen) {
+    return null;
+  }
+
+  const isArchived = mode === "archived";
+  const modalConfig = isArchived
+    ? {
+        title: "Are you sure you want to unarchive this property?",
+        description:
+          "By doing so you are making the property available to house seekers, therefore traction/interaction will be gotten from the property.",
+        actionLabel: "Unarchive",
+        actionVariant: "success" as const,
+        accentClassName: "bg-sc300",
+        headerClassName: "bg-sc50",
+        ringClassName: "border-sc75/50",
+        icon: <BuildingIcon size={30} />,
+        actionIcon: <CheckIcon size={14} />,
+      }
+    : {
+        title: "Are you sure you want to archive this property?",
+        description:
+          "By doing so you are hiding the property from house seekers, therefore no market interaction will be gotten from the property",
+        actionLabel: "Archive",
+        actionVariant: "warning" as const,
+        accentClassName: "bg-w300",
+        headerClassName: "bg-w50",
+        ringClassName: "border-s200/50",
+        icon: <BuildingIcon size={30} />,
+        actionIcon: <ArrowRight size={14} />,
+      };
+
+  return (
+    <Container className="fixed inset-0 z-50 flex items-center justify-center bg-primary/60 px-4">
+      <Container
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="archive-property-title"
+        className="w-full max-w-80 overflow-hidden rounded-xl border border-line bg-surface shadow-xl"
+      >
+        <Container
+          className={`relative flex h-28 items-center justify-center overflow-hidden ${modalConfig.headerClassName}`}
+        >
+          <Container
+            className={`absolute -left-5 -top-8 h-24 w-32 rounded-full border-4 ${modalConfig.ringClassName}`}
+          />
+          <Container
+            className={`absolute -right-7 -top-4 h-24 w-32 rounded-full border-4 ${modalConfig.ringClassName}`}
+          />
+          <Container
+            className={`absolute left-12 top-0 h-24 w-32 rounded-full border-4 ${modalConfig.ringClassName}`}
+          />
+
+          <Container
+            className={`relative z-10 flex h-16 w-16 items-center justify-center rounded-full text-inverted ${modalConfig.accentClassName}`}
+          >
+            {modalConfig.icon}
+          </Container>
+        </Container>
+
+        <Container className="px-4 pb-4 pt-5">
+          <Text
+            id="archive-property-title"
+            variant="body-sm"
+            tone="primary"
+            className="font-bold"
+          >
+            {modalConfig.title}
+          </Text>
+          <Text variant="body-xs" tone="secondary" className="mt-2 leading-5">
+            {modalConfig.description}
+          </Text>
+
+          <Container className="mt-4 border-t border-line pt-3">
+            <Container className="grid grid-cols-[1fr_1.45fr] gap-3">
+              <Button shorter type="button" variant="secondary" onClick={onClose}>
+                Cancel
+              </Button>
+              <Button
+                shorter
+                type="button"
+                variant={modalConfig.actionVariant}
+                rightIcon={modalConfig.actionIcon}
+              >
+                {modalConfig.actionLabel}
+              </Button>
+            </Container>
+          </Container>
+        </Container>
+      </Container>
+    </Container>
+  );
+};
 
 const MapVisibilityCard = ({
   checked,

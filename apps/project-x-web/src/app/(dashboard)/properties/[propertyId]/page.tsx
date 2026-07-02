@@ -11,8 +11,13 @@ export default async function PropertyDetailsPage({
   const { propertyId } = await params;
   const { status } = await searchParams;
 
-  if (status === "published") {
-    return <PublishedPropertyDetailsScreen propertyId={propertyId} />;
+  if (status === "published" || status === "archived") {
+    return (
+      <PublishedPropertyDetailsScreen
+        propertyId={propertyId}
+        mode={status}
+      />
+    );
   }
 
   return <PropertyReviewDetailsScreen propertyId={propertyId} />;
