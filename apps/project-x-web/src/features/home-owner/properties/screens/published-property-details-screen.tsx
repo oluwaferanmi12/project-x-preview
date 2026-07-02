@@ -140,14 +140,14 @@ export const PublishedPropertyDetailsScreen = ({
               )}
             </Container>
 
-            <Container className="scrollbar-hide mt-3 flex gap-2 overflow-x-auto">
+            <Container className="scrollbar-hide mt-3 flex flex-wrap gap-2 sm:flex-nowrap sm:overflow-x-auto">
               {galleryItems.map((item, index) => (
                 <button
                   key={item.id}
                   type="button"
                   onClick={() => setSelectedMedia(item)}
                   aria-label={`View ${item.type} ${index + 1}`}
-                  className={`relative h-11 w-14 shrink-0 cursor-pointer overflow-hidden rounded-md bg-muted transition ${
+                  className={`relative h-9 w-9 shrink-0 cursor-pointer overflow-hidden rounded-md bg-muted transition sm:h-11 sm:w-14 ${
                     selectedMedia.id === item.id
                       ? " border-4 border-p200 "
                       : ""
@@ -187,7 +187,7 @@ export const PublishedPropertyDetailsScreen = ({
               </Container>
             </Container>
 
-            <Container className="mt-3 flex flex-wrap gap-2">
+            <Container className="scrollbar-hide mt-3 flex gap-2 overflow-x-auto whitespace-nowrap pb-1">
               <FeaturePill icon="🏠" label={property.meta.type} />
               <FeaturePill icon="🛏️" label={`${property.meta.beds} Beds`} />
               <FeaturePill icon="🛁" label={`${property.meta.baths} Baths`} />
@@ -416,7 +416,7 @@ const MapVisibilityCard = ({
 
     <Container className="flex items-center justify-between px-4 py-3">
       <Container>
-        <Text variant="body-sm" tone="primary" className="font-bold">
+        <Text variant="body-sm" tone="primary">
           Address Visibility
         </Text>
         <Text variant="body-xs" tone="secondary" className="mt-1">
@@ -460,11 +460,16 @@ const ShareCard = () => (
 
 const EngagementSummary = () => (
   <Container className="rounded-xl bg-surface px-4">
-    <MetricRow icon={<RedStarIcon size={18} />} label="4.3/5.0 (1,000)" />
-    <MetricRow icon={<MessagesIcon size={18} />} label="20 Messages" />
+    <MetricRow
+      icon={<RedStarIcon size={18} />}
+      value="4.3/5.0"
+      suffix="(1,000)"
+    />
+    <MetricRow icon={<MessagesIcon size={18} />} value="20" suffix="Messages" />
     <MetricRow
       icon={<BookeepIcon size={18} />}
-      label="500 Saves"
+      value="500"
+      suffix="Saves"
       showArrow={false}
     />
   </Container>
@@ -472,19 +477,28 @@ const EngagementSummary = () => (
 
 const MetricRow = ({
   icon,
-  label,
+  value,
+  suffix,
   showArrow = true,
 }: {
   icon: ReactNode;
-  label: string;
+  value: string;
+  suffix?: string;
   showArrow?: boolean;
 }) => (
   <Container className="flex items-center justify-between border-b border-line py-4 last:border-b-0">
     <Container className="flex items-center gap-3 text-s500">
       {icon}
-      <Text variant="body-sm" tone="primary">
-        {label}
-      </Text>
+      <Container className="flex items-center gap-1">
+        <Text variant="body-sm" tone="primary">
+          {value}
+        </Text>
+        {suffix && (
+          <Text variant="body-sm" tone="secondary">
+            {suffix}
+          </Text>
+        )}
+      </Container>
     </Container>
     {showArrow && <ArrowRight size={14} className="text-s500" />}
   </Container>
@@ -550,7 +564,7 @@ const ViewsChart = () => (
 );
 
 const FeaturePill = ({ icon, label }: { icon: string; label: string }) => (
-  <Container className="flex items-center gap-1 rounded-xl border border-line bg-surface px-2 py-1">
+  <Container className="flex shrink-0 items-center gap-1 rounded-xl border border-line bg-surface px-2 py-1">
     <Container as="span" className="text-sm leading-none">
       {icon}
     </Container>

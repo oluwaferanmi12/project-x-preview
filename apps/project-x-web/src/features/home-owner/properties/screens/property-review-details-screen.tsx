@@ -149,11 +149,11 @@ export const PropertyReviewDetailsScreen = ({
               />
             </Container>
 
-            <Container className="mt-3 flex gap-2 overflow-x-auto">
+            <Container className="scrollbar-hide mt-3 flex flex-wrap gap-2 sm:flex-nowrap sm:overflow-x-auto">
               {Array.from({ length: 8 }).map((_, index) => (
                 <Container
                   key={index}
-                  className="relative h-12 w-16 shrink-0 overflow-hidden rounded-md bg-muted"
+                  className="relative h-9 w-9 shrink-0 overflow-hidden rounded-md bg-muted sm:h-12 sm:w-16"
                 >
                   <Image
                     src={property.image || "/draft-image-placeholder.png"}
@@ -183,7 +183,7 @@ export const PropertyReviewDetailsScreen = ({
               </Container>
             </Container>
 
-            <Container className="mt-3 flex flex-wrap gap-2">
+            <Container className="scrollbar-hide mt-3 flex gap-2 overflow-x-auto whitespace-nowrap pb-1">
               <FeaturePill icon="🏠" label={property.meta.type} />
               <FeaturePill icon="🛏️" label={`${property.meta.beds} Beds`} />
               <FeaturePill icon="🛁" label={`${property.meta.baths} Baths`} />
@@ -480,7 +480,7 @@ const RejectionDetailsModal = ({
 };
 
 const FeaturePill = ({ icon, label }: { icon: string; label: string }) => (
-  <Container className="flex items-center gap-1 rounded-xl border border-line bg-surface px-2 py-1">
+  <Container className="flex shrink-0 items-center gap-1 rounded-xl border border-line bg-surface px-2 py-1">
     <Container as="span" className="text-sm leading-none">
       {icon}
     </Container>

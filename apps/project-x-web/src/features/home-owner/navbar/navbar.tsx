@@ -3,9 +3,8 @@
 import * as React from "react";
 import { Container, Text, GeneralSpacer } from "@repo/ui";
 import { ProfileDropdown } from "./profile-dropdown";
-import type { ProfileDropdownItem } from "./profile-dropdown";
+import { usePathname } from "next/navigation";
 
-import { BrandLogo } from "@/assets/images";
 import {
   DashIcon,
   BuildingIcon,
@@ -55,6 +54,7 @@ const navLinks: NavLink[] = [
 
 export const Navbar = ({ onNavigate }: NavbarProps) => {
   const { user } = useAuthStore();
+  const pathname = usePathname();
 
   return (
     <Container
@@ -70,17 +70,26 @@ export const Navbar = ({ onNavigate }: NavbarProps) => {
           <Container className="flex gap-3">
             {navLinks.map((link) => {
               const Icon = link.icon;
+              const isActive =
+                pathname === link.href || pathname.startsWith(`${link.href}/`);
 
               return (
                 <Container
                   as="button"
                   key={link.label}
                   onClick={() => onNavigate(link.href)}
-                  className="flex items-center gap-2 px-4 py-2 rounded-md hover:bg-gray-100 transition-colors"
+                  className={`flex items-center gap-2 rounded-xl px-4 py-2 transition-colors ${
+                    isActive
+                      ? "bg-p300 text-inverted"
+                      : "hover:bg-gray-100"
+                  }`}
                 >
-                  <Icon className="text-p300" />
+                  <Icon className={isActive ? "text-inverted" : "text-p300"} />
 
-                  <Text  variant="action-label" tone="p300">
+                  <Text
+                    variant="action-label"
+                    tone={isActive ? "inverted" : "primary"}
+                  >
                     {link.label}
                   </Text>
                 </Container>
