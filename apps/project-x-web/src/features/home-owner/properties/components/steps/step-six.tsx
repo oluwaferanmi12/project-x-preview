@@ -4,8 +4,9 @@ import { NumberWrapper } from "../nuggets/number-wrapper";
 import { UploadBox } from "../nuggets/upload-container";
 import { Text } from "@repo/ui";
 import { Select } from "@repo/ui";
+import { DraftProperty } from "../../types/property.types";
 
-export const StepSix = ({ activeSubstep }: { activeSubstep: number }) => {
+export const StepSix = ({ activeSubstep, payload }: { activeSubstep: number; payload?: DraftProperty }) => {
   const [idImage, setIdImage] = useState<string | null>(null);
   const [ownershipImage, setOwnershipImage] = useState<string | null>(null);
   const [video, setVideo] = useState<string | null>(null);

@@ -8,46 +8,52 @@ import { Check as CheckMark } from "@repo/icons";
 
 export const MobileListingNavigation = ({
   active,
+  dropOffStep,
 }: {
   active: number;
+  dropOffStep?: number;
 }) => {
   return (
-    <Container className="lg:hidden px-6">
+    <Container className="lg:hidden pb-3 border-b mb-10 border-line">
       {/* Top Navigation */}
       <Container
         className="
           flex items-center min-w-full overflow-x-auto px-1
           scrollbar-hide [-ms-overflow-style:none]
-          [scrollbar-width:none]
+          scrollbar-none
           [&::-webkit-scrollbar]:hidden
-        "   
+        "
       >
         {steps.map((step, index) => {
           const isActive = active === step.num;
           const isCompleted = active > step.num;
           const isLast = index === steps.length - 1;
+          const isDropOff =
+            dropOffStep === step.num && !isActive && !isCompleted;
 
           return (
             <React.Fragment key={step.num}>
               {/* Step Circle */}
-              <Container className="flex items-center">
+              <Container className="flex items-center w-full">
                 <Container
                   className={`
-                    relative flex h-10 w-10 shrink-0 items-center justify-center rounded-[10px]
+                    relative flex h-10 w-full min-w-10 max-w-10  items-center justify-center rounded-[10px]
                     text-sm font-semibold transition-all
                     ${
                       isCompleted
                         ? "bg-p300 text-white"
                         : isActive
-                        ? "bg-p300 text-white"
-                        : "border border-p75 bg-p50 text-p400"
+                          ? "bg-p300 text-white"
+                          : isDropOff
+                            ? "border border-warning bg-warning-subtle text-p400"
+                            : "border border-p75 bg-p50 text-p400"
                     }
                   `}
                 >
                   {isCompleted ? (
                     <CheckMark className="h-4 w-4 text-white" />
                   ) : (
-                    step.num
+                    <Text variant="h5">{step.num}</Text>
                   )}
                 </Container>
 
@@ -55,12 +61,8 @@ export const MobileListingNavigation = ({
                 {!isLast && (
                   <Container
                     className={`
-                      h-[2px] w-10
-                      ${
-                        active > step.num
-                          ? "bg-p300"
-                          : "bg-s300"
-                      }
+                      h-0.5 w-full min-w-full
+                      ${active > step.num ? "bg-p300" : "bg-s300"}
                     `}
                   />
                 )}
@@ -72,14 +74,14 @@ export const MobileListingNavigation = ({
 
       {/* Title + Subtitle */}
       <Container className="mt-6 px-1">
-        <Text
-          variant="body-sm"
-          className="font-semibold text-primary leading-tight"
-        >
+        <Text variant="h5" className="font-semibold text-primary leading-tight">
           {steps.find((step) => step.num === active)?.title}
         </Text>
 
-        <Text className="mt-1 text-secondary text-sm leading-tight">
+        <Text
+          variant="body-sm"
+          className="mt-1 text-secondary text-sm leading-tight"
+        >
           {steps.find((step) => step.num === active)?.subtitle}
         </Text>
       </Container>

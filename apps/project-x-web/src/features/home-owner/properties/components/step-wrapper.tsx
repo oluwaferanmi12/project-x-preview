@@ -9,21 +9,20 @@ import { StepFour } from "./steps/step-four";
 import { StepFive } from "./steps/step-five";
 import { StepSix } from "./steps/step-six";
 import { StepSeven } from "./steps/step-seven";
+import { DraftProperty } from "../types/property.types";
 
-// The step the user is ideally passed down to this component
-// Also once the user makes the first call to the api , we have to append the id of the property that has been created to the url
-
-// if no step is found , pass -1 to this component
 export const StepWrapper = ({
   step,
   activeSubStep,
   handleNextStep,
   handlePrevStep,
+  payload,
 }: {
   step: number;
   activeSubStep: number;
   handleNextStep: () => void;
   handlePrevStep: () => void;
+  payload?: DraftProperty;
 }) => {
   useStepWrapper();
   return (
@@ -31,13 +30,13 @@ export const StepWrapper = ({
       <Col xs={24} lg={12}>
         <Container className="flex flex-col justify-between h-full">
           <Container>
-            {step === 1 && <StepOne />}
-            {step === 2 && <StepTwo activeSubStep={activeSubStep} />}
-            {step === 3 && <StepThree activeSubstep={activeSubStep} />}
-            {step === 4 && <StepFour activeSubstep={activeSubStep} />}
-            {step === 5 && <StepFive activeSubstep={activeSubStep} />}
-            {step === 6 && <StepSix activeSubstep={activeSubStep} />}
-            {step === 7 && <StepSeven />}
+            {step === 1 && <StepOne payload={payload} />}
+            {step === 2 && <StepTwo activeSubStep={activeSubStep} payload={payload} />}
+            {step === 3 && <StepThree activeSubstep={activeSubStep} payload={payload} />}
+            {step === 4 && <StepFour activeSubstep={activeSubStep} payload={payload} />}
+            {step === 5 && <StepFive activeSubstep={activeSubStep} payload={payload} />}
+            {step === 6 && <StepSix activeSubstep={activeSubStep} payload={payload} />}
+            {step === 7 && <StepSeven payload={payload} />}
           </Container>
           <ButtonNavigation
             handleNextStep={handleNextStep}

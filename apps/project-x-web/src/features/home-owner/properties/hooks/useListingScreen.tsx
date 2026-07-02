@@ -1,17 +1,35 @@
 "use client";
 import { useRouter, useSearchParams } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import { useGetDraftListing } from "./property.hook";
+import { resolveDropOffStep } from "../utils/property.utils";
 
 export const useListingScreen = () => {
   const params = useSearchParams();
-  const [activeStep, setActiveStep] = useState(
-    Number(params.get("step")) ? Number(params.get("step")) : 1,
-  );
+  const router = useRouter();
+
+  const propertyId = params.get("propertyId");
+  const stepFromUrl = Number(params.get("step"));
+
+  const { data: payload, isLoading: isDraftLoading } = useGetDraftListing(propertyId);
+
+  const dropOffStep = propertyId && payload ? resolveDropOffStep(payload) : undefined;
+
+  const didSeedStep = useRef(false);
+  const [activeStep, setActiveStep] = useState(stepFromUrl || 1);
   const [activeSubStep, setActiveSubStep] = useState(
-    Number(params.get("substep")) ? Number(params.get("substep")) : 1,
+    Number(params.get("substep")) || 1,
   );
 
-  const router = useRouter();
+  // Only runs when there's a propertyId — seeds activeStep from the resolved drop-off
+  useEffect(() => {
+    if (!propertyId) return;
+    if (!didSeedStep.current && dropOffStep && !stepFromUrl) {
+      setActiveStep(dropOffStep);
+      didSeedStep.current = true;
+    }
+  }, [dropOffStep]);
+
   const stepVariation: Record<number, number> = {
     1: 1,
     2: 3,
@@ -24,7 +42,7 @@ export const useListingScreen = () => {
 
   const handleNextStep = () => {
     const currentStepVariations = stepVariation[activeStep] || 1;
-    
+
     if (activeSubStep < currentStepVariations) {
       setActiveSubStep((prev) => prev + 1);
     } else {
@@ -44,27 +62,28 @@ export const useListingScreen = () => {
     }
   };
 
+  // If no propertyId, always ready. If there is one, wait for the draft to load first.
+  const isReadyToSync = !propertyId || !isDraftLoading;
+
   useEffect(() => {
-    const nextParams = new URLSearchParams(params.toString());
+    if (!isReadyToSync) return;
 
+    const base = "/properties/list-property";
+    const id = propertyId ? `&propertyId=${propertyId}` : "";
     if (!params.get("step")) {
-      nextParams.set("step", "1");
-      nextParams.set("substep", "1");
-      const nextQueryString = nextParams.toString();
-
-      if (nextQueryString !== params.toString()) {
-        router.replace(`/properties/list-property?${nextQueryString}`);
-      }
+      router.replace(`${base}?step=${activeStep}&substep=${activeSubStep}${id}`);
     } else {
-      nextParams.set("step", String(activeStep));
-      nextParams.set("substep", String(activeSubStep));
-      const nextQueryString = nextParams.toString();
-
-      if (nextQueryString !== params.toString()) {
-        router.replace(`/properties/list-property?${nextQueryString}`);
-      }
+      router.push(`${base}?step=${activeStep}&substep=${activeSubStep}${id}`);
     }
-  }, [activeStep, activeSubStep, params, router]);
+  }, [activeStep, activeSubStep, isReadyToSync]);
 
-  return { activeStep, handleNextStep, handlePrevStep, activeSubStep };
+  return {
+    activeStep,
+    handleNextStep,
+    handlePrevStep,
+    activeSubStep,
+    payload,
+    dropOffStep,
+    isDraftLoading,
+  };
 };

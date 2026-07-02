@@ -79,11 +79,26 @@ export function RegisterScreen() {
           }}
         />
         <Container className="flex items-center flex-wrap mb-4 gap-2">
-          <PasswordRequirement value="Lowercase" active={passwordRules.hasLowercase} />
-          <PasswordRequirement value="Uppercase" active={passwordRules.hasUppercase} />
-          <PasswordRequirement value="Number" active={passwordRules.hasNumber} />
-          <PasswordRequirement value="8 characters" active={passwordRules.hasMinLength} />
-          <PasswordRequirement value="Special characters" active={passwordRules.hasSpecialChar} />
+          <PasswordRequirement
+            value="Lowercase"
+            active={passwordRules.hasLowercase}
+          />
+          <PasswordRequirement
+            value="Uppercase"
+            active={passwordRules.hasUppercase}
+          />
+          <PasswordRequirement
+            value="Number"
+            active={passwordRules.hasNumber}
+          />
+          <PasswordRequirement
+            value="8 characters"
+            active={passwordRules.hasMinLength}
+          />
+          <PasswordRequirement
+            value="Special characters"
+            active={passwordRules.hasSpecialChar}
+          />
         </Container>
         <Input
           label="Confirm Password"

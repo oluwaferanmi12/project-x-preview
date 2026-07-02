@@ -15,10 +15,15 @@ function ListPropertyScreen() {
   const showDraftBack = searchParams.get("from") === "draft";
   // The step should be handled from the top of this screen
   // Based on the api call, make an api call to determine the step the user is on
-  const { activeStep, handleNextStep, handlePrevStep, activeSubStep } =
-    useListingScreen();
+  const {
+    activeStep,
+    handleNextStep,
+    handlePrevStep,
+    activeSubStep,
+    payload,
+    dropOffStep,
+  } = useListingScreen();
 
-  // Check if all steps are completed (step 7 is the last step)
   const isCompleted = activeStep > 7;
 
   return (
@@ -34,18 +39,21 @@ function ListPropertyScreen() {
         </button>
       )}
 
-      <Row gutter={16} className="min-h-[90vh] pb-10 ">
+      <Row gutter={16} className="lg:min-h-[90vh] pb-10">
         {/* Mobile Navigation */}
-        <Col xs={24} lg={0} className="block lg:hidden">
-          <MobileListingNavigation active={activeStep} />
+        <Col xs={24} lg={0}>
+          <MobileListingNavigation
+            active={activeStep}
+            dropOffStep={dropOffStep}
+          />
         </Col>
 
         {/* Desktop Navigation */}
-        <Col lg={8} xs={0} className="hidden lg:block">
-          <ListingNavigation active={activeStep} />
+        <Col lg={8} xs={0}>
+          <ListingNavigation active={activeStep} dropOffStep={dropOffStep} />
         </Col>
         <Col xs={24} lg={16}>
-          <Container className="relative flex flex-col py-12  lg:bg-surface w-full h-full rounded-xl px-5">
+          <Container className="relative flex flex-col lg:py-12  lg:bg-surface w-full h-full rounded-xl">
             {isCompleted ? (
               <Row
                 justify={"center"}
@@ -62,10 +70,13 @@ function ListPropertyScreen() {
                         >
                           Property Submitted
                         </Container>
-                        <Container as="p" className="text-center text-secondary">
+                        <Container
+                          as="p"
+                          className="text-center text-secondary"
+                        >
                           Your property has been submitted for review. Once all
-                          details are facts checked property will be published to
-                          the public.
+                          details are facts checked property will be published
+                          to the public.
                         </Container>
                       </Container>
 
@@ -87,6 +98,7 @@ function ListPropertyScreen() {
                 handleNextStep={handleNextStep}
                 handlePrevStep={handlePrevStep}
                 step={activeStep}
+                payload={payload}
               />
             )}
           </Container>
@@ -95,6 +107,5 @@ function ListPropertyScreen() {
     </Container>
   );
 }
-
 
 export default ListPropertyScreen;

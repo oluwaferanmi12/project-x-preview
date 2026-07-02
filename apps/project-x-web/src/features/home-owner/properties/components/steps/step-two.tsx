@@ -7,8 +7,9 @@ import { Text } from "@repo/ui";
 import { Input } from "@repo/ui";
 import { Switch } from "@repo/ui";
 import { Textarea } from "@repo/ui";
+import { DraftProperty } from "../../types/property.types";
 
-export const StepTwo = ({ activeSubStep }: { activeSubStep: number }) => {
+export const StepTwo = ({ activeSubStep, payload }: { activeSubStep: number; payload?: DraftProperty }) => {
   const [propertyCondition, setPropertyCondition] = useState<"new" | "old">(
     "new",
   );

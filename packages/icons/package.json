@@ -9,15 +9,10 @@
       "default": "./src/index.ts"
     }
   },
-  "scripts": {
-    "build": "svgr src/svgs --out-dir src/generated --typescript --icon"
-  },
-
   "peerDependencies": {
     "react": "^19.2.3"
   },
   "devDependencies": {
-    "@svgr/cli": "^8.1.0",
     "@types/react": "^19.2.15",
     "react": "19.2.3",
     "typescript": "^5.9.3"
