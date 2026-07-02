@@ -14,7 +14,8 @@ type ButtonVariant =
   | "danger"
   | "warning"
   | "disabled"
-  | "disabledTransparent";
+  | "disabledTransparent"
+  | "surface";
 
 type ButtonProps<T extends React.ElementType = "button"> = {
   as?: T;
@@ -43,6 +44,8 @@ const variantClass: Record<ButtonVariant, string> = {
     "bg-[var(--d300)] text-[var(--inverted)] hover:bg-[var(--btn-d300-hover)]",
   warning:
     "bg-[var(--w300)] text-[var(--inverted)] hover:bg-[var(--btn-w300-hover)]",
+  surface:
+    "bg-[var(--surface)] text-[var(--primary)] hover:bg-[var(--btn-transparent-hover)]",
 };
 
 const Button = <T extends React.ElementType = "button">({

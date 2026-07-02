@@ -25,6 +25,17 @@ interface ToastContextValue {
 
 const ToastContext = React.createContext<ToastContextValue | null>(null);
 
+let toastId = 0;
+
+function createToastId() {
+  if (typeof crypto !== "undefined" && typeof crypto.randomUUID === "function") {
+    return crypto.randomUUID();
+  }
+
+  toastId += 1;
+  return `toast-${Date.now()}-${toastId}`;
+}
+
 export function ToastProvider({ children }: { children: React.ReactNode }) {
   const [toasts, setToasts] = React.useState<Toast[]>([]);
 
@@ -35,7 +46,7 @@ export function ToastProvider({ children }: { children: React.ReactNode }) {
       variant: ToastVariant = "info",
       duration = 4000,
     ) => {
-      const id = crypto.randomUUID();
+      const id = createToastId();
       setToasts((prev) => [
         ...prev,
         { id, title, description, variant, duration },

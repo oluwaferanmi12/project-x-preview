@@ -5,11 +5,16 @@ import { ListingNavigation } from "../components/listing-navigation";
 import { Col, Row } from "antd";
 import { StepWrapper } from "../components/step-wrapper";
 import { Button } from "@repo/ui";
-import { useRouter } from "next/navigation";
+import { ArrowLeft } from "@repo/icons";
+import { useRouter, useSearchParams } from "next/navigation";
 import { MobileListingNavigation } from "../components/mobile-listing-navigation";
 
 function ListPropertyScreen() {
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const showDraftBack = searchParams.get("from") === "draft";
+  // The step should be handled from the top of this screen
+  // Based on the api call, make an api call to determine the step the user is on
   const {
     activeStep,
     handleNextStep,
@@ -22,68 +27,84 @@ function ListPropertyScreen() {
   const isCompleted = activeStep > 7;
 
   return (
-    <Row gutter={16} className="lg:min-h-[90vh] pb-10">
-      {/* Mobile Navigation */}
-      <Col xs={24} lg={0}>
-        <MobileListingNavigation
-          active={activeStep}
-          dropOffStep={dropOffStep}
-        />
-      </Col>
+    <Container>
+      {showDraftBack && (
+        <button
+          type="button"
+          onClick={() => router.push("/properties?status=draft")}
+          className="mb-5 inline-flex cursor-pointer items-center gap-2 text-sm font-bold text-s500"
+        >
+          <ArrowLeft size={14} />
+          Back
+        </button>
+      )}
 
-      {/* Desktop Navigation */}
-      <Col lg={8} xs={0}>
-        <ListingNavigation active={activeStep} dropOffStep={dropOffStep} />
-      </Col>
-      <Col xs={24} lg={16}>
-        <Container className="relative flex flex-col lg:py-12  lg:bg-surface w-full h-full rounded-xl">
-          {isCompleted ? (
-            <Row
-              justify={"center"}
-              align={"middle"}
-              className="flex-1 items-center"
-            >
-              <Col xs={24} lg={12}>
-                <Container className="flex flex-col items-center justify-between h-full">
-                  <Container className="flex flex-col gap-16 items-center justify-center h-full">
-                    <Container as="div">
-                      <Container
-                        as="h1"
-                        className="text-2xl mb-2 text-center font-bold text-primary"
+      <Row gutter={16} className="lg:min-h-[90vh] pb-10">
+        {/* Mobile Navigation */}
+        <Col xs={24} lg={0}>
+          <MobileListingNavigation
+            active={activeStep}
+            dropOffStep={dropOffStep}
+          />
+        </Col>
+
+        {/* Desktop Navigation */}
+        <Col lg={8} xs={0}>
+          <ListingNavigation active={activeStep} dropOffStep={dropOffStep} />
+        </Col>
+        <Col xs={24} lg={16}>
+          <Container className="relative flex flex-col lg:py-12  lg:bg-surface w-full h-full rounded-xl">
+            {isCompleted ? (
+              <Row
+                justify={"center"}
+                align={"middle"}
+                className="flex-1 items-center"
+              >
+                <Col xs={24} lg={12}>
+                  <Container className="flex flex-col items-center justify-between h-full">
+                    <Container className="flex flex-col gap-16 items-center justify-center h-full">
+                      <Container as="div">
+                        <Container
+                          as="h1"
+                          className="text-2xl mb-2 text-center font-bold text-primary"
+                        >
+                          Property Submitted
+                        </Container>
+                        <Container
+                          as="p"
+                          className="text-center text-secondary"
+                        >
+                          Your property has been submitted for review. Once all
+                          details are facts checked property will be published
+                          to the public.
+                        </Container>
+                      </Container>
+
+                      <Button
+                        variant="primary"
+                        fullWidth
+                        className="px-8 py-2 rounded-lg font-medium"
+                        onClick={() => router.replace("/properties")}
                       >
-                        Property Submitted
-                      </Container>
-                      <Container as="p" className="text-center text-secondary">
-                        Your property has been submitted for review. Once all
-                        details are facts checked property will be published to
-                        the public.
-                      </Container>
+                        Go to dashboard
+                      </Button>
                     </Container>
-
-                    <Button
-                      variant="primary"
-                      fullWidth
-                      className="px-8 py-2 rounded-lg font-medium"
-                      onClick={() => router.replace("/properties")}
-                    >
-                      Go to dashboard
-                    </Button>
                   </Container>
-                </Container>
-              </Col>
-            </Row>
-          ) : (
-            <StepWrapper
-              activeSubStep={activeSubStep}
-              handleNextStep={handleNextStep}
-              handlePrevStep={handlePrevStep}
-              step={activeStep}
-              payload={payload}
-            />
-          )}
-        </Container>
-      </Col>
-    </Row>
+                </Col>
+              </Row>
+            ) : (
+              <StepWrapper
+                activeSubStep={activeSubStep}
+                handleNextStep={handleNextStep}
+                handlePrevStep={handlePrevStep}
+                step={activeStep}
+                payload={payload}
+              />
+            )}
+          </Container>
+        </Col>
+      </Row>
+    </Container>
   );
 }
 

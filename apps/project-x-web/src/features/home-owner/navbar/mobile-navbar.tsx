@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { Container, Text } from "@repo/ui";
+import { Container, Text} from "@repo/ui";
 import { BrandLogo } from "@/assets/images";
 import { QuestionNavIcon, Menu } from "@repo/icons";
 import { MobileNavDrawer } from "./mobile-nav-drawer";
