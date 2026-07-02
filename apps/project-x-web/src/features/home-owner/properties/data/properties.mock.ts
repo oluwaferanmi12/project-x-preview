@@ -25,16 +25,17 @@ export type PropertyItem = {
 export const properties: PropertyItem[] = [
   {
     id: "1",
-    title: "Property 01",
+    title: "15 Adewale Street, Oke-Baale Area, Osogbo, Osun...",
+    image: "/draft-property.png",
     status: "published",
     step: 2,
     substep: 1,
     date: "5 Apr, 2026",
     meta: {
-      type: "N/A",
-      beds: 0,
-      baths: 0,
-      toilets: 0,
+      type: "Apartment/Flat",
+      beds: 3,
+      baths: 3,
+      toilets: 4,
     },
   },
   {

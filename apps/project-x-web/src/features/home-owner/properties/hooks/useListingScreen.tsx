@@ -1,7 +1,6 @@
 "use client";
-import { useFormStore } from "@/store/useFormStore";
 import { useRouter, useSearchParams } from "next/navigation";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 export const useListingScreen = () => {
   const params = useSearchParams();
@@ -46,12 +45,26 @@ export const useListingScreen = () => {
   };
 
   useEffect(() => {
+    const nextParams = new URLSearchParams(params.toString());
+
     if (!params.get("step")) {
-      router.replace("/properties/list-property?step=1&substep=1");
+      nextParams.set("step", "1");
+      nextParams.set("substep", "1");
+      const nextQueryString = nextParams.toString();
+
+      if (nextQueryString !== params.toString()) {
+        router.replace(`/properties/list-property?${nextQueryString}`);
+      }
     } else {
-      router.push(`/properties/list-property?step=${activeStep}&substep=${activeSubStep}`);
+      nextParams.set("step", String(activeStep));
+      nextParams.set("substep", String(activeSubStep));
+      const nextQueryString = nextParams.toString();
+
+      if (nextQueryString !== params.toString()) {
+        router.replace(`/properties/list-property?${nextQueryString}`);
+      }
     }
-  }, [activeStep, activeSubStep]);
+  }, [activeStep, activeSubStep, params, router]);
 
   return { activeStep, handleNextStep, handlePrevStep, activeSubStep };
 };

@@ -4,3 +4,4 @@
 export const BrandLogo = "/assets/images/brand-logo.png";
 export const LogoPlaceholder = "/assets/images/logo-placeholder.png";
 export const MiniHouse = "/assets/images/mini-house.png";
+export const MapImg = "./map.png";

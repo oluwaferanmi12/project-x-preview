@@ -147,7 +147,7 @@ const PropertyCard = ({ property }: { property: PropertyItem }) => {
     router.push(
       `/properties/list-property?step=${property.step ?? 1}&substep=${
         property.substep ?? 1
-      }`
+      }&from=draft`
     );
   };
 
