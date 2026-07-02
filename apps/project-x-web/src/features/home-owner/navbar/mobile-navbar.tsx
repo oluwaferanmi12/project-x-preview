@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { Container, Text, Switch } from "@repo/ui";
+import { Container, Text, Switch, Button } from "@repo/ui";
 
 import { BrandLogo } from "@/assets/images";
 import { useTheme } from "@/context/ThemeContext";
@@ -19,8 +19,8 @@ import {
   LogoutIcon,
   ThemeToggleIcon,
   ProfileSync,
+  LogoPlaceholderIcon,
 } from "@repo/icons";
-import { Button } from "../button";
 
 type NavLink = {
   icon: React.ComponentType<React.SVGProps<SVGSVGElement>>;
@@ -112,7 +112,7 @@ export const MobileNavbar = ({
               Label
             </Button>
 
-            <img src={BrandLogo} alt="Brand Logo" className="h-7 w-auto" />
+             <LogoPlaceholderIcon className="text-primary" />
           </Container>
 
           <Container className="flex items-center gap-4">

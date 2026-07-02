@@ -14,6 +14,7 @@ import {
   QuestionNavIcon,
   BellBadge,
   ChevronArrowDown,
+  LogoPlaceholderIcon,
 } from "@repo/icons";
 import { useAuthStore } from "@/store/useAuthStore";
 import { getInitials } from "@repo/utils";
@@ -63,7 +64,7 @@ export const Navbar = ({ onNavigate }: NavbarProps) => {
       <GeneralSpacer>
         <Container className="flex justify-between items-center">
           <Container as="span">
-            <img src={BrandLogo} alt="Brand Logo" className="text-primary" />
+              <LogoPlaceholderIcon className="text-primary" />
           </Container>
 
           <Container className="flex gap-3">
@@ -79,7 +80,7 @@ export const Navbar = ({ onNavigate }: NavbarProps) => {
                 >
                   <Icon className="text-p300" />
 
-                  <Text variant="action-label" tone="p300">
+                  <Text  variant="action-label" tone="p300">
                     {link.label}
                   </Text>
                 </Container>

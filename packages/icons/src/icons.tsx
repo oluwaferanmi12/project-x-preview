@@ -1137,7 +1137,7 @@ export const SwitchIcon = ({ size = 20, className, color }: IconProps) => (
     />
   </svg>
 );
-export const LogoPlaceholderIcon = ({ size = 147, className, color = "currentColor", }: IconProps) => (
+export const LogoPlaceholderIcon = ({ size = 120, className, color = "currentColor", }: IconProps) => (
   <svg
     width={size}
     height={typeof size === "number" ? (size * 24) / 147 : undefined}
