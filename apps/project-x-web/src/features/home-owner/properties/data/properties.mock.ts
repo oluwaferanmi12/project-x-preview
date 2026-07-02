@@ -1,10 +1,16 @@
 export type PropertyStatus = "draft" | "under-review" | "published" | "archived";
+export type PropertyReviewStatus =
+  | "pending"
+  | "in-progress"
+  | "finalising"
+  | "rejected";
 
 export type PropertyItem = {
   id: string;
   title: string;
   image?: string;
   status: PropertyStatus;
+  reviewStatus?: PropertyReviewStatus;
   step?: number;
   substep?: number;
   date: string;
@@ -219,11 +225,176 @@ export const properties: PropertyItem[] = [
     substep: 1,
     date: "5 Apr, 2026",
     status: "under-review",
+    reviewStatus: "pending",
     meta: {
       type: "Apartment/Flat",
       beds: 3,
       baths: 3,
       toilets: 4,
+    },
+  },
+  {
+    id: "15",
+    title: "15 Adewale Street, Oke-Baal...",
+    image: "/draft-property.png",
+    step: 3,
+    substep: 1,
+    date: "5 Apr, 2026",
+    status: "under-review",
+    reviewStatus: "in-progress",
+    meta: {
+      type: "Apartment/Flat",
+      beds: 3,
+      baths: 3,
+      toilets: 4,
+    },
+  },
+  {
+    id: "16",
+    title: "15 Adewale Street, Oke-Baal...",
+    image: "/draft-property.png",
+    step: 3,
+    substep: 1,
+    date: "5 Apr, 2026",
+    status: "under-review",
+    reviewStatus: "finalising",
+    meta: {
+      type: "Apartment/Flat",
+      beds: 3,
+      baths: 3,
+      toilets: 4,
+    },
+  },
+  {
+    id: "17",
+    title: "15 Adewale Street, Oke-Baal...",
+    image: "/draft-property.png",
+    step: 3,
+    substep: 1,
+    date: "5 Apr, 2026",
+    status: "under-review",
+    reviewStatus: "rejected",
+    meta: {
+      type: "Apartment/Flat",
+      beds: 3,
+      baths: 3,
+      toilets: 4,
+    },
+  },
+  {
+    id: "18",
+    title: "15 Adewale Street, Oke-Baal...",
+    image: "/draft-property.png",
+    step: 2,
+    substep: 2,
+    date: "7 Apr, 2026",
+    status: "under-review",
+    reviewStatus: "pending",
+    meta: {
+      type: "Apartment/Flat",
+      beds: 2,
+      baths: 2,
+      toilets: 3,
+    },
+  },
+  {
+    id: "19",
+    title: "15 Adewale Street, Oke-Baal...",
+    image: "/draft-property.png",
+    step: 4,
+    substep: 1,
+    date: "8 Apr, 2026",
+    status: "under-review",
+    reviewStatus: "in-progress",
+    meta: {
+      type: "Apartment/Flat",
+      beds: 4,
+      baths: 4,
+      toilets: 5,
+    },
+  },
+  {
+    id: "20",
+    title: "15 Adewale Street, Oke-Baal...",
+    image: "/draft-property.png",
+    step: 4,
+    substep: 2,
+    date: "9 Apr, 2026",
+    status: "under-review",
+    reviewStatus: "finalising",
+    meta: {
+      type: "Apartment/Flat",
+      beds: 3,
+      baths: 2,
+      toilets: 3,
+    },
+  },
+  {
+    id: "21",
+    title: "15 Adewale Street, Oke-Baal...",
+    image: "/draft-property.png",
+    step: 5,
+    substep: 1,
+    date: "10 Apr, 2026",
+    status: "under-review",
+    reviewStatus: "rejected",
+    meta: {
+      type: "Apartment/Flat",
+      beds: 5,
+      baths: 4,
+      toilets: 5,
+    },
+  },
+  {
+    id: "22",
+    title: "15 Adewale Street, Oke-Baal...",
+    image: "/draft-property.png",
+    date: "2 Apr, 2026",
+    status: "archived",
+    meta: {
+      type: "Apartment/Flat",
+      beds: 3,
+      baths: 3,
+      toilets: 4,
+    },
+  },
+  {
+    id: "23",
+    title: "19 Adebayo Lane, Ikeja...",
+    image: "/draft-property.png",
+    date: "28 Mar, 2026",
+    status: "archived",
+    meta: {
+      type: "Duplex",
+      beds: 4,
+      baths: 4,
+      toilets: 5,
+    },
+  },
+  {
+    id: "24",
+    title: "8 Oluwole Crescent, Lekki...",
+    image: "/draft-property.png",
+    date: "20 Mar, 2026",
+    status: "archived",
+    meta: {
+      type: "Terrace House",
+      beds: 4,
+      baths: 3,
+      toilets: 4,
+    },
+  },
+  {
+    id: "25",
+    title: "42 Unity Road, Yaba...",
+    image: "/draft-property.png",
+    date: "15 Mar, 2026",
+    status: "archived",
+    meta: {
+      type: "Apartment/Flat",
+      beds: 2,
+      baths: 2,
+      toilets: 3,
     },
   },
 ];

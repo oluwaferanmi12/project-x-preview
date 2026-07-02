@@ -1,5 +1,5 @@
-import { PropertyReviewDetailsScreen } from "@/features/house-owners/properties/screens/property-review-details-screen";
-import { PublishedPropertyDetailsScreen } from "@/features/house-owners/properties/screens/published-property-details-screen";
+import { PropertyReviewDetailsScreen } from "@/features/home-owner/properties/screens/property-review-details-screen";
+import { PublishedPropertyDetailsScreen } from "@/features/home-owner/properties/screens/published-property-details-screen";
 
 export default async function PropertyDetailsPage({
   params,

@@ -1,15 +1,38 @@
 "use client";
 
-import { useState } from "react";
+import { useMemo } from "react";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { Container, Text } from "@repo/ui";
 import { PropertyStatusTabs } from "@/features/home-owner/properties/components/property-status-tabs";
-import { DraftPropertiesScreen } from "@/features/home-owner/properties/screens/draft-properties-screen";
-import { UnderReviewPropertiesScreen } from "@/features/home-owner/properties/screens/under-review-properties-screen";
-import { PublishedPropertiesScreen } from "@/features/home-owner/properties/screens/published-properties-screen";
-import { ArchivedPropertiesScreen } from "@/features/home-owner/properties/screens/archived-properties-screen";
+import { PropertiesScreen } from "@/features/home-owner/properties/screens/properties-screen";
+import type { PropertyStatus } from "@/features/home-owner/properties/data/properties.mock";
+
+const propertyStatuses: PropertyStatus[] = [
+  "draft",
+  "under-review",
+  "published",
+  "archived",
+];
 
 export default function PropertiesPage() {
-  const [activeStatus, setActiveStatus] = useState("draft");
+  const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+
+  const activeStatus = useMemo(() => {
+    const status = searchParams.get("status");
+
+    return propertyStatuses.includes(status as PropertyStatus)
+      ? (status as PropertyStatus)
+      : "draft";
+  }, [searchParams]);
+
+  const setActiveStatus = (status: PropertyStatus) => {
+    const params = new URLSearchParams(searchParams.toString());
+
+    params.set("status", status);
+    router.push(`${pathname}?${params.toString()}`);
+  };
 
   return (
     <Container className="min-h-[90vh] pb-10">
@@ -24,10 +47,7 @@ export default function PropertiesPage() {
         />
       </Container>
 
-      {activeStatus === "draft" && <DraftPropertiesScreen />}
-      {activeStatus === "under-review" && <UnderReviewPropertiesScreen />}
-      {activeStatus === "published" && <PublishedPropertiesScreen />}
-      {activeStatus === "archived" && <ArchivedPropertiesScreen />}
+      <PropertiesScreen key={activeStatus} status={activeStatus} />
     </Container>
   );
 }
