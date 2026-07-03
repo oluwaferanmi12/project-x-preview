@@ -86,7 +86,7 @@ export const PropertiesScreen = ({ status }: PropertiesScreenProps) => {
   return (
     <Container>
       <Container
-        className="mb-8 flex items-center justify-between overflow-hidden rounded-2xl bg-s50 bg-cover bg-center px-6 py-5"
+        className="mb-8 flex flex-col md:flex-row md:items-center md:justify-between overflow-hidden rounded-2xl bg-s50 bg-cover bg-center px-6 py-5"
         style={{
           backgroundImage:
             "linear-gradient(90deg, color-mix(in srgb, var(--s400) 92%, transparent), color-mix(in srgb, var(--s500) 82%, transparent)), url('/property-background-bg.jpg')",
@@ -102,10 +102,14 @@ export const PropertiesScreen = ({ status }: PropertiesScreenProps) => {
             engagements
           </Text>
         </Container>
+        <Container>
+          <Button className="text-sm mt-2 md:mt-0" shorter  leftIcon={<PlusIcon size={14} />} onClick={addProperty}>
+            Add property
+          </Button>
+        </Container>
+        
 
-        <Button className="text-sm"  leftIcon={<PlusIcon size={14} />} onClick={addProperty}>
-          Add property
-        </Button>
+        
       </Container>
 
       {paginatedProperties.length > 0 ? (

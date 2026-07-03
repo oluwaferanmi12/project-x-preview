@@ -3,13 +3,13 @@
 import React from "react";
 import { Container, GeneralSpacer, Text } from "@repo/ui";
 import { Col, Row } from "antd";
-import { BrandLogo } from "@/assets/images";
 import {
   FacebookIcon,
   LinkedinIcon,
   MediumIcon,
   TiktokIcon,
   InstagramIcon,
+  LogoPlaceholderIcon,
   XIcon,
 } from "@repo/icons";
 
@@ -36,7 +36,9 @@ export const Footer = () => {
         <GeneralSpacer>
           <Row>
             <Col xs={24} lg={10}>
-              <img src={BrandLogo} alt="Brand Logo" className="text-inverted" />
+              <Container as="span">
+                <LogoPlaceholderIcon className="text-inverted" />
+              </Container>
               <Container className="mt-5">
                 <Text variant="h2" tone="inverted">
                   Connecting every{" "}
