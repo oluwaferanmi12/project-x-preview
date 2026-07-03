@@ -64,7 +64,7 @@ export const Navbar = ({ onNavigate }: NavbarProps) => {
       <GeneralSpacer>
         <Container className="flex justify-between items-center">
           <Container as="span">
-              <LogoPlaceholderIcon className="text-primary" />
+            <LogoPlaceholderIcon className="text-primary" />
           </Container>
 
           <Container className="flex gap-3">
