@@ -9,6 +9,7 @@ type TextVariant =
   | "h4"
   | "h5"
   | "body-lg"
+  | "body-xl"
   | "body-md"
   | "body-sm"
   | "body-xs"
@@ -40,6 +41,7 @@ const variantClass: Record<TextVariant, string> = {
   h3: "text-h3",
   h4: "text-h4",
   h5: "text-h5",
+  "body-xl": "text-body-xl",
   "body-lg": "text-body-lg",
   "body-md": "text-body-md",
   "body-sm": "text-body-sm",

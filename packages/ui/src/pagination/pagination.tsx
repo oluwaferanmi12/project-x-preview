@@ -28,10 +28,10 @@ export const Pagination = ({
             onClick={() => onPageChange(page)}
             as="button"
             // variant="transparent"
-            className={`${
+            className={` ${
              isActive
-               ? "bg-p300 text-inverted"
-               : "bg-transparent text-secondary hover:bg-p50 hover:text-p300"
+               ? "bg-s300 px-6 text-inverted hover:bg-s300"
+               : "bg-transparent text-secondary hover:bg-s50 hover:text-s300"
            } `}
           >
             {page}
