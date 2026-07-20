@@ -28,9 +28,15 @@ export const ReviewsOverview = ({
   onSelectProperty,
 }: ReviewsOverviewProps) => (
   <Container className="grid gap-6 xl:grid-cols-[minmax(0,1fr)_340px]">
-    <Container>
+    <Container className="order-1 xl:order-2 min-w-0">
+      <ReviewSummary
+        property={selectedProperty}
+        totalProperties={totalProperties}
+      />
+    </Container>
+    <Container className="order-2 xl:order-1">
       <ReviewsSearch value={query} onChange={onSearch} />
-      <hr className="border-line mb-3"/>
+      <hr className="mb-3 border-line" />
 
       <Container className="grid grid-cols-1 gap-4 md:grid-cols-2">
         {properties.map((property) => (
@@ -48,10 +54,5 @@ export const ReviewsOverview = ({
         onPageChange={onPageChange}
       />
     </Container>
-
-    <ReviewSummary
-      property={selectedProperty}
-      totalProperties={totalProperties}
-    />
   </Container>
 );

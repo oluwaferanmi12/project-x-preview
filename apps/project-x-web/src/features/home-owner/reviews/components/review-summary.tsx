@@ -17,59 +17,80 @@ export const ReviewSummary = ({
   compact,
   showPropertyCard,
 }: ReviewSummaryProps) => (
-  <Container className="space-y-5">
-    <Container className="space-y-3">
-    <MetricBand
-  label={compact ? "Total Rating" : "Avg Rating"}
-  value={property.rating.toFixed(1)}
-  suffix="/5.0"
-  className="bg-indigo-back"
-  valueClassName="text-indigo-fore"
-  icon={<RatingStarIcon className="text-indigo-fore" />}
-/>
+  <Container className="w-full min-w-0 max-w-full space-y-5 overflow-hidden">
+    <Container className="flex w-full min-w-0 max-w-full gap-3 overflow-x-auto overscroll-x-contain pb-2 md:flex-col md:overflow-visible md:pb-0">
+      <MetricBand
+        label={compact ? "Total Rating" : "Avg Rating"}
+        value={property.rating.toFixed(1)}
+        suffix="/5.0"
+        className="bg-indigo-back"
+        valueClassName="text-indigo-fore"
+        icon={<RatingStarIcon className="text-indigo-fore" />}
+      />
+
       <MetricBand
         label="Total Reviews"
         value={property.totalReviews.toString().padStart(2, "0")}
         className="bg-purple-fore"
         valueClassName="text-purple-back"
-        icon={<RatingMessagesIcon  className="text-purple-back" />}
+        icon={<RatingMessagesIcon className="text-purple-back" />}
       />
+
       {!compact && (
         <MetricBand
           label="Total Properties"
           value={totalProperties.toString().padStart(2, "0")}
           className="bg-mossgreen-back"
           valueClassName="text-mossgreen-fore"
-          icon={<RatingBuildingIcon className="text-mossgreen-fore"  />}
+          icon={<RatingBuildingIcon className="text-mossgreen-fore" />}
         />
       )}
     </Container>
-    <hr className=" border-line" />
+
+    <hr className="border-line" />
 
     <RatingBreakdown property={property} />
+
     {showPropertyCard && <SummaryPropertyCard property={property} />}
   </Container>
 );
 
-const RatingBreakdown = ({ property }: { property: ReviewedProperty }) => (
-  <Container className="rounded-xl bg-surface p-4">
+
+
+export const RatingBreakdown = ({
+  property,
+}: {
+  property: ReviewedProperty;
+}) => (
+  <Container className="w-full min-w-0 max-w-full overflow-hidden rounded-xl bg-surface p-4">
     <Text variant="body-sm" tone="primary">
       Overall Rating Breakdown
     </Text>
-    <Text variant="body-xs"  tone="secondary">
+
+    <Text variant="body-xs" tone="secondary">
       See how your ratings are distributed
     </Text>
 
     <Container className="mt-4 h-px bg-line" />
 
-    <Container className="mt-5 grid grid-cols-2 gap-3">
+    <Container className="mt-5 flex w-full min-w-0 max-w-full gap-3 overflow-x-auto overscroll-x-contain pb-2 md:grid md:grid-cols-2 md:overflow-visible md:pb-0">
       {property.categories.map((category) => (
         <Container
           key={category.label}
-          className="flex min-h-26 flex-col items-center justify-center rounded-lg bg-background p-3.5 text-center"
+          className="
+            flex h-32 w-40 min-w-40 max-w-40 shrink-0
+            flex-col items-center justify-center
+            rounded-lg bg-background p-3.5 text-center
+            md:h-auto md:min-h-26 md:w-auto md:min-w-0 md:max-w-none
+          "
         >
           <RatingProgress score={category.score} />
-          <Text variant="body-sm" className="mt-3 leading-tight" tone="primary">
+
+          <Text
+            variant="body-sm"
+            className="mt-3 leading-tight"
+            tone="primary"
+          >
             {category.label}
           </Text>
         </Container>
@@ -78,9 +99,9 @@ const RatingBreakdown = ({ property }: { property: ReviewedProperty }) => (
   </Container>
 );
 
-const SummaryPropertyCard = ({ property }: { property: ReviewedProperty }) => (
-    <Container className="grid min-h-21 grid-cols-[86px_minmax(0,1fr)] overflow-hidden rounded-lg border border-line bg-surface transition hover:border-s500">
-     <Container className="relative h-full min-h-21 overflow-hidden bg-muted">
+export const SummaryPropertyCard = ({ property }: { property: ReviewedProperty }) => (
+  <Container className="grid min-h-21 grid-cols-[86px_minmax(0,1fr)] overflow-hidden rounded-lg border border-line bg-surface transition hover:border-s500">
+    <Container className="relative h-full min-h-21 overflow-hidden bg-muted">
       <Image
         src={property.image}
         alt={property.title}
@@ -89,33 +110,34 @@ const SummaryPropertyCard = ({ property }: { property: ReviewedProperty }) => (
       />
     </Container>
 
-      <Container className="flex min-w-0 flex-col px-3 justify-start py-2">
-        <Text
+    <Container className="flex min-w-0 flex-col px-3 justify-start py-2">
+      <Text
         variant="body-md"
-          className="line-clamp-2"
-          tone="primary"
-        >
-          {property.title}, {property.address}
-        </Text>
-        <Button
-          shorter
-          variant="transparent"
-          rightIcon={<ArrowRight size={12} />}
-          className="mt-2 self-start text-sm   px-0 font-bold text-s500 hover:bg-transparent"
-        >
-          View Property
-        </Button>
-      </Container>
+        className="line-clamp-2"
+        tone="primary"
+      >
+        {property.title}, {property.address}
+      </Text>
+      <Button
+        shorter
+        variant="transparent"
+        rightIcon={<ArrowRight size={12} />}
+        className="mt-2 self-start text-sm   px-0 font-bold text-s500 hover:bg-transparent"
+      >
+        View Property
+      </Button>
     </Container>
+  </Container>
 );
 
-const MetricBand = ({
+export const MetricBand = ({
   label,
   value,
   suffix,
   className,
   valueClassName,
   icon,
+  singleBandFullWidth
 }: {
   label: string;
   value: string;
@@ -123,12 +145,22 @@ const MetricBand = ({
   className: string;
   valueClassName: string;
   icon: ReactNode;
+  singleBandFullWidth?: boolean;
 }) => (
   <Container
-    className={`relative min-h-[96px] overflow-hidden rounded-xl p-5 ${className}`}
+    className={`
+      relative min-h-28  shrink-0
+      overflow-hidden rounded-xl p-5
+      md:min-h-24 
+      ${singleBandFullWidth ? 
+        "w-full" : 
+        "w-57 min-w-57 max-w-57 md:w-full md:min-w-0 md:max-w-none"
+      }
+      ${className}
+    `}
   >
     <Text
-      variant="body-sm"
+      variant="action-label"
       className="font-sans font-medium leading-none"
       tone="primary"
     >

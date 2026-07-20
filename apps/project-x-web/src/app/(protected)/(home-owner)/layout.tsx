@@ -10,7 +10,7 @@ export default function HouseOwnerlayout({
   children: React.ReactNode;
 }>) {
   return (
-    <Container as="div" className="bg-background h-full  pt-28">
+    <Container as="div" className="bg-background h-full pt-20">
       <HouseOwnerNavigation />
       <Container as="div">
         <GeneralSpacer>{children}</GeneralSpacer>

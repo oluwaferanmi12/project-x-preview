@@ -17,7 +17,7 @@ export const ReviewsSearch = ({ value, onChange }: ReviewsSearchProps) => (
         value={value}
         onChange={(event) => onChange(event.target.value)}
         placeholder="Search property..."
-        className="h-11 w-full rounded-xl border border-line bg-surface pl-10 pr-4 text-sm text-primary outline-none transition focus:border-p300"
+        className="h-12 w-full rounded-xl border border-line bg-surface pl-10 pr-4 text-sm text-primary outline-none transition focus:border-p300"
       />
     </label>
   </Container>

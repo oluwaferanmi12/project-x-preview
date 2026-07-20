@@ -38,7 +38,7 @@ function ListPropertyScreen() {
         </button>
       )}
 
-      <Row gutter={16} className="lg:min-h-[90vh] pb-10">
+      <Row gutter={16} className="lg:min-h-[90vh] py-8">
         {/* Mobile Navigation */}
         <Col xs={24} lg={0}>
           <MobileListingNavigation
