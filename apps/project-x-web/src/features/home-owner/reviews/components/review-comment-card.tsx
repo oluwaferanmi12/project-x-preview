@@ -5,10 +5,29 @@ import { StarRating } from "./star-rating";
 
 type ReviewCommentCardProps = {
   review: ReviewItem;
+  onView?: () => void;
+  showViewButton?: boolean;
 };
 
-export const ReviewCommentCard = ({ review }: ReviewCommentCardProps) => (
-  <Container className="rounded-xl border border-line bg-surface p-3">
+export const ReviewCommentCard = ({
+  review,
+  onView,
+  showViewButton = true,
+}: ReviewCommentCardProps) => (
+  <Container
+    className={`rounded-xl border border-line bg-surface p-3 ${
+      onView ? "cursor-pointer transition hover:border-s500" : ""
+    }`}
+    onClick={onView}
+    role={onView ? "button" : undefined}
+    tabIndex={onView ? 0 : undefined}
+    onKeyDown={(event) => {
+      if (onView && (event.key === "Enter" || event.key === " ")) {
+        event.preventDefault();
+        onView();
+      }
+    }}
+  >
     <Container className="grid grid-cols-[46px_minmax(0,1fr)] gap-3">
       {/* Left only avatar */}
       <Container className="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg bg-p50">
@@ -31,7 +50,6 @@ export const ReviewCommentCard = ({ review }: ReviewCommentCardProps) => (
 
           <StarRating rating={review.rating} />
         </Container>
-
         <Text
         variant="body-sm"
           className="mt-3 line-clamp-2"
@@ -39,6 +57,8 @@ export const ReviewCommentCard = ({ review }: ReviewCommentCardProps) => (
         >
           {review.comment}
         </Text>
+        <hr className="my-2 border-line" />
+
 
         <Container className="mt-3 flex items-center justify-between gap-3">
           <Container className="flex items-center gap-3 text-secondary">
@@ -54,18 +74,22 @@ export const ReviewCommentCard = ({ review }: ReviewCommentCardProps) => (
                 {review.likes}
               </Text>
             </Container>
-            
-            
           </Container>
 
-          <Button
-            shorter
-            variant="transparent"
-            rightIcon={<ArrowRight size={12} />}
-            className="h-auto px-0 py-0 text-sm font-bold text-s500 hover:bg-transparent"
-          >
-            View
-          </Button>
+          {onView && showViewButton && (
+            <Button
+              shorter
+              variant="transparent"
+              rightIcon={<ArrowRight size={12} />}
+              className="h-auto px-0 py-0 text-sm font-bold text-s500 hover:bg-transparent"
+              onClick={(event) => {
+                event.stopPropagation();
+                onView();
+              }}
+            >
+              View
+            </Button>
+          )}
         </Container>
       </Container>
     </Container>

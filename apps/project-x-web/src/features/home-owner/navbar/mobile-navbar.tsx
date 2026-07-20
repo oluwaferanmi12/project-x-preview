@@ -34,7 +34,7 @@ export const MobileNavbar = ({ onNavigate }: MobileNavbarProps) => {
 
   return (
     <>
-      <Container className="lg:hidden fixed top-0 left-0 z-1000 w-full bg-surface border-b">
+      <Container className="lg:hidden fixed top-0 left-0 z-1000 w-full bg-surface border-b border-line">
         <Container className="flex items-center justify-between px-4 py-4">
           <Container className="flex items-center gap-4">
             <Container as="button" onClick={() => setOpen(true)}>

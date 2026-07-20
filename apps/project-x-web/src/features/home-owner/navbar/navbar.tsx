@@ -59,7 +59,7 @@ export const Navbar = ({ onNavigate }: NavbarProps) => {
   return (
     <Container
       as="nav"
-      className="w-full hidden sm:flex bg-surface py-4 top-0 fixed z-1000"
+      className="w-full hidden sm:flex bg-surface py-4 top-0 fixed z-1000 border-b border-line"
     >
       <GeneralSpacer>
         <Container className="flex justify-between items-center">

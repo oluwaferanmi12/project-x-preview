@@ -28,9 +28,9 @@ export const Pagination = ({
             onClick={() => onPageChange(page)}
             as="button"
             // variant="transparent"
-            className={` ${
-             isActive
-               ? "bg-s300 px-6 text-inverted hover:bg-s300"
+            className={` text-sm ${
+              isActive
+               ? "bg-s300 rounded-lg w-[48px] h-[32px] px-4 md:px-6 text-inverted hover:bg-s300"
                : "bg-transparent text-secondary hover:bg-s50 hover:text-s300"
            } `}
           >

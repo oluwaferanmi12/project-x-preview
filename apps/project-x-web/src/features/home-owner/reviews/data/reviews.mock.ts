@@ -3,6 +3,15 @@ export type ReviewCategory = {
   score: number;
 };
 
+export type ReviewReply = {
+  id: string;
+  author: string;
+  initials: string;
+  date: string;
+  comment: string;
+  likes: number;
+};
+
 export type ReviewItem = {
   id: string;
   author: string;
@@ -12,6 +21,7 @@ export type ReviewItem = {
   comment: string;
   likes: number;
   replies: number;
+  thread?: ReviewReply[];
 };
 
 export type ReviewedProperty = {
