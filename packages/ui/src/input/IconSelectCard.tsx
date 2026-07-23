@@ -37,11 +37,11 @@ export function IconSelectCard({
           "h-5 w-5 rounded border flex items-center justify-center",
           checked
             ? "bg-purple-500 border-purple-500"
-            : "border-gray-300 bg-white"
+            : "border-gray-300 bg-surface"
         )}
       >
         {checked && (
-          <div className="h-2 w-2 rounded-sm bg-white" />
+          <div className="h-2 w-2 rounded-sm bg-surface" />
         )}
       </div>
     </button>

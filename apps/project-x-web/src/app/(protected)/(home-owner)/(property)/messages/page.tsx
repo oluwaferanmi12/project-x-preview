@@ -1,11 +1,15 @@
-import { Container, Text } from "@repo/ui";
+import { Container } from "@repo/ui";
+import { MessagesScreen } from "@/features/home-owner/messages/screens/messages-screen";
 
-export default function MessagesPage() {
+export default async function MessagesPage({
+  params,
+}: {
+  params: Promise<{ propertyId: string }>;
+}) {
+  const { propertyId } = await params;
   return (
     <Container className="min-h-[90vh] pb-10">
-      <Text variant="h3" tone="primary">
-        Messages
-      </Text>
+      <MessagesScreen propertyId={propertyId} />
     </Container>
   );
 }

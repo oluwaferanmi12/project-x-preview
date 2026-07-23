@@ -53,7 +53,7 @@ const Button = <T extends React.ElementType = "button">({
   variant = "primary",
   shorter,
   leftIcon,
-  rightIcon,
+  rightIcon,          
   className,
   fullWidth,
   loading,
