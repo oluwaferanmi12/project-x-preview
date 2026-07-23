@@ -5,7 +5,7 @@ import { BuildingIcon } from "@repo/icons";
 import { Text, Container } from "@repo/ui";
 import { MessageThread } from "../types/messages.types";
 import { MessagesSearch } from "./messages-search";
-import { getInitialsFromFullName } from "@repo/utils";
+import { getInitialsFromFullName, getMessageTime } from "@repo/utils";
 
 
 
@@ -74,10 +74,10 @@ export function MessageList({
               
 
               {/* Profile information */}
-              <Container className="ml-8">
-                <Container className="flex items-start gap-3">
+              <Container className="ml-6 md:ml-7">
+                <Container className="flex items-start gap-2">
                   {/* Avatar */}
-                  <Container className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-p300">
+                  <Container className="flex h-[40px] w-[40px] shrink-0 items-center justify-center rounded-xl bg-p300">
                     <Text
                       variant="h4"
                       tone="inverted"
@@ -91,7 +91,7 @@ export function MessageList({
                   <Container className="min-w-0 flex-1">
                     <Container className="flex items-center justify-between gap-3">
                       <Text
-                        variant="body-md"
+                        variant="action-label"
                         tone="primary"
                         className="truncate font-medium"
                       >
@@ -103,7 +103,7 @@ export function MessageList({
                         tone="secondary"
                         className="shrink-0"
                       >
-                        {thread.lastMessageTime}
+                        {getMessageTime(thread.lastMessageTime)}
                       </Text>
                     </Container>
 

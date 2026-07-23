@@ -1,10 +1,11 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Container, Text } from "@repo/ui";
+import { Container, Text, Button } from "@repo/ui";
 import { messageThreads } from "../data/messages.mock";
 import { MessageList } from "../components/message-list";
 import { MessageDetail } from "../components/message-detail";
+import { ArrowLeft } from "@repo/icons";
 
 interface MessagesScreenProps {
   propertyId: string;
@@ -66,9 +67,21 @@ export function MessagesScreen({ propertyId }: MessagesScreenProps) {
 
   return (
     <Container className="space-y-6">
-      <Text variant="h3" tone="primary" className="pt-4 md:pt-8">
-        Messages
-      </Text>
+      {isMobileView && selectedThreadId ? (
+        <Button
+        shorter
+        variant="transparent"
+        leftIcon={<ArrowLeft size={18} />}
+        className="px-0 text-s500"
+        onClick={handleBack}
+        >
+        Back
+       </Button>
+      ) : (
+        <Text variant="h3" tone="primary" className="pt-4 md:pt-8">
+          Messages
+        </Text>
+      )}
 
       <Container className="flex h-screen flex-col gap-0">
         <Container
@@ -90,7 +103,6 @@ export function MessagesScreen({ propertyId }: MessagesScreenProps) {
               <Container as="div" className="flex-1">
                 <MessageDetail
                   thread={selectedThread}
-                  isMobile={false}
                 />
               </Container>
             </>
@@ -108,8 +120,6 @@ export function MessagesScreen({ propertyId }: MessagesScreenProps) {
             <Container as="div" className="w-full">
               <MessageDetail
                 thread={selectedThread}
-                onBack={handleBack}
-                isMobile
               />
             </Container>
           )}
