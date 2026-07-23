@@ -9,27 +9,43 @@ export const Textarea = ({
   label,
   error,
   className,
+  endAdornment,
   ...props
 }: TextareaProps) => {
   const textareaClasses = [
-    "bg-surface outline-none focus:border-p75 focus:border-2 text-primary text-sm p-3 placeholder:text-secondary border border-line rounded-xl font-sans w-full resize-none min-h-[120px]",
+    "min-h-[120px] w-full resize-none rounded-xl",
+    "border border-line bg-surface p-3",
+    "font-sans text-sm text-primary",
+    "outline-none placeholder:text-secondary",
+    "focus:border-2 focus:border-p75",
+    endAdornment ? "pb-14" : "",
     className ?? "",
   ]
     .join(" ")
     .trim();
 
   return (
-    <Container className="w-full mb-4">
-      <Container className="mb-2">
-        <Text as="label" variant="body-sm" tone="primary">
-          {label}
-        </Text>
-      </Container>
-      <Container>
+    <Container className="mb-4 w-full">
+      {label && (
+        <Container className="mb-2">
+          <Text as="label" variant="body-sm" tone="primary">
+            {label}
+          </Text>
+        </Container>
+      )}
+
+      <Container className="relative">
         <textarea className={textareaClasses} {...props} />
+
+        {endAdornment && (
+          <Container className="absolute bottom-3 right-3 flex items-center gap-2">
+            {endAdornment}
+          </Container>
+        )}
       </Container>
+
       {error && (
-        <Text variant="body-sm" tone="danger">
+        <Text variant="body-sm" tone="danger" className="mt-1">
           {error}
         </Text>
       )}
