@@ -93,7 +93,7 @@ export const PropertiesScreen = ({ status }: PropertiesScreenProps) => {
         }}
       >
         <Container className="space-y-1">
-          <Text variant="h5" tone="inverted" >
+          <Text variant="h4" tone="inverted" >
             Add your properties
           </Text>
 
@@ -104,7 +104,7 @@ export const PropertiesScreen = ({ status }: PropertiesScreenProps) => {
         </Container>
         <Container>
           <Button className="text-sm mt-2 md:mt-0" shorter  leftIcon={<PlusIcon size={14} />} onClick={addProperty}>
-            Add property
+           <Text variant="action-button"> Add property</Text>
           </Button>
         </Container>
         
@@ -196,7 +196,8 @@ const PropertyCard = ({ property }: { property: PropertyItem }) => {
       <Container className="px-3.5 pt-3 pb-1">
         <Text
           tone="primary"
-          className="truncate text-lg font-bold leading-tight"
+          variant="h4"
+          className="truncate font-bold leading-tight"
         >
           {property.title}
         </Text>

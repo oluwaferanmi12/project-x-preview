@@ -31,7 +31,7 @@ export function MessageList({
   return (
     <Container className="flex flex-col h-full ">
       {/* Header */}
-      <Container className="pt-6 px-3.5 pb-3 rounded-tl-xl border border-b-0 border-line">
+      <Container className="pt-6 px-3.5 pb-3 rounded-tr-xl rounded-tl-xl md:rounded-tr-none border border-b-0 border-line">
         <Container className="flex items-center gap-3 mb-3">
           <Text variant="h5" className="font-semibold">
             All Messages
