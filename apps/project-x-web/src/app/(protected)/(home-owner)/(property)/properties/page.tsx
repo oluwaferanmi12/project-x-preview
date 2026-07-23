@@ -35,7 +35,7 @@ export default function PropertiesPage() {
   };
 
   return (
-    <Container className="min-h-[90vh] pb-10">
+    <Container className="min-h-[90vh] pt-6 pb-10">
       <Container className="mb-6 flex lg:flex-row flex-col lg:items-center justify-between">
         <Text variant="h3" tone="primary" className="lg:mb-0 mb-4">
           Properties

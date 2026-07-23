@@ -68,7 +68,7 @@ export function MessageDetail({ thread }: MessageDetailProps) {
   return (
     <Container className="flex flex-col h-full bg-surface">
       {/* MOBILE Header */}
-      <Container className="sm:hidden flex items-center md:justify-between border-b border-line px-5 py-2">
+      <Container className="sm:hidden flex items-center rounded-tl-xl md:rounded-tl-none rounded-tr-xl border border-line px-5 py-2">
         <Container className="flex min-w-0 items-center gap-3">
           <Container className="flex h-[48px] w-[48px] shrink-0 items-center justify-center rounded-xl bg-p300">
             <Text variant="h4" tone="inverted" className="font-bold">
@@ -105,7 +105,7 @@ export function MessageDetail({ thread }: MessageDetailProps) {
 
 
       {/* DESKTOP Header */}
-      <Container className="hidden md:flex items-center justify-between border-b border-line px-5 py-2">
+      <Container className="hidden md:flex items-center justify-between rounded-tr-xl border border-line px-5 py-2">
         <Container className="flex min-w-0 items-center gap-3">
           <Container className="flex h-[48px] w-[48px] shrink-0 items-center justify-center rounded-xl bg-p300">
             <Text variant="h4" tone="inverted" className="font-bold">
