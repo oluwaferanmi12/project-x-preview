@@ -2,7 +2,6 @@ import { Col, Row } from "antd";
 import { StepOne } from "./steps/step-one";
 import { ButtonNavigation } from "./button-navigation";
 import { Container } from "@repo/ui";
-import { useStepWrapper } from "../hooks/useStepWrapper";
 import { StepTwo } from "./steps/step-two";
 import { StepThree } from "./steps/step-three";
 import { StepFour } from "./steps/step-four";
@@ -10,6 +9,7 @@ import { StepFive } from "./steps/step-five";
 import { StepSix } from "./steps/step-six";
 import { StepSeven } from "./steps/step-seven";
 import { DraftProperty } from "../types/property.types";
+import React from "react";
 
 export const StepWrapper = ({
   step,
@@ -17,29 +17,80 @@ export const StepWrapper = ({
   handleNextStep,
   handlePrevStep,
   payload,
+  handleUpdateDraft,
+  handleSaveDraft,
+  isPending,
 }: {
   step: number;
   activeSubStep: number;
   handleNextStep: () => void;
   handlePrevStep: () => void;
   payload?: DraftProperty;
+  handleUpdateDraft: (updates: Partial<DraftProperty>) => void;
+  handleSaveDraft: () => void;
+  isPending?: boolean;
 }) => {
-  useStepWrapper();
+  const topRef = React.useRef<HTMLDivElement>(null);
+  React.useEffect(() => {
+    topRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+  }, [step, activeSubStep]);
+
   return (
     <Row justify={"center"} className="flex-1">
       <Col xs={24} lg={12}>
         <Container className="flex flex-col justify-between h-full">
-          <Container>
-            {step === 1 && <StepOne payload={payload} />}
-            {step === 2 && <StepTwo activeSubStep={activeSubStep} payload={payload} />}
-            {step === 3 && <StepThree activeSubstep={activeSubStep} payload={payload} />}
-            {step === 4 && <StepFour activeSubstep={activeSubStep} payload={payload} />}
-            {step === 5 && <StepFive activeSubstep={activeSubStep} payload={payload} />}
-            {step === 6 && <StepSix activeSubstep={activeSubStep} payload={payload} />}
-            {step === 7 && <StepSeven payload={payload} />}
+          <Container ref={topRef}>
+            {step === 1 && (
+              <StepOne
+                payload={payload}
+                handleUpdateDraft={handleUpdateDraft}
+              />
+            )}
+            {step === 2 && (
+              <StepTwo
+                activeSubStep={activeSubStep}
+                payload={payload}
+                handleUpdateDraft={handleUpdateDraft}
+              />
+            )}
+            {step === 3 && (
+              <StepThree
+                activeSubstep={activeSubStep}
+                payload={payload}
+                handleUpdateDraft={handleUpdateDraft}
+              />
+            )}
+            {step === 4 && (
+              <StepFour
+                activeSubstep={activeSubStep}
+                payload={payload}
+                handleUpdateDraft={handleUpdateDraft}
+              />
+            )}
+            {step === 5 && (
+              <StepFive
+                activeSubstep={activeSubStep}
+                payload={payload}
+                handleUpdateDraft={handleUpdateDraft}
+              />
+            )}
+            {step === 6 && (
+              <StepSix
+                activeSubstep={activeSubStep}
+                payload={payload}
+                handleUpdateDraft={handleUpdateDraft}
+              />
+            )}
+            {step === 7 && (
+              <StepSeven
+                payload={payload}
+                handleUpdateDraft={handleUpdateDraft}
+              />
+            )}
           </Container>
           <ButtonNavigation
-            handleNextStep={handleNextStep}
+            isLoading={isPending}
+            handleNextStep={handleSaveDraft}
             handlePrevStep={handlePrevStep}
           />
         </Container>

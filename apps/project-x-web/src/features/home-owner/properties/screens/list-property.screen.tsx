@@ -7,6 +7,7 @@ import { StepWrapper } from "../components/step-wrapper";
 import { Button } from "@repo/ui";
 import { useRouter } from "next/navigation";
 import { MobileListingNavigation } from "../components/mobile-listing-navigation";
+import { SpinIcon } from "@repo/icons";
 
 function ListPropertyScreen() {
   const router = useRouter();
@@ -17,13 +18,16 @@ function ListPropertyScreen() {
     activeSubStep,
     payload,
     dropOffStep,
+    handleUpdateDraft,
+    handleSaveDraft,
+    isPending,
+    isDraftLoading,
   } = useListingScreen();
 
   const isCompleted = activeStep > 7;
 
   return (
     <Row gutter={16} className="lg:min-h-[90vh] pb-10">
-      {/* Mobile Navigation */}
       <Col xs={24} lg={0}>
         <MobileListingNavigation
           active={activeStep}
@@ -37,7 +41,17 @@ function ListPropertyScreen() {
       </Col>
       <Col xs={24} lg={16}>
         <Container className="relative flex flex-col lg:py-12  lg:bg-surface w-full h-full rounded-xl">
-          {isCompleted ? (
+          {isDraftLoading ? (
+            <Row
+              justify={"center"}
+              align={"middle"}
+              className="flex-1 items-center"
+            >
+              <Container className="inline-flex animate-spin [animation-duration:1.5s] text-p300">
+                <SpinIcon aria-hidden="true" size={32} />
+              </Container>
+            </Row>
+          ) : isCompleted ? (
             <Row
               justify={"center"}
               align={"middle"}
@@ -79,6 +93,9 @@ function ListPropertyScreen() {
               handlePrevStep={handlePrevStep}
               step={activeStep}
               payload={payload}
+              handleUpdateDraft={handleUpdateDraft}
+              handleSaveDraft={handleSaveDraft}
+              isPending={isPending}
             />
           )}
         </Container>

@@ -9,11 +9,16 @@ import { Switch } from "@repo/ui";
 import { Textarea } from "@repo/ui";
 import { DraftProperty } from "../../types/property.types";
 
-export const StepTwo = ({ activeSubStep, payload }: { activeSubStep: number; payload?: DraftProperty }) => {
-  const [propertyCondition, setPropertyCondition] = useState<"new" | "old">(
-    "new",
-  );
-  const [switchActive, setSwitchActive] = useState(false);
+export const StepTwo = ({
+  activeSubStep,
+  payload,
+  handleUpdateDraft,
+}: {
+  activeSubStep: number;
+  payload?: DraftProperty;
+  handleUpdateDraft: (updates: Partial<DraftProperty>) => void;
+}) => {
+  console.log(payload, "Payload updated value");
   return (
     <Container>
       {activeSubStep === 1 && (
@@ -27,9 +32,10 @@ export const StepTwo = ({ activeSubStep, payload }: { activeSubStep: number; pay
                 <Container className="flex items-center gap-3">
                   <Radio
                     value="new"
-                    checked={propertyCondition === "new"}
+                    checked={payload?.propertyCondition === "NEWLY_BUILT"}
                     onChange={() => {
-                      setPropertyCondition("new");
+                      // setPropertyCondition("new");
+                      handleUpdateDraft({ propertyCondition: "NEWLY_BUILT" });
                     }}
                   />
                   <Text tone="primary" variant="action-label">
@@ -41,9 +47,11 @@ export const StepTwo = ({ activeSubStep, payload }: { activeSubStep: number; pay
                 <Container className="flex items-center gap-3">
                   <Radio
                     value="new"
-                    checked={propertyCondition === "old"}
+                    checked={payload?.propertyCondition === "OLDER_PROPERTY"}
                     onChange={() => {
-                      setPropertyCondition("old");
+                      handleUpdateDraft({
+                        propertyCondition: "OLDER_PROPERTY",
+                      });
                     }}
                   />
                   <Text tone="primary" variant="action-label">
@@ -53,7 +61,7 @@ export const StepTwo = ({ activeSubStep, payload }: { activeSubStep: number; pay
               </ContentWrapper>
             </Container>
           </NumberWrapper>
-          {propertyCondition === "old" && (
+          {payload?.propertyCondition === "OLDER_PROPERTY" && (
             <NumberWrapper serialNo="" text="Is the property renovated?">
               <Container className="flex gap-4">
                 <ContentWrapper>
@@ -62,9 +70,13 @@ export const StepTwo = ({ activeSubStep, payload }: { activeSubStep: number; pay
                       Yes, it has been renovated
                     </Text>
                     <Switch
-                      checked={switchActive}
-                      onChange={() => {
-                        setSwitchActive((prev) => !prev);
+                      checked={!!payload.renovated!}
+                      onChange={(value: boolean) => {
+                        if (value) {
+                          handleUpdateDraft({ renovated: true });
+                          return;
+                        }
+                        handleUpdateDraft({ renovated: false });
                       }}
                     />
                   </Container>
@@ -81,7 +93,14 @@ export const StepTwo = ({ activeSubStep, payload }: { activeSubStep: number; pay
             <Container className="flex gap-4">
               <ContentWrapper>
                 <Container className="flex items-center gap-3">
-                  <Radio checked={false} onChange={() => {}} />
+                  <Radio
+                    checked={payload?.furnishingStatus === "FULLY_FURNISHED"}
+                    onChange={() => {
+                      handleUpdateDraft({
+                        furnishingStatus: "FULLY_FURNISHED",
+                      });
+                    }}
+                  />
                   <Text tone="primary" variant="action-label">
                     Fully Furnished
                   </Text>
@@ -89,7 +108,12 @@ export const StepTwo = ({ activeSubStep, payload }: { activeSubStep: number; pay
               </ContentWrapper>
               <ContentWrapper>
                 <Container className="flex items-center gap-3">
-                  <Radio checked={false} onChange={() => {}} />
+                  <Radio
+                    checked={payload?.furnishingStatus === "SEMI_FURNISHED"}
+                    onChange={() => {
+                      handleUpdateDraft({ furnishingStatus: "SEMI_FURNISHED" });
+                    }}
+                  />
                   <Text tone="primary" variant="action-label">
                     Semi Furnished
                   </Text>
@@ -99,7 +123,12 @@ export const StepTwo = ({ activeSubStep, payload }: { activeSubStep: number; pay
             <Container>
               <ContentWrapper>
                 <Container className="flex items-center gap-3">
-                  <Radio checked={false} onChange={() => {}} />
+                  <Radio
+                    checked={payload?.furnishingStatus === "NOT_FURNISHED"}
+                    onChange={() => {
+                      handleUpdateDraft({ furnishingStatus: "NOT_FURNISHED" });
+                    }}
+                  />
                   <Text tone="primary" variant="action-label">
                     Not Furnished
                   </Text>
@@ -111,22 +140,16 @@ export const StepTwo = ({ activeSubStep, payload }: { activeSubStep: number; pay
       )}
       {activeSubStep === 2 && (
         <>
-          <NumberWrapper
-            serialNo="iii"
-            text="Describes the size of the property."
-          >
+          <NumberWrapper serialNo="iii" text="How many bedrooms">
             <Container className="flex gap-4">
               <ContentWrapper>
                 <Container className="flex items-center gap-3">
-                  <Radio checked={false} onChange={() => {}} />
-                  <Text tone="primary" variant="action-label">
-                    Studio
-                  </Text>
-                </Container>
-              </ContentWrapper>
-              <ContentWrapper>
-                <Container className="flex items-center gap-3">
-                  <Radio checked={false} onChange={() => {}} />
+                  <Radio
+                    checked={payload?.bedroomCount === 1}
+                    onChange={() => {
+                      handleUpdateDraft({ bedroomCount: 1 });
+                    }}
+                  />
                   <Text tone="primary" variant="action-label">
                     1 bedroom
                   </Text>
@@ -136,7 +159,12 @@ export const StepTwo = ({ activeSubStep, payload }: { activeSubStep: number; pay
             <Container className="flex gap-4">
               <ContentWrapper>
                 <Container className="flex items-center gap-3">
-                  <Radio checked={false} onChange={() => {}} />
+                  <Radio
+                    checked={payload?.bedroomCount === 2}
+                    onChange={() => {
+                      handleUpdateDraft({ bedroomCount: 2 });
+                    }}
+                  />
                   <Text tone="primary" variant="action-label">
                     2 bedroom
                   </Text>
@@ -144,7 +172,12 @@ export const StepTwo = ({ activeSubStep, payload }: { activeSubStep: number; pay
               </ContentWrapper>
               <ContentWrapper>
                 <Container className="flex items-center gap-3">
-                  <Radio checked={false} onChange={() => {}} />
+                  <Radio
+                    checked={payload?.bedroomCount === 3}
+                    onChange={() => {
+                      handleUpdateDraft({ bedroomCount: 3 });
+                    }}
+                  />
                   <Text tone="primary" variant="action-label">
                     3 bedroom
                   </Text>
@@ -154,7 +187,12 @@ export const StepTwo = ({ activeSubStep, payload }: { activeSubStep: number; pay
             <Container className="flex gap-4">
               <ContentWrapper>
                 <Container className="flex items-center gap-3">
-                  <Radio checked={false} onChange={() => {}} />
+                  <Radio
+                    checked={payload?.bedroomCount === 4}
+                    onChange={() => {
+                      handleUpdateDraft({ bedroomCount: 4 });
+                    }}
+                  />
                   <Text tone="primary" variant="action-label">
                     4 bedroom
                   </Text>
@@ -162,7 +200,12 @@ export const StepTwo = ({ activeSubStep, payload }: { activeSubStep: number; pay
               </ContentWrapper>
               <ContentWrapper>
                 <Container className="flex items-center gap-3">
-                  <Radio checked={false} onChange={() => {}} />
+                  <Radio
+                    checked={payload?.bedroomCount === 5}
+                    onChange={() => {
+                      handleUpdateDraft({ bedroomCount: 5 });
+                    }}
+                  />
                   <Text tone="primary" variant="action-label">
                     5 bedroom
                   </Text>
@@ -170,14 +213,39 @@ export const StepTwo = ({ activeSubStep, payload }: { activeSubStep: number; pay
               </ContentWrapper>
             </Container>
             <Container>
-              <Input label="" placeholder="Enter number" />
+              <Input
+                label=""
+                value={
+                  payload?.bedroomCount && payload.bedroomCount > 5
+                    ? payload.bedroomCount
+                    : ""
+                }
+                onChange={(val) => {
+                  handleUpdateDraft({ bedroomCount: +val.target.value });
+                }}
+                placeholder="Enter number"
+              />
             </Container>
           </NumberWrapper>
           <NumberWrapper serialNo="iv" text="How many bathroom?">
-            <Input label="" placeholder="Enter number" />
+            <Input
+              label=""
+              placeholder="Enter number"
+              value={payload?.bathroomCount ? payload?.bathroomCount : ""}
+              onChange={({ target }) => {
+                handleUpdateDraft({ bathroomCount: +target.value });
+              }}
+            />
           </NumberWrapper>
           <NumberWrapper serialNo="v" text="How many toilet?">
-            <Input label="" placeholder="Enter number" />
+            <Input
+              label=""
+              value={payload?.toiletCount ? payload?.toiletCount : ""}
+              onChange={({ target }) => {
+                handleUpdateDraft({ toiletCount: +target.value });
+              }}
+              placeholder="Enter number"
+            />
           </NumberWrapper>
         </>
       )}
@@ -191,7 +259,12 @@ export const StepTwo = ({ activeSubStep, payload }: { activeSubStep: number; pay
             <Container className="flex gap-4">
               <ContentWrapper>
                 <Container className="flex items-center gap-3">
-                  <Radio checked={false} onChange={() => {}} />
+                  <Radio
+                    checked={payload?.unitCount === 1}
+                    onChange={() => {
+                      handleUpdateDraft({ unitCount: 1 });
+                    }}
+                  />
                   <Text tone="primary" variant="action-label">
                     1
                   </Text>
@@ -199,7 +272,12 @@ export const StepTwo = ({ activeSubStep, payload }: { activeSubStep: number; pay
               </ContentWrapper>
               <ContentWrapper>
                 <Container className="flex items-center gap-3">
-                  <Radio checked={false} onChange={() => {}} />
+                  <Radio
+                    checked={payload?.unitCount === 2}
+                    onChange={() => {
+                      handleUpdateDraft({ unitCount: 2 });
+                    }}
+                  />
                   <Text tone="primary" variant="action-label">
                     2
                   </Text>
@@ -209,7 +287,12 @@ export const StepTwo = ({ activeSubStep, payload }: { activeSubStep: number; pay
             <Container className="flex gap-4">
               <ContentWrapper>
                 <Container className="flex items-center gap-3">
-                  <Radio checked={false} onChange={() => {}} />
+                  <Radio
+                    checked={payload?.unitCount === 3}
+                    onChange={() => {
+                      handleUpdateDraft({ unitCount: 3 });
+                    }}
+                  />
                   <Text tone="primary" variant="action-label">
                     3
                   </Text>
@@ -217,7 +300,12 @@ export const StepTwo = ({ activeSubStep, payload }: { activeSubStep: number; pay
               </ContentWrapper>
               <ContentWrapper>
                 <Container className="flex items-center gap-3">
-                  <Radio checked={false} onChange={() => {}} />
+                  <Radio
+                    checked={payload?.unitCount === 4}
+                    onChange={() => {
+                      handleUpdateDraft({ unitCount: 4 });
+                    }}
+                  />
                   <Text tone="primary" variant="action-label">
                     4
                   </Text>
@@ -227,7 +315,12 @@ export const StepTwo = ({ activeSubStep, payload }: { activeSubStep: number; pay
             <Container className="flex gap-4">
               <ContentWrapper>
                 <Container className="flex items-center gap-3">
-                  <Radio checked={false} onChange={() => {}} />
+                  <Radio
+                    checked={payload?.unitCount === 5}
+                    onChange={() => {
+                      handleUpdateDraft({ unitCount: 5 });
+                    }}
+                  />
                   <Text tone="primary" variant="action-label">
                     5
                   </Text>
@@ -235,21 +328,44 @@ export const StepTwo = ({ activeSubStep, payload }: { activeSubStep: number; pay
               </ContentWrapper>
               <ContentWrapper>
                 <Container className="flex items-center gap-3">
-                  <Radio checked={false} onChange={() => {}} />
+                  <Radio
+                    checked={payload?.unitCount === 6}
+                    onChange={() => {
+                      handleUpdateDraft({ unitCount: 6 });
+                    }}
+                  />
                   <Text tone="primary" variant="action-label">
                     6
                   </Text>
                 </Container>
               </ContentWrapper>
             </Container>
-            <Input label="" placeholder="Others" />
+            <Input
+              label=""
+              placeholder="Others"
+              value={
+                payload?.unitCount && payload.unitCount > 6
+                  ? payload?.unitCount
+                  : ""
+              }
+              onChange={({ target }) => {
+                handleUpdateDraft({ unitCount: +target.value });
+              }}
+            />
           </NumberWrapper>
 
           <NumberWrapper serialNo="vii" text="Describe this property?">
             <Text variant="body-sm" tone="danger">
-              Minimum of 100 words
+              Minimum of 100 characters
             </Text>
-            <Textarea label="" placeholder="Enter description" />
+            <Textarea
+              label=""
+              value={payload?.description ?? ""}
+              placeholder="Enter description"
+              onChange={({ target }) => {
+                handleUpdateDraft({ description: target.value });
+              }}
+            />
           </NumberWrapper>
         </>
       )}

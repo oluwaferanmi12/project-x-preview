@@ -1,22 +1,23 @@
-'use client'
+"use client";
 
 import { Container } from "@repo/ui";
 import { NumberWrapper } from "../nuggets/number-wrapper";
 import { ContentWrapper } from "../nuggets/content-wrapper";
-import { Checkbox } from "@repo/ui";
 import { useState } from "react";
 import { Crown as CrownIcon, Briefcase as BriefcaseIcon } from "@repo/icons";
 import { Text } from "@repo/ui";
 import { Radio } from "@repo/ui";
 import { DraftProperty } from "../../types/property.types";
+import { useGetPropertyTypes } from "../../hooks/property.hook";
 
-export const StepOne = ({ payload }: { payload?: DraftProperty }) => {
-  const [checked, setChecked] = useState(false);
-  const propertyTypes = [
-    ["Apartment / Flat", "Duplex"],
-    ["Bungalow", "Terrace House"],
-    ["Semi-Detached House", "Detached House"],
-  ];
+export const StepOne = ({
+  payload,
+  handleUpdateDraft,
+}: {
+  payload?: DraftProperty;
+  handleUpdateDraft: (updates: Partial<DraftProperty>) => void;
+}) => {
+  const { data: propertyTypes } = useGetPropertyTypes();
   return (
     <Container>
       <NumberWrapper
@@ -32,7 +33,12 @@ export const StepOne = ({ payload }: { payload?: DraftProperty }) => {
               </Text>
             </Container>
             <Container>
-              <Checkbox checked={checked} onChange={setChecked} />
+              <Radio
+                checked={payload?.relationshipType === "OWNER"}
+                onChange={() =>
+                  handleUpdateDraft({ relationshipType: "OWNER" })
+                }
+              />
             </Container>
           </Container>
         </ContentWrapper>
@@ -45,7 +51,12 @@ export const StepOne = ({ payload }: { payload?: DraftProperty }) => {
               </Text>
             </Container>
             <Container>
-              <Checkbox checked={checked} onChange={setChecked} />
+              <Radio
+                checked={payload?.relationshipType === "AGENT"}
+                onChange={() =>
+                  handleUpdateDraft({ relationshipType: "AGENT" })
+                }
+              />
             </Container>
           </Container>
         </ContentWrapper>
@@ -54,33 +65,24 @@ export const StepOne = ({ payload }: { payload?: DraftProperty }) => {
         serialNo="ii"
         text="What type of property are you listing?"
       >
-        {propertyTypes.map((item, key) => {
-          return (
-            <Container key={key} className="flex items-center gap-4">
-              <ContentWrapper>
+        <Container className="grid grid-cols-2 gap-4">
+          {propertyTypes &&
+            propertyTypes.map((item, key) => (
+              <ContentWrapper key={item.id}>
                 <Container className="flex items-center gap-3">
                   <Radio
-                    onChange={() => {
-                      setChecked((prev) => !prev);
-                    }}
-                    checked={checked}
+                    onChange={() =>
+                      handleUpdateDraft({ propertyTypeId: item.id })
+                    }
+                    checked={payload?.propertyTypeId === item.id}
                   />
                   <Text variant="action-label" tone="primary">
-                    {item[0]}
+                    {item.name}
                   </Text>
                 </Container>
               </ContentWrapper>
-              <ContentWrapper>
-                <Container className="flex items-center gap-3">
-                  <Radio onChange={setChecked} checked={checked} />
-                  <Text variant="action-label" tone="primary">
-                    {item[1]}
-                  </Text>
-                </Container>
-              </ContentWrapper>
-            </Container>
-          );
-        })}
+            ))}
+        </Container>
       </NumberWrapper>
     </Container>
   );

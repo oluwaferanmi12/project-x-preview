@@ -1,89 +1,71 @@
 "use client";
 
-import { useMemo, useState } from "react";
-import { useRouter } from "next/navigation";
-import Image from "next/image";
-import { Button, Container, Pagination, Text } from "@repo/ui";
-import { properties } from "../data/properties.mock";
+import { Container, Text } from "@repo/ui";
 import { AddPropertyWrapper } from "../components/nuggets/add-property-wrapper";
+import { useGetListings } from "../hooks/property.hook";
+import { useDraftProperty } from "../hooks/useDraftProperty";
 
 export const DraftPropertiesScreen = () => {
-  const router = useRouter();
-
-  const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 8;
-
-  const draftProperties = properties.filter(
-    (property) => property.status === "draft",
-  );
-
-  const totalPages = Math.ceil(draftProperties.length / itemsPerPage);
-
-  const paginatedProperties = useMemo(() => {
-    const startIndex = (currentPage - 1) * itemsPerPage;
-    const endIndex = currentPage * itemsPerPage;
-
-    return draftProperties.slice(startIndex, endIndex);
-  }, [currentPage, draftProperties]);
-
-  const continueDraft = (step = 1, substep = 1) => {
-    router.push(`/properties/list-property?step=${step}&substep=${substep}`);
-  };
-
+  const { properties, continueDraft } = useDraftProperty();
   return (
     <Container>
       <AddPropertyWrapper />
       <Container className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
-        {paginatedProperties.map((property) => (
-          <Container
-            key={property.id}
-            className="overflow-hidden rounded-2xl border border-line bg-surface"
-          >
-            <Container className="relative h-32 w-full overflow-hidden bg-muted">
-              <Image
-                src={
-                  property.image
-                    ? property.image
-                    : "/draft-image-placeholder.png"
-                }
-                alt={property.title}
-                fill
-                className="object-cover"
-              />
-            </Container>
+        {properties &&
+          properties.map((property) => (
+            <Container
+              key={property.id}
+              className="overflow-hidden rounded-2xl border border-line bg-surface"
+            >
+              <Container className="relative h-32 w-full overflow-hidden bg-muted">
+                {/* <Image
+                  src={
+                    property.image
+                      ? property.image
+                      : "/draft-image-placeholder.png"
+                  }
+                  alt={property.title}
+                  fill
+                  className="object-cover"
+                /> */}
+              </Container>
 
-            <Container className="p-3">
-              <Text variant="body-sm" tone="primary" className="font-semibold">
-                {property.title}
-              </Text>
-
-              <Text variant="body-xs" tone="secondary">
-                {property.meta.type}
-              </Text>
-
-              <Container className="mt-4 flex items-center justify-between">
-                <Text variant="body-xs" tone="secondary">
-                  {property.date}
+              <Container className="p-3">
+                <Text
+                  variant="body-sm"
+                  tone="primary"
+                  className="font-semibold"
+                >
+                  {property.addressLine}
                 </Text>
 
-                <button
-                  type="button"
-                  onClick={() => continueDraft(property.step, property.substep)}
-                  className="text-xs font-semibold text-d300"
-                >
-                  Continue →
-                </button>
+                <Text variant="body-xs" tone="secondary">
+                  {property.propertyTypeName}
+                </Text>
+
+                <Container className="mt-4 flex items-center justify-between">
+                  <Text variant="body-xs" tone="secondary">
+                    {property.createdAt}
+                  </Text>
+
+                  <button
+                    type="button"
+                    onClick={() => continueDraft(property.id ?? "")}
+                    className="text-xs font-semibold text-d300"
+                  >
+                    Continue →
+                  </button>
+                </Container>
               </Container>
             </Container>
-          </Container>
-        ))}
+          ))}
       </Container>
 
-      <Pagination
+      {/* <Pagination
         currentPage={currentPage}
         totalPages={totalPages}
         onPageChange={setCurrentPage}
-      />
+      /> */}
     </Container>
   );
 };

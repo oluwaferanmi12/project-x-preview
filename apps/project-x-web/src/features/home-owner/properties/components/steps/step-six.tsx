@@ -1,51 +1,31 @@
 import { Container } from "@repo/ui";
-import React, { useState } from "react";
 import { NumberWrapper } from "../nuggets/number-wrapper";
 import { UploadBox } from "../nuggets/upload-container";
 import { Text } from "@repo/ui";
 import { Select } from "@repo/ui";
 import { DraftProperty } from "../../types/property.types";
+import { useStepSix } from "../../hooks/useStepSix";
 
-export const StepSix = ({ activeSubstep, payload }: { activeSubstep: number; payload?: DraftProperty }) => {
-  const [idImage, setIdImage] = useState<string | null>(null);
-  const [ownershipImage, setOwnershipImage] = useState<string | null>(null);
-  const [video, setVideo] = useState<string | null>(null);
+export const StepSix = ({
+  activeSubstep,
+  payload,
+  handleUpdateDraft,
+}: {
+  activeSubstep: number;
+  payload?: DraftProperty;
+  handleUpdateDraft: (updates: Partial<DraftProperty>) => void;
+}) => {
+  const {
+    idImage,
+    ownershipImage,
+    video,
+    images,
+    handleImageChange,
+    handleIdUpload,
+    handleOwnershipUpload,
+    handleVideoChange,
+  } = useStepSix(handleUpdateDraft);
 
-  const [images, setImages] = useState<(string | null)[]>(
-    Array(9).fill(null)
-  );
-
-
-  const handleImageChange = (index: number, file: File | null) => {
-    if (!file) return;
-
-    const url = URL.createObjectURL(file);
-
-    setImages((prev) => {
-      const copy = [...prev];
-      copy[index] = url;
-      return copy;
-    });
-  };
-
-  const handleIdUpload = (file: File | null) => {
-    if (!file) return;
-    const url = URL.createObjectURL(file);
-    setIdImage(url);
-  };
-
-  const handleOwnershipUpload = (file: File | null) => {
-    if (!file) return;
-    const url = URL.createObjectURL(file);
-    setOwnershipImage(url);
-  };
-
-  const handleVideoChange = (file: File | null) => {
-    if (!file) return;
-
-    const url = URL.createObjectURL(file);
-    setVideo(url);
-  };
   return (
     <Container>
       {/* SUBSTEP I */}

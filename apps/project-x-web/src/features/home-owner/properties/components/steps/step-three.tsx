@@ -8,9 +8,23 @@ import { ContentWrapper } from "../nuggets/content-wrapper";
 import { Radio } from "@repo/ui";
 import { Text } from "@repo/ui";
 import { DraftProperty } from "../../types/property.types";
+import {
+  useGetLGA,
+  useGetStates,
+} from "@/features/general/hooks/general.hooks";
+import { label } from "framer-motion/client";
 
-export const StepThree = ({ activeSubstep, payload }: { activeSubstep: number; payload?: DraftProperty }) => {
-  const [shareAddress, setShareAddress] = React.useState<"yes" | "no">("no");
+export const StepThree = ({
+  activeSubstep,
+  payload,
+  handleUpdateDraft,
+}: {
+  activeSubstep: number;
+  payload?: DraftProperty;
+  handleUpdateDraft: (updates: Partial<DraftProperty>) => void;
+}) => {
+  const { data } = useGetStates();
+  const { data: localGovernments } = useGetLGA(payload?.stateId ?? "");
   return (
     <>
       <Container>
@@ -19,23 +33,49 @@ export const StepThree = ({ activeSubstep, payload }: { activeSubstep: number; p
             <NumberWrapper serialNo="i" text="Where is the property located ?">
               <Select
                 label=""
-                options={[{ label: "Select state", value: "" }]}
+                options={
+                  data
+                    ? [
+                        { label: "Choose a state", value: "" },
+                        ...data?.map((item) => {
+                          return { label: item.name, value: item.id };
+                        }),
+                      ]
+                    : [{ label: "Choose a state", value: "" }]
+                }
+                value={payload?.stateId ?? ""}
+                onChange={({ target }) => {
+                  handleUpdateDraft({ stateId: target.value });
+                }}
                 noBottomMargin
               />
               <Select
                 label=""
-                options={[{ label: "Local government area", value: "" }]}
+                options={
+                  localGovernments
+                    ? [
+                        { label: "Choose a LGA", value: "" },
+                        ...localGovernments?.map((item) => {
+                          return { label: item.name, value: item.id };
+                        }),
+                      ]
+                    : [{ label: "Choose a LGA", value: "" }]
+                }
+                value={payload?.lgaId ?? ""}
+                onChange={({ target }) => {
+                  handleUpdateDraft({ lgaId: target.value });
+                }}
                 noBottomMargin
               />
-              <Select
-                label=""
-                options={[{ label: "Area/Neighborhood", value: "" }]}
-                noBottomMargin
-              />
+              <Input label="" placeholder="Area/Neighborhood" />
             </NumberWrapper>
             <NumberWrapper serialNo="ii" text="Provide Property address">
               <Input
                 label=""
+                onChange={({ target }) => {
+                  handleUpdateDraft({ addressLine: target.value });
+                }}
+                value={payload?.addressLine ?? ""}
                 placeholder="Enter address"
                 rightIcon={
                   <LocationIcon className="text-secondary" size="20" />
@@ -52,6 +92,10 @@ export const StepThree = ({ activeSubstep, payload }: { activeSubstep: number; p
             >
               <Input
                 label=""
+                value={payload?.landmark ?? ""}
+                onChange={({ target }) => {
+                  handleUpdateDraft({ landmark: target.value });
+                }}
                 placeholder="eg. bus stop, school, market, hospital, e.t.c."
               />
             </NumberWrapper>
@@ -64,9 +108,9 @@ export const StepThree = ({ activeSubstep, payload }: { activeSubstep: number; p
                   <Container className="flex items-center gap-3">
                     <Radio
                       value="new"
-                      checked={shareAddress === "yes"}
-                      onChange={() => {
-                        setShareAddress("yes");
+                      checked={!!payload?.shareAddressWithSeekers}
+                      onChange={(value) => {
+                        handleUpdateDraft({ shareAddressWithSeekers: true });
                       }}
                     />
                     <Text tone="primary" variant="action-label">
@@ -78,9 +122,9 @@ export const StepThree = ({ activeSubstep, payload }: { activeSubstep: number; p
                   <Container className="flex items-center gap-3">
                     <Radio
                       value="new"
-                      checked={shareAddress === "no"}
-                      onChange={() => {
-                        setShareAddress("no");
+                      checked={!payload?.shareAddressWithSeekers}
+                      onChange={(value) => {
+                        handleUpdateDraft({ shareAddressWithSeekers: false });
                       }}
                     />
                     <Text tone="primary" variant="action-label">

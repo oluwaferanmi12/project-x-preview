@@ -14,7 +14,13 @@ import { IconText } from "@repo/ui";
 import { DraftProperty } from "../../types/property.types";
 
 
-export const StepSeven = ({ payload }: { payload?: DraftProperty }) => {
+export const StepSeven = ({
+  payload,
+  handleUpdateDraft,
+}: {
+  payload?: DraftProperty;
+  handleUpdateDraft: (updates: Partial<DraftProperty>) => void;
+}) => {
 
   const iconSize = 16;
   const amenities = [
