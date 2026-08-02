@@ -48,7 +48,7 @@ export const mapListingResponseToDraft = (
   propertyCondition: response.propertyCondition,
   unitCount: response.unitCount,
   description: response.description,
-  waterSourceId: response.waterSourceId,
+  waterSourceId: response.waterSourceId ? [response.waterSourceId] : null,
   parkingAvailable: response.parkingAvailable,
   fencedOrGated: response.fencedOrGated,
   renovated: response.renovated,

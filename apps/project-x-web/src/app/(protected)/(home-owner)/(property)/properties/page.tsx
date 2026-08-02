@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo } from "react";
+import { Suspense, useMemo } from "react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { Container, Text } from "@repo/ui";
 import { PropertyStatusTabs } from "@/features/home-owner/properties/components/property-status-tabs";
@@ -15,6 +15,14 @@ const propertyStatuses: PropertyStatus[] = [
 ];
 
 export default function PropertiesPage() {
+  return (
+    <Suspense fallback={null}>
+      <PropertiesPageContent />
+    </Suspense>
+  );
+}
+
+function PropertiesPageContent() {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
