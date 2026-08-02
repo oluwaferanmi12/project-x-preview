@@ -1,13 +1,14 @@
 "use client";
 
-import { Container, Button } from "@repo/ui";
+import { Container, Button, Text } from "@repo/ui";
+import type { PropertyStatus } from "../data/properties.mock";
 
 type PropertyStatusTabsProps = {
-  active: string;
-  onChange: (status: string) => void;
+  active: PropertyStatus;
+  onChange: (status: PropertyStatus) => void;
 };
 
-const tabs = [
+const tabs: { label: string; value: PropertyStatus }[] = [
   { label: "Draft", value: "draft" },
   { label: "Under Review", value: "under-review" },
   { label: "Published", value: "published" },
@@ -19,15 +20,30 @@ export const PropertyStatusTabs = ({
   onChange,
 }: PropertyStatusTabsProps) => {
   return (
-    <Container className="flex items-center gap-2 rounded-xl bg-muted p-1">
+    <Container
+      className="
+        flex items-center gap-2 overflow-x-auto
+        rounded-xl border border-line bg-muted p-1
+        sm:overflow-visible
+        [scrollbar-width:none] [&::-webkit-scrollbar]:hidden
+      "
+    >
       {tabs.map((tab) => (
         <Button
           key={tab.value}
+          type="button"
           shorter
-          variant={active === tab.value ? "primary" : "transparent"}
+          className={`
+            shrink-0 whitespace-nowrap px-4 py-2
+            ${
+              active === tab.value
+                ? "bg-surface text-primary hover:bg-surface"
+                : "bg-transparent font-medium text-secondary hover:bg-surface/50"
+            }
+          `}
           onClick={() => onChange(tab.value)}
         >
-          {tab.label}
+          <Text variant="action-label"> {tab.label}</Text>
         </Button>
       ))}
     </Container>

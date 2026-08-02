@@ -1,16 +1,20 @@
 "use client";
-import { Container } from "@repo/ui";
+import { Button, Container } from "@repo/ui";
 import { useListingScreen } from "../hooks/useListingScreen";
 import { ListingNavigation } from "../components/listing-navigation";
 import { Col, Row } from "antd";
 import { StepWrapper } from "../components/step-wrapper";
-import { Button } from "@repo/ui";
-import { useRouter } from "next/navigation";
+import { ArrowLeft } from "@repo/icons";
+import { useRouter, useSearchParams } from "next/navigation";
 import { MobileListingNavigation } from "../components/mobile-listing-navigation";
 import { SpinIcon } from "@repo/icons";
 
 function ListPropertyScreen() {
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const showDraftBack = searchParams.get("from") === "draft";
+  // The step should be handled from the top of this screen
+  // Based on the api call, make an api call to determine the step the user is on
   const {
     activeStep,
     handleNextStep,
@@ -27,13 +31,26 @@ function ListPropertyScreen() {
   const isCompleted = activeStep > 7;
 
   return (
-    <Row gutter={16} className="lg:min-h-[90vh] pb-10">
-      <Col xs={24} lg={0}>
-        <MobileListingNavigation
-          active={activeStep}
-          dropOffStep={dropOffStep}
-        />
-      </Col>
+    <Container>
+      {showDraftBack && (
+        <button
+          type="button"
+          onClick={() => router.push("/properties?status=draft")}
+          className="mb-5 inline-flex cursor-pointer items-center gap-2 text-sm font-bold text-s500"
+        >
+          <ArrowLeft size={14} />
+          Back
+        </button>
+      )}
+
+      <Row gutter={16} className="lg:min-h-[90vh] py-8">
+        {/* Mobile Navigation */}
+        <Col xs={24} lg={0}>
+          <MobileListingNavigation
+            active={activeStep}
+            dropOffStep={dropOffStep}
+          />
+        </Col>
 
       {/* Desktop Navigation */}
       <Col lg={8} xs={0}>

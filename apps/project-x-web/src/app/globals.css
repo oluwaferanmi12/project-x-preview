@@ -130,6 +130,7 @@ select:-webkit-autofill:focus {
   .text-h5 { @apply font-sans-semibold text-[16px] leading-[1.2]; }
 
   .text-body-lg  { @apply font-sans text-[20px] leading-normal; }
+  .text-body-xl  { @apply font-sans text-[24px] leading-normal; }
   .text-body-md  { @apply font-sans text-[16px] leading-normal; }
   .text-body-sm  { @apply font-sans text-[14px] leading-[1.4]; }
   .text-body-xs  { @apply font-sans text-[12px] leading-[1.4]; }

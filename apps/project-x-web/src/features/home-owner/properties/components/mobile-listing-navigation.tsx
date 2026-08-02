@@ -37,7 +37,7 @@ export const MobileListingNavigation = ({
               <Container className="flex items-center w-full">
                 <Container
                   className={`
-                    relative flex h-10 w-full min-w-10 max-w-10  items-center justify-center rounded-[10px]
+                    relative flex h-[29px] w-full min-w-[29px] max-w-[29px]  items-center justify-center rounded-[10px]
                     text-sm font-semibold transition-all
                     ${
                       isCompleted

@@ -78,7 +78,7 @@ export const StepThree = ({
                 value={payload?.addressLine ?? ""}
                 placeholder="Enter address"
                 rightIcon={
-                  <LocationIcon className="text-secondary" size="20" />
+                  <LocationIcon className="text-secondary" size={16} />
                 }
               />
             </NumberWrapper>
@@ -137,7 +137,7 @@ export const StepThree = ({
 
             {/* NOTE CONTAINER */}
             <Container className="flex items-start bg-i400 rounded-2xl p-2 pb-4 gap-2">
-              <WhiteInfo className="text-inverted" size={28} />
+              <WhiteInfo className="text-inverted" size={28}/>
               <Container>
                 <Text
                   tone="inverted"
