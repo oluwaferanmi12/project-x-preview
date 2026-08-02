@@ -85,10 +85,15 @@ const formatListingDate = (iso: string | null) => {
   return `${day} ${month}, ${year}`;
 };
 
+const getFirstImageUrl = (images: ListingResponse["images"]) => {
+  if (!images?.length) return undefined;
+  return [...images].sort((a, b) => a.position - b.position)[0]?.url;
+};
+
 const toPropertyItem = (listing: ListingResponse): PropertyItem => ({
   id: listing.id ?? "",
   title: listing.addressLine || listing.propertyTypeName || "Untitled property",
-  image: listing.images?.[0]?.optimizedUrl,
+  image: getFirstImageUrl(listing.images),
   status: mapListingStatus(listing.status),
   date: formatListingDate(listing.createdAt),
   meta: {

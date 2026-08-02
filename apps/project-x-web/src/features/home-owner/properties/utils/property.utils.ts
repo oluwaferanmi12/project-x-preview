@@ -1,4 +1,18 @@
-import { DraftProperty, ListingResponse } from "../types/property.types";
+import {
+  DraftProperty,
+  ListingResponse,
+  PropertyImage,
+} from "../types/property.types";
+
+const toPropertyImage = (image: {
+  url: string;
+  publicId: string | null;
+}): PropertyImage => ({
+  publicId: image.publicId ?? "",
+  optimizedUrl: image.url,
+  resourceType: "image",
+  format: image.url.split(".").pop()?.split(/[?#]/)[0] ?? "",
+});
 
 export const DEFAULT_DRAFT_PROPERTY: DraftProperty = {
   id: null,
@@ -69,7 +83,7 @@ export const mapListingResponseToDraft = (
   serviceCharge: response.serviceCharge,
   proofOfOwnershipUrl: response.proofOfOwnershipUrl,
   amenityIds: response.amenities?.map((amenity) => amenity.id) ?? null,
-  images: response.images,
+  images: response.images?.map(toPropertyImage) ?? null,
   videoUrl: response.videoUrl,
   videoPublicId: null,
 });

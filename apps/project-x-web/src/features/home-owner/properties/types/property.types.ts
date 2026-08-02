@@ -15,6 +15,12 @@ export type DraftProperty = Partial<CreateProperty>;
 
 export type PropertyImage = Omit<MediaResponse, "originalUrl">;
 
+export type ListingImage = {
+  url: string;
+  position: number;
+  publicId: string | null;
+};
+
 export type CreateProperty = {
   id: string | null;
   relationshipType: RelationshipType | null;
@@ -97,7 +103,7 @@ export type ListingResponse = {
   serviceCharge: number | null;
   proofOfOwnershipUrl: string | null;
   amenities: { id: string; name: string }[] | null;
-  images: PropertyImage[] | null;
+  images: ListingImage[] | null;
   videoUrl: string | null;
   ownerId: string | null;
   createdAt: string | null;
