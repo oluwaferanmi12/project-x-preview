@@ -12,15 +12,17 @@ import {
   PropertyInProgressIcon,
   PropertyPendingIcon,
   PropertyRejectedIcon,
+  SpinIcon,
   type IconProps,
 } from "@repo/icons";
 import { Button, Container, Pagination, Text } from "@repo/ui";
 import {
-  properties,
   type PropertyItem,
   type PropertyReviewStatus,
   type PropertyStatus,
 } from "../data/properties.mock";
+import { useGetListings } from "../hooks/property.hook";
+import { ListingResponse } from "../types/property.types";
 
 type PropertiesScreenProps = {
   status: PropertyStatus;
@@ -61,13 +63,55 @@ const underReviewCardTags: Record<
   },
 };
 
+const mapListingStatus = (status: string | null): PropertyStatus => {
+  switch (status) {
+    case "UNDER_REVIEW":
+      return "under-review";
+    case "PUBLISHED":
+      return "published";
+    case "ARCHIVED":
+      return "archived";
+    default:
+      return "draft";
+  }
+};
+
+const formatListingDate = (iso: string | null) => {
+  if (!iso) return "";
+  const date = new Date(iso);
+  const day = date.getDate();
+  const month = date.toLocaleDateString("en-US", { month: "short" });
+  const year = date.getFullYear();
+  return `${day} ${month}, ${year}`;
+};
+
+const toPropertyItem = (listing: ListingResponse): PropertyItem => ({
+  id: listing.id ?? "",
+  title: listing.addressLine || listing.propertyTypeName || "Untitled property",
+  image: listing.images?.[0]?.optimizedUrl,
+  status: mapListingStatus(listing.status),
+  date: formatListingDate(listing.createdAt),
+  meta: {
+    type: listing.propertyTypeName ?? "—",
+    beds: listing.bedroomCount ?? 0,
+    baths: listing.bathroomCount ?? 0,
+    toilets: listing.toiletCount ?? 0,
+  },
+});
+
 export const PropertiesScreen = ({ status }: PropertiesScreenProps) => {
   const router = useRouter();
   const [currentPage, setCurrentPage] = useState(1);
+  const { data: listings, isLoading } = useGetListings();
+
+  const properties = useMemo(
+    () => (listings ?? []).map(toPropertyItem),
+    [listings],
+  );
 
   const filteredProperties = useMemo(
     () => properties.filter((property) => property.status === status),
-    [status]
+    [properties, status],
   );
 
   const totalPages = Math.ceil(filteredProperties.length / ITEMS_PER_PAGE);
@@ -107,12 +151,15 @@ export const PropertiesScreen = ({ status }: PropertiesScreenProps) => {
            <Text variant="action-button"> Add property</Text>
           </Button>
         </Container>
-        
-
-        
       </Container>
 
-      {paginatedProperties.length > 0 ? (
+      {isLoading ? (
+        <Container className="flex items-center justify-center py-16">
+          <Container className="inline-flex animate-spin [animation-duration:1.5s] text-p300">
+            <SpinIcon aria-hidden="true" size={32} />
+          </Container>
+        </Container>
+      ) : paginatedProperties.length > 0 ? (
         <Container className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
           {paginatedProperties.map((property) => (
             <PropertyCard key={property.id} property={property} />
@@ -148,11 +195,7 @@ const PropertyCard = ({ property }: { property: PropertyItem }) => {
   const UnderReviewTagIcon = underReviewTag?.Icon;
 
   const continueDraft = () => {
-    router.push(
-      `/properties/list-property?step=${property.step ?? 1}&substep=${
-        property.substep ?? 1
-      }&from=draft`
-    );
+    router.push(`/properties/list-property?propertyId=${property.id}&from=draft`);
   };
 
   const viewProperty = () => {
