@@ -12,6 +12,9 @@ import SelectIcon4 from "@/assets/images/multi-select-icons/construction.png";
 import Image from "next/image";
 import { IconText } from "@repo/ui";
 import { DraftProperty } from "../../types/property.types";
+import { useGetPropertyTypes } from "../../hooks/property.hook";
+import { formatRentPaymentFrequency } from "../../utils/property.utils";
+import { useAuthStore } from "@/store/useAuthStore";
 
 
 export const StepSeven = ({
@@ -21,33 +24,45 @@ export const StepSeven = ({
   payload?: DraftProperty;
   handleUpdateDraft: (updates: Partial<DraftProperty>) => void;
 }) => {
+  const { data: propertyTypes } = useGetPropertyTypes();
+  const { user } = useAuthStore();
+
+  const propertyTypeName =
+    propertyTypes?.find((item) => item.id === payload?.propertyTypeId)
+      ?.name ?? "—";
 
   const iconSize = 16;
   const amenities = [
-    { label: "3 Apartment", icon: <Image src={SelectIcon1} alt="" width={iconSize} height={iconSize} /> },
-    { label: "3 Beds", icon: <Image src={SelectIcon2} alt="" width={iconSize} height={iconSize} /> },
-    { label: "3 Baths", icon: <Image src={SelectIcon3} alt="" width={iconSize} height={iconSize} /> },
-    { label: "3 Toilets", icon: <Image src={SelectIcon4} alt="" width={iconSize} height={iconSize} /> },
+    { label: propertyTypeName, icon: <Image src={SelectIcon1} alt="" width={iconSize} height={iconSize} /> },
+    { label: `${payload?.bedroomCount ?? "—"} Beds`, icon: <Image src={SelectIcon2} alt="" width={iconSize} height={iconSize} /> },
+    { label: `${payload?.bathroomCount ?? "—"} Baths`, icon: <Image src={SelectIcon3} alt="" width={iconSize} height={iconSize} /> },
+    { label: `${payload?.toiletCount ?? "—"} Toilets`, icon: <Image src={SelectIcon4} alt="" width={iconSize} height={iconSize} /> },
   ];
 
+  const frequencyLabel = formatRentPaymentFrequency(payload?.rentPaymentFrequency);
 
-  
   return (
     <Container className="space-y-6">
-      <PropertyGallery />
+      <PropertyGallery images={payload?.images} />
 
       <Container className="flex items-center justify-between">
         <Container className="flex items-center gap-1">
           <Text as="h2" className="text-2xl font-bold text-primary">
-            ₦300,000
+            {payload?.rentAmount != null
+              ? `₦${payload.rentAmount.toLocaleString("en-NG")}`
+              : "Not set"}
           </Text>
-          <Container as="span" className="text-sm text-secondary">(Annually)</Container>
+          {frequencyLabel && (
+            <Container as="span" className="text-sm text-secondary">
+              ({frequencyLabel})
+            </Container>
+          )}
         </Container>
 
         <Container className="flex items-center justify-between text-secondary">
           <Container className="flex items-center gap-1">
             <LightClock className="h-4 w-4" />
-            <Container as="span" className="text-xs">9 Apr, 2020</Container>
+            <Container as="span" className="text-xs">Draft</Container>
           </Container>
         </Container>
       </Container>
@@ -63,9 +78,9 @@ export const StepSeven = ({
         ))}
       </Container>
 
-      <AgentCard />
+      <AgentCard user={user} verified={user?.isEmailVerified} />
 
-      <PropertyAccordion />
+      <PropertyAccordion payload={payload} />
     </Container>
   );
 };

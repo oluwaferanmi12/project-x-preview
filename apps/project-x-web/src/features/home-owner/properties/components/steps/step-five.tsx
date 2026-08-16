@@ -36,15 +36,23 @@ export const StepFive = ({
                         <Container className="flex items-center gap-3">
                           <Checkbox
                             checked={
-                              !!payload?.waterSourceId?.includes(item.id)
+                              !!payload?.waterSourceIds?.includes(item.id)
                             }
                             onChange={(val) => {
-                              handleUpdateDraft({
-                                waterSourceId: [
-                                  ...(payload?.waterSourceId ?? []),
-                                  item.id,
-                                ],
-                              });
+                              if (val) {
+                                handleUpdateDraft({
+                                  waterSourceIds: [
+                                    ...(payload?.waterSourceIds ?? []),
+                                    item.id,
+                                  ],
+                                });
+                              } else {
+                                handleUpdateDraft({
+                                  waterSourceIds: payload?.waterSourceIds?.filter(
+                                    (id) => id !== item.id
+                                  ),
+                                });
+                              }
                             }}
                           />
                           <Text tone="primary" variant="action-label">
@@ -65,7 +73,7 @@ export const StepFive = ({
                   <Container className="flex items-center gap-3">
                     <Radio
                       value="new"
-                      checked={!!payload?.fencedOrGated}
+                      checked={payload?.fencedOrGated === true}
                       onChange={() => {
                         handleUpdateDraft({ fencedOrGated: true });
                       }}
@@ -79,7 +87,7 @@ export const StepFive = ({
                   <Container className="flex items-center gap-3">
                     <Radio
                       value="new"
-                      checked={!payload?.fencedOrGated}
+                      checked={payload?.fencedOrGated === false}
                       onChange={() => {
                         handleUpdateDraft({ fencedOrGated: false });
                       }}
@@ -97,7 +105,7 @@ export const StepFive = ({
                   <Container className="flex items-center gap-3">
                     <Radio
                       value="new"
-                      checked={!!payload?.parkingAvailable}
+                      checked={payload?.parkingAvailable === true}
                       onChange={() => {
                         handleUpdateDraft({ parkingAvailable: true });
                       }}
@@ -111,7 +119,7 @@ export const StepFive = ({
                   <Container className="flex items-center gap-3">
                     <Radio
                       value="new"
-                      checked={!payload?.parkingAvailable}
+                      checked={payload?.parkingAvailable === false}
                       onChange={() => {
                         handleUpdateDraft({ parkingAvailable: false });
                       }}

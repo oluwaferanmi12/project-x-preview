@@ -1,42 +1,38 @@
 "use client";
 
 import React, { useState } from "react";
-import Image, { StaticImageData } from "next/image";
+import Image from "next/image";
 
-import largeView from "@/assets/images/gallery/large-view.png";
-import img1 from "@/assets/images/gallery/image-inactive.png";
-import img2 from "@/assets/images/gallery/image-inactive-1.png";
-import img3 from "@/assets/images/gallery/image-inactive-2.png";
-import img4 from "@/assets/images/gallery/image-inactive-3.png";
-import img5 from "@/assets/images/gallery/image-inactive-4.png";
-import img6 from "@/assets/images/gallery/image-inactive-5.png";
-import img7 from "@/assets/images/gallery/image-inactive-6.png";
-import img8 from "@/assets/images/gallery/image-inactive-7.png";
-import img9 from "@/assets/images/gallery/image-inactive-8.png";
 import { Container } from "@repo/ui";
+import { Text } from "@repo/ui";
+import { UploadImage as UploadIcon } from "@repo/icons";
+import { PropertyImage } from "../../types/property.types";
 
-const images: StaticImageData[] = [
-  largeView,
-  img1,
-  img2,
-  img3,
-  img4,
-  img5,
-  img6,
-  img7,
-  img8,
-  img9,
-];
-
-export const PropertyGallery = () => {
+export const PropertyGallery = ({
+  images,
+}: {
+  images?: PropertyImage[] | null;
+}) => {
   const [activeIndex, setActiveIndex] = useState(0);
-  const active = images[activeIndex];
+  const gallery = images ?? [];
+  const active = gallery[activeIndex];
+
+  if (!gallery.length) {
+    return (
+      <Container className="flex h-50 w-full flex-col items-center justify-center gap-2 rounded-[10px] border border-dashed border-s75 bg-s50">
+        <UploadIcon className="text-s300" />
+        <Text variant="body-sm" tone="secondary">
+          No photos uploaded yet
+        </Text>
+      </Container>
+    );
+  }
 
   return (
     <Container className="space-y-2.5">
       <Container className="relative h-50 w-full overflow-hidden rounded-[10px]">
         <Image
-          src={active}
+          src={active.optimizedUrl}
           alt="Property image"
           fill
           priority
@@ -45,21 +41,19 @@ export const PropertyGallery = () => {
       </Container>
 
       <Container className="flex justify-between cursor-grabbing items-center gap-1.5 overflow-x-auto whitespace-nowrap scrollbar-hide">
-        {images.slice(0, 9).map((img, i) => {
+        {gallery.map((img, i) => {
           const isActive = activeIndex === i;
 
           return (
             <Container
-              key={i}
+              key={img.publicId || i}
               onClick={() => setActiveIndex(i)}
               className={`relative h-12 w-12 shrink-0 overflow-hidden rounded-lg border transition ${
-                isActive
-                  ? "border-primary"
-                  : "border-transparent"
+                isActive ? "border-primary" : "border-transparent"
               }`}
             >
               <Image
-                src={img}
+                src={img.optimizedUrl}
                 alt={`Property thumbnail ${i + 1}`}
                 fill
                 className="object-cover"

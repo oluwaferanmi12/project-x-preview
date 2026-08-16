@@ -1,8 +1,40 @@
 import {
   DraftProperty,
+  FurnishingStatus,
   ListingResponse,
+  PropertyCondition,
   PropertyImage,
+  RentPaymentFrequency,
 } from "../types/property.types";
+
+const FURNISHING_STATUS_LABELS: Record<FurnishingStatus, string> = {
+  FULLY_FURNISHED: "Fully Furnished",
+  SEMI_FURNISHED: "Semi Furnished",
+  NOT_FURNISHED: "Not Furnished",
+};
+
+const PROPERTY_CONDITION_LABELS: Record<PropertyCondition, string> = {
+  NEWLY_BUILT: "Newly Built",
+  OLDER_PROPERTY: "Older Property",
+};
+
+const RENT_PAYMENT_FREQUENCY_LABELS: Record<RentPaymentFrequency, string> = {
+  MONTHLY: "Monthly",
+  BIANNUAL: "Biannually",
+  ANNUALLY: "Annually",
+};
+
+export const formatFurnishingStatus = (
+  value?: FurnishingStatus | null,
+): string | null => (value ? FURNISHING_STATUS_LABELS[value] : null);
+
+export const formatPropertyCondition = (
+  value?: PropertyCondition | null,
+): string | null => (value ? PROPERTY_CONDITION_LABELS[value] : null);
+
+export const formatRentPaymentFrequency = (
+  value?: RentPaymentFrequency | null,
+): string | null => (value ? RENT_PAYMENT_FREQUENCY_LABELS[value] : null);
 
 const toPropertyImage = (image: {
   url: string;
@@ -24,7 +56,7 @@ export const DEFAULT_DRAFT_PROPERTY: DraftProperty = {
   propertyCondition: null,
   unitCount: null,
   description: null,
-  waterSourceId: null,
+  waterSourceIds: null,
   parkingAvailable: null,
   fencedOrGated: null,
   renovated: null,
@@ -62,7 +94,7 @@ export const mapListingResponseToDraft = (
   propertyCondition: response.propertyCondition,
   unitCount: response.unitCount,
   description: response.description,
-  waterSourceId: response.waterSourceId ? [response.waterSourceId] : null,
+  waterSourceIds: response.waterSources?.length ? response.waterSources.map((ws) => ws.id) : null,
   parkingAvailable: response.parkingAvailable,
   fencedOrGated: response.fencedOrGated,
   renovated: response.renovated,
@@ -88,33 +120,46 @@ export const mapListingResponseToDraft = (
   videoPublicId: null,
 });
 
-export const normalizeDraftForSave = (
-  draft: DraftProperty,
-): DraftProperty => ({
+export const normalizeDraftForSave = (draft: DraftProperty): DraftProperty => ({
   ...draft,
   amenityIds: draft.amenityIds?.length ? draft.amenityIds : null,
   images: draft.images?.length ? draft.images : null,
+  waterSourceIds: draft.waterSourceIds?.length ? draft.waterSourceIds : null,
 });
 
+const STEP_COMPLETENESS_CHECKS: Record<
+  number,
+  (payload: DraftProperty) => boolean
+> = {
+  1: (payload) => !!payload.relationshipType && !!payload.propertyTypeId,
+  2: (payload) =>
+    !!payload.propertyCondition &&
+    !!payload.furnishingStatus &&
+    !!payload.bedroomCount &&
+    !!payload.bathroomCount &&
+    !!payload.toiletCount &&
+    !!payload.unitCount &&
+    !!payload.description,
+  3: (payload) => !!payload.stateId && !!payload.lgaId && !!payload.addressLine,
+  4: (payload) => !!payload.rentAmount && !!payload.rentPaymentFrequency,
+  5: (payload) =>
+    !!payload.waterSourceIds?.length &&
+    payload.parkingAvailable != null &&
+    payload.fencedOrGated != null &&
+    !!payload.amenityIds?.length,
+  6: (payload) => !!payload.images?.length && !!payload.proofOfOwnershipUrl,
+};
+
+// Each step's completeness is checked independently rather than as a
+// waterfall, so a gap in an earlier step (e.g. a missing description) doesn't
+// force the user back past steps they've already finished. Resumes at the
+// step right after the furthest one that's fully filled in.
 export const resolveDropOffStep = (payload: DraftProperty): number => {
-  if (!payload.relationshipType || !payload.propertyTypeId) return 1;
-  if (
-    !payload.propertyCondition ||
-    !payload.furnishingStatus ||
-    !payload.bedroomCount ||
-    !payload.bathroomCount ||
-    !payload.toiletCount ||
-    !payload.unitCount ||
-    !payload.description
-  ) return 2;
-  if (!payload.stateId || !payload.lgaId || !payload.addressLine) return 3;
-  if (!payload.rentAmount || !payload.rentPaymentFrequency) return 4;
-  if (
-    !payload.waterSourceId ||
-    payload.parkingAvailable == null ||
-    payload.fencedOrGated == null ||
-    !payload.amenityIds?.length
-  ) return 5;
-  if (!payload.images?.length || !payload.proofOfOwnershipUrl) return 6;
-  return 7;
+  let furthestCompleteStep = 0;
+  for (let step = 1; step <= 6; step++) {
+    if (STEP_COMPLETENESS_CHECKS[step](payload)) {
+      furthestCompleteStep = step;
+    }
+  }
+  return Math.min(furthestCompleteStep + 1, 7);
 };

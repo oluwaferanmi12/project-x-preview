@@ -19,6 +19,7 @@ export const StepWrapper = ({
   payload,
   handleUpdateDraft,
   handleSaveDraft,
+  handleSubmitListing,
   isPending,
 }: {
   step: number;
@@ -28,8 +29,10 @@ export const StepWrapper = ({
   payload?: DraftProperty;
   handleUpdateDraft: (updates: Partial<DraftProperty>) => void;
   handleSaveDraft: () => void;
+  handleSubmitListing: () => void;
   isPending?: boolean;
 }) => {
+  const isReviewStep = step === 7;
   const topRef = React.useRef<HTMLDivElement>(null);
   React.useEffect(() => {
     topRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
@@ -90,8 +93,9 @@ export const StepWrapper = ({
           </Container>
           <ButtonNavigation
             isLoading={isPending}
-            handleNextStep={handleSaveDraft}
+            handleNextStep={isReviewStep ? handleSubmitListing : handleSaveDraft}
             handlePrevStep={handlePrevStep}
+            nextLabel={isReviewStep ? "Publish" : "Continue"}
           />
         </Container>
       </Col>

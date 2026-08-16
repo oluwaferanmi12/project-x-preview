@@ -67,7 +67,13 @@ export const StepThree = ({
                 }}
                 noBottomMargin
               />
-              <Input label="" placeholder="Area/Neighborhood" />
+              <Input
+                label=""
+                onChange={({ target }) => {
+                  handleUpdateDraft({ neighbourhood: target.value });
+                }}
+                placeholder="Area/Neighborhood"
+              />
             </NumberWrapper>
             <NumberWrapper serialNo="ii" text="Provide Property address">
               <Input
@@ -108,7 +114,7 @@ export const StepThree = ({
                   <Container className="flex items-center gap-3">
                     <Radio
                       value="new"
-                      checked={!!payload?.shareAddressWithSeekers}
+                      checked={payload?.shareAddressWithSeekers === true}
                       onChange={(value) => {
                         handleUpdateDraft({ shareAddressWithSeekers: true });
                       }}
@@ -122,7 +128,7 @@ export const StepThree = ({
                   <Container className="flex items-center gap-3">
                     <Radio
                       value="new"
-                      checked={!payload?.shareAddressWithSeekers}
+                      checked={payload?.shareAddressWithSeekers === false}
                       onChange={(value) => {
                         handleUpdateDraft({ shareAddressWithSeekers: false });
                       }}
@@ -137,7 +143,7 @@ export const StepThree = ({
 
             {/* NOTE CONTAINER */}
             <Container className="flex items-start bg-i400 rounded-2xl p-2 pb-4 gap-2">
-              <WhiteInfo className="text-inverted" size={28}/>
+              <WhiteInfo className="text-inverted" size={28} />
               <Container>
                 <Text
                   tone="inverted"

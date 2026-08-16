@@ -93,24 +93,20 @@ const handleResponseError = async (error: AxiosError) => {
       refreshToken,
       setAuth,
       logout: clearAuth,
+      accessToken,
     } = useAuthStore.getState();
 
     try {
       const response = await refreshClient.post(
         "/auth/refresh",
-        {},
-        { headers: { Authorization: `Bearer ${refreshToken}` } },
+        { refreshToken },
+        { headers: { Authorization: `Bearer ${accessToken}` } },
       );
-
-      const { accessToken: newAccessToken} =
-        response.data;
-
-      setAuth(
-        user!,
-        newAccessToken,
-      );
+      console.log(response.data, "Refresh token response");
+      const { accessToken: newAccessToken } = response.data.data;
+      setAuth(user!, newAccessToken, refreshToken!);
+      console.log(newAccessToken, "New access token after refresh");
       processQueue(null, newAccessToken);
-
       originalRequest.headers.Authorization = `Bearer ${newAccessToken}`;
       return apiClient(originalRequest);
     } catch (refreshError) {
@@ -125,7 +121,11 @@ const handleResponseError = async (error: AxiosError) => {
     }
   }
 
-  return Promise.reject(error.response?.data);
+  return Promise.reject(
+    error.response?.data ?? {
+      message: error.message || "Network error. Please check your connection.",
+    },
+  );
 };
 
 // ─── Wire interceptors ────────────────────────────────────────────────────────

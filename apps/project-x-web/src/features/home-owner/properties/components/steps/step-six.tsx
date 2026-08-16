@@ -1,4 +1,4 @@
-import { Container } from "@repo/ui";
+import { Container, Textarea } from "@repo/ui";
 import { NumberWrapper } from "../nuggets/number-wrapper";
 import { UploadBox } from "../nuggets/upload-container";
 import { Text } from "@repo/ui";
@@ -24,7 +24,7 @@ export const StepSix = ({
     handleIdUpload,
     handleOwnershipUpload,
     handleVideoChange,
-  } = useStepSix(handleUpdateDraft);
+  } = useStepSix(handleUpdateDraft, payload);
 
   return (
     <Container>
@@ -35,8 +35,8 @@ export const StepSix = ({
           text="Upload photos of the property (min. of 6)"
         >
           <Text tone="secondary" variant="body-sm" className=" mb-4">
-            Make sure to cover most of the property, e.g living room,
-            bedroom, kitchen, bathroom, exterior, etc.
+            Make sure to cover most of the property, e.g living room, bedroom,
+            kitchen, bathroom, exterior, etc.
           </Text>
 
           <Container className="grid grid-cols-3 gap-4">
@@ -54,25 +54,39 @@ export const StepSix = ({
 
       {/* SUBSTEP II */}
       {activeSubstep === 2 && (
-        <NumberWrapper
-          serialNo="ii"
-          text="Upload a 6 minutes video of the property"
-        >
-          <Text tone="secondary" variant="body-sm" className="mb-4">
-            Uploaded video must show key areas of the property, e.g
-            compound, sitting room, kitchen, rooms, bathroom & toilet, etc.
-          </Text>
+        <>
+          <NumberWrapper
+            serialNo="ii"
+            text="Upload a 6 minutes video of the property"
+          >
+            <Text tone="secondary" variant="body-sm" className="mb-4">
+              Uploaded video must show key areas of the property, e.g compound,
+              sitting room, kitchen, rooms, bathroom & toilet, etc.
+            </Text>
 
+            <UploadBox
+              value={video}
+              onChange={handleVideoChange}
+              className="w-full h-40"
+              type="video"
+              accept="video/*"
+            />
+          </NumberWrapper>
 
-
-          <UploadBox
-            value={video}
-            onChange={handleVideoChange}
-            className="w-full h-40"
-            type="video"
-            accept="video/*"
-          />
-        </NumberWrapper>
+          <NumberWrapper serialNo="vii" text="Describe this property?">
+            <Text variant="body-sm" tone="danger">
+              Minimum of 100 characters
+            </Text>
+            <Textarea
+              label=""
+              value={payload?.description ?? ""}
+              placeholder="Enter description"
+              onChange={({ target }) => {
+                handleUpdateDraft({ description: target.value });
+              }}
+            />
+          </NumberWrapper>
+        </>
       )}
       {/* SUBSTEP III */}
       {activeSubstep === 3 && (
@@ -82,7 +96,8 @@ export const StepSix = ({
             text="Verify your identity, this happens just once."
           >
             <Text tone="secondary" variant="body-sm" className="mb-4">
-              Upload a valid means of identification, e.g Driver’s License, NIN Slip or Card, Voter’s Card, e.t.c.
+              Upload a valid means of identification, e.g Driver’s License, NIN
+              Slip or Card, Voter’s Card, e.t.c.
             </Text>
             <Select
               label=""
@@ -95,14 +110,12 @@ export const StepSix = ({
               className="h-32"
               accept="image/*"
             />
-
           </NumberWrapper>
-          <NumberWrapper
-            serialNo="iv"
-            text="Proof of Property Ownership"
-          >
+          <NumberWrapper serialNo="iv" text="Proof of Property Ownership">
             <Text tone="secondary" variant="body-sm" className="mb-4">
-              Upload a valid means of ownership proof, e.g  Certificate of Occupancy (C of O), Deed of Assignment, Land purchase receipt, Survey plan, Allocation letter, Property tax receipt.
+              Upload a valid means of ownership proof, e.g Certificate of
+              Occupancy (C of O), Deed of Assignment, Land purchase receipt,
+              Survey plan, Allocation letter, Property tax receipt.
             </Text>
             <Select
               label=""
@@ -117,7 +130,6 @@ export const StepSix = ({
             />
           </NumberWrapper>
         </>
-
       )}
     </Container>
   );

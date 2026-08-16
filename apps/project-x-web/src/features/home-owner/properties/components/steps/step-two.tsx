@@ -18,7 +18,6 @@ export const StepTwo = ({
   payload?: DraftProperty;
   handleUpdateDraft: (updates: Partial<DraftProperty>) => void;
 }) => {
-  console.log(payload, "Payload updated value");
   return (
     <Container>
       {activeSubStep === 1 && (
@@ -354,19 +353,7 @@ export const StepTwo = ({
             />
           </NumberWrapper>
 
-          <NumberWrapper serialNo="vii" text="Describe this property?">
-            <Text variant="body-sm" tone="danger">
-              Minimum of 100 characters
-            </Text>
-            <Textarea
-              label=""
-              value={payload?.description ?? ""}
-              placeholder="Enter description"
-              onChange={({ target }) => {
-                handleUpdateDraft({ description: target.value });
-              }}
-            />
-          </NumberWrapper>
+          
         </>
       )}
     </Container>

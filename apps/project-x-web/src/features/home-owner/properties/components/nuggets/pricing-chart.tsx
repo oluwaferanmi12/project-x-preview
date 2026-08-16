@@ -11,13 +11,6 @@ type PricingItem = {
     color: string;
 };
 
-const pricingItems: PricingItem[] = [
-    { label: "Rent", amount: 300000, color: "#af52de" },
-    { label: "Agency", amount: 30000, color: "#ff2d55" },
-    { label: "Caution", amount: 30000, color: "#007AFF" },
-    { label: "Service Charge", amount: 50000, color: "#595f85" },
-];
-
 const formatCurrency = (value: number) => `₦${value.toLocaleString("en-NG")}`;
 
 const LegendItem = ({
@@ -42,15 +35,40 @@ const LegendItem = ({
     );
 };
 
-const PricingSection = () => {
+const PricingSection = ({
+    rentAmount,
+    agencyFee,
+    cautionFee,
+    serviceCharge,
+}: {
+    rentAmount?: number | null;
+    agencyFee?: number | null;
+    cautionFee?: number | null;
+    serviceCharge?: number | null;
+}) => {
+    const pricingItems: PricingItem[] = [
+        { label: "Rent", amount: rentAmount ?? 0, color: "#af52de" },
+        { label: "Agency", amount: agencyFee ?? 0, color: "#ff2d55" },
+        { label: "Caution", amount: cautionFee ?? 0, color: "#007AFF" },
+        { label: "Service Charge", amount: serviceCharge ?? 0, color: "#595f85" },
+    ];
+
+    const total = pricingItems.reduce((sum, item) => sum + item.amount, 0);
+
     return (
         <Container className="flex flex-col items-center">
             <Container className="relative flex h-47.5 w-full items-center justify-center">
-                <DonutChart />
+                <DonutChart
+                    values={pricingItems.map((item) => item.amount)}
+                    colors={pricingItems.map((item) => item.color)}
+                    labels={pricingItems.map((item) => item.label)}
+                />
             </Container>
             <Container className="mt-5">
                 <Text tone="secondary" variant="body-xs" className="text-center">Total Amount</Text>
-                <Text variant="h3" className="text-primary ">{formatCurrency(410000)}</Text>
+                <Text variant="h3" className="text-primary ">
+                    {total ? formatCurrency(total) : "Not set"}
+                </Text>
             </Container>
 
             <Container className="mt-2 w-full border-t border-line" />

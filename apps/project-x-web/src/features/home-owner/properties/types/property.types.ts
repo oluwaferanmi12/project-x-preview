@@ -21,6 +21,12 @@ export type ListingImage = {
   publicId: string | null;
 };
 
+export interface WaterSource {
+  id: string;
+  name: string;
+  code: string;
+}
+
 export type CreateProperty = {
   id: string | null;
   relationshipType: RelationshipType | null;
@@ -31,7 +37,7 @@ export type CreateProperty = {
   propertyCondition: PropertyCondition | null;
   unitCount: number | null;
   description: string | null;
-  waterSourceId: string[] | null;
+  waterSourceIds: string[] | null;
   parkingAvailable: boolean | null;
   fencedOrGated: boolean | null;
   renovated: boolean | null;
@@ -55,6 +61,8 @@ export type CreateProperty = {
   images: PropertyImage[] | null;
   videoUrl: string | null;
   videoPublicId: string | null;
+  neighbourhood: string | null;
+  waterSources: WaterSource[] | null;
 };
 
 export interface ListingNuggetType {
@@ -78,8 +86,6 @@ export type ListingResponse = {
   propertyCondition: PropertyCondition | null;
   unitCount: number | null;
   description: string | null;
-  waterSourceId: string | null;
-  waterSourceName: string | null;
   parkingAvailable: boolean | null;
   fencedOrGated: boolean | null;
   renovated: boolean | null;
@@ -108,6 +114,7 @@ export type ListingResponse = {
   ownerId: string | null;
   createdAt: string | null;
   updatedAt: string | null;
+  waterSources: WaterSource[] | null;
 };
 
 export interface AmenitiesTypes {

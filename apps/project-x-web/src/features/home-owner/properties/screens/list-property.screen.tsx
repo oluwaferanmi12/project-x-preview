@@ -24,6 +24,7 @@ function ListPropertyScreen() {
     dropOffStep,
     handleUpdateDraft,
     handleSaveDraft,
+    handleSubmitListing,
     isPending,
     isDraftLoading,
   } = useListingScreen();
@@ -112,6 +113,7 @@ function ListPropertyScreen() {
                 payload={payload}
                 handleUpdateDraft={handleUpdateDraft}
                 handleSaveDraft={handleSaveDraft}
+                handleSubmitListing={handleSubmitListing}
                 isPending={isPending}
               />
             )}

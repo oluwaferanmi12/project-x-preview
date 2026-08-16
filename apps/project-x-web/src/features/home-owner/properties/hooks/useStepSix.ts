@@ -7,15 +7,30 @@ import { DraftProperty, PropertyImage } from "../types/property.types";
 
 export const useStepSix = (
   handleUpdateDraft: (updates: Partial<DraftProperty>) => void,
+  payload?: DraftProperty,
 ) => {
   const [idImage, setIdImage] = useState<string | null>(null);
-  const [ownershipImage, setOwnershipImage] = useState<string | null>(null);
-  const [video, setVideo] = useState<string | null>(null);
+  const [ownershipImage, setOwnershipImage] = useState<string | null>(
+    payload?.proofOfOwnershipUrl ?? null,
+  );
+  const [video, setVideo] = useState<string | null>(payload?.videoUrl ?? null);
 
-  const [images, setImages] = useState<(string | null)[]>(Array(9).fill(null));
+  const [images, setImages] = useState<(string | null)[]>(() => {
+    const seeded: (string | null)[] = Array(9).fill(null);
+    payload?.images?.forEach((img, i) => {
+      if (i < seeded.length) seeded[i] = img.optimizedUrl;
+    });
+    return seeded;
+  });
   const [uploadedImages, setUploadedImages] = useState<
     (PropertyImage | null)[]
-  >(Array(9).fill(null));
+  >(() => {
+    const seeded: (PropertyImage | null)[] = Array(9).fill(null);
+    payload?.images?.forEach((img, i) => {
+      if (i < seeded.length) seeded[i] = img;
+    });
+    return seeded;
+  });
 
   const { mutate: uploadPropertyImage } = useUploadImage(() => {});
   const { mutate: uploadPropertyVideo } = useUploadVideo(() => {});

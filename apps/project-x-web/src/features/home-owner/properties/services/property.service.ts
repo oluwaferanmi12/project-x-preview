@@ -25,6 +25,11 @@ export const getListingService = async (
   return result.data.data;
 };
 
+export const submitListingService = async (id: string) => {
+  const result = await apiClient.patch(`/listings/${id}/submit`);
+  return result.data.data;
+};
+
 export const getPropertyTypes = async (): Promise<ListingNuggetType[]> => {
   const result = await apiClient.get("/property-types");
   return result.data.data;

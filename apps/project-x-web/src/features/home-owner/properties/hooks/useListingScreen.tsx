@@ -1,7 +1,11 @@
 "use client";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
-import { useCreatePropertyMutation, useGetListingById } from "./property.hook";
+import {
+  useCreatePropertyMutation,
+  useGetListingById,
+  useSubmitPropertyMutation,
+} from "./property.hook";
 import {
   DEFAULT_DRAFT_PROPERTY,
   mapListingResponseToDraft,
@@ -94,6 +98,17 @@ export const useListingScreen = () => {
     mutate(normalizeDraftForSave(draftProperty!));
   };
 
+  const { mutate: submitListing, isPending: isSubmitting } =
+    useSubmitPropertyMutation(() => {
+      handleNextStep();
+    });
+
+  const handleSubmitListing = () => {
+    const id = draftProperty?.id;
+    if (!id) return;
+    submitListing(id);
+  };
+
   // If no propertyId, always ready. If there is one, wait for the draft to load first.
   const isReadyToSync = !propertyId || !isDraftLoading;
 
@@ -123,7 +138,8 @@ export const useListingScreen = () => {
     handleUpdateDraft,
     dropOffStep,
     isDraftLoading,
-    isPending,
+    isPending: isPending || isSubmitting,
     handleSaveDraft,
+    handleSubmitListing,
   };
 };

@@ -4,22 +4,39 @@ import React from "react";
 import { Container } from "@repo/ui";
 import { Text } from "@repo/ui";
 import { ChatIcon as MessageCircleMore, Phone, VerifiedCheck } from "@repo/icons";
+import { getInitials } from "@repo/utils";
 
-export const AgentCard = () => {
+type AgentCardUser = {
+  firstName: string;
+  lastName: string;
+};
+
+export const AgentCard = ({
+  user,
+  verified,
+}: {
+  user?: AgentCardUser | null;
+  verified?: boolean;
+}) => {
+  const fullName = user ? `${user.firstName} ${user.lastName}`.trim() : "";
+
   return (
     <Container className="flex items-center justify-between rounded-2xl bg-s50 p-2.5">
       <Container className="flex items-center gap-2">
         <Container className="flex items-center justify-center rounded-xl text-lg bg-p200 w-10 h-10 font-bold text-inverted">
-          MS
+          {user ? getInitials(user.firstName, user.lastName) : "—"}
         </Container>
 
         <Container className="leading-tight">
           <Text tone="primary" className="text-sm font-medium">
-            Michael Scofield
+            {fullName || "Not available"}
           </Text>
+          {/* Every listing owner is shown as "Owner" for now — there's no
+              modeled distinction yet between the lister's own account and a
+              separate agent/owner contact. */}
           <Container as="span" className="inline-flex items-center gap-1 text-xs font-medium text-primary">
-            Agent
-            <VerifiedCheck className="h-3 w-3" />
+            Owner
+            {verified && <VerifiedCheck className="h-3 w-3" />}
           </Container>
         </Container>
       </Container>
