@@ -3,7 +3,7 @@
 import { Container } from "@repo/ui";
 import { Text } from "@repo/ui";
 import React, { useRef } from "react";
-import { UploadImage as UploadIcon } from "@repo/icons";
+import { UploadImage as UploadIcon, SpinIcon } from "@repo/icons";
 import Image from "next/image";
 
 
@@ -15,6 +15,7 @@ type UploadBoxProps = {
     className?: string;
     accept?: string;
     type?: "image" | "video";
+    loading?: boolean;
 };
 
 export const UploadBox = ({
@@ -23,10 +24,12 @@ export const UploadBox = ({
     className,
     accept = "image/*",
     type = "image",
+    loading = false,
 }: UploadBoxProps) => {
     const inputRef = useRef<HTMLInputElement | null>(null);
 
     const handleFiles = (files: FileList | null) => {
+        if (loading) return;
         const file = files?.[0];
         if (!file) return;
         onChange?.(file);
@@ -34,21 +37,35 @@ export const UploadBox = ({
 
     return (
         <Container
-            onClick={() => inputRef.current?.click()}
+            onClick={() => !loading && inputRef.current?.click()}
             onDragOver={(e) => e.preventDefault()}
             onDrop={(e) => {
                 e.preventDefault();
                 handleFiles(e.dataTransfer.files);
             }}
-            className={`relative cursor-pointer border border-dashed border-s75 rounded-2xl bg-s50 flex items-center justify-center overflow-hidden ${className}`}
+            aria-busy={loading}
+            className={`relative border border-dashed border-s75 rounded-2xl bg-s50 flex items-center justify-center overflow-hidden ${loading ? "cursor-not-allowed" : "cursor-pointer"} ${className}`}
         >
             <input
                 ref={inputRef}
                 type="file"
                 hidden
                 accept={accept}
+                disabled={loading}
                 onChange={(e) => handleFiles(e.target.files)}
             />
+
+            {/* UPLOADING OVERLAY */}
+            {loading && (
+                <Container className="absolute inset-0 z-10 flex flex-col items-center justify-center gap-2 bg-s50/90">
+                    <Container className="inline-flex animate-spin [animation-duration:1.5s] text-p300">
+                        <SpinIcon aria-hidden="true" size={24} />
+                    </Container>
+                    <Text variant="body-sm" tone="p300">
+                        Uploading {type}…
+                    </Text>
+                </Container>
+            )}
 
             {/* PREVIEW */}
             {value ? (

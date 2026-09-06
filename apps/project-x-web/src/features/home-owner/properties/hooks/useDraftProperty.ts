@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 export const useDraftProperty = () => {
   const router = useRouter();
 
-  const { data: properties } = useGetListings();
+  const { data: properties } = useGetListings("DRAFT");
   const continueDraft = (id: string) => {
     router.push(`/properties/list-property?propertyId=${id}`);
   };

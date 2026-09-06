@@ -1,19 +1,22 @@
-import { Container, Textarea } from "@repo/ui";
+import { Button, Container, Textarea } from "@repo/ui";
 import { NumberWrapper } from "../nuggets/number-wrapper";
 import { UploadBox } from "../nuggets/upload-container";
 import { Text } from "@repo/ui";
 import { Select } from "@repo/ui";
 import { DraftProperty } from "../../types/property.types";
 import { useStepSix } from "../../hooks/useStepSix";
+import { AiIcon } from "@repo/icons";
 
 export const StepSix = ({
   activeSubstep,
   payload,
   handleUpdateDraft,
+  onVideoUploadingChange,
 }: {
   activeSubstep: number;
   payload?: DraftProperty;
   handleUpdateDraft: (updates: Partial<DraftProperty>) => void;
+  onVideoUploadingChange?: (isUploading: boolean) => void;
 }) => {
   const {
     idImage,
@@ -24,7 +27,10 @@ export const StepSix = ({
     handleIdUpload,
     handleOwnershipUpload,
     handleVideoChange,
-  } = useStepSix(handleUpdateDraft, payload);
+    generateWithAi,
+    isGeneratingWithAi,
+    isVideoUploading,
+  } = useStepSix(handleUpdateDraft, payload, onVideoUploadingChange);
 
   return (
     <Container>
@@ -70,6 +76,7 @@ export const StepSix = ({
               className="w-full h-40"
               type="video"
               accept="video/*"
+              loading={isVideoUploading}
             />
           </NumberWrapper>
 
@@ -77,14 +84,30 @@ export const StepSix = ({
             <Text variant="body-sm" tone="danger">
               Minimum of 100 characters
             </Text>
-            <Textarea
-              label=""
-              value={payload?.description ?? ""}
-              placeholder="Enter description"
-              onChange={({ target }) => {
-                handleUpdateDraft({ description: target.value });
-              }}
-            />
+            <Container className="border border-line rounded-xl">
+              <Textarea
+                label=""
+                value={payload?.description ?? ""}
+                placeholder="Enter description"
+                onChange={({ target }) => {
+                  handleUpdateDraft({ description: target.value });
+                }}
+                className="border border-none"
+              />
+              <Container className="p-3">
+                <Button
+                  loading={isGeneratingWithAi}
+                  shorter
+                  variant="muted"
+                  rightIcon={<AiIcon className="text-primary" />}
+                  onClick={() =>
+                    payload?.id && generateWithAi(payload?.id ?? "")
+                  }
+                >
+                  Generate
+                </Button>
+              </Container>
+            </Container>
           </NumberWrapper>
         </>
       )}

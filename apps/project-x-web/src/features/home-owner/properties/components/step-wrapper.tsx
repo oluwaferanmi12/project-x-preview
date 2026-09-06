@@ -21,6 +21,7 @@ export const StepWrapper = ({
   handleSaveDraft,
   handleSubmitListing,
   isPending,
+  onVideoUploadingChange,
 }: {
   step: number;
   activeSubStep: number;
@@ -31,12 +32,15 @@ export const StepWrapper = ({
   handleSaveDraft: () => void;
   handleSubmitListing: () => void;
   isPending?: boolean;
+  onVideoUploadingChange?: (isUploading: boolean) => void;
 }) => {
   const isReviewStep = step === 7;
   const topRef = React.useRef<HTMLDivElement>(null);
   React.useEffect(() => {
     topRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
   }, [step, activeSubStep]);
+
+  console.log(payload, "Payload in StepWrapper")
 
   return (
     <Row justify={"center"} className="flex-1">
@@ -82,6 +86,7 @@ export const StepWrapper = ({
                 activeSubstep={activeSubStep}
                 payload={payload}
                 handleUpdateDraft={handleUpdateDraft}
+                onVideoUploadingChange={onVideoUploadingChange}
               />
             )}
             {step === 7 && (

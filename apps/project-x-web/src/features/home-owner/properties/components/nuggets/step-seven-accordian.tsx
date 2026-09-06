@@ -6,14 +6,20 @@ import { Text } from "@repo/ui";
 import { Accordion, AccordionSection } from "@repo/ui";
 import PricingSection from "./pricing-chart";
 import { IconText } from "@repo/ui";
-import { ChevronArrowDown as ChevronDownIcon, ChevronRight as ChevronRightIcon } from "@repo/icons";
+import {
+  ChevronArrowDown as ChevronDownIcon,
+  ChevronRight as ChevronRightIcon,
+} from "@repo/icons";
 import { DraftProperty } from "../../types/property.types";
 import {
   useGetAmenities,
   useGetPropertyTypes,
   useGetWaterSources,
 } from "../../hooks/property.hook";
-import { useGetLGA, useGetStates } from "@/features/general/hooks/general.hooks";
+import {
+  useGetLGA,
+  useGetStates,
+} from "@/features/general/hooks/general.hooks";
 import {
   formatFurnishingStatus,
   formatPropertyCondition,
@@ -29,7 +35,11 @@ const SectionTitle = ({ title }: { title: string }) => (
 );
 
 // Description Section Component
-const DescriptionSection = ({ description }: { description?: string | null }) => (
+const DescriptionSection = ({
+  description,
+}: {
+  description?: string | null;
+}) => (
   <Container>
     <SectionTitle title="Description" />
     <Text tone="secondary" variant="body-sm" className="whitespace-pre-line">
@@ -51,11 +61,10 @@ const LocationSection = ({ items }: { items: LocationItem[] }) => (
 
     <Container className="space-y-4">
       {items.map((item) => (
-        <Container
-          key={item.label}
-          className="grid grid-cols-2 gap-3 text-sm"
-        >
-          <Container as="span" className="text-secondary">{item.label}</Container>
+        <Container key={item.label} className="grid grid-cols-2 gap-3 text-sm">
+          <Container as="span" className="text-secondary">
+            {item.label}
+          </Container>
 
           {item.pill ? (
             <Container
@@ -69,7 +78,9 @@ const LocationSection = ({ items }: { items: LocationItem[] }) => (
               {item.value ?? EMPTY}
             </Container>
           ) : (
-            <Container as="span" className="text-secondary">{item.value || EMPTY}</Container>
+            <Container as="span" className="text-secondary">
+              {item.value || EMPTY}
+            </Container>
           )}
         </Container>
       ))}
@@ -89,12 +100,13 @@ const OverviewSection = ({ items }: { items: OverviewItem[] }) => (
 
     <Container className="space-y-3">
       {items.map((item) => (
-        <Container
-          key={item.label}
-          className="grid grid-cols-2 gap-3 text-sm"
-        >
-          <Container as="span" className="text-secondary text-sm">{item.label}</Container>
-          <Container as="span" className="text-secondary text-sm">{item.value}</Container>
+        <Container key={item.label} className="grid grid-cols-2 gap-3 text-sm">
+          <Container as="span" className="text-secondary text-sm">
+            {item.label}
+          </Container>
+          <Container as="span" className="text-secondary text-sm">
+            {item.value}
+          </Container>
         </Container>
       ))}
     </Container>
@@ -111,9 +123,11 @@ type AmenityItem = {
 const AmenitiesSection = ({
   amenities,
   propertyId,
+  friendlyId,
 }: {
   amenities: AmenityItem[];
   propertyId?: string | null;
+  friendlyId?: string | null;
 }) => (
   <Container>
     <SectionTitle title="Amenities" />
@@ -137,22 +151,21 @@ const AmenitiesSection = ({
         ))}
       </Container>
     ) : (
-      <Text tone="secondary" variant="body-sm">No amenities selected</Text>
+      <Text tone="secondary" variant="body-sm">
+        No amenities selected
+      </Text>
     )}
 
     <Container className="mt-4">
       <SectionTitle title="Property ID" />
-      <Text className="text-sm text-secondary">{propertyId || "Not yet saved"}</Text>
+      <Text className="text-sm text-secondary">
+        {friendlyId || "Not yet saved"}
+      </Text>
     </Container>
-
   </Container>
 );
 
-export const PropertyAccordion = ({
-  payload,
-}: {
-  payload?: DraftProperty;
-}) => {
+export const PropertyAccordion = ({ payload }: { payload?: DraftProperty }) => {
   const { data: propertyTypes } = useGetPropertyTypes();
   const { data: states } = useGetStates();
   const { data: localGovernments } = useGetLGA(payload?.stateId ?? "");
@@ -165,8 +178,7 @@ export const PropertyAccordion = ({
   const stateName =
     states?.find((item) => item.id === payload?.stateId)?.name ?? null;
   const lgaName =
-    localGovernments?.find((item) => item.id === payload?.lgaId)?.name ??
-    null;
+    localGovernments?.find((item) => item.id === payload?.lgaId)?.name ?? null;
   const waterSourceNames =
     payload?.waterSourceIds
       ?.map((id) => waterSources?.find((item) => item.id === id)?.name)
@@ -210,11 +222,13 @@ export const PropertyAccordion = ({
     },
     {
       label: "Bedrooms",
-      value: payload?.bedroomCount != null ? String(payload.bedroomCount) : EMPTY,
+      value:
+        payload?.bedroomCount != null ? String(payload.bedroomCount) : EMPTY,
     },
     {
       label: "Bathrooms",
-      value: payload?.bathroomCount != null ? String(payload.bathroomCount) : EMPTY,
+      value:
+        payload?.bathroomCount != null ? String(payload.bathroomCount) : EMPTY,
     },
     {
       label: "Toilets",
@@ -256,7 +270,11 @@ export const PropertyAccordion = ({
           <Container className="border-t border-line" />
           <OverviewSection items={overviewItems} />
           <Container className="border-t border-line" />
-          <AmenitiesSection amenities={selectedAmenities} propertyId={payload?.id} />
+          <AmenitiesSection
+            amenities={selectedAmenities}
+            propertyId={payload?.id}
+            friendlyId={payload?.friendlyId}
+          />
         </Container>
       ),
     },
@@ -280,5 +298,6 @@ export const PropertyAccordion = ({
       openIcon={<ChevronDownIcon className="h-5 w-5 text-secondary" />}
       closedIcon={<ChevronRightIcon className="h-3 w-3 text-secondary" />}
       defaultOpen="about"
-    />);
+    />
+  );
 };

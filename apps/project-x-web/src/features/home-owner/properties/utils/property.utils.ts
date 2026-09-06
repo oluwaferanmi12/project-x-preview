@@ -4,6 +4,7 @@ import {
   ListingResponse,
   PropertyCondition,
   PropertyImage,
+  PropertyItem,
   RentPaymentFrequency,
 } from "../types/property.types";
 
@@ -118,6 +119,7 @@ export const mapListingResponseToDraft = (
   images: response.images?.map(toPropertyImage) ?? null,
   videoUrl: response.videoUrl,
   videoPublicId: null,
+  friendlyId: response.friendlyId,
 });
 
 export const normalizeDraftForSave = (draft: DraftProperty): DraftProperty => ({
@@ -149,6 +151,34 @@ const STEP_COMPLETENESS_CHECKS: Record<
     !!payload.amenityIds?.length,
   6: (payload) => !!payload.images?.length && !!payload.proofOfOwnershipUrl,
 };
+
+export const formatListingDate = (iso: string | null) => {
+  if (!iso) return "";
+  const date = new Date(iso);
+  const day = date.getDate();
+  const month = date.toLocaleDateString("en-US", { month: "short" });
+  const year = date.getFullYear();
+  return `${day} ${month}, ${year}`;
+};
+
+const getFirstImageUrl = (images: ListingResponse["images"]) => {
+  if (!images?.length) return undefined;
+  return [...images].sort((a, b) => a.position - b.position)[0]?.url;
+};
+
+export const toPropertyItem = (listing: ListingResponse): PropertyItem => ({
+  id: listing.id ?? "",
+  title: listing.addressLine || listing.propertyTypeName || "Untitled property",
+  image: getFirstImageUrl(listing.images),
+  status: listing.status ?? "DRAFT",
+  date: formatListingDate(listing.createdAt),
+  meta: {
+    type: listing.propertyTypeName ?? "—",
+    beds: listing.bedroomCount ?? 0,
+    baths: listing.bathroomCount ?? 0,
+    toilets: listing.toiletCount ?? 0,
+  },
+});
 
 // Each step's completeness is checked independently rather than as a
 // waterfall, so a gap in an earlier step (e.g. a missing description) doesn't

@@ -19,14 +19,13 @@ import {
   ReviewCheckIcon,
   SmallRoundRejectedIcon,
   SmallGreenCheckIcon,
+  SpinIcon,
   type IconProps,
 } from "@repo/icons";
 import { Button, Container, Text } from "@repo/ui";
-import {
-  properties,
-  type PropertyItem,
-  type PropertyReviewStatus,
-} from "../data/properties.mock";
+import { type PropertyReviewStatus } from "../types/property.types";
+import { useGetListingById } from "../hooks/property.hook";
+import { toPropertyItem } from "../utils/property.utils";
 
 type ReviewStepState = "approved" | "pending" | "active" | "rejected";
 
@@ -100,7 +99,18 @@ export const PropertyReviewDetailsScreen = ({
 }) => {
   const router = useRouter();
   const [isRejectionModalOpen, setIsRejectionModalOpen] = useState(false);
-  const property = properties.find((item) => item.id === propertyId);
+  const { data: listing, isLoading } = useGetListingById(propertyId);
+  const property = listing ? toPropertyItem(listing) : undefined;
+
+  if (isLoading) {
+    return (
+      <Container className="flex items-center justify-center py-16">
+        <Container className="inline-flex animate-spin [animation-duration:1.5s] text-p300">
+          <SpinIcon aria-hidden="true" size={32} />
+        </Container>
+      </Container>
+    );
+  }
 
   if (!property) {
     return (

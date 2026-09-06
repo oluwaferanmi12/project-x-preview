@@ -4,10 +4,12 @@ import {
   useUploadVideo,
 } from "@/features/general/hooks/general.hooks";
 import { DraftProperty, PropertyImage } from "../types/property.types";
+import { useGenerateSummaryWithAi } from "./property.hook";
 
 export const useStepSix = (
   handleUpdateDraft: (updates: Partial<DraftProperty>) => void,
   payload?: DraftProperty,
+  onVideoUploadingChange?: (isUploading: boolean) => void,
 ) => {
   const [idImage, setIdImage] = useState<string | null>(null);
   const [ownershipImage, setOwnershipImage] = useState<string | null>(
@@ -33,8 +35,18 @@ export const useStepSix = (
   });
 
   const { mutate: uploadPropertyImage } = useUploadImage(() => {});
-  const { mutate: uploadPropertyVideo } = useUploadVideo(() => {});
+  const { mutate: uploadPropertyVideo, isPending: isVideoUploading } =
+    useUploadVideo(() => {});
   const { mutate: uploadOwnershipProof } = useUploadImage(() => {});
+  const { mutate: generateWithAi, isPending: isGeneratingWithAi } =
+    useGenerateSummaryWithAi((data) => {
+      // console.log(data.description, "data.description");
+      handleUpdateDraft({ description: data.description });
+    });
+
+  useEffect(() => {
+    onVideoUploadingChange?.(isVideoUploading);
+  }, [isVideoUploading, onVideoUploadingChange]);
 
   const isFirstImagesSync = useRef(true);
   useEffect(() => {
@@ -150,5 +162,8 @@ export const useStepSix = (
     handleIdUpload,
     handleOwnershipUpload,
     handleVideoChange,
+    generateWithAi,
+    isGeneratingWithAi,
+    isVideoUploading,
   };
 };

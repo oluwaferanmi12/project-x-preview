@@ -4,10 +4,15 @@ import {
   CreateProperty,
   ListingNuggetType,
   ListingResponse,
+  ListingType,
 } from "../types/property.types";
 
-export const getListing = async (): Promise<ListingResponse[]> => {
-  const result = await apiClient.get("/listings");
+export const getListing = async ({
+  status,
+}: {
+  status: ListingType;
+}): Promise<ListingResponse[]> => {
+  const result = await apiClient.get(`/listings?status=${status}`);
   return result.data.data;
 };
 
@@ -42,5 +47,12 @@ export const getWaterSources = async (): Promise<ListingNuggetType[]> => {
 
 export const getAmenities = async (): Promise<AmenitiesTypes[]> => {
   const result = await apiClient.get("/amenities");
+  return result.data.data;
+};
+
+export const generateSummaryWithAi = async (listingId: string) => {
+  const result = await apiClient.post(
+    `/listings/${listingId}/description/generate`,
+  );
   return result.data.data;
 };

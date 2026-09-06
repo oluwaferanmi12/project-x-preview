@@ -78,10 +78,8 @@ export const Navbar = ({ onNavigate }: NavbarProps) => {
                   as="button"
                   key={link.label}
                   onClick={() => onNavigate(link.href)}
-                  className={`flex items-center gap-2 rounded-xl px-4 py-2 transition-colors ${
-                    isActive
-                      ? "bg-p300 text-inverted"
-                      : "hover:bg-gray-100"
+                  className={`flex items-center gap-2 rounded-xl px-4 py-2 transition-colors cursor-pointer ${
+                    isActive && "bg-p300 text-inverted"
                   }`}
                 >
                   <Icon className={isActive ? "text-inverted" : "text-p300"} />

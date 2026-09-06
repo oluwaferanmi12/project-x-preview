@@ -9,9 +9,11 @@ import { Check as CheckMark } from "@repo/icons";
 export const MobileListingNavigation = ({
   active,
   dropOffStep,
+  onStepClick,
 }: {
   active: number;
   dropOffStep?: number;
+  onStepClick?: (step: number) => void;
 }) => {
   return (
     <Container className="lg:hidden pb-3 border-b mb-10 border-line">
@@ -36,9 +38,12 @@ export const MobileListingNavigation = ({
               {/* Step Circle */}
               <Container className="flex items-center w-full">
                 <Container
+                  as="button"
+                  type="button"
+                  onClick={() => onStepClick?.(step.num)}
                   className={`
                     relative flex h-[29px] w-full min-w-[29px] max-w-[29px]  items-center justify-center rounded-[10px]
-                    text-sm font-semibold transition-all
+                    text-sm font-semibold transition-all cursor-pointer
                     ${
                       isCompleted
                         ? "bg-p300 text-white"

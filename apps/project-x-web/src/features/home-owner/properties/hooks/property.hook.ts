@@ -3,6 +3,7 @@
 import { useMutation, useQuery } from "@tanstack/react-query";
 import {
   createListingService,
+  generateSummaryWithAi,
   getAmenities,
   getListing,
   getListingService,
@@ -10,7 +11,7 @@ import {
   getWaterSources,
   submitListingService,
 } from "../services/property.service";
-import { CreateProperty } from "../types/property.types";
+import { CreateProperty, ListingType } from "../types/property.types";
 
 export const useCreatePropertyMutation = (sc: (val: any) => void) => {
   return useMutation({
@@ -38,10 +39,10 @@ export const useGetListingById = (id: string | null) => {
   });
 };
 
-export const useGetListings = () => {
+export const useGetListings = (status: ListingType) => {
   return useQuery({
-    queryKey: ["listing"],
-    queryFn: () => getListing(),
+    queryKey: ["listing", status],
+    queryFn: () => getListing({ status }),
     meta: { errorTitle: "Could not load listings" },
   });
 };
@@ -67,5 +68,13 @@ export const useGetAmenities = () => {
     queryKey: ["amenities"],
     queryFn: () => getAmenities(),
     meta: { errorTitle: "Could not load amenities" },
+  });
+};
+
+export const useGenerateSummaryWithAi = (sc: (val: any) => void) => {
+  return useMutation({
+    mutationFn: (listingId: string) => generateSummaryWithAi(listingId),
+    onSuccess: sc,
+    meta: { errorTitle: "Failed to generate summary" },
   });
 };

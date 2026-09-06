@@ -19,6 +19,7 @@ function ListPropertyScreen() {
     activeStep,
     handleNextStep,
     handlePrevStep,
+    handleGoToStep,
     activeSubStep,
     payload,
     dropOffStep,
@@ -27,6 +28,7 @@ function ListPropertyScreen() {
     handleSubmitListing,
     isPending,
     isDraftLoading,
+    onVideoUploadingChange,
   } = useListingScreen();
 
   const isCompleted = activeStep > 7;
@@ -50,12 +52,17 @@ function ListPropertyScreen() {
           <MobileListingNavigation
             active={activeStep}
             dropOffStep={dropOffStep}
+            onStepClick={handleGoToStep}
           />
         </Col>
 
         {/* Desktop Navigation */}
         <Col lg={8} xs={0}>
-          <ListingNavigation active={activeStep} dropOffStep={dropOffStep} />
+          <ListingNavigation
+            active={activeStep}
+            dropOffStep={dropOffStep}
+            onStepClick={handleGoToStep}
+          />
         </Col>
         <Col xs={24} lg={16}>
           <Container className="relative flex flex-col lg:py-12  lg:bg-surface w-full h-full rounded-xl">
@@ -115,6 +122,7 @@ function ListPropertyScreen() {
                 handleSaveDraft={handleSaveDraft}
                 handleSubmitListing={handleSubmitListing}
                 isPending={isPending}
+                onVideoUploadingChange={onVideoUploadingChange}
               />
             )}
           </Container>

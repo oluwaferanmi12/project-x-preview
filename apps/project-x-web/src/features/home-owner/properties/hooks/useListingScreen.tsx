@@ -1,6 +1,6 @@
 "use client";
 import { useRouter, useSearchParams } from "next/navigation";
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import {
   useCreatePropertyMutation,
   useGetListingById,
@@ -27,6 +27,7 @@ export const useListingScreen = () => {
     ? mapListingResponseToDraft(listingResponse)
     : undefined;
 
+ 
   const stepVariation: Record<number, number> = {
     1: 1,
     2: 3,
@@ -40,6 +41,10 @@ export const useListingScreen = () => {
   const [activeSubStep, setActiveSubStep] = useState(
     Number(params.get("substep")) || 1,
   );
+  const [isVideoUploading, setIsVideoUploading] = useState(false);
+  const handleVideoUploadingChange = useCallback((uploading: boolean) => {
+    setIsVideoUploading(uploading);
+  }, []);
 
   const handleNextStep = () => {
     const currentStepVariations = stepVariation[activeStep] || 1;
@@ -94,6 +99,11 @@ export const useListingScreen = () => {
     }
   };
 
+  const handleGoToStep = (step: number) => {
+    setActiveStep(step);
+    setActiveSubStep(1);
+  };
+
   const handleSaveDraft = () => {
     mutate(normalizeDraftForSave(draftProperty!));
   };
@@ -133,13 +143,15 @@ export const useListingScreen = () => {
     activeStep,
     handleNextStep,
     handlePrevStep,
+    handleGoToStep,
     activeSubStep,
     payload: draftProperty,
     handleUpdateDraft,
     dropOffStep,
     isDraftLoading,
-    isPending: isPending || isSubmitting,
+    isPending: isPending || isSubmitting || isVideoUploading,
     handleSaveDraft,
     handleSubmitListing,
+    onVideoUploadingChange: handleVideoUploadingChange,
   };
 };

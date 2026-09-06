@@ -63,6 +63,7 @@ export type CreateProperty = {
   videoPublicId: string | null;
   neighbourhood: string | null;
   waterSources: WaterSource[] | null;
+  friendlyId: string | null;
 };
 
 export interface ListingNuggetType {
@@ -102,7 +103,7 @@ export type ListingResponse = {
   shareAddressWithSeekers: boolean | null;
   rentAmount: number | null;
   rentPaymentFrequency: RentPaymentFrequency | null;
-  status: string | null;
+  status: ListingType | null;
   agencyFee: number | null;
   legalAgreementFee: number | null;
   cautionFee: number | null;
@@ -115,6 +116,7 @@ export type ListingResponse = {
   createdAt: string | null;
   updatedAt: string | null;
   waterSources: WaterSource[] | null;
+  friendlyId: string | null;
 };
 
 export interface AmenitiesTypes {
@@ -123,3 +125,28 @@ export interface AmenitiesTypes {
   imageUrl: string;
   imagePublicId: string;
 }
+
+export type ListingType = "DRAFT" | "UNDER_REVIEW" | "PUBLISHED" | "ARCHIVED";
+
+export type PropertyReviewStatus =
+  | "pending"
+  | "in-progress"
+  | "finalising"
+  | "rejected";
+
+export type PropertyItem = {
+  id: string;
+  title: string;
+  image?: string;
+  status: ListingType;
+  reviewStatus?: PropertyReviewStatus;
+  step?: number;
+  substep?: number;
+  date: string;
+  meta: {
+    type: string;
+    beds: number;
+    baths: number;
+    toilets: number;
+  };
+};

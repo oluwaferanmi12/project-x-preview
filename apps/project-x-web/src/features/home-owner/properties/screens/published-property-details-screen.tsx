@@ -16,10 +16,13 @@ import {
   RedStarIcon,
   MessagesIcon,
   BookeepIcon,
+  SpinIcon,
   VideoPlayIcon,
 } from "@repo/icons";
 import { Button, Container, Switch, Text } from "@repo/ui";
-import { properties } from "../data/properties.mock";
+import { useGetListingById } from "../hooks/property.hook";
+import { toPropertyItem } from "../utils/property.utils";
+import type { ListingType } from "../types/property.types";
 import largeView from "@/assets/images/gallery/large-view.png";
 import img1 from "@/assets/images/image-thumbnail.png";
 import img2 from "@/assets/images/image-thumbnail.png";
@@ -65,10 +68,10 @@ const chartMaxValue = 250;
 
 export const PublishedPropertyDetailsScreen = ({
   propertyId,
-  mode = "published",
+  mode = "PUBLISHED",
 }: {
   propertyId: string;
-  mode?: "published" | "archived";
+  mode?: Extract<ListingType, "PUBLISHED" | "ARCHIVED">;
 }) => {
   const router = useRouter();
   const [addressVisible, setAddressVisible] = useState(false);
@@ -77,8 +80,9 @@ export const PublishedPropertyDetailsScreen = ({
   const [selectedMedia, setSelectedMedia] = useState<GalleryMediaItem>(
     defaultGalleryItem
   );
-  const property = properties.find((item) => item.id === propertyId);
-  const isArchived = mode === "archived";
+  const { data: listing, isLoading } = useGetListingById(propertyId);
+  const property = listing ? toPropertyItem(listing) : undefined;
+  const isArchived = mode === "ARCHIVED";
   const actionConfig = isArchived
     ? {
         title: "Unarchive this property",
@@ -96,6 +100,16 @@ export const PublishedPropertyDetailsScreen = ({
         tone: "warning" as const,
         rightIcon: <ArrowRight size={14} />,
       };
+
+  if (isLoading) {
+    return (
+      <Container className="flex items-center justify-center py-16">
+        <Container className="inline-flex animate-spin [animation-duration:1.5s] text-p300">
+          <SpinIcon aria-hidden="true" size={32} />
+        </Container>
+      </Container>
+    );
+  }
 
   if (!property) {
     return (
@@ -300,7 +314,7 @@ const PropertyStatusActionModal = ({
   isOpen,
   onClose,
 }: {
-  mode: "published" | "archived";
+  mode: Extract<ListingType, "PUBLISHED" | "ARCHIVED">;
   isOpen: boolean;
   onClose: () => void;
 }) => {
@@ -308,7 +322,7 @@ const PropertyStatusActionModal = ({
     return null;
   }
 
-  const isArchived = mode === "archived";
+  const isArchived = mode === "ARCHIVED";
   const modalConfig = isArchived
     ? {
         title: "Are you sure you want to unarchive this property?",
