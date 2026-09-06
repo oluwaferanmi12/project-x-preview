@@ -20,7 +20,7 @@ export const useListingScreen = () => {
 
   const propertyId = params.get("propertyId");
   const stepFromUrl = Number(params.get("step"));
-  const { data: listingResponse, isLoading: isDraftLoading } =
+  const { data: listingResponse, isLoading: isFetchingListing } =
     useGetListingById(propertyId);
 
   const fetchedDraft = listingResponse
@@ -120,7 +120,13 @@ export const useListingScreen = () => {
   };
 
   // If no propertyId, always ready. If there is one, wait for the draft to load first.
-  const isReadyToSync = !propertyId || !isDraftLoading;
+  const isReadyToSync = !propertyId || !isFetchingListing;
+
+  // The query can resolve (isFetchingListing: false) a render before the seed
+  // effect above has copied it into draftProperty — if a step mounts in that
+  // gap it reads stale (empty) initial state from draftProperty and never
+  // re-syncs. Keep reporting "loading" until draftProperty is actually seeded.
+  const isDraftLoading = isFetchingListing || (!!propertyId && !draftProperty);
 
   const resolvedPropertyId = draftProperty?.id || propertyId;
 
