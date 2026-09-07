@@ -62,7 +62,7 @@ export const Footer = () => {
                   </Text>
                   <Container className="flex flex-col gap-3 mt-4">
                     {quickLinks.map((item) => (
-                      <Text key={item.name} variant="body-sm" tone="line">
+                      <Text key={item.name} variant="body-sm" tone="inverted">
                         {item.name}
                       </Text>
                     ))}
@@ -74,7 +74,7 @@ export const Footer = () => {
                   </Text>
                   <Container className="flex flex-col gap-3 mt-4">
                     {company.map((item) => (
-                      <Text key={item.name} variant="body-sm" tone="line">
+                      <Text key={item.name} variant="body-sm" tone="inverted">
                         {item.name}
                       </Text>
                     ))}
@@ -90,7 +90,7 @@ export const Footer = () => {
                   </Text>
                   <Container className="flex flex-col gap-3 mt-4">
                     {resource.map((item) => (
-                      <Text key={item.name} tone="line" variant="body-sm">
+                      <Text key={item.name} tone="inverted" variant="body-sm">
                         {item.name}
                       </Text>
                     ))}

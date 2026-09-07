@@ -15,9 +15,11 @@ const layoutTransition = {
 export const ListingNavigation = ({
   active,
   dropOffStep,
+  onStepClick,
 }: {
   active: number;
   dropOffStep?: number;
+  onStepClick?: (step: number) => void;
 }) => {
   return (
     <Container className="bg-muted  relative flex h-full flex-col overflow-hidden rounded-xl px-13 py-12">
@@ -37,7 +39,7 @@ export const ListingNavigation = ({
             layout
             key={step.num}
             type="button"
-            // onClick={() => setActive(step.num)}
+            onClick={() => onStepClick?.(step.num)}
             className="flex cursor-pointer gap-4 bg-transparent text-left"
             transition={{ layout: layoutTransition }}
           >

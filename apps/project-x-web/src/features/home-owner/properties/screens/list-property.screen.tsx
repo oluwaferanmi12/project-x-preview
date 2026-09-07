@@ -7,6 +7,7 @@ import { StepWrapper } from "../components/step-wrapper";
 import { ArrowLeft } from "@repo/icons";
 import { useRouter, useSearchParams } from "next/navigation";
 import { MobileListingNavigation } from "../components/mobile-listing-navigation";
+import { SpinIcon } from "@repo/icons";
 
 function ListPropertyScreen() {
   const router = useRouter();
@@ -18,9 +19,16 @@ function ListPropertyScreen() {
     activeStep,
     handleNextStep,
     handlePrevStep,
+    handleGoToStep,
     activeSubStep,
     payload,
     dropOffStep,
+    handleUpdateDraft,
+    handleSaveDraft,
+    handleSubmitListing,
+    isPending,
+    isDraftLoading,
+    onVideoUploadingChange,
   } = useListingScreen();
 
   const isCompleted = activeStep > 7;
@@ -44,16 +52,31 @@ function ListPropertyScreen() {
           <MobileListingNavigation
             active={activeStep}
             dropOffStep={dropOffStep}
+            onStepClick={handleGoToStep}
           />
         </Col>
 
         {/* Desktop Navigation */}
         <Col lg={8} xs={0}>
-          <ListingNavigation active={activeStep} dropOffStep={dropOffStep} />
+          <ListingNavigation
+            active={activeStep}
+            dropOffStep={dropOffStep}
+            onStepClick={handleGoToStep}
+          />
         </Col>
         <Col xs={24} lg={16}>
           <Container className="relative flex flex-col lg:py-12  lg:bg-surface w-full h-full rounded-xl">
-            {isCompleted ? (
+            {isDraftLoading ? (
+              <Row
+                justify={"center"}
+                align={"middle"}
+                className="flex-1 items-center"
+              >
+                <Container className="inline-flex animate-spin [animation-duration:1.5s] text-p300">
+                  <SpinIcon aria-hidden="true" size={32} />
+                </Container>
+              </Row>
+            ) : isCompleted ? (
               <Row
                 justify={"center"}
                 align={"middle"}
@@ -69,13 +92,10 @@ function ListPropertyScreen() {
                         >
                           Property Submitted
                         </Container>
-                        <Container
-                          as="p"
-                          className="text-center text-secondary"
-                        >
+                        <Container as="p" className="text-center text-secondary">
                           Your property has been submitted for review. Once all
-                          details are facts checked property will be published
-                          to the public.
+                          details are facts checked property will be published to
+                          the public.
                         </Container>
                       </Container>
 
@@ -98,6 +118,11 @@ function ListPropertyScreen() {
                 handlePrevStep={handlePrevStep}
                 step={activeStep}
                 payload={payload}
+                handleUpdateDraft={handleUpdateDraft}
+                handleSaveDraft={handleSaveDraft}
+                handleSubmitListing={handleSubmitListing}
+                isPending={isPending}
+                onVideoUploadingChange={onVideoUploadingChange}
               />
             )}
           </Container>

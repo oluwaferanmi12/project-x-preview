@@ -11,20 +11,26 @@ import { Doughnut } from "react-chartjs-2";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
-export default function DonutChart() {
+export default function DonutChart({
+  values,
+  colors,
+  labels,
+}: {
+  values: number[];
+  colors: string[];
+  labels: string[];
+}) {
+  const total = values.reduce((sum, value) => sum + value, 0);
+  const hasData = total > 0;
+
   const data = {
-    labels: ["Purple", "Pink", "Blue", "Gray"],
+    labels,
     datasets: [
       {
-        data: [74, 8, 7, 11],
-        backgroundColor: [
-          "#af52de", // purple
-          "#ff2d55", // pink/red
-          "#007AFF", // blue
-          "#595f85", // gray
-        ],
+        data: hasData ? values : [1],
+        backgroundColor: hasData ? colors : ["#e5e7eb"],
         borderWidth: 0,
-        spacing: 4,
+        spacing: hasData ? 4 : 0,
         hoverOffset: 0,
         cutout: "48%",
         borderRadius: 2,
@@ -35,13 +41,17 @@ export default function DonutChart() {
   const options = {
     responsive: true,
     maintainAspectRatio: false,
-    rotation: 90, 
+    rotation: 90,
     plugins: {
       legend: {
         display: false,
       },
       tooltip: {
-        enabled: true,
+        enabled: hasData,
+        callbacks: {
+          label: (context: { label: string; parsed: number }) =>
+            `${context.label}: ₦${context.parsed.toLocaleString("en-NG")}`,
+        },
       },
     },
   };

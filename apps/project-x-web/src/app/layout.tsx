@@ -39,12 +39,12 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased `}
       >
         <ThemeProvider>
-          <ReactQueryProvider>
-            <ToastProvider>
+          <ToastProvider>
+            <ReactQueryProvider>
               <AntdRegistry>{children}</AntdRegistry>
-              <Toaster />
-            </ToastProvider>
-          </ReactQueryProvider>
+            </ReactQueryProvider>
+            <Toaster />
+          </ToastProvider>
         </ThemeProvider>
       </body>
     </html>
