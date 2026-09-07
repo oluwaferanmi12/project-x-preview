@@ -1,0 +1,2 @@
+export const PROPERTIES_PER_PAGE = 10;
+export const REVIEWS_PER_PAGE = 8;

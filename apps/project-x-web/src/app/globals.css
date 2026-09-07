@@ -1,0 +1,172 @@
+@import "tailwindcss";
+@import "../../../../packages/ui/src/styles/colors.css";
+@import "../../../../packages/ui/src/styles/radius.css";
+
+@source "../../../../packages/ui/src/**/*.{js,ts,jsx,tsx}";
+@source "../../../../packages/icons/src/**/*.{js,ts,jsx,tsx}";
+@source "./**/*.{js,ts,jsx,tsx}";
+
+/* ─── Fonts ─────────────────────────────────────────────────────────────── */
+
+@font-face {
+  font-family: "DMSansLight";
+  font-style: normal;
+  font-weight: 300;
+  font-display: swap;
+  src: url("../assets/fonts/DM_Sans/DMSans-VariableFont_opsz\,wght.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "DMSansRegular";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("../assets/fonts/DM_Sans/DMSans-VariableFont_opsz\,wght.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "DMSansMedium";
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("../assets/fonts/DM_Sans/DMSans-VariableFont_opsz\,wght.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "DMSansSemiBold";
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("../assets/fonts/DM_Sans/DMSans-VariableFont_opsz\,wght.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "DMSansBold";
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("../assets/fonts/DM_Sans/DMSans-VariableFont_opsz\,wght.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "DMSansExtraBold";
+  font-style: normal;
+  font-weight: 800;
+  font-display: swap;
+  src: url("../assets/fonts/DM_Sans/DMSans-VariableFont_opsz\,wght.ttf") format("truetype");
+}
+
+/* ─── Font Theme Tokens ─────────────────────────────────────────────────── */
+
+@theme inline {
+  --font-sans: "DMSansRegular", sans-serif;
+  --font-sans-light: "DMSansLight", sans-serif;
+  --font-sans-medium: "DMSansMedium", sans-serif;
+  --font-sans-semibold: "DMSansSemiBold", sans-serif;
+  --font-sans-bold: "DMSansBold", sans-serif;
+  --font-sans-extrabold: "DMSansExtraBold", sans-serif;
+}
+
+/* ─── App-specific Background Images ───────────────────────────────────── */
+
+.house-bg {
+  background-image: url("../assets/images/house-bg-light.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+}
+
+.nav-listing-background {
+  background-image: url("/listing-bg-img.svg");
+  opacity: 0.1;
+  background-repeat: no-repeat;
+  background-position: bottom;
+  background-size: cover;
+  width: 100%;
+}
+
+html.dark .house-bg {
+  background-image: url("../assets/images/bg.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+}
+
+html.dark .nav-listing-background {
+  background-image: url("/listinng-bg-img-dark.svg");
+  opacity: 0.1;
+  background-repeat: no-repeat;
+  background-position: bottom;
+  background-size: cover;
+  width: 100%;
+}
+
+/* ─── Autofill Override ─────────────────────────────────────────────────── */
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+textarea:-webkit-autofill,
+textarea:-webkit-autofill:hover,
+textarea:-webkit-autofill:focus,
+select:-webkit-autofill,
+select:-webkit-autofill:hover,
+select:-webkit-autofill:focus {
+  -webkit-text-fill-color: var(--primary);
+  -webkit-box-shadow: 0 0 0px 1000px var(--surface) inset;
+  box-shadow: 0 0 0px 1000px var(--surface) inset;
+  caret-color: var(--primary);
+  border-color: var(--line);
+  transition: background-color 9999s ease-out 0s;
+}
+
+/* ─── Typography Utilities ──────────────────────────────────────────────── */
+
+@layer utilities {
+  .text-h1 { @apply font-sans-bold text-[48px] leading-[1.2]; }
+  .text-h2 { @apply font-sans-bold text-[32px] leading-tight; }
+  .text-h3 { @apply font-sans-bold text-[24px] leading-[1.2]; }
+  .text-h4 { @apply font-sans-bold text-[18px] leading-[1.2]; }
+  .text-h5 { @apply font-sans-semibold text-[16px] leading-[1.2]; }
+
+  .text-body-lg  { @apply font-sans text-[20px] leading-normal; }
+  .text-body-xl  { @apply font-sans text-[24px] leading-normal; }
+  .text-body-md  { @apply font-sans text-[16px] leading-normal; }
+  .text-body-sm  { @apply font-sans text-[14px] leading-[1.4]; }
+  .text-body-xs  { @apply font-sans text-[12px] leading-[1.4]; }
+
+  .text-action-button { @apply font-sans-bold   text-[14px] leading-[1.4]; }
+  .text-action-label  { @apply font-sans-medium text-[14px] leading-[1.4]; }
+
+  @media (max-width: 1024px) {
+    .text-h1 { @apply text-[36px]; }
+    .text-h2 { @apply text-[28px]; }
+    .text-h3 { @apply text-[22px]; }
+    .text-body-lg { @apply text-[18px]; }
+  }
+
+  @media (max-width: 640px) {
+    .text-h1 { @apply text-[32px]; }
+    .text-h2 { @apply text-[24px]; }
+    .text-h3 { @apply text-[20px]; }
+    .text-h4 { @apply text-[16px]; }
+    .text-h5 { @apply text-[14px]; }
+  }
+}
+
+/* ─── Base ──────────────────────────────────────────────────────────────── */
+
+body {
+  font-family: var(--font-sans);
+}
+
+/* ─── Scrollbar ─────────────────────────────────────────────────────────── */
+
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
