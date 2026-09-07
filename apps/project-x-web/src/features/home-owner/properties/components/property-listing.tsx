@@ -37,12 +37,21 @@ export const PropertyListing = ({ status }: { status: ListingType }) => {
   return (
     <Container>
       <Container
-        className="mb-8 flex flex-col md:flex-row md:items-center md:justify-between overflow-hidden rounded-2xl bg-s50 bg-cover bg-center px-6 py-5"
+        className="relative isolate mb-8 flex flex-col md:flex-row md:items-center md:justify-between overflow-hidden rounded-2xl bg-s50 bg-cover bg-center px-6 py-5"
         style={{
-          backgroundImage:
-            "linear-gradient(90deg, color-mix(in srgb, var(--s400) 92%, transparent), color-mix(in srgb, var(--s500) 82%, transparent)), url('/property-background-bg.jpg')",
+          backgroundImage: "url('/property-background-bg.jpg')",
         }}
       >
+        <Container
+          as="div"
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-0 -z-10"
+          style={{
+            // Keep the image tint consistent when theme color tokens change.
+            backgroundImage:
+              "linear-gradient(90deg, rgb(177 92 92 / 70%), rgb(133 69 69 / 70%))",
+          }}
+        />
         <Container className="space-y-1">
           <Text variant="h4" tone="inverted" >
             Add your properties
