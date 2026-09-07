@@ -6,13 +6,18 @@ import React from "react";
 export const ButtonNavigation = ({
   handleNextStep,
   handlePrevStep,
+  isLoading,
+  nextLabel = "Continue",
 }: {
   handleNextStep: () => void;
   handlePrevStep: () => void;
+  isLoading?: boolean;
+  nextLabel?: string;
 }) => {
   return (
     <Container className="border-t border-line flex items-center justify-between pt-4">
       <Button
+        disabled={isLoading}
         onClick={handlePrevStep}
         leftIcon={<ArrowLeft className="text-primary" />}
         variant="muted"
@@ -20,11 +25,13 @@ export const ButtonNavigation = ({
         Previous
       </Button>
       <Button
+        disabled={isLoading}
         onClick={handleNextStep}
         rightIcon={<ArrowRight />}
         variant="primary"
+        loading={isLoading}
       >
-        Continue
+        {nextLabel}
       </Button>
     </Container>
   );

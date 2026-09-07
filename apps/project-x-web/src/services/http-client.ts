@@ -35,13 +35,10 @@ const attachRefreshBearerToken = (config: InternalAxiosRequestConfig) => {
 
 export const apiClient = axios.create({
   baseURL: baseURL || undefined,
-  headers: { "Content-Type": "application/json" },
 });
 
 export const refreshClient = axios.create({
   baseURL: baseURL || undefined,
-  headers: { "Content-Type": "application/json" },
-  withCredentials: true,
 });
 
 // ─── Refresh token queue (handles concurrent 401s) ───────────────────────────
@@ -52,7 +49,10 @@ let failedQueue: Array<{
   reject: (reason?: unknown) => void;
 }> = [];
 
-const processQueue = (error: AxiosError | null, token: string | null = null) => {
+const processQueue = (
+  error: AxiosError | null,
+  token: string | null = null,
+) => {
   failedQueue.forEach((prom) => {
     if (error) {
       prom.reject(error);
@@ -88,22 +88,25 @@ const handleResponseError = async (error: AxiosError) => {
     originalRequest._retry = true;
     isRefreshing = true;
 
-    const { user, refreshToken, setAuth, logout: clearAuth } =
-      useAuthStore.getState();
+    const {
+      user,
+      refreshToken,
+      setAuth,
+      logout: clearAuth,
+      accessToken,
+    } = useAuthStore.getState();
 
     try {
       const response = await refreshClient.post(
         "/auth/refresh",
-        {},
-        { headers: { Authorization: `Bearer ${refreshToken}` } },
+        { refreshToken },
+        { headers: { Authorization: `Bearer ${accessToken}` } },
       );
-
-      const { accessToken: newAccessToken, refreshToken: newRefreshToken } =
-        response.data;
-
-      setAuth(user!, newAccessToken, newRefreshToken ?? refreshToken ?? undefined);
+      console.log(response.data, "Refresh token response");
+      const { accessToken: newAccessToken } = response.data.data;
+      setAuth(user!, newAccessToken, refreshToken!);
+      console.log(newAccessToken, "New access token after refresh");
       processQueue(null, newAccessToken);
-
       originalRequest.headers.Authorization = `Bearer ${newAccessToken}`;
       return apiClient(originalRequest);
     } catch (refreshError) {
@@ -118,7 +121,11 @@ const handleResponseError = async (error: AxiosError) => {
     }
   }
 
-  return Promise.reject(error);
+  return Promise.reject(
+    error.response?.data ?? {
+      message: error.message || "Network error. Please check your connection.",
+    },
+  );
 };
 
 // ─── Wire interceptors ────────────────────────────────────────────────────────
@@ -127,7 +134,10 @@ apiClient.interceptors.request.use(attachBearerToken);
 apiClient.interceptors.response.use(handleResponseSuccess, handleResponseError);
 
 refreshClient.interceptors.request.use(attachRefreshBearerToken);
-refreshClient.interceptors.response.use(handleResponseSuccess, handleResponseError);
+refreshClient.interceptors.response.use(
+  handleResponseSuccess,
+  handleResponseError,
+);
 
 export const getStoredAccessToken = getAccessToken;
 export const getStoredRefreshToken = getRefreshToken;

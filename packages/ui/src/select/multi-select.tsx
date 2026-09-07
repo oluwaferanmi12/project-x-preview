@@ -7,7 +7,7 @@ import { IconText } from "../icon-text-group";
 export type MultiSelectOption = {
   label: string;
   value: string;
-  icon?: React.ReactNode;
+  icon?: string;
 };
 
 type MultiSelectProps = {

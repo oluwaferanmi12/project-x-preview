@@ -92,7 +92,7 @@ export const MobileNavDrawer = ({
                   as="button"
                   key={link.label}
                   onClick={() => onNavigate(link.href)}
-                  className="flex items-center gap-1 rounded-xl px-2 py-2 transition-colors hover:bg-p50"
+                  className="flex items-center gap-2 rounded-xl px-2 py-2 transition-colors hover:bg-p50"
                 >
                   <Icon className="text-p300" />
                   <Text variant="action-label" className="text-primary font-medium">
@@ -113,7 +113,7 @@ export const MobileNavDrawer = ({
                   as="button"
                   key={link.label}
                   onClick={() => onNavigate(link.href)}
-                  className="flex items-center gap-1 rounded-xl px-2 py-2 transition-colors hover:bg-p50"
+                  className="flex items-center gap-2 rounded-xl px-2 py-2 transition-colors hover:bg-p50"
                 >
                   <Icon className="text-p300" />
                   <Text variant="action-label" className="text-primary font-medium">
@@ -125,7 +125,7 @@ export const MobileNavDrawer = ({
           </Container>
 
           <Container className="mt-2 flex items-center justify-between rounded-xl px-2 py-2">
-            <Container className="flex gap-1 items-center">
+            <Container className="flex gap-2 items-center">
               <ThemeToggleIcon className="text-p300" />
               <Text variant="action-label" className="font-medium text-primary">
                 Dark Mode

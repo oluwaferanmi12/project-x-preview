@@ -1,18 +1,18 @@
 "use client";
 
 import { Container, Button, Text } from "@repo/ui";
-import type { PropertyStatus } from "../data/properties.mock";
+import type { ListingType } from "../types/property.types";
 
 type PropertyStatusTabsProps = {
-  active: PropertyStatus;
-  onChange: (status: PropertyStatus) => void;
+  active: ListingType;
+  onChange: (status: ListingType) => void;
 };
 
-const tabs: { label: string; value: PropertyStatus }[] = [
-  { label: "Draft", value: "draft" },
-  { label: "Under Review", value: "under-review" },
-  { label: "Published", value: "published" },
-  { label: "Archived", value: "archived" },
+const tabs: { label: string; value: ListingType }[] = [
+  { label: "Draft", value: "DRAFT" },
+  { label: "Under Review", value: "UNDER_REVIEW" },
+  { label: "Published", value: "PUBLISHED" },
+  { label: "Archived", value: "ARCHIVED" },
 ];
 
 export const PropertyStatusTabs = ({
@@ -25,7 +25,7 @@ export const PropertyStatusTabs = ({
         flex items-center gap-2 overflow-x-auto
         rounded-xl border border-line bg-muted p-1
         sm:overflow-visible
-        [scrollbar-width:none] [&::-webkit-scrollbar]:hidden
+        scrollbar-none [&::-webkit-scrollbar]:hidden
       "
     >
       {tabs.map((tab) => (

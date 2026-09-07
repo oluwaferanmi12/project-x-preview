@@ -11,7 +11,7 @@ export default async function PropertyDetailsPage({
   const { propertyId } = await params;
   const { status } = await searchParams;
 
-  if (status === "published" || status === "archived") {
+  if (status === "PUBLISHED" || status === "ARCHIVED") {
     return (
       <PublishedPropertyDetailsScreen
         propertyId={propertyId}

@@ -1,39 +1,152 @@
+import { MediaResponse } from "@/features/general/general.types";
+
+export type RelationshipType = "AGENT" | "OWNER";
+
+export type PropertyCondition = "NEWLY_BUILT" | "OLDER_PROPERTY";
+
+export type FurnishingStatus =
+  | "FULLY_FURNISHED"
+  | "SEMI_FURNISHED"
+  | "NOT_FURNISHED";
+
+export type RentPaymentFrequency = "MONTHLY" | "BIANNUAL" | "ANNUALLY";
+
 export type DraftProperty = Partial<CreateProperty>;
 
-export type CreateProperty = {
+export type PropertyImage = Omit<MediaResponse, "originalUrl">;
+
+export type ListingImage = {
+  url: string;
+  position: number;
+  publicId: string | null;
+};
+
+export interface WaterSource {
   id: string;
-  relationshipType: string;
-  propertyType: string;
-  bedroomCount: number;
-  bathroomCount: number;
-  toiletCount: number;
-  propertyCondition: string;
-  unitCount: number;
+  name: string;
+  code: string;
+}
+
+export type CreateProperty = {
+  id: string | null;
+  relationshipType: RelationshipType | null;
+  propertyTypeId: string | null;
+  bedroomCount: number | null;
+  bathroomCount: number | null;
+  toiletCount: number | null;
+  propertyCondition: PropertyCondition | null;
+  unitCount: number | null;
+  description: string | null;
+  waterSourceIds: string[] | null;
+  parkingAvailable: boolean | null;
+  fencedOrGated: boolean | null;
+  renovated: boolean | null;
+  furnishingStatus: FurnishingStatus | null;
+  stateId: string | null;
+  lgaId: string | null;
+  addressLine: string | null;
+  landmark: string | null;
+  latitude: number | null;
+  longitude: number | null;
+  placeId: string | null;
+  shareAddressWithSeekers: boolean | null;
+  rentAmount: number | null;
+  rentPaymentFrequency: RentPaymentFrequency | null;
+  agencyFee: number | null;
+  legalAgreementFee: number | null;
+  cautionFee: number | null;
+  serviceCharge: number | null;
+  proofOfOwnershipUrl: string | null;
+  amenityIds: string[] | null;
+  images: PropertyImage[] | null;
+  videoUrl: string | null;
+  videoPublicId: string | null;
+  neighbourhood: string | null;
+  waterSources: WaterSource[] | null;
+  friendlyId: string | null;
+};
+
+export interface ListingNuggetType {
+  id: string;
+  code: string;
+  name: string;
   description: string;
-  waterSource: string;
-  parkingAvailable: boolean;
-  fencedOrGated: boolean;
-  renovated: boolean;
-  furnishingStatus: string;
-  stateId: string;
-  lgaId: string;
-  addressLine: string;
-  landmark: string;
-  latitude: number;
-  longitude: number;
-  placeId: string;
-  shareAddressWithSeekers: boolean;
-  rentAmount: number;
-  rentPaymentFrequency: string;
-  agencyFee: number;
-  legalAgreementFee: number;
-  cautionFee: number;
-  serviceCharge: number;
-  proofOfOwnershipUrl: string;
-  amenityIds: string[];
-  images: {
-    publicId: string;
-    optimizedUrl: string;
-  }[];
-  videoUrl: string;
+  active: boolean;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export type ListingResponse = {
+  id: string | null;
+  relationshipType: RelationshipType | null;
+  propertyTypeId: string | null;
+  propertyTypeName: string | null;
+  bedroomCount: number | null;
+  bathroomCount: number | null;
+  toiletCount: number | null;
+  propertyCondition: PropertyCondition | null;
+  unitCount: number | null;
+  description: string | null;
+  parkingAvailable: boolean | null;
+  fencedOrGated: boolean | null;
+  renovated: boolean | null;
+  furnishingStatus: FurnishingStatus | null;
+  stateId: string | null;
+  stateName: string | null;
+  lgaId: string | null;
+  lgaName: string | null;
+  addressLine: string | null;
+  landmark: string | null;
+  latitude: number | null;
+  longitude: number | null;
+  placeId: string | null;
+  shareAddressWithSeekers: boolean | null;
+  rentAmount: number | null;
+  rentPaymentFrequency: RentPaymentFrequency | null;
+  status: ListingType | null;
+  agencyFee: number | null;
+  legalAgreementFee: number | null;
+  cautionFee: number | null;
+  serviceCharge: number | null;
+  proofOfOwnershipUrl: string | null;
+  amenities: { id: string; name: string }[] | null;
+  images: ListingImage[] | null;
+  videoUrl: string | null;
+  ownerId: string | null;
+  createdAt: string | null;
+  updatedAt: string | null;
+  waterSources: WaterSource[] | null;
+  friendlyId: string | null;
+};
+
+export interface AmenitiesTypes {
+  id: string;
+  name: string;
+  imageUrl: string;
+  imagePublicId: string;
+}
+
+export type ListingType = "DRAFT" | "UNDER_REVIEW" | "PUBLISHED" | "ARCHIVED";
+
+export type PropertyReviewStatus =
+  | "pending"
+  | "in-progress"
+  | "finalising"
+  | "rejected";
+
+export type PropertyItem = {
+  id: string;
+  title: string;
+  image?: string;
+  status: ListingType;
+  reviewStatus?: PropertyReviewStatus;
+  step?: number;
+  substep?: number;
+  date: string;
+  meta: {
+    type: string;
+    beds: number;
+    baths: number;
+    toilets: number;
+  };
 };
