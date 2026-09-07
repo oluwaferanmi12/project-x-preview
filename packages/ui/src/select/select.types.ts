@@ -11,6 +11,7 @@ export type SelectVariant = "surface" | "secondary";
 
 export type SelectProps = ComponentPropsWithoutRef<"select"> & {
   label: string;
+  hideLabel?: boolean;
   error?: ReactNode;
   options?: SelectOption[];
   placeholder?: string;

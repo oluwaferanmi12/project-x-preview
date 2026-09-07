@@ -19,6 +19,7 @@ const variantClass: Record<SelectVariant, string> = {
 
 export const Select = ({
   label,
+  hideLabel = false,
   error,
   options,
   placeholder,
@@ -38,7 +39,7 @@ export const Select = ({
 
   return (
     <Container className={`w-full ${!noBottomMargin && "mb-4"}`}>
-      <Container className="mb-2">
+      <Container className={hideLabel ? "sr-only" : "mb-2"}>
         <Text as="label" variant="body-sm" tone="primary">
           {label}
         </Text>

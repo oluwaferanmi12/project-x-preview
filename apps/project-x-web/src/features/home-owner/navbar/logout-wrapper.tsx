@@ -12,7 +12,7 @@ export const LogoutWrapper = () => {
         mutate();
       }}
       disabled={isPending}
-      className={`px-4 flex items-center gap-2 ${isPending && "opacity-40"}`}
+      className={`px-4 flex items-center gap-2 cursor-pointer disabled:cursor-not-allowed ${isPending && "opacity-40"}`}
     >
       <LogoutIcon className="text-d300" />
       <Text tone="danger" variant="action-label">
