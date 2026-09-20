@@ -96,6 +96,14 @@ const handleResponseError = async (error: AxiosError) => {
       accessToken,
     } = useAuthStore.getState();
 
+    console.log({
+      user,
+      refreshToken,
+      setAuth,
+      logout: clearAuth,
+      accessToken,
+    });
+
     try {
       const response = await refreshClient.post(
         "/auth/refresh",
@@ -110,6 +118,7 @@ const handleResponseError = async (error: AxiosError) => {
       originalRequest.headers.Authorization = `Bearer ${newAccessToken}`;
       return apiClient(originalRequest);
     } catch (refreshError) {
+      console.log("Got into the catch");
       processQueue(refreshError as AxiosError, null);
       clearAuth();
       if (typeof window !== "undefined") {
@@ -134,9 +143,11 @@ apiClient.interceptors.request.use(attachBearerToken);
 apiClient.interceptors.response.use(handleResponseSuccess, handleResponseError);
 
 refreshClient.interceptors.request.use(attachRefreshBearerToken);
+// The refresh call must never try to refresh itself: a 401 here would queue
+// behind the refresh it belongs to and hang the caller's try/catch forever.
 refreshClient.interceptors.response.use(
   handleResponseSuccess,
-  handleResponseError,
+  (error: AxiosError) => Promise.reject(error),
 );
 
 export const getStoredAccessToken = getAccessToken;
