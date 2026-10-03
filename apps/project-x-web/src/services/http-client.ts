@@ -96,29 +96,19 @@ const handleResponseError = async (error: AxiosError) => {
       accessToken,
     } = useAuthStore.getState();
 
-    console.log({
-      user,
-      refreshToken,
-      setAuth,
-      logout: clearAuth,
-      accessToken,
-    });
-
+   
     try {
       const response = await refreshClient.post(
         "/auth/refresh",
         { refreshToken },
         { headers: { Authorization: `Bearer ${accessToken}` } },
       );
-      console.log(response.data, "Refresh token response");
       const { accessToken: newAccessToken } = response.data.data;
       setAuth(user!, newAccessToken, refreshToken!);
-      console.log(newAccessToken, "New access token after refresh");
       processQueue(null, newAccessToken);
       originalRequest.headers.Authorization = `Bearer ${newAccessToken}`;
       return apiClient(originalRequest);
     } catch (refreshError) {
-      console.log("Got into the catch");
       processQueue(refreshError as AxiosError, null);
       clearAuth();
       if (typeof window !== "undefined") {

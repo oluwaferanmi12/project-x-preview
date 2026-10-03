@@ -4,9 +4,7 @@ import React, { useEffect } from "react";
 
 function HomePage() {
   const router = useRouter();
-  useEffect(() => {
-    router.push("/login");
-  }, []);
+
   return <></>;
 }
 
