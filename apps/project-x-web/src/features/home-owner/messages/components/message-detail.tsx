@@ -77,7 +77,7 @@ export function MessageDetail({ thread }: MessageDetailProps) {
           </Container>
           <Container className="flex flex-col min-w-0 gap-2">
             <Text
-              variant="body-md"
+              variant="bodyRegular"
               tone="primary"
               className="truncate font-semibold"
             >
@@ -114,7 +114,7 @@ export function MessageDetail({ thread }: MessageDetailProps) {
           </Container>
 
           <Text
-            variant="body-md"
+            variant="bodyRegular"
             tone="primary"
             className="truncate font-semibold"
           >

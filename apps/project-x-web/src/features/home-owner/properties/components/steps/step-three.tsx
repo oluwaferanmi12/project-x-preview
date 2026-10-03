@@ -147,7 +147,7 @@ export const StepThree = ({
               <Container>
                 <Text
                   tone="inverted"
-                  variant="body-md"
+                  variant="bodyRegular"
                   className="font-semibold"
                 >
                   Note

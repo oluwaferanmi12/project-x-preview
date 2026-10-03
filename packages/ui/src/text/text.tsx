@@ -10,7 +10,7 @@ type TextVariant =
   | "h5"
   | "body-lg"
   | "body-xl"
-  | "body-md"
+  | "bodyRegular"
   | "body-sm"
   | "body-xs"
   | "action-button"
@@ -43,7 +43,7 @@ const variantClass: Record<TextVariant, string> = {
   h5: "text-h5",
   "body-xl": "text-body-xl",
   "body-lg": "text-body-lg",
-  "body-md": "text-body-md",
+  bodyRegular: "text-bodyRegular",
   "body-sm": "text-body-sm",
   "body-xs": "text-body-xs",
   "action-button": "text-action-button",
@@ -68,7 +68,7 @@ const toneClass: Record<TextTone, string> = {
 
 export const Text = <T extends React.ElementType = "p">({
   as,
-  variant = "body-md",
+  variant = "bodyRegular",
   tone,
   className,
   ...props
