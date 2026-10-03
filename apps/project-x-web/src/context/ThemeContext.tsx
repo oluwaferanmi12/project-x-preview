@@ -1,6 +1,6 @@
 "use client";
 
-import { createContext, useContext, useEffect, useState } from "react";
+import { createContext, useContext, useEffect, useLayoutEffect, useState } from "react";
 
 type Theme = "light" | "dark";
 
@@ -22,31 +22,50 @@ function applyTheme(theme: Theme) {
 }
 
 type ThemeContextValue = {
+  /** The theme actually on screen (always "light" while forcedLight is set). */
   theme: Theme;
   isDark: boolean;
+  /** True on pages that must stay light (landing, guest views). */
+  forcedLight: boolean;
+  setForcedLight: (forced: boolean) => void;
   toggleTheme: () => void;
 };
 
 const ThemeContext = createContext<ThemeContextValue | null>(null);
 
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
-  const [theme, setTheme] = useState<Theme>("light");
+  // The user's saved preference. Never changed by forcedLight, so it is
+  // still intact when they navigate back to a themed page.
+  const [preference, setPreference] = useState<Theme>("light");
+  const [forcedLight, setForcedLight] = useState(false);
+  const [ready, setReady] = useState(false);
 
   useEffect(() => {
-    const initial = getInitialTheme();
-    setTheme(initial);
-    applyTheme(initial);
+    setPreference(getInitialTheme());
+    setReady(true);
   }, []);
 
+  const theme: Theme = forcedLight ? "light" : preference;
+
+  // Wait for the stored preference to load, otherwise the default "light"
+  // would strip the class the inline script set and flash the page.
+  // Layout effect so a forcedLight change updates <html> before paint.
+  useLayoutEffect(() => {
+    if (!ready) return;
+    applyTheme(theme);
+  }, [ready, theme]);
+
   const toggleTheme = () => {
-    const next = theme === "light" ? "dark" : "light";
-    setTheme(next);
-    applyTheme(next);
+    if (forcedLight) return;
+    const next = preference === "light" ? "dark" : "light";
+    setPreference(next);
     localStorage.setItem(STORAGE_KEY, next);
   };
 
   return (
-    <ThemeContext.Provider value={{ theme, isDark: theme === "dark", toggleTheme }}>
+    <ThemeContext.Provider
+      value={{ theme, isDark: theme === "dark", forcedLight, setForcedLight, toggleTheme }}
+    >
       {children}
     </ThemeContext.Provider>
   );
