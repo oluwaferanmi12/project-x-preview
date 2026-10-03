@@ -1,7 +1,7 @@
 import React from "react";
 import { Container } from "@repo/ui"
 import { GeneralSpacer } from "@repo/ui"
-import { Footer } from "@/features/landing-pages/components/footer";
+import { Footer } from "@/features/guest/components/footer";
 import { HouseOwnerNavigation } from "@/features/home-owner/navbar/house-owner-navigation";
 
 export default function HouseOwnerlayout({

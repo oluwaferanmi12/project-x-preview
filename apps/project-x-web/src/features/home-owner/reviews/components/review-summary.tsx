@@ -112,7 +112,7 @@ export const SummaryPropertyCard = ({ property }: { property: ReviewedProperty }
 
     <Container className="flex min-w-0 flex-col px-3 justify-start py-2">
       <Text
-        variant="body-md"
+        variant="bodyRegular"
         className="line-clamp-2"
         tone="primary"
       >
@@ -173,7 +173,7 @@ export const MetricBand = ({
       </Text>
 
       {suffix && (
-        <Text variant="body-md" className="font-semibold leading-none">
+        <Text variant="bodyRegular" className="font-semibold leading-none">
           {suffix}
         </Text>
       )}
