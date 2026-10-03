@@ -11,7 +11,10 @@ import {
   type IconProps,
 } from "@repo/icons";
 import { Button, Container, Text } from "@repo/ui";
-import { type PropertyItem, type PropertyReviewStatus } from "../types/property.types";
+import {
+  type PropertyItem,
+  type PropertyReviewStatus,
+} from "../types/property.types";
 import { FeaturePill } from "./nuggets/feature-pill";
 
 const underReviewCardTags: Record<
@@ -51,7 +54,9 @@ export const PropertyCard = ({ property }: { property: PropertyItem }) => {
   const UnderReviewTagIcon = underReviewTag?.Icon;
 
   const continueDraft = () => {
-    router.push(`/properties/list-property?propertyId=${property.id}&from=draft`);
+    router.push(
+      `/properties/list-property?propertyId=${property.id}&from=draft`,
+    );
   };
 
   const viewProperty = () => {
