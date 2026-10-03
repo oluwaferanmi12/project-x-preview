@@ -21,7 +21,7 @@ export function CreateNewPasswordScreen() {
       <Text as="p" variant="h3" tone="primary">
         Create a new password 🔑
       </Text>
-      <Text as="p" variant="body-md" tone="secondary" className="mt-2 mb-6">
+      <Text as="p" variant="bodyRegular" tone="secondary" className="mt-2 mb-6">
         A new password is needed to secure your account
       </Text>
       <Container

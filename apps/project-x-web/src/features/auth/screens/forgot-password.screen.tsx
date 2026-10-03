@@ -15,7 +15,7 @@ export function ForgotPasswordScreen() {
       <Text as="p" variant="h3" tone="primary">
         Recover your account 🔍
       </Text>
-      <Text as="p" variant="body-md" tone="secondary" className="mt-2 mb-6">
+      <Text as="p" variant="bodyRegular" tone="secondary" className="mt-2 mb-6">
         Enter your email address, we will send a 6-digit code.
       </Text>
       <Container as="form" className="mt-6">

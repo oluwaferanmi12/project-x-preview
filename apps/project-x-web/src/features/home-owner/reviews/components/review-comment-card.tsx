@@ -31,7 +31,7 @@ export const ReviewCommentCard = ({
     <Container className="grid grid-cols-[46px_minmax(0,1fr)] gap-3">
       {/* Left only avatar */}
       <Container className="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg bg-p50">
-        <Text variant="body-md" className="font-bold" tone="p300">
+        <Text variant="bodyRegular" className="font-bold" tone="p300">
           {review.initials}
         </Text>
       </Container>
@@ -40,7 +40,7 @@ export const ReviewCommentCard = ({
       <Container className="min-w-0">
         <Container className="flex items-start justify-between gap-2">
           <Container className="min-w-0">
-            <Text variant="body-md" className="truncate font-semibold" tone="primary">
+            <Text variant="bodyRegular" className="truncate font-semibold" tone="primary">
               {review.author}
             </Text>
             <Text variant="body-xs" className="mt-1" tone="secondary">
