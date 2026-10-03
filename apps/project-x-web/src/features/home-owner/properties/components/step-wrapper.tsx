@@ -40,8 +40,7 @@ export const StepWrapper = ({
     topRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
   }, [step, activeSubStep]);
 
-  console.log(payload, "Payload in StepWrapper")
-
+  
   return (
     <Row justify={"center"} className="flex-1">
       <Col xs={24} lg={12}>
