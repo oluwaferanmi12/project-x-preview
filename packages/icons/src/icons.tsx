@@ -1849,3 +1849,28 @@ export const SaveDraftIcon = ({
   </svg>
 
 );
+
+export const HomePinIcon = ({
+  size = 40,
+  className,
+  color = "currentColor",
+}: IconProps) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width={size}
+    height={size}
+    fill="none"
+    viewBox="0 0 40 40"
+    className={className}
+    color={color}
+  >
+    <path
+      fill="currentColor"
+      d="M20 1C11.7 1 5 7.5 5 15.6c0 9.9 12.1 22 14.1 23.3a1.6 1.6 0 0 0 1.8 0C22.9 37.6 35 25.500 35 15.600 35 7.500 28.300 1 20 1"
+    />
+    <path
+      fill="#fff"
+      d="m20 9.500-7.500 6.200a.8.800 0 0 0-.3.600v7.200c0 .4.300.7.700.7h4.600v-5h5v5h4.600c.4 0 .7-.3.700-.7v-7.200a.8.800 0 0 0-.3-.6z"
+    />
+  </svg>
+);

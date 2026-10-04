@@ -1,16 +1,22 @@
 import { Container, Text } from "@repo/ui";
 import React from "react";
+import { HeroImage } from "./hero-image";
+import { PropertySearchBar } from "./search/property-search-bar";
 
 export const HomeBanner = () => {
   return (
     <Container className="flex flex-col justify-center items-center">
-      <Container className="my-30 w-[60%]  flex items-center flex-col justify-center">
+      <Container className="my-16 md:my-24 w-full md:w-[60%] flex items-center flex-col justify-center">
         <Text variant="h1" tone="primary" className="text-center">
           A better way to find your next home. Skip the usual hassle!
         </Text>
-        <Text variant="bodyRegular" tone="primary" className="mt-4">
+        <Text variant="bodyRegular" tone="primary" className="mt-4 text-center">
           Search through to find a property of your choice
         </Text>
+      </Container>
+      <Container className="w-full">
+        <PropertySearchBar />
+        <HeroImage />
       </Container>
     </Container>
   );
