@@ -1,5 +1,8 @@
 import { Container } from "@repo/ui";
 import { MessagesScreen } from "@/features/home-owner/messages/screens/messages-screen";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = { title: "Messages" };
 
 export default async function MessagesPage({
   params,
