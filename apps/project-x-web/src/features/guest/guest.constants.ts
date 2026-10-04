@@ -39,3 +39,30 @@ export const HERO_PINS = [
   { top: "62%", left: "88%" },
   { top: "50%", left: "70%" },
 ];
+
+export const HOW_IT_WORKS_CARDS = [
+  {
+    key: "renter",
+    tag: "Renter",
+    title: "Find a home that fits your needs.",
+    description:
+      "Explore properties across Nigeria with the information you need to make better decisions. Compare options, save your favourites and connect directly with owners and agents.",
+    image: "/guest/how-it-works-1.jpg",
+    href: "/register",
+    tagClassName: "bg-s300",
+    accentClassName: "text-s500",
+    gradientColor: "#DD7373",
+  },
+  {
+    key: "lister",
+    tag: "Property Lister",
+    title: "List your property the right way.",
+    description:
+      "Showcase your property with complete information, reach interested house seekers and build trust through verified information and reviews.",
+    image: "/guest/how-it-works-2.jpg",
+    href: "/register",
+    tagClassName: "bg-p300",
+    accentClassName: "text-p300",
+    gradientColor: "#3B3561",
+  },
+];

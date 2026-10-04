@@ -1874,3 +1874,18 @@ export const HomePinIcon = ({
     />
   </svg>
 );
+
+export const CardCornerShape = ({ className, color = "currentColor" }: Omit<IconProps, "size">) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="100%"
+    height="100%"
+    fill="none"
+    viewBox="0 0 146 150"
+    preserveAspectRatio="none"
+    className={className}
+    color={color}
+  >
+    <path fill="currentColor" d="M0 150 10 66C13 34 34 10 68 8l78 14v128z" />
+  </svg>
+);

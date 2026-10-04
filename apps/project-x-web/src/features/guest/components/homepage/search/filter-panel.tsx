@@ -18,6 +18,7 @@ export const FilterPanel = ({
       </Text>
       {children}
       <Button
+        variant="secondary"
         fullWidth
         rightIcon={<CheckIcon size={16} />}
         onClick={onApply}

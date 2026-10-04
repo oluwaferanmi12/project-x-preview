@@ -101,7 +101,6 @@ export const PropertySearchBar = ({
         />
       </FilterDropdown>
       <Button
-        variant="secondary"
         aria-label="Search properties"
         className="md:w-12 md:px-0"
         onClick={() => onSearch?.(applied)}

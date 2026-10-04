@@ -11,13 +11,14 @@ export const HeroImage = () => {
         alt="Residential apartment blocks"
         fill
         priority
+        quality={100}
         sizes="(max-width: 1280px) 100vw, 1280px"
         className="object-cover"
       />
       {HERO_PINS.map((pin, index) => (
         <Container
           key={index}
-          className="absolute -translate-x-1/2 -translate-y-full text-p300 drop-shadow-md"
+          className="absolute -translate-x-1/2 -translate-y-full text-s300 drop-shadow-md"
           style={{ top: pin.top, left: pin.left }}
         >
           <HomePinIcon size={36} />

@@ -47,7 +47,7 @@ export const FilterDropdown = ({
         aria-haspopup="dialog"
         aria-expanded={isOpen}
         onClick={onToggle}
-        leftIcon={<Container as="span" className="text-p300">{icon}</Container>}
+        leftIcon={<Container as="span" className="text-s300">{icon}</Container>}
         rightIcon={
           <Container
             as="span"
