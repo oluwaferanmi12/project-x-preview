@@ -1913,3 +1913,38 @@ export const BookmarkIcon = ({
     />
   </svg>
 );
+/** Decorative FAQ shape that bleeds off the left edge; tip is rounded, edges are straight. */
+export const FaqLeftShape = ({ className, color = "currentColor" }: Omit<IconProps, "size">) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width={152}
+    height={458}
+    fill="none"
+    viewBox="-40 -25 115 347"
+    className={className}
+    color={color}
+  >
+    <path
+      fill="currentColor"
+      d="M-40 -25 64.5 196.9Q73 215 56.8 226.7L-40 297z"
+    />
+  </svg>
+);
+
+/** Decorative FAQ shape that bleeds off the right edge; only the top-left corner is rounded. */
+export const FaqRightShape = ({ className, color = "currentColor" }: Omit<IconProps, "size">) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width={137}
+    height={340}
+    fill="none"
+    viewBox="-64 38 104 259"
+    className={className}
+    color={color}
+  >
+    <path
+      fill="currentColor"
+      d="M-46.2 67.1 40 38.6V296.8L-55.8 89Q-63.3 72.7-46.200 67.100z"
+    />
+  </svg>
+);
