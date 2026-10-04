@@ -1889,3 +1889,27 @@ export const CardCornerShape = ({ className, color = "currentColor" }: Omit<Icon
     <path fill="currentColor" d="M0 150 10 66C13 34 34 10 68 8l78 14v128z" />
   </svg>
 );
+
+export const BookmarkIcon = ({
+  size = 20,
+  className,
+  color = "currentColor",
+}: IconProps) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width={size}
+    height={size}
+    fill="none"
+    viewBox="0 0 20 20"
+    className={className}
+    color={color}
+  >
+    <path
+      stroke="currentColor"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth="1.25"
+      d="M15.625 17.5 10 13.75 4.375 17.5V4.375A.625.625 0 0 1 5 3.75h10a.625.625 0 0 1 .625.625z"
+    />
+  </svg>
+);

@@ -1,7 +1,9 @@
+"use client";
+
 import { Button, Container, Text } from "@repo/ui";
 import { ArrowRight, CardCornerShape } from "@repo/icons";
 import Image from "next/image";
-import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { HOW_IT_WORKS_CARDS } from "../../guest.constants";
 import { buildCardGradient } from "../../guest.utils";
 
@@ -10,6 +12,7 @@ export const HowItWorksCard = ({
 }: {
   card: (typeof HOW_IT_WORKS_CARDS)[number];
 }) => {
+  const router = useRouter();
   return (
     <Container className="relative h-[590px] w-full overflow-hidden rounded-4xl">
       <Image
@@ -43,12 +46,11 @@ export const HowItWorksCard = ({
         <CardCornerShape className={`opacity-90 ${card.accentClassName}`} />
       </Container>
       <Button
-        as={Link}
-        href={card.href}
+        onClick={() => router.push(card.href)}
         variant="surface"
         shorter
         aria-label={card.tag}
-        className="absolute bottom-6 right-12 !h-[30px] !w-[48px] !p-0 !bg-surface !text-primary"
+        className="absolute bottom-6 right-12 !h-[30px] !w-[48px] !p-0"
       >
         <ArrowRight size={16} />
       </Button>

@@ -1,15 +1,12 @@
 import { Container, Text } from "@repo/ui";
 import { HOW_IT_WORKS_CARDS } from "../../guest.constants";
+import { SectionTag } from "../section-tag";
 import { HowItWorksCard } from "./how-it-works-card";
 
 export const HowItWorks = () => {
   return (
     <Container className="flex flex-col items-center py-16 md:py-24">
-      <Container className="rounded-full bg-p50 px-3 py-1">
-        <Text variant="body-xs" className="text-p300">
-          How It Works
-        </Text>
-      </Container>
+      <SectionTag label="How It Works" />
       <Container className="mb-12 mt-4 w-full text-center md:w-[60%]">
         <Text variant="h2" tone="primary" className="text-center">
           Easier solution to getting a{" "}
