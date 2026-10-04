@@ -4,6 +4,7 @@ import { getImageProps, type StaticImageData } from "next/image";
 import RenterImage from "@/assets/images/renter-image.jpg";
 import ListerImage from "@/assets/images/property-lister.jpg";
 import { NextIcon } from "@repo/icons";
+import { figmaGradient, type Rgb } from "@/features/guest/lib/figma-gradient";
 
 // The source photos are 9–13 MB, so a raw url() would ship them as-is. This
 // goes through the same optimizer as <Image> and hands the result to CSS.
@@ -26,28 +27,19 @@ const toBackgroundImage = (image: StaticImageData) => {
   return `image-set(${imageSet})`;
 };
 
-type Rgb = [number, number, number];
-
 const DARK: Rgb = [18, 18, 18]; // #121212
 
-// Design gradient: #121212 at the bottom fading to a tint at 0% opacity at the
-// top. Figma blends colour and opacity separately, so the tint shows through
-// the fade; CSS blends them premultiplied, so a plain two-stop gradient goes
-// straight to grey-black and looks darker and flatter. Spelling out the
-// in-between stops reproduces Figma's result. Pass the design's end colour.
-const fadeFromDark = (end: Rgb) => {
-  const stops = Array.from({ length: 11 }, (_, i) => {
-    const t = i / 10;
-    const [r, g, b] = DARK.map((from, c) =>
-      Math.round(from + (end[c] - from) * t),
-    );
-    return `rgba(${r}, ${g}, ${b}, ${(1 - t).toFixed(1)}) ${i * 10}%`;
-  });
-  return `linear-gradient(0deg, ${stops.join(", ")})`;
-};
-
-const RENTER_GRADIENT = fadeFromDark([221, 115, 115]); // #DD7373
-const LISTER_GRADIENT = fadeFromDark([59, 53, 97]); // #3B3561
+// Design gradients: #121212 at the bottom fading to a tint at 0% opacity.
+const RENTER_GRADIENT = figmaGradient({
+  angle: 0,
+  from: DARK,
+  to: [221, 115, 115], // #DD7373
+});
+const LISTER_GRADIENT = figmaGradient({
+  angle: 0,
+  from: DARK,
+  to: [59, 53, 97], // #3B3561
+});
 
 type HowItWorksCardProps = {
   image: StaticImageData;
