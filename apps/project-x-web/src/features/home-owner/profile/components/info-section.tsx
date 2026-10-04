@@ -28,9 +28,9 @@ export function InfoSection({
             type="button"
             variant="muted"
             shorter
-            leftIcon={<EditIcon size={14} />}
+            leftIcon={<EditIcon size={14} className="text-primary" />}
             onClick={onEdit}
-            className="flex items-center gap-1.5 rounded-md bg-muted px-2 py-1 text-xs [&_svg]:size-3.5 [&_svg]:text-secondary"
+            className="flex items-center gap-1.5 rounded-md bg-muted px-2 py-1 text-xs [&_svg]:size-3.5"
           >
             Edit
           </Button>
