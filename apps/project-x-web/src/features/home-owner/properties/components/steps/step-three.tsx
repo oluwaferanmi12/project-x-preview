@@ -12,7 +12,6 @@ import {
   useGetLGA,
   useGetStates,
 } from "@/features/general/hooks/general.hooks";
-import { label } from "framer-motion/client";
 
 export const StepThree = ({
   activeSubstep,
@@ -23,8 +22,8 @@ export const StepThree = ({
   payload?: DraftProperty;
   handleUpdateDraft: (updates: Partial<DraftProperty>) => void;
 }) => {
-  const { data } = useGetStates();
-  const { data: localGovernments } = useGetLGA(payload?.stateId ?? "");
+  const { data, isLoading: isLoadingStates } = useGetStates();
+  const { data: localGovernments, isFetching: isLoadingLGA } = useGetLGA(payload?.stateId ?? "");
   return (
     <>
       <Container>
@@ -33,6 +32,8 @@ export const StepThree = ({
             <NumberWrapper serialNo="i" text="Where is the property located ?">
               <Select
                 label=""
+                loading={isLoadingStates}
+                loadingText="Loading states..."
                 options={
                   data
                     ? [
@@ -45,7 +46,7 @@ export const StepThree = ({
                 }
                 value={payload?.stateId ?? ""}
                 onChange={({ target }) => {
-                  handleUpdateDraft({ stateId: target.value });
+                  handleUpdateDraft({ stateId: target.value, lgaId: "" });
                 }}
                 noBottomMargin
               />
@@ -61,6 +62,8 @@ export const StepThree = ({
                       ]
                     : [{ label: "Choose a LGA", value: "" }]
                 }
+                loading={isLoadingLGA}
+                loadingText="Loading local governments..."
                 value={payload?.lgaId ?? ""}
                 onChange={({ target }) => {
                   handleUpdateDraft({ lgaId: target.value });
@@ -110,7 +113,9 @@ export const StepThree = ({
               text="Would you like to share this address with house seekers?"
             >
               <Container className="flex gap-4">
-                <ContentWrapper>
+                <ContentWrapper onClick={() => {
+                        handleUpdateDraft({ shareAddressWithSeekers: true });
+                      }}>
                   <Container className="flex items-center gap-3">
                     <Radio
                       value="new"
@@ -124,7 +129,9 @@ export const StepThree = ({
                     </Text>
                   </Container>
                 </ContentWrapper>
-                <ContentWrapper>
+                <ContentWrapper onClick={() => {
+                        handleUpdateDraft({ shareAddressWithSeekers: false });
+                      }}>
                   <Container className="flex items-center gap-3">
                     <Radio
                       value="new"

@@ -12,6 +12,7 @@ import {
   normalizeDraftForSave,
   resolveDropOffStep,
 } from "../utils/property.utils";
+import { useToast } from "@repo/ui";
 import { DraftProperty } from "../types/property.types";
 
 export const useListingScreen = () => {
@@ -56,11 +57,25 @@ export const useListingScreen = () => {
     }
   };
 
+  const { show } = useToast();
+  // "continue" saves then advances; "draft" saves and stays on the current step.
+  const isLeavingRef = useRef(false);
+  const saveModeRef = useRef<"continue" | "draft">("continue");
+  const [savingMode, setSavingMode] = useState<"continue" | "draft" | null>(
+    null,
+  );
+
   const { mutate, isPending } = useCreatePropertyMutation((data) => {
     if (data?.id) {
       setDraftProperty((prev) => ({ ...prev, id: data.id }));
     }
-    handleNextStep();
+    if (saveModeRef.current === "continue") {
+      handleNextStep();
+    } else {
+      show("Draft saved", "You can pick up where you left off anytime.", "success");
+      isLeavingRef.current = true;
+      router.push("/properties");
+    }
   });
 
   const dropOffStep =
@@ -104,9 +119,14 @@ export const useListingScreen = () => {
     setActiveSubStep(1);
   };
 
-  const handleSaveDraft = () => {
+  const save = (mode: "continue" | "draft") => {
+    saveModeRef.current = mode;
+    setSavingMode(mode);
     mutate(normalizeDraftForSave(draftProperty!));
   };
+
+  const handleSaveDraft = () => save("continue");
+  const handleSaveAsDraft = () => save("draft");
 
   const { mutate: submitListing, isPending: isSubmitting } =
     useSubmitPropertyMutation(() => {
@@ -131,7 +151,7 @@ export const useListingScreen = () => {
   const resolvedPropertyId = draftProperty?.id || propertyId;
 
   useEffect(() => {
-    if (!isReadyToSync) return;
+    if (!isReadyToSync || isLeavingRef.current) return;
 
     const base = "/properties/list-property";
     const id = resolvedPropertyId ? `&propertyId=${resolvedPropertyId}` : "";
@@ -157,6 +177,8 @@ export const useListingScreen = () => {
     isDraftLoading,
     isPending: isPending || isSubmitting || isVideoUploading,
     handleSaveDraft,
+    handleSaveAsDraft,
+    savingMode: isPending ? savingMode : null,
     handleSubmitListing,
     onVideoUploadingChange: handleVideoUploadingChange,
   };

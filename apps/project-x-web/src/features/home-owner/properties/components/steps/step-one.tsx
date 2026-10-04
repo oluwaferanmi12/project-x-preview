@@ -24,7 +24,9 @@ export const StepOne = ({
         serialNo="i"
         text="What is your relationship to this property?"
       >
-        <ContentWrapper>
+        <ContentWrapper
+          onClick={() => handleUpdateDraft({ relationshipType: "OWNER" })}
+        >
           <Container as="div" className="flex items-center justify-between">
             <Container className="flex item-center gap-3">
               <CrownIcon className="text-s300" />
@@ -42,7 +44,9 @@ export const StepOne = ({
             </Container>
           </Container>
         </ContentWrapper>
-        <ContentWrapper>
+        <ContentWrapper
+          onClick={() => handleUpdateDraft({ relationshipType: "AGENT" })}
+        >
           <Container as="div" className="flex items-center justify-between">
             <Container className="flex item-center gap-3">
               <BriefcaseIcon className="text-s300" />
@@ -68,7 +72,10 @@ export const StepOne = ({
         <Container className="grid grid-cols-2 gap-4">
           {propertyTypes &&
             propertyTypes.map((item, key) => (
-              <ContentWrapper key={item.id}>
+              <ContentWrapper
+                key={item.id}
+                onClick={() => handleUpdateDraft({ propertyTypeId: item.id })}
+              >
                 <Container className="flex items-center gap-3">
                   <Radio
                     onChange={() =>

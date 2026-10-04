@@ -12,7 +12,7 @@ import { SpinIcon } from "@repo/icons";
 function ListPropertyScreen() {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const showDraftBack = searchParams.get("from") === "draft";
+  const fromDraft = searchParams.get("from") === "draft";
   // The step should be handled from the top of this screen
   // Based on the api call, make an api call to determine the step the user is on
   const {
@@ -25,6 +25,8 @@ function ListPropertyScreen() {
     dropOffStep,
     handleUpdateDraft,
     handleSaveDraft,
+    handleSaveAsDraft,
+    savingMode,
     handleSubmitListing,
     isPending,
     isDraftLoading,
@@ -33,20 +35,26 @@ function ListPropertyScreen() {
 
   const isCompleted = activeStep > 7;
 
+  const handleBack = () => {
+    if (activeStep === 1 && activeSubStep === 1) {
+      router.push(fromDraft ? "/properties?status=draft" : "/properties");
+      return;
+    }
+    handlePrevStep();
+  };
+
   return (
     <Container>
-      {showDraftBack && (
-        <button
-          type="button"
-          onClick={() => router.push("/properties?status=draft")}
-          className="mb-5 inline-flex cursor-pointer items-center gap-2 text-sm font-bold text-s500"
-        >
-          <ArrowLeft size={14} />
-          Back
-        </button>
-      )}
+      <button
+        type="button"
+        onClick={handleBack}
+        className="mt-6 inline-flex cursor-pointer items-center gap-2 text-sm font-bold text-s500"
+      >
+        <ArrowLeft size={16} />
+        Back
+      </button>
 
-      <Row gutter={16} className="lg:min-h-[90vh] py-8">
+      <Row gutter={16} className="lg:min-h-[90vh] pt-4 pb-8">
         {/* Mobile Navigation */}
         <Col xs={24} lg={0}>
           <MobileListingNavigation
@@ -115,11 +123,12 @@ function ListPropertyScreen() {
               <StepWrapper
                 activeSubStep={activeSubStep}
                 handleNextStep={handleNextStep}
-                handlePrevStep={handlePrevStep}
                 step={activeStep}
                 payload={payload}
                 handleUpdateDraft={handleUpdateDraft}
                 handleSaveDraft={handleSaveDraft}
+                handleSaveAsDraft={handleSaveAsDraft}
+                savingMode={savingMode}
                 handleSubmitListing={handleSubmitListing}
                 isPending={isPending}
                 onVideoUploadingChange={onVideoUploadingChange}
