@@ -10,7 +10,7 @@ export default function GuestLayout({ children }: { children: ReactNode }) {
     <Container className="bg-background h-full min-h-screen">
       <ForceLightTheme />
       <Navbar />
-      <GeneralSpacer>{children}</GeneralSpacer>
+      {children}
     </Container>
   );
 }
