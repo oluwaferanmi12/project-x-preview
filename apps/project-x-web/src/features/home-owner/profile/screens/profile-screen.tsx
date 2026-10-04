@@ -21,6 +21,15 @@ export const ProfileScreen = () => {
   const email = user?.email || "mike@mail.com";
   const phone = user?.phoneNumber || "+234 801 234 5678";
 
+  const profileValues = {
+    firstName: user?.firstName ?? "",
+    lastName: user?.lastName ?? "",
+    profileName: `${user?.firstName ?? ""} ${user?.lastName ?? ""}`.trim(),
+    phoneNumber: (user?.phoneNumber ?? "")
+      .replace(/\s+/g, "")
+      .replace(/^(\+?234|0)/, ""),
+  };
+
   const handleEditProfile = () => {
     setDialog("profile");
   };
@@ -88,7 +97,13 @@ export const ProfileScreen = () => {
           onDeleteAccount={handleDeleteAccount}
         />
       </Container>
-      {dialog && <ProfileDialog type={dialog} onClose={handleCloseDialog} />}
+      {dialog && (
+        <ProfileDialog
+          type={dialog}
+          onClose={handleCloseDialog}
+          profileValues={profileValues}
+        />
+      )}
     </Container>
   );
 };

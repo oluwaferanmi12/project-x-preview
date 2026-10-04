@@ -9,7 +9,7 @@ import {
 } from "react";
 import { Check, Close, Warning, DialogDecorationIcon } from "@repo/icons";
 import { Button, Container, Text } from "@repo/ui";
-import type { DialogType } from "../types/profile.types";
+import type { DialogType, ProfileFormValues } from "../types/profile.types";
 import { passwordRequirements } from "../profile.constants";
 import { ChangePasswordFields } from "./change-password-fields";
 import { EditProfileFields } from "./edit-profile-fields";
@@ -17,9 +17,10 @@ import { EditProfileFields } from "./edit-profile-fields";
 type ProfileDialogProps = {
   type: DialogType;
   onClose: () => void;
+  profileValues: ProfileFormValues;
 };
 
-export function ProfileDialog({ type, onClose }: ProfileDialogProps) {
+export function ProfileDialog({ type, onClose, profileValues }: ProfileDialogProps) {
   const dialogRef = useRef<HTMLDialogElement>(null);
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -103,7 +104,7 @@ export function ProfileDialog({ type, onClose }: ProfileDialogProps) {
               onPasswordChange={setPassword}
             />
           )}
-          {type === "profile" && <EditProfileFields />}
+          {type === "profile" && <EditProfileFields defaultValues={profileValues} />}
           {isDelete && (
             <>
               <Text
