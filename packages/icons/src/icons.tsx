@@ -1779,3 +1779,5 @@ export const CloseIcon = ({ size = 20, className, color }: IconProps) => (
     />
   </svg>
 );
+
+

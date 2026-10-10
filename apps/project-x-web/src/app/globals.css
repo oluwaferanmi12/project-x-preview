@@ -13,7 +13,8 @@
   font-style: normal;
   font-weight: 300;
   font-display: swap;
-  src: url("../assets/fonts/DM_Sans/DMSans-VariableFont_opsz\,wght.ttf") format("truetype");
+  src: url("../assets/fonts/DM_Sans/DMSans-VariableFont_opsz\,wght.ttf")
+    format("truetype");
 }
 
 @font-face {
@@ -21,7 +22,8 @@
   font-style: normal;
   font-weight: 400;
   font-display: swap;
-  src: url("../assets/fonts/DM_Sans/DMSans-VariableFont_opsz\,wght.ttf") format("truetype");
+  src: url("../assets/fonts/DM_Sans/DMSans-VariableFont_opsz\,wght.ttf")
+    format("truetype");
 }
 
 @font-face {
@@ -29,7 +31,8 @@
   font-style: normal;
   font-weight: 500;
   font-display: swap;
-  src: url("../assets/fonts/DM_Sans/DMSans-VariableFont_opsz\,wght.ttf") format("truetype");
+  src: url("../assets/fonts/DM_Sans/DMSans-VariableFont_opsz\,wght.ttf")
+    format("truetype");
 }
 
 @font-face {
@@ -37,7 +40,8 @@
   font-style: normal;
   font-weight: 600;
   font-display: swap;
-  src: url("../assets/fonts/DM_Sans/DMSans-VariableFont_opsz\,wght.ttf") format("truetype");
+  src: url("../assets/fonts/DM_Sans/DMSans-VariableFont_opsz\,wght.ttf")
+    format("truetype");
 }
 
 @font-face {
@@ -45,7 +49,8 @@
   font-style: normal;
   font-weight: 700;
   font-display: swap;
-  src: url("../assets/fonts/DM_Sans/DMSans-VariableFont_opsz\,wght.ttf") format("truetype");
+  src: url("../assets/fonts/DM_Sans/DMSans-VariableFont_opsz\,wght.ttf")
+    format("truetype");
 }
 
 @font-face {
@@ -53,7 +58,8 @@
   font-style: normal;
   font-weight: 800;
   font-display: swap;
-  src: url("../assets/fonts/DM_Sans/DMSans-VariableFont_opsz\,wght.ttf") format("truetype");
+  src: url("../assets/fonts/DM_Sans/DMSans-VariableFont_opsz\,wght.ttf")
+    format("truetype");
 }
 
 /* ─── Font Theme Tokens ─────────────────────────────────────────────────── */
@@ -83,6 +89,13 @@
   background-position: bottom;
   background-size: cover;
   width: 100%;
+}
+
+.landing-page-bg {
+  background-image: url("/light-mode-bg.svg");
+  background-repeat: no-repeat;
+  background-position: bottom;
+  background-size: cover;
 }
 
 html.dark .house-bg {
@@ -123,34 +136,76 @@ select:-webkit-autofill:focus {
 /* ─── Typography Utilities ──────────────────────────────────────────────── */
 
 @layer utilities {
-  .text-h1 { @apply font-sans-bold text-[48px] leading-[1.2]; }
-  .text-h2 { @apply font-sans-bold text-[32px] leading-tight; }
-  .text-h3 { @apply font-sans-bold text-[24px] leading-[1.2]; }
-  .text-h4 { @apply font-sans-bold text-[18px] leading-[1.2]; }
-  .text-h5 { @apply font-sans-semibold text-[16px] leading-[1.2]; }
+  .text-h1 {
+    @apply font-sans-bold text-[48px] leading-[1.2];
+  }
+  .text-h2 {
+    @apply font-sans-bold text-[32px] leading-tight;
+  }
+  .text-h3 {
+    @apply font-sans-bold text-[24px] leading-[1.2];
+  }
+  .text-h4 {
+    @apply font-sans-bold text-[18px] leading-[1.2];
+  }
+  .text-h5 {
+    @apply font-sans-semibold text-[16px] leading-[1.2];
+  }
 
-  .text-body-lg  { @apply font-sans text-[20px] leading-normal; }
-  .text-body-xl  { @apply font-sans text-[24px] leading-normal; }
-  .text-bodyRegular { @apply font-sans text-[16px] leading-normal; }
-  .text-body-sm  { @apply font-sans text-[14px] leading-[1.4]; }
-  .text-body-xs  { @apply font-sans text-[12px] leading-[1.4]; }
+  .text-body-lg {
+    @apply font-sans text-[20px] leading-normal;
+  }
+  .text-body-xl {
+    @apply font-sans text-[24px] leading-normal;
+  }
+  .text-bodyRegular {
+    @apply font-sans text-[16px] leading-normal;
+  }
+  .text-body-sm {
+    @apply font-sans text-[14px] leading-[1.4];
+  }
+  .text-body-xs {
+    @apply font-sans text-[12px] leading-[1.4];
+  }
 
-  .text-action-button { @apply font-sans-bold   text-[14px] leading-[1.4]; }
-  .text-action-label  { @apply font-sans-medium text-[14px] leading-[1.4]; }
+  .text-action-button {
+    @apply font-sans-bold   text-[14px] leading-[1.4];
+  }
+  .text-action-label {
+    @apply font-sans-medium text-[14px] leading-[1.4];
+  }
 
   @media (max-width: 1024px) {
-    .text-h1 { @apply text-[36px]; }
-    .text-h2 { @apply text-[28px]; }
-    .text-h3 { @apply text-[22px]; }
-    .text-body-lg { @apply text-[18px]; }
+    .text-h1 {
+      @apply text-[36px];
+    }
+    .text-h2 {
+      @apply text-[28px];
+    }
+    .text-h3 {
+      @apply text-[22px];
+    }
+    .text-body-lg {
+      @apply text-[18px];
+    }
   }
 
   @media (max-width: 640px) {
-    .text-h1 { @apply text-[32px]; }
-    .text-h2 { @apply text-[24px]; }
-    .text-h3 { @apply text-[20px]; }
-    .text-h4 { @apply text-[16px]; }
-    .text-h5 { @apply text-[14px]; }
+    .text-h1 {
+      @apply text-[32px];
+    }
+    .text-h2 {
+      @apply text-[24px];
+    }
+    .text-h3 {
+      @apply text-[20px];
+    }
+    .text-h4 {
+      @apply text-[16px];
+    }
+    .text-h5 {
+      @apply text-[14px];
+    }
   }
 }
 
