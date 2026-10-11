@@ -5,6 +5,8 @@ import { Select } from "@repo/ui";
 import { Input } from "@repo/ui";
 import { Location as LocationIcon, WhiteInfo } from "@repo/icons";
 import { ContentWrapper } from "../nuggets/content-wrapper";
+import { AddressAutocomplete } from "../nuggets/address-autocomplete";
+import { PropertyLocationMap } from "../nuggets/property-location-map";
 import { Radio } from "@repo/ui";
 import { Text } from "@repo/ui";
 import { DraftProperty } from "../../types/property.types";
@@ -12,7 +14,6 @@ import {
   useGetLGA,
   useGetStates,
 } from "@/features/general/hooks/general.hooks";
-import { label } from "framer-motion/client";
 
 export const StepThree = ({
   activeSubstep,
@@ -69,6 +70,7 @@ export const StepThree = ({
               />
               <Input
                 label=""
+                value={payload?.neighbourhood ?? ""}
                 onChange={({ target }) => {
                   handleUpdateDraft({ neighbourhood: target.value });
                 }}
@@ -76,16 +78,17 @@ export const StepThree = ({
               />
             </NumberWrapper>
             <NumberWrapper serialNo="ii" text="Provide Property address">
-              <Input
-                label=""
-                onChange={({ target }) => {
-                  handleUpdateDraft({ addressLine: target.value });
-                }}
+              <AddressAutocomplete
                 value={payload?.addressLine ?? ""}
+                onChange={handleUpdateDraft}
                 placeholder="Enter address"
                 rightIcon={
                   <LocationIcon className="text-secondary" size={16} />
                 }
+              />
+              <PropertyLocationMap
+                latitude={payload?.latitude ?? null}
+                longitude={payload?.longitude ?? null}
               />
             </NumberWrapper>
           </>
