@@ -1,7 +1,7 @@
 import { Container, Text } from "@repo/ui";
+import Image from "next/image";
 import React from "react";
-import { HeroImage } from "./hero-image";
-import { PropertySearchBar } from "./search/property-search-bar";
+import LocationImage from "@/assets/images/location-img.png";
 
 export const HomeBanner = () => {
   return (
@@ -14,9 +14,8 @@ export const HomeBanner = () => {
           Search through to find a property of your choice
         </Text>
       </Container>
-      <Container className="w-full">
-        <PropertySearchBar />
-        <HeroImage />
+      <Container className="w-full relative">
+        <Image src={LocationImage} alt="location-image" className="w-full" />
       </Container>
     </Container>
   );
