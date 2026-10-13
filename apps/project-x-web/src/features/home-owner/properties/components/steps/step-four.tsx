@@ -1,7 +1,7 @@
 import { Container } from "@repo/ui";
 import React from "react";
 import { NumberWrapper } from "../nuggets/number-wrapper";
-import { Input } from "@repo/ui";
+import { NumberInput } from "@repo/ui";
 import { SingleSelectForm } from "../nuggets/single-select-form";
 import { UnitInputDropdown } from "../nuggets/unit-input-dropdown";
 import { DraftProperty } from "../../types/property.types";
@@ -29,14 +29,13 @@ export const StepFour = ({
             >
               <Container className="flex items-stretch gap-3">
                 <UnitInputDropdown onChange={() => {}} unit="currency" />
-                <Input
+                <NumberInput
                   label=""
-                  value={payload?.rentAmount ?? ""}
-                  inputMode="decimal"
-                  onChange={({ target }) => {
-                    handleUpdateDraft({ rentAmount: +target.value });
-                  }}
                   placeholder="0.00"
+                  value={payload?.rentAmount}
+                  onValueChange={(value) =>
+                    handleUpdateDraft({ rentAmount: value })
+                  }
                 />
               </Container>
             </NumberWrapper>
@@ -75,14 +74,13 @@ export const StepFour = ({
             >
               <Container className="flex items-stretch gap-3">
                 <UnitInputDropdown onChange={() => {}} unit="percent" />
-                <Input
-                  value={payload?.agencyFee ?? ""}
-                  onChange={({ target }) => {
-                    handleUpdateDraft({ agencyFee: +target.value });
-                  }}
+                <NumberInput
                   label=""
-                  inputMode="decimal"
                   placeholder="0.00"
+                  value={payload?.agencyFee}
+                  onValueChange={(value) =>
+                    handleUpdateDraft({ agencyFee: value })
+                  }
                 />
               </Container>
             </NumberWrapper>
@@ -92,14 +90,13 @@ export const StepFour = ({
             >
               <Container className="flex items-stretch gap-3">
                 <UnitInputDropdown onChange={() => {}} unit="currency" />
-                <Input
+                <NumberInput
                   label=""
-                  inputMode="decimal"
                   placeholder="0.00"
-                  value={payload?.legalAgreementFee ?? ""}
-                  onChange={({ target }) => {
-                    handleUpdateDraft({ legalAgreementFee: +target.value });
-                  }}
+                  value={payload?.legalAgreementFee}
+                  onValueChange={(value) =>
+                    handleUpdateDraft({ legalAgreementFee: value })
+                  }
                 />
               </Container>
             </NumberWrapper>
@@ -109,14 +106,13 @@ export const StepFour = ({
             >
               <Container className="flex items-stretch gap-3">
                 <UnitInputDropdown onChange={() => {}} unit="percent" />
-                <Input
+                <NumberInput
                   label=""
-                  inputMode="decimal"
                   placeholder="0.00"
-                  value={payload?.cautionFee ?? ""}
-                  onChange={({ target }) => {
-                    handleUpdateDraft({ cautionFee: +target.value });
-                  }}
+                  value={payload?.cautionFee}
+                  onValueChange={(value) =>
+                    handleUpdateDraft({ cautionFee: value })
+                  }
                 />
               </Container>
             </NumberWrapper>
@@ -126,14 +122,13 @@ export const StepFour = ({
             >
               <Container className="flex items-stretch gap-3">
                 <UnitInputDropdown onChange={() => {}} unit="percent" />
-                <Input
-                  value={payload?.serviceCharge ?? ""}
-                  onChange={({ target }) => {
-                    handleUpdateDraft({ serviceCharge: +target.value });
-                  }}
+                <NumberInput
                   label=""
-                  inputMode="decimal"
                   placeholder="0.00"
+                  value={payload?.serviceCharge}
+                  onValueChange={(value) =>
+                    handleUpdateDraft({ serviceCharge: value })
+                  }
                 />
               </Container>
             </NumberWrapper>

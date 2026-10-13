@@ -28,7 +28,7 @@ const LegendItem = ({
                 className="h-3 w-3 rounded-sm shrink-0"
                 style={{ backgroundColor: color }}
             />
-            <Text className="text-sm leading-5 font-normal text-primary">
+            <Text variant="body-sm" className="leading-5 font-normal text-primary">
                 {label}:&nbsp;{formatCurrency(amount)}
             </Text>
         </Container>

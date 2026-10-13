@@ -22,7 +22,7 @@ export function LoginScreen() {
       <Text as="p" variant="h3" tone="primary">
         Welcome back 👋
       </Text>
-      <Text as="p" variant="body-md" tone="secondary" className="mt-2 mb-6">
+      <Text as="p" variant="bodyRegular" tone="secondary" className="mt-2 mb-6">
         Log in to your account to continue.
       </Text>
       <Container onSubmit={handleLogin} className="mt-8" as="form">

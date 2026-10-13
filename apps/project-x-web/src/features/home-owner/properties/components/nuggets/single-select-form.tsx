@@ -13,7 +13,7 @@ export const SingleSelectForm = ({
     onChange: () => void;
 }) => {
     return (
-        <ContentWrapper>
+        <ContentWrapper onClick={onChange}>
             <Container className="flex items-center gap-3">
                 <Radio
                     value="new"

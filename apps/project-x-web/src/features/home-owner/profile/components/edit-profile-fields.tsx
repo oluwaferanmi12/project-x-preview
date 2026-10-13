@@ -1,12 +1,18 @@
 import { Container, Input, Select, Text } from "@repo/ui";
+import type { ProfileFormValues } from "../types/profile.types";
 
-export function EditProfileFields() {
+export function EditProfileFields({
+  defaultValues,
+}: {
+  defaultValues: ProfileFormValues;
+}) {
   return (
     <>
       <Input
         label="First Name"
         aria-label="First Name"
         name="firstName"
+        defaultValue={defaultValues.firstName}
         required
         placeholder="Enter first name"
         autoComplete="given-name"
@@ -15,6 +21,7 @@ export function EditProfileFields() {
         label="Last Name"
         aria-label="Last Name"
         name="lastName"
+        defaultValue={defaultValues.lastName}
         required
         placeholder="Enter last name"
         autoComplete="family-name"
@@ -23,6 +30,7 @@ export function EditProfileFields() {
         label="Profile Name"
         aria-label="Profile Name"
         name="profileName"
+        defaultValue={defaultValues.profileName}
         required
         placeholder="Enter profile name"
       />
@@ -46,6 +54,7 @@ export function EditProfileFields() {
             hideLabel
             aria-label="WhatsApp phone number"
             name="phoneNumber"
+            defaultValue={defaultValues.phoneNumber}
             required
             type="tel"
             autoComplete="tel-national"

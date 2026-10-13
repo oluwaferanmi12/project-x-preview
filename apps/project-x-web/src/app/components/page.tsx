@@ -2,6 +2,9 @@ import { Container } from "@repo/ui";
 import { Input } from "@repo/ui";
 import { EyeOpened, Wallet as WalletIcon } from "@repo/icons";
 import { Button } from "@repo/ui";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = { title: "Components" };
 
 function Components() {
   return (

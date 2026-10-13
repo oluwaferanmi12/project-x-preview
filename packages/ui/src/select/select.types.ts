@@ -17,4 +17,6 @@ export type SelectProps = ComponentPropsWithoutRef<"select"> & {
   placeholder?: string;
   noBottomMargin ?: boolean;
   variant?: SelectVariant;
+  loading?: boolean;
+  loadingText?: string;
 };

@@ -11,6 +11,11 @@ export const getLocalGovt = async (id: string): Promise<StateType[]> => {
   return result.data;
 };
 
+const newIdempotencyKey = () =>
+  typeof crypto !== "undefined" && "randomUUID" in crypto
+    ? crypto.randomUUID()
+    : `${Date.now()}-${Math.random().toString(36).slice(2)}`;
+
 export const uploadImage = async ({
   file,
   folderType,
@@ -22,7 +27,9 @@ export const uploadImage = async ({
   formData.append("file", file);
   formData.append("folder", folderType);
 
-  const result = await apiClient.post("/files/images", formData);
+  const result = await apiClient.post("/files/images", formData, {
+    headers: { "Idempotency-Key": newIdempotencyKey() },
+  });
   return result.data.data;
 };
 
@@ -37,6 +44,8 @@ export const uploadVideo = async ({
   formData.append("file", file);
   formData.append("folder", folderType);
 
-  const result = await apiClient.post("files/videos", formData);
+  const result = await apiClient.post("files/videos", formData, {
+    headers: { "Idempotency-Key": newIdempotencyKey() },
+  });
   return result.data.data;
 };
