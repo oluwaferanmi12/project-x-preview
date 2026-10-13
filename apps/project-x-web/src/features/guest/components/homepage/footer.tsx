@@ -36,9 +36,9 @@ export const HomeFooter = () => {
           <LogoPlaceholderIcon />
           <Container className="mt-6 flex justify-between">
             <Container>
-              <Text tone="primary" variant="h1">
+              <Text as="div" tone="primary" variant="h1">
                 Find dream{" "}
-                <Text variant="h1" className="text-s300">
+                <Text as="span" variant="h1" className="text-s300">
                   properties{" "}
                   <Text as="span" variant="h1" tone="primary">
                     {" "}
