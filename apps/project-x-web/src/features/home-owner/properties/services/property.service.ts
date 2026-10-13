@@ -16,6 +16,22 @@ export const getListing = async ({
   return result.data.data;
 };
 
+const getIdempotencyKey = (id: string) => {
+  const storageKey = `idempotency-key:submit:${id}`;
+  try {
+    const existing = sessionStorage.getItem(storageKey);
+    if (existing) return existing;
+  } catch {}
+  const key =
+    typeof crypto !== "undefined" && "randomUUID" in crypto
+      ? crypto.randomUUID()
+      : `${Date.now()}-${Math.random().toString(36).slice(2)}-${id}`;
+  try {
+    sessionStorage.setItem(storageKey, key);
+  } catch {}
+  return key;
+};
+
 const getOrCreateDraftKey = () => {
   const storageKey = "idempotency-key:draft:create";
   try {
@@ -50,22 +66,6 @@ export const getListingService = async (
 ): Promise<ListingResponse> => {
   const result = await apiClient.get(`/listings/${id}`);
   return result.data.data;
-};
-
-const getIdempotencyKey = (id: string) => {
-  const storageKey = `idempotency-key:submit:${id}`;
-  try {
-    const existing = sessionStorage.getItem(storageKey);
-    if (existing) return existing;
-  } catch {}
-  const key =
-    typeof crypto !== "undefined" && "randomUUID" in crypto
-      ? crypto.randomUUID()
-      : `${Date.now()}-${Math.random().toString(36).slice(2)}-${id}`;
-  try {
-    sessionStorage.setItem(storageKey, key);
-  } catch {}
-  return key;
 };
 
 export const submitListingService = async (id: string) => {
