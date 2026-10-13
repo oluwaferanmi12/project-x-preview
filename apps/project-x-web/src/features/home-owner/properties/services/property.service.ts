@@ -16,10 +16,32 @@ export const getListing = async ({
   return result.data.data;
 };
 
+const getOrCreateDraftKey = () => {
+  const storageKey = "idempotency-key:draft:create";
+  try {
+    const existing = sessionStorage.getItem(storageKey);
+    if (existing) return existing;
+  } catch {}
+  const key =
+    typeof crypto !== "undefined" && "randomUUID" in crypto
+      ? crypto.randomUUID()
+      : `${Date.now()}-${Math.random().toString(36).slice(2)}-draft`;
+  try {
+    sessionStorage.setItem(storageKey, key);
+  } catch {}
+  return key;
+};
+
 export const createListingService = async (
   createProperty: Partial<CreateProperty>,
 ) => {
-  const result = await apiClient.post("/listings/draft", createProperty);
+  const draftId = (createProperty as { id?: string | null })?.id;
+  const idempotencyKey = draftId
+    ? getIdempotencyKey(draftId)
+    : getOrCreateDraftKey();
+  const result = await apiClient.post("/listings/draft", createProperty, {
+    headers: { "Idempotency-Key": idempotencyKey },
+  });
   return result.data.data;
 };
 
@@ -30,8 +52,26 @@ export const getListingService = async (
   return result.data.data;
 };
 
+const getIdempotencyKey = (id: string) => {
+  const storageKey = `idempotency-key:submit:${id}`;
+  try {
+    const existing = sessionStorage.getItem(storageKey);
+    if (existing) return existing;
+  } catch {}
+  const key =
+    typeof crypto !== "undefined" && "randomUUID" in crypto
+      ? crypto.randomUUID()
+      : `${Date.now()}-${Math.random().toString(36).slice(2)}-${id}`;
+  try {
+    sessionStorage.setItem(storageKey, key);
+  } catch {}
+  return key;
+};
+
 export const submitListingService = async (id: string) => {
-  const result = await apiClient.patch(`/listings/${id}/submit`);
+  const result = await apiClient.patch(`/listings/${id}/submit`, null, {
+    headers: { "Idempotency-Key": getIdempotencyKey(id) },
+  });
   return result.data.data;
 };
 

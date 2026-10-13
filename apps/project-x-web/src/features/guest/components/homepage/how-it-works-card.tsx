@@ -23,6 +23,7 @@ export const HowItWorksCard = ({
         sizes="(max-width: 768px) 100vw, 612px"
         className="object-cover"
       />
+      <p className="text-center text-red-900 bg-blue-600"></p>
       <Container
         className="absolute inset-0"
         style={{ backgroundImage: buildCardGradient(card.gradientColor) }}

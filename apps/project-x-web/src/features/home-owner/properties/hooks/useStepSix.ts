@@ -17,22 +17,39 @@ export const useStepSix = (
   );
   const [video, setVideo] = useState<string | null>(payload?.videoUrl ?? null);
 
-  const [images, setImages] = useState<(string | null)[]>(() => {
+  const dedupeImages = (imgs: PropertyImage[]) => {
+    const seen = new Set<string>();
+    return imgs.filter((img) => {
+      const key = img.publicId || img.optimizedUrl;
+      if (seen.has(key)) return false;
+      seen.add(key);
+      return true;
+    });
+  };
+
+  const buildSeededImages = (imgs?: PropertyImage[] | null) => {
     const seeded: (string | null)[] = Array(9).fill(null);
-    payload?.images?.forEach((img, i) => {
+    const deduped = imgs ? dedupeImages(imgs) : [];
+    deduped.forEach((img, i) => {
       if (i < seeded.length) seeded[i] = img.optimizedUrl;
     });
     return seeded;
-  });
-  const [uploadedImages, setUploadedImages] = useState<
-    (PropertyImage | null)[]
-  >(() => {
+  };
+  const buildSeededUploaded = (imgs?: PropertyImage[] | null) => {
     const seeded: (PropertyImage | null)[] = Array(9).fill(null);
-    payload?.images?.forEach((img, i) => {
+    const deduped = imgs ? dedupeImages(imgs) : [];
+    deduped.forEach((img, i) => {
       if (i < seeded.length) seeded[i] = img;
     });
     return seeded;
-  });
+  };
+
+  const [images, setImages] = useState<(string | null)[]>(() =>
+    buildSeededImages(payload?.images as PropertyImage[] | undefined),
+  );
+  const [uploadedImages, setUploadedImages] = useState<
+    (PropertyImage | null)[]
+  >(() => buildSeededUploaded(payload?.images as PropertyImage[] | undefined));
 
   const { mutate: uploadPropertyImage } = useUploadImage(() => {});
   const { mutate: uploadPropertyVideo, isPending: isVideoUploading } =
@@ -47,6 +64,18 @@ export const useStepSix = (
   useEffect(() => {
     onVideoUploadingChange?.(isVideoUploading);
   }, [isVideoUploading, onVideoUploadingChange]);
+
+  // Re-sync grid when the draft loads asynchronously (payload was undefined on mount)
+  const hasSyncedPayload = useRef(false);
+  useEffect(() => {
+    if (!payload?.images?.length || hasSyncedPayload.current) return;
+    // Only sync if the local grid is still empty/partial — don't clobber user uploads
+    const hasLocalUploads = uploadedImages.some(Boolean);
+    if (hasLocalUploads) return;
+    hasSyncedPayload.current = true;
+    setImages(buildSeededImages(payload.images));
+    setUploadedImages(buildSeededUploaded(payload.images));
+  }, [payload?.images, uploadedImages]);
 
   const isFirstImagesSync = useRef(true);
   useEffect(() => {

@@ -1,65 +1,99 @@
-import { Accordion, Container, GeneralSpacer, Text } from "@repo/ui";
-import { AddIcon, Close, FaqLeftShape, FaqRightShape } from "@repo/icons";
-import { FAQ_ITEMS } from "../../guest.constants";
-import { SectionTag } from "../section-tag";
+"use client";
 
-const sections = FAQ_ITEMS.map((item) => ({
-  id: item.id,
-  title: item.title,
-  content: (
-    <Text variant="body-sm" tone="secondary" className="pb-5">
-      {item.answer}
-    </Text>
-  ),
-}));
+import { Container, GeneralSpacer, Text } from "@repo/ui";
+import { Col, Row } from "antd";
+import React, { useState } from "react";
+import { HomePill } from "./home-pill";
+import { FaqBox } from "./faq-box";
+
+const FAQS = [
+  {
+    question: "How do I find a property?",
+    answer:
+      "Search by location, property type, budget, and other preferences to discover properties that match what you’re looking for.",
+  },
+  {
+    question: "Can I use the platform as both a renter and a property lister?",
+    answer:
+      "Yes. You can switch between a renter profile and a property lister profile from your account, so you can search for homes and manage your own listings with one login.",
+  },
+  {
+    question: "Can I contact a property owner or agent directly?",
+    answer:
+      "Yes. Once you find a property you like, you can reach the owner or agent directly to ask questions and arrange a viewing.",
+  },
+  {
+    question: "Can I list a property if I’m an agent?",
+    answer:
+      "Yes. Agents can list properties on the platform with the same details and the same review process as any other listing.",
+  },
+  {
+    question: "Are properties verified?",
+    answer:
+      "Every listing goes through a review before it is published, including a check of the property details and location. Reviews from other users also help you judge a listing with confidence.",
+  },
+  {
+    question: "How do I list my property?",
+    answer:
+      "Create an account, choose the option to list a property, and add its details, photos and pricing step by step. Your listing is reviewed and goes live once it is approved.",
+  },
+  {
+    question: "How much does it cost to list a property?",
+    answer:
+      "The cost depends on the plan you choose. You can see the current pricing in your account before you publish a listing.",
+  },
+];
 
 export const Faq = () => {
+  // One open at a time; the first starts open. Clicking the open one closes it.
+  const [openIndex, setOpenIndex] = useState<number | null>(0);
+
   return (
-    // Full-bleed wrapper so the decorative shapes can bleed off the screen edges.
-    <Container className="relative ml-[calc(50%-50vw)] w-screen overflow-hidden py-16 md:py-24">
+    <Container className="relative isolate overflow-hidden py-28 bg-surface">
+      {/* Decorative tilted bars bleeding off each side of the section. Each is
+          a 136 × 482 rounded block rotated 25.6° counter-clockwise about its
+          top-left corner; top/left give that corner's position. They sit
+          behind the content (-z-10 inside the isolated section). */}
       <Container
         aria-hidden="true"
-        className="absolute -left-[53px] top-[32%] hidden text-s300 opacity-50 md:block"
-      >
-        <FaqLeftShape />
-      </Container>
+        className="pointer-events-none absolute -z-10 top-[259px] -left-[226px] h-[481.64px] w-[136.22px] origin-top-left rotate-[-25.6deg] rounded-4xl bg-[#E6BBBA]"
+      />
       <Container
         aria-hidden="true"
-        className="absolute -right-[53px] top-[14%] hidden text-p300 opacity-50 md:block"
-      >
-        <FaqRightShape />
-      </Container>
+        className="pointer-events-none absolute -z-10 top-[261px] left-[calc(100%-81px)] h-[481.64px] w-[136.22px] origin-top-left rotate-[-25.6deg] rounded-4xl bg-p100"
+      />
       <GeneralSpacer>
-        <Container className="relative grid grid-cols-1 gap-10 md:grid-cols-2 md:gap-16">
-          <Container className="flex flex-col">
-            <SectionTag label="Frequently Asked Questions" />
-            <Container className="mt-4 max-w-[340px]">
-              <Text variant="h2" tone="primary">
+        <Row>
+          <Col xs={12}>
+            <HomePill text="Frequently Asked Questions" />
+            <Container className="my-4 w-1/2">
+              <Text tone="primary" variant="h2">
                 Answers to your possible questions
               </Text>
             </Container>
-            <Container className="mt-6 flex items-center gap-2">
-              <Text variant="body-sm" tone="primary">
-                Couldn&apos;t find something?
+            <Text variant="body-sm" tone="primary">
+              Couldn&apos;t find something?{" "}
+              <Text as="span" variant="action-button" tone="s500">
+                Contact Us
               </Text>
-              <Text as="span" variant="action-label" tone="s500">
-                Contact us
-              </Text>
+            </Text>
+          </Col>
+          <Col xs={12}>
+            <Container className="py-5 px-16">
+              {FAQS.map((faq, index) => (
+                <FaqBox
+                  key={faq.question}
+                  question={faq.question}
+                  answer={faq.answer}
+                  open={openIndex === index}
+                  onToggle={() =>
+                    setOpenIndex(openIndex === index ? null : index)
+                  }
+                />
+              ))}
             </Container>
-          </Container>
-          <Accordion
-            sections={sections}
-            defaultOpen={FAQ_ITEMS[0]?.id}
-            className="flex flex-col"
-            sectionClassName="border-b border-line"
-            headerClassName="py-5"
-            titleClassName="text-body-sm font-bold text-primary"
-            contentClassName="pr-10"
-            showContentDivider={false}
-            openIcon={<Close size={14} className="text-s300" />}
-            closedIcon={<AddIcon size={14} className="text-s300" />}
-          />
-        </Container>
+          </Col>
+        </Row>
       </GeneralSpacer>
     </Container>
   );

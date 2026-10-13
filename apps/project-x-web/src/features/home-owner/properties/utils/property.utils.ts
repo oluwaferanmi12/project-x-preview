@@ -116,7 +116,11 @@ export const mapListingResponseToDraft = (
   serviceCharge: response.serviceCharge,
   proofOfOwnershipUrl: response.proofOfOwnershipUrl,
   amenityIds: response.amenities?.map((amenity) => amenity.id) ?? null,
-  images: response.images?.map(toPropertyImage) ?? null,
+  images: response.images
+    ? [...response.images]
+        .sort((a, b) => a.position - b.position)
+        .map(toPropertyImage)
+    : null,
   videoUrl: response.videoUrl,
   videoPublicId: null,
   friendlyId: response.friendlyId,
