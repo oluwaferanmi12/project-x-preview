@@ -1,6 +1,7 @@
 import { Button, Container, Text } from "@repo/ui";
 import { BookmarkIcon, LightClock, Location, VerifiedCheck } from "@repo/icons";
 import Image from "next/image";
+import Link from "next/link";
 import { GuestProperty } from "../../guest.types";
 
 export const PropertyListingCard = ({
@@ -9,7 +10,10 @@ export const PropertyListingCard = ({
   property: GuestProperty;
 }) => {
   return (
-    <Container className="flex flex-col gap-3">
+    <Link
+      href={`/available-properties/${property.id}`}
+      className="flex flex-col gap-3"
+    >
       <Container className="relative aspect-[1.64] w-full overflow-hidden rounded-2xl bg-muted">
         <Image
           src={property.image}
@@ -24,7 +28,7 @@ export const PropertyListingCard = ({
           variant="surface"
           shorter
           aria-label="Save property"
-          className="absolute right-3 top-3 !h-8 !w-8 !rounded-lg !p-0"
+          className="absolute right-3 top-3 !h-8 !w-8 !rounded-lg !bg-inverted !p-0 !text-secondary hover:!bg-inverted"
         >
           <BookmarkIcon size={16} />
         </Button>
@@ -72,7 +76,7 @@ export const PropertyListingCard = ({
               {property.listerInitials}
             </Text>
           </Container>
-          <Text variant="body-xs" tone="primary">
+          <Text variant="body-xs" tone="secondary">
             {property.listerRole}
           </Text>
           <VerifiedCheck size={12} />
@@ -84,6 +88,6 @@ export const PropertyListingCard = ({
           </Text>
         </Container>
       </Container>
-    </Container>
+    </Link>
   );
 };

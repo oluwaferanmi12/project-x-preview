@@ -14,9 +14,11 @@ type AgentCardUser = {
 export const AgentCard = ({
   user,
   verified,
+  roleLabel = "Owner",
 }: {
   user?: AgentCardUser | null;
   verified?: boolean;
+  roleLabel?: string;
 }) => {
   const fullName = user ? `${user.firstName} ${user.lastName}`.trim() : "";
 
@@ -35,7 +37,7 @@ export const AgentCard = ({
               modeled distinction yet between the lister's own account and a
               separate agent/owner contact. */}
           <Container as="span" className="inline-flex items-center gap-1 text-xs font-medium text-primary">
-            Owner
+            {roleLabel}
             {verified && <VerifiedCheck className="h-3 w-3" />}
           </Container>
         </Container>
@@ -46,14 +48,14 @@ export const AgentCard = ({
           className="flex h-10 w-10 items-center justify-center rounded-xl bg-s75"
           aria-label="Message agent"
         >
-          <MessageCircleMore className="h-5 w-5 text-s500" />
+          <MessageCircleMore className="h-5 w-5 text-p300" />
         </Container>
 
         <Container
           className="flex h-10 w-10 items-center justify-center rounded-xl bg-s75"
           aria-label="Call agent"
         >
-          <Phone className="h-5 w-5 text-s500" />
+          <Phone className="h-5 w-5 text-p300" />
         </Container>
       </Container>
     </Container>

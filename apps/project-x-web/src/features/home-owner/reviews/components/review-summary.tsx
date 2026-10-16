@@ -59,21 +59,27 @@ export const ReviewSummary = ({
 
 export const RatingBreakdown = ({
   property,
+  gridClassName = "md:grid md:grid-cols-2",
+  showDescription = true,
 }: {
   property: ReviewedProperty;
+  gridClassName?: string;
+  showDescription?: boolean;
 }) => (
   <Container className="w-full min-w-0 max-w-full overflow-hidden rounded-xl bg-surface p-4">
     <Text variant="body-sm" tone="primary">
       Overall Rating Breakdown
     </Text>
 
-    <Text variant="body-xs" tone="secondary">
-      See how your ratings are distributed
-    </Text>
+    {showDescription && (
+      <Text variant="body-xs" tone="secondary">
+        See how your ratings are distributed
+      </Text>
+    )}
 
     <Container className="mt-4 h-px bg-line" />
 
-    <Container className="mt-5 flex w-full min-w-0 max-w-full gap-3 overflow-x-auto overscroll-x-contain pb-2 md:grid md:grid-cols-2 md:overflow-visible md:pb-0">
+    <Container className={`mt-5 flex w-full min-w-0 max-w-full gap-3 overflow-x-auto overscroll-x-contain pb-2 md:overflow-visible md:pb-0 ${gridClassName}`}>
       {property.categories.map((category) => (
         <Container
           key={category.label}

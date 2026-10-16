@@ -1,6 +1,6 @@
 "use client";
 
-import { Button, Container } from "@repo/ui";
+import { Button, Container, Text } from "@repo/ui";
 import {
   BuildingIcon,
   HandRentIcon,
@@ -13,6 +13,7 @@ import { useCallback, useState } from "react";
 import { DEFAULT_SEARCH_FILTERS } from "../../../guest.constants";
 import { PropertySearchFilters, SearchFilterKey } from "../../../guest.types";
 import { FilterDropdown } from "./filter-dropdown";
+import { BathToiletFilter } from "./filters/bath-toilet-filter";
 import { BedroomFilter } from "./filters/bedroom-filter";
 import { LocationFilter } from "./filters/location-filter";
 import { PropertyTypeFilter } from "./filters/property-type-filter";
@@ -20,8 +21,10 @@ import { RentFilter } from "./filters/rent-filter";
 
 export const PropertySearchBar = ({
   onSearch,
+  className = "mx-auto -mb-8 w-[92%] max-w-[900px]",
 }: {
   onSearch?: (filters: PropertySearchFilters) => void;
+  className?: string;
 }) => {
   // `applied` holds committed filters; `draft` is what the open panel edits.
   const [applied, setApplied] = useState(DEFAULT_SEARCH_FILTERS);
@@ -45,7 +48,7 @@ export const PropertySearchBar = ({
   };
 
   return (
-    <Container className="relative z-10 mx-auto -mb-8 flex w-[92%] max-w-[900px] flex-col gap-2 rounded-2xl bg-surface p-2 shadow-lg md:flex-row md:items-center">
+    <Container className={`relative z-10 flex flex-col gap-2 rounded-2xl bg-surface p-2 shadow-lg md:flex-row md:items-center ${className}`}>
       <FilterDropdown
         icon={<Location size={16} />}
         label="Location"
@@ -88,6 +91,20 @@ export const PropertySearchBar = ({
         />
       </FilterDropdown>
       <FilterDropdown
+        icon={<PropertyIcon size={16} />}
+        label="Bath/Toilet"
+        isOpen={openFilter === "bathToilet"}
+        onToggle={() => toggleFilter("bathToilet")}
+        onClose={closeFilter}
+        panelClassName="w-[320px]"
+      >
+        <BathToiletFilter
+          value={draft}
+          onChange={updateDraft}
+          onApply={applyDraft}
+        />
+      </FilterDropdown>
+      <FilterDropdown
         icon={<HandRentIcon size={16} />}
         label="Rent"
         isOpen={openFilter === "rent"}
@@ -106,6 +123,9 @@ export const PropertySearchBar = ({
         onClick={() => onSearch?.(applied)}
       >
         <SearchIcon size={18} />
+        <Text as="span" variant="action-button" tone="inverted" className="md:hidden">
+          Search
+        </Text>
       </Button>
     </Container>
   );
