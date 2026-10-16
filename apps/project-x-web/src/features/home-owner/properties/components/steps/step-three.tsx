@@ -5,6 +5,8 @@ import { Select } from "@repo/ui";
 import { Input } from "@repo/ui";
 import { Location as LocationIcon, WhiteInfo } from "@repo/icons";
 import { ContentWrapper } from "../nuggets/content-wrapper";
+import { AddressAutocomplete } from "../nuggets/address-autocomplete";
+import { PropertyLocationMap } from "../nuggets/property-location-map";
 import { Radio } from "@repo/ui";
 import { Text } from "@repo/ui";
 import { DraftProperty } from "../../types/property.types";
@@ -12,7 +14,6 @@ import {
   useGetLGA,
   useGetStates,
 } from "@/features/general/hooks/general.hooks";
-import { label } from "framer-motion/client";
 
 export const StepThree = ({
   activeSubstep,
@@ -23,8 +24,8 @@ export const StepThree = ({
   payload?: DraftProperty;
   handleUpdateDraft: (updates: Partial<DraftProperty>) => void;
 }) => {
-  const { data } = useGetStates();
-  const { data: localGovernments } = useGetLGA(payload?.stateId ?? "");
+  const { data, isLoading: isLoadingStates } = useGetStates();
+  const { data: localGovernments, isFetching: isLoadingLGA } = useGetLGA(payload?.stateId ?? "");
   return (
     <>
       <Container>
@@ -33,6 +34,8 @@ export const StepThree = ({
             <NumberWrapper serialNo="i" text="Where is the property located ?">
               <Select
                 label=""
+                loading={isLoadingStates}
+                loadingText="Loading states..."
                 options={
                   data
                     ? [
@@ -45,7 +48,7 @@ export const StepThree = ({
                 }
                 value={payload?.stateId ?? ""}
                 onChange={({ target }) => {
-                  handleUpdateDraft({ stateId: target.value });
+                  handleUpdateDraft({ stateId: target.value, lgaId: "" });
                 }}
                 noBottomMargin
               />
@@ -61,6 +64,8 @@ export const StepThree = ({
                       ]
                     : [{ label: "Choose a LGA", value: "" }]
                 }
+                loading={isLoadingLGA}
+                loadingText="Loading local governments..."
                 value={payload?.lgaId ?? ""}
                 onChange={({ target }) => {
                   handleUpdateDraft({ lgaId: target.value });
@@ -69,6 +74,7 @@ export const StepThree = ({
               />
               <Input
                 label=""
+                value={payload?.neighbourhood ?? ""}
                 onChange={({ target }) => {
                   handleUpdateDraft({ neighbourhood: target.value });
                 }}
@@ -76,16 +82,17 @@ export const StepThree = ({
               />
             </NumberWrapper>
             <NumberWrapper serialNo="ii" text="Provide Property address">
-              <Input
-                label=""
-                onChange={({ target }) => {
-                  handleUpdateDraft({ addressLine: target.value });
-                }}
+              <AddressAutocomplete
                 value={payload?.addressLine ?? ""}
+                onChange={handleUpdateDraft}
                 placeholder="Enter address"
                 rightIcon={
                   <LocationIcon className="text-secondary" size={16} />
                 }
+              />
+              <PropertyLocationMap
+                latitude={payload?.latitude ?? null}
+                longitude={payload?.longitude ?? null}
               />
             </NumberWrapper>
           </>
@@ -110,7 +117,9 @@ export const StepThree = ({
               text="Would you like to share this address with house seekers?"
             >
               <Container className="flex gap-4">
-                <ContentWrapper>
+                <ContentWrapper onClick={() => {
+                        handleUpdateDraft({ shareAddressWithSeekers: true });
+                      }}>
                   <Container className="flex items-center gap-3">
                     <Radio
                       value="new"
@@ -124,7 +133,9 @@ export const StepThree = ({
                     </Text>
                   </Container>
                 </ContentWrapper>
-                <ContentWrapper>
+                <ContentWrapper onClick={() => {
+                        handleUpdateDraft({ shareAddressWithSeekers: false });
+                      }}>
                   <Container className="flex items-center gap-3">
                     <Radio
                       value="new"

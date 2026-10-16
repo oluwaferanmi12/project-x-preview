@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useRouter } from "next/navigation";
 import { AnimatePresence, motion } from "framer-motion";
 import { Container, Switch, Text } from "@repo/ui";
 import { ProfileNameWrapper } from "./profile-name-wrapper";
@@ -9,11 +10,9 @@ import {
   SettingsIcon,
   SubscriptionIcon,
   ThemeToggleIcon,
-  LogoutIcon,
 } from "@repo/icons";
 import { useTheme } from "@/context/ThemeContext";
 import { ProfileSwitchWrapper } from "./profile-switch-wrapper";
-import { useLogout } from "@/features/auth/hooks/auth.hooks";
 import { LogoutWrapper } from "./logout-wrapper";
 
 export type ProfileDropdownItem = {
@@ -31,12 +30,14 @@ type ProfileDropdownProps = {
 };
 
 export const ProfileDropdown = ({ children }: ProfileDropdownProps) => {
+  const router = useRouter();
   const { isDark, toggleTheme } = useTheme();
 
   const items: ProfileDropdownItem[] = [
     {
       key: "profile",
       label: "Profile",
+      onClick: () => router.push("/profile"),
       icon: <ProfileIcon size={20} className="text-p300" />,
     },
     {
@@ -100,7 +101,7 @@ export const ProfileDropdown = ({ children }: ProfileDropdownProps) => {
               <ProfileNameWrapper />
             </Container>
             <Container className="flex flex-col gap-4 py-4">
-              {items.map((item, index) => (
+              {items.map((item) => (
                 <Container
                   className="flex items-center justify-between px-4"
                   key={item.key}
@@ -111,7 +112,7 @@ export const ProfileDropdown = ({ children }: ProfileDropdownProps) => {
                       item.onClick?.();
                       if (!item.keepOpen) setOpen(false);
                     }}
-                    className={`w-full flex items-center gap-3  text-left transition-colors  ${
+                    className={`w-full flex items-center gap-3 cursor-pointer text-left transition-colors ${
                       item.danger ? "text-error" : ""
                     }`}
                   >

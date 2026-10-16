@@ -18,6 +18,10 @@ type AccordionProps = {
   sectionClassName?: string;
   openIcon?: ReactNode;
   closedIcon?: ReactNode;
+  headerClassName?: string;
+  titleClassName?: string;
+  contentClassName?: string;
+  showContentDivider?: boolean;
 };
 
 export const Accordion = ({
@@ -26,7 +30,11 @@ export const Accordion = ({
   className = "space-y-3",
   sectionClassName = "overflow-hidden rounded-xl border border-line bg-surface",
   openIcon,
-  closedIcon
+  closedIcon,
+  headerClassName = "px-4 py-3",
+  titleClassName = "text-base font-semibold text-primary",
+  contentClassName = "border-muted px-4 pb-3",
+  showContentDivider = true,
 }: AccordionProps) => {
   const [open, setOpen] = useState<string | null>(defaultOpen);
 
@@ -42,9 +50,9 @@ export const Accordion = ({
             <Container
               as="button"
               onClick={() => setOpen(isOpen ? null : section.id)}
-              className="flex w-full items-center justify-between px-4  text-left cursor-pointer py-3"
+              className={`flex w-full items-center justify-between text-left cursor-pointer ${headerClassName}`}
             >
-              <Container as="span" className="text-base font-semibold text-primary">
+              <Container as="span" className={titleClassName}>
                 {section.title}
               </Container>
 
@@ -52,8 +60,10 @@ export const Accordion = ({
             </Container>
 
             {isOpen && (
-              <Container className="border-muted px-4 pb-3">
-                <Container className="border-t border-line pb-4" />
+              <Container className={contentClassName}>
+                {showContentDivider && (
+                  <Container className="border-t border-line pb-4" />
+                )}
                 {section.content}
               </Container>
             )}

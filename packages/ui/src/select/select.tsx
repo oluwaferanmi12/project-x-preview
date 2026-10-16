@@ -1,72 +1,167 @@
 "use client";
 
 import * as React from "react";
-import { ChevronArrowDown} from "@repo/icons";
+import { ChevronArrowDown, SpinIcon } from "@repo/icons";
 import { Container } from "../container/container";
 import { Text } from "../text/text";
 import { SelectProps, SelectVariant } from "./select.types";
 
-
-
 const variantClass: Record<SelectVariant, string> = {
-  surface:
-    "bg-surface text-secondary border border-line ]",
-  secondary:
-    "bg-[var(--s50)] text-[var(--s300)]",
-
+  surface: "bg-surface text-primary border border-line",
+  secondary: "bg-[var(--s50)] text-[var(--s300)]",
 };
-
 
 export const Select = ({
   label,
+  hideLabel = false,
   error,
-  options,
+  options = [],
   placeholder,
   className,
-  children,
   noBottomMargin,
   variant = "surface",
-  ...props
+  value,
+  defaultValue,
+  onChange,
+  name,
+  disabled: disabledProp,
+  loading = false,
+  loadingText = "Loading...",
+  id,
+  "aria-label": ariaLabel,
 }: SelectProps) => {
-  const selectClasses = [
-    ` outline-none focus:border-p75 focus:border-2 text-sm p-3 placeholder:text-secondary rounded-xl font-sans w-full appearance-none pr-10 ` ,
+  const disabled = disabledProp || loading;
+  const generatedId = React.useId();
+  const triggerId = id ?? generatedId;
+  const rootRef = React.useRef<HTMLDivElement>(null);
+  const [open, setOpen] = React.useState(false);
+  const [internalValue, setInternalValue] = React.useState(
+    String(defaultValue ?? ""),
+  );
+
+  const isControlled = value !== undefined;
+  const currentValue = isControlled ? String(value) : internalValue;
+  const selected = options.find((option) => option.value === currentValue);
+  // An option with an empty value acts as the placeholder (e.g. "Choose a state").
+  const isPlaceholder = !selected || selected.value === "";
+  const displayLabel = loading
+    ? loadingText
+    : isPlaceholder
+    ? (selected?.label ?? placeholder ?? "")
+    : selected.label;
+
+  React.useEffect(() => {
+    if (!open) return;
+    const handlePointerDown = (event: PointerEvent) => {
+      if (!rootRef.current?.contains(event.target as Node)) setOpen(false);
+    };
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setOpen(false);
+    };
+    document.addEventListener("pointerdown", handlePointerDown);
+    document.addEventListener("keydown", handleKeyDown);
+    return () => {
+      document.removeEventListener("pointerdown", handlePointerDown);
+      document.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [open]);
+
+  const handleSelect = (next: string) => {
+    setOpen(false);
+    if (next === currentValue) return;
+    if (!isControlled) setInternalValue(next);
+    // Keep the native <select> onChange contract so existing callers still work.
+    onChange?.({
+      target: { value: next, name },
+      currentTarget: { value: next, name },
+    } as unknown as React.ChangeEvent<HTMLSelectElement>);
+  };
+
+  const triggerClasses = [
+    "flex w-full items-center justify-between gap-2 rounded-xl p-3 text-left font-sans text-sm outline-none transition-colors",
+    "focus-visible:border-2 focus-visible:border-p75",
+    disabled
+      ? `cursor-not-allowed ${loading ? "" : "opacity-60"}`
+      : "cursor-pointer",
     variantClass[variant],
     className ?? "",
   ]
     .join(" ")
     .trim();
 
+  const iconTone = variant === "secondary" ? "text-s300" : "text-secondary";
+
   return (
-    <Container className={`w-full ${!noBottomMargin && "mb-4"}`}>
-      <Container className="mb-2">
-        <Text as="label" variant="body-sm" tone="primary">
+    <Container className={`w-full ${!noBottomMargin ? "mb-4" : ""}`}>
+      <Container className={hideLabel ? "sr-only" : "mb-2"}>
+        <Text as="label" variant="body-sm" tone="primary" htmlFor={triggerId}>
           {label}
         </Text>
       </Container>
-      <Container className="relative">
-        <select className={selectClasses} {...props}>
-          {placeholder ? (
-            <option value="" disabled>
-              {placeholder}
-            </option>
-          ) : null}
-          {options?.length ? (
-            options.map((option) => (
-              <option
-                key={option.value}
-                value={option.value}
-                disabled={option.disabled}
-              >
-                {option.label}
-              </option>
-            ))
+      <Container ref={rootRef} className="relative">
+        {name ? <input type="hidden" name={name} value={currentValue} /> : null}
+        <button
+          id={triggerId}
+          type="button"
+          role="combobox"
+          aria-label={ariaLabel}
+          aria-haspopup="listbox"
+          aria-expanded={open}
+          disabled={disabled}
+          onClick={() => setOpen((prev) => !prev)}
+          className={triggerClasses}
+        >
+          <span
+            className={`truncate ${(isPlaceholder || loading) && variant === "surface" ? "text-secondary" : ""}`}
+          >
+            {displayLabel}
+          </span>
+          {loading ? (
+            <span
+              aria-hidden="true"
+              className={`inline-flex shrink-0 animate-spin [animation-duration:1.5s] ${iconTone}`}
+            >
+              <SpinIcon size={16} />
+            </span>
           ) : (
-            children
+            <span
+              aria-hidden="true"
+              className={`shrink-0 transition-transform ${iconTone} ${open ? "rotate-180" : ""}`}
+            >
+              <ChevronArrowDown />
+            </span>
           )}
-        </select>
-        <span className={` pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 ${variant === "secondary" ? "text-s300" : "text-secondary"}  `}>
-          <ChevronArrowDown  aria-hidden="true" />
-        </span>
+        </button>
+        {open ? (
+          <ul
+            role="listbox"
+            className="scrollbar-hide absolute left-0 top-full z-50 mt-2 max-h-60 min-w-full overflow-y-auto rounded-xl border border-line bg-surface p-1 shadow-lg"
+          >
+            {options.map((option) => {
+              const isSelected = option.value === currentValue;
+              return (
+                <li
+                  key={option.value}
+                  role="option"
+                  aria-selected={isSelected}
+                  aria-disabled={option.disabled}
+                  onClick={() => !option.disabled && handleSelect(option.value)}
+                  className={[
+                    "cursor-pointer whitespace-nowrap rounded-lg px-3 py-2 font-sans text-sm transition-colors",
+                    isSelected
+                      ? "bg-muted text-primary"
+                      : "text-primary hover:bg-muted",
+                    option.disabled ? "cursor-not-allowed opacity-50" : "",
+                  ]
+                    .join(" ")
+                    .trim()}
+                >
+                  {option.label}
+                </li>
+              );
+            })}
+          </ul>
+        ) : null}
       </Container>
       {error && (
         <Text variant="body-sm" tone="danger">

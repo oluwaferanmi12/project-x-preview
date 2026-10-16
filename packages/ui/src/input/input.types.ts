@@ -2,6 +2,7 @@ import { ComponentPropsWithoutRef, ReactNode } from "react";
 
 export type InputProps = ComponentPropsWithoutRef<"input"> & {
   label: string;
+  hideLabel?: boolean;
   error?: ReactNode;
   rightIcon?: ReactNode;
 };

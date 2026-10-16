@@ -7,10 +7,10 @@ import { Container, GeneralSpacer } from "@repo/ui";
 // saved or OS preference is dark.
 export default function GuestLayout({ children }: { children: ReactNode }) {
   return (
-    <Container className="bg-background h-full min-h-screen">
+    <Container className="bg-background h-full min-h-screen overflow-x-clip">
       <ForceLightTheme />
       <Navbar />
-      <GeneralSpacer>{children}</GeneralSpacer>
+      {children}
     </Container>
   );
 }

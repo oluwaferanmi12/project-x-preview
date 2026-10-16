@@ -12,6 +12,7 @@ import {
 
 export const Input = ({
   label,
+  hideLabel = false,
   error,
   rightIcon,
   className,
@@ -36,7 +37,7 @@ export const Input = ({
 
   return (
     <Container className="w-full mb-4">
-      <Container className="mb-2">
+      <Container className={hideLabel ? "sr-only" : "mb-2"}>
         <Text as="label" variant="body-sm" tone="primary">
           {label}
         </Text>

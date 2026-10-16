@@ -15,7 +15,8 @@ export const StepWrapper = ({
   step,
   activeSubStep,
   handleNextStep,
-  handlePrevStep,
+  handleSaveAsDraft,
+  savingMode,
   payload,
   handleUpdateDraft,
   handleSaveDraft,
@@ -26,7 +27,8 @@ export const StepWrapper = ({
   step: number;
   activeSubStep: number;
   handleNextStep: () => void;
-  handlePrevStep: () => void;
+  handleSaveAsDraft: () => void;
+  savingMode?: "continue" | "draft" | null;
   payload?: DraftProperty;
   handleUpdateDraft: (updates: Partial<DraftProperty>) => void;
   handleSaveDraft: () => void;
@@ -98,7 +100,8 @@ export const StepWrapper = ({
           <ButtonNavigation
             isLoading={isPending}
             handleNextStep={isReviewStep ? handleSubmitListing : handleSaveDraft}
-            handlePrevStep={handlePrevStep}
+            handleSaveAsDraft={handleSaveAsDraft}
+            savingMode={savingMode}
             nextLabel={isReviewStep ? "Publish" : "Continue"}
           />
         </Container>

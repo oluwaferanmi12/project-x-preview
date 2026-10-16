@@ -1,5 +1,8 @@
 import { PropertyReviewDetailsScreen } from "@/features/home-owner/properties/screens/property-review-details-screen";
 import { PublishedPropertyDetailsScreen } from "@/features/home-owner/properties/screens/published-property-details-screen";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = { title: "Property Details" };
 
 export default async function PropertyDetailsPage({
   params,

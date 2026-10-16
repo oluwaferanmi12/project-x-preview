@@ -27,7 +27,10 @@ export const StepTwo = ({
             text="What is the condition of the property?"
           >
             <Container className="flex gap-4">
-              <ContentWrapper>
+              <ContentWrapper onClick={() => {
+                      // setPropertyCondition("new");
+                      handleUpdateDraft({ propertyCondition: "NEWLY_BUILT" });
+                    }}>
                 <Container className="flex items-center gap-3">
                   <Radio
                     value="new"
@@ -42,7 +45,11 @@ export const StepTwo = ({
                   </Text>
                 </Container>
               </ContentWrapper>
-              <ContentWrapper>
+              <ContentWrapper onClick={() => {
+                      handleUpdateDraft({
+                        propertyCondition: "OLDER_PROPERTY",
+                      });
+                    }}>
                 <Container className="flex items-center gap-3">
                   <Radio
                     value="new"
@@ -63,7 +70,11 @@ export const StepTwo = ({
           {payload?.propertyCondition === "OLDER_PROPERTY" && (
             <NumberWrapper serialNo="" text="Is the property renovated?">
               <Container className="flex gap-4">
-                <ContentWrapper>
+                <ContentWrapper
+                  onClick={() =>
+                    handleUpdateDraft({ renovated: !payload.renovated })
+                  }
+                >
                   <Container className="flex items-center gap-3 justify-between">
                     <Text tone="primary" variant="action-label">
                       Yes, it has been renovated
@@ -90,7 +101,11 @@ export const StepTwo = ({
             text="Is the property furnished?"
           >
             <Container className="flex gap-4">
-              <ContentWrapper>
+              <ContentWrapper onClick={() => {
+                      handleUpdateDraft({
+                        furnishingStatus: "FULLY_FURNISHED",
+                      });
+                    }}>
                 <Container className="flex items-center gap-3">
                   <Radio
                     checked={payload?.furnishingStatus === "FULLY_FURNISHED"}
@@ -105,7 +120,9 @@ export const StepTwo = ({
                   </Text>
                 </Container>
               </ContentWrapper>
-              <ContentWrapper>
+              <ContentWrapper onClick={() => {
+                      handleUpdateDraft({ furnishingStatus: "SEMI_FURNISHED" });
+                    }}>
                 <Container className="flex items-center gap-3">
                   <Radio
                     checked={payload?.furnishingStatus === "SEMI_FURNISHED"}
@@ -120,7 +137,9 @@ export const StepTwo = ({
               </ContentWrapper>
             </Container>
             <Container>
-              <ContentWrapper>
+              <ContentWrapper onClick={() => {
+                      handleUpdateDraft({ furnishingStatus: "NOT_FURNISHED" });
+                    }}>
                 <Container className="flex items-center gap-3">
                   <Radio
                     checked={payload?.furnishingStatus === "NOT_FURNISHED"}
@@ -141,7 +160,9 @@ export const StepTwo = ({
         <>
           <NumberWrapper serialNo="iii" text="How many bedrooms">
             <Container className="flex gap-4">
-              <ContentWrapper>
+              <ContentWrapper onClick={() => {
+                      handleUpdateDraft({ bedroomCount: 1 });
+                    }}>
                 <Container className="flex items-center gap-3">
                   <Radio
                     checked={payload?.bedroomCount === 1}
@@ -156,7 +177,9 @@ export const StepTwo = ({
               </ContentWrapper>
             </Container>
             <Container className="flex gap-4">
-              <ContentWrapper>
+              <ContentWrapper onClick={() => {
+                      handleUpdateDraft({ bedroomCount: 2 });
+                    }}>
                 <Container className="flex items-center gap-3">
                   <Radio
                     checked={payload?.bedroomCount === 2}
@@ -169,7 +192,9 @@ export const StepTwo = ({
                   </Text>
                 </Container>
               </ContentWrapper>
-              <ContentWrapper>
+              <ContentWrapper onClick={() => {
+                      handleUpdateDraft({ bedroomCount: 3 });
+                    }}>
                 <Container className="flex items-center gap-3">
                   <Radio
                     checked={payload?.bedroomCount === 3}
@@ -184,7 +209,9 @@ export const StepTwo = ({
               </ContentWrapper>
             </Container>
             <Container className="flex gap-4">
-              <ContentWrapper>
+              <ContentWrapper onClick={() => {
+                      handleUpdateDraft({ bedroomCount: 4 });
+                    }}>
                 <Container className="flex items-center gap-3">
                   <Radio
                     checked={payload?.bedroomCount === 4}
@@ -197,7 +224,9 @@ export const StepTwo = ({
                   </Text>
                 </Container>
               </ContentWrapper>
-              <ContentWrapper>
+              <ContentWrapper onClick={() => {
+                      handleUpdateDraft({ bedroomCount: 5 });
+                    }}>
                 <Container className="flex items-center gap-3">
                   <Radio
                     checked={payload?.bedroomCount === 5}
@@ -256,7 +285,9 @@ export const StepTwo = ({
             text="How many unit of this listing is available?"
           >
             <Container className="flex gap-4">
-              <ContentWrapper>
+              <ContentWrapper onClick={() => {
+                      handleUpdateDraft({ unitCount: 1 });
+                    }}>
                 <Container className="flex items-center gap-3">
                   <Radio
                     checked={payload?.unitCount === 1}
@@ -269,7 +300,9 @@ export const StepTwo = ({
                   </Text>
                 </Container>
               </ContentWrapper>
-              <ContentWrapper>
+              <ContentWrapper onClick={() => {
+                      handleUpdateDraft({ unitCount: 2 });
+                    }}>
                 <Container className="flex items-center gap-3">
                   <Radio
                     checked={payload?.unitCount === 2}
@@ -284,7 +317,9 @@ export const StepTwo = ({
               </ContentWrapper>
             </Container>
             <Container className="flex gap-4">
-              <ContentWrapper>
+              <ContentWrapper onClick={() => {
+                      handleUpdateDraft({ unitCount: 3 });
+                    }}>
                 <Container className="flex items-center gap-3">
                   <Radio
                     checked={payload?.unitCount === 3}
@@ -297,7 +332,9 @@ export const StepTwo = ({
                   </Text>
                 </Container>
               </ContentWrapper>
-              <ContentWrapper>
+              <ContentWrapper onClick={() => {
+                      handleUpdateDraft({ unitCount: 4 });
+                    }}>
                 <Container className="flex items-center gap-3">
                   <Radio
                     checked={payload?.unitCount === 4}
@@ -312,7 +349,9 @@ export const StepTwo = ({
               </ContentWrapper>
             </Container>
             <Container className="flex gap-4">
-              <ContentWrapper>
+              <ContentWrapper onClick={() => {
+                      handleUpdateDraft({ unitCount: 5 });
+                    }}>
                 <Container className="flex items-center gap-3">
                   <Radio
                     checked={payload?.unitCount === 5}
@@ -325,7 +364,9 @@ export const StepTwo = ({
                   </Text>
                 </Container>
               </ContentWrapper>
-              <ContentWrapper>
+              <ContentWrapper onClick={() => {
+                      handleUpdateDraft({ unitCount: 6 });
+                    }}>
                 <Container className="flex items-center gap-3">
                   <Radio
                     checked={payload?.unitCount === 6}

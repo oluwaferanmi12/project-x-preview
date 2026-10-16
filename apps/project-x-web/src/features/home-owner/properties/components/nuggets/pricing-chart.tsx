@@ -28,7 +28,7 @@ const LegendItem = ({
                 className="h-3 w-3 rounded-sm shrink-0"
                 style={{ backgroundColor: color }}
             />
-            <Text className="text-sm leading-5 font-normal text-primary">
+            <Text variant="body-sm" className="leading-5 font-normal text-primary">
                 {label}:&nbsp;{formatCurrency(amount)}
             </Text>
         </Container>
@@ -40,11 +40,13 @@ const PricingSection = ({
     agencyFee,
     cautionFee,
     serviceCharge,
+    horizontal = false,
 }: {
     rentAmount?: number | null;
     agencyFee?: number | null;
     cautionFee?: number | null;
     serviceCharge?: number | null;
+    horizontal?: boolean;
 }) => {
     const pricingItems: PricingItem[] = [
         { label: "Rent", amount: rentAmount ?? 0, color: "#af52de" },
@@ -55,7 +57,7 @@ const PricingSection = ({
 
     const total = pricingItems.reduce((sum, item) => sum + item.amount, 0);
 
-    return (
+    const chart = (
         <Container className="flex flex-col items-center">
             <Container className="relative flex h-47.5 w-full items-center justify-center">
                 <DonutChart
@@ -70,18 +72,37 @@ const PricingSection = ({
                     {total ? formatCurrency(total) : "Not set"}
                 </Text>
             </Container>
+        </Container>
+    );
+
+    const legend = pricingItems.map((item) => (
+        <LegendItem
+            key={item.label}
+            color={item.color}
+            label={item.label}
+            amount={item.amount}
+        />
+    ));
+
+    if (horizontal) {
+        return (
+            <Container className="grid grid-cols-1 gap-6 md:grid-cols-[1fr_1fr] md:gap-0">
+                {chart}
+                <Container className="flex flex-col justify-center gap-4 border-t border-line pt-6 md:border-l md:border-t-0 md:pl-12 md:pt-0">
+                    {legend}
+                </Container>
+            </Container>
+        );
+    }
+
+    return (
+        <Container className="flex flex-col items-center">
+            {chart}
 
             <Container className="mt-2 w-full border-t border-line" />
 
             <Container className="mt-4 flex w-full flex-col items-center gap-3">
-                {pricingItems.map((item) => (
-                    <LegendItem
-                        key={item.label}
-                        color={item.color}
-                        label={item.label}
-                        amount={item.amount}
-                    />
-                ))}
+                {legend}
             </Container>
         </Container>
     );

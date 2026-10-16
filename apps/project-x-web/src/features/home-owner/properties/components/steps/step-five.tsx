@@ -21,6 +21,15 @@ export const StepFive = ({
   const { data } = useGetWaterSources();
   const { data: amenities } = useGetAmenities();
 
+  const toggleWaterSource = (id: string, selected: boolean) => {
+    const current = payload?.waterSourceIds ?? [];
+    handleUpdateDraft({
+      waterSourceIds: selected
+        ? [...current, id]
+        : current.filter((sourceId) => sourceId !== id),
+    });
+  };
+
   return (
     <>
       <Container>
@@ -32,28 +41,21 @@ export const StepFive = ({
                   data.length &&
                   data.map((item) => {
                     return (
-                      <ContentWrapper key={item.id}>
+                      <ContentWrapper
+                        key={item.id}
+                        onClick={() =>
+                          toggleWaterSource(
+                            item.id,
+                            !payload?.waterSourceIds?.includes(item.id),
+                          )
+                        }
+                      >
                         <Container className="flex items-center gap-3">
                           <Checkbox
                             checked={
                               !!payload?.waterSourceIds?.includes(item.id)
                             }
-                            onChange={(val) => {
-                              if (val) {
-                                handleUpdateDraft({
-                                  waterSourceIds: [
-                                    ...(payload?.waterSourceIds ?? []),
-                                    item.id,
-                                  ],
-                                });
-                              } else {
-                                handleUpdateDraft({
-                                  waterSourceIds: payload?.waterSourceIds?.filter(
-                                    (id) => id !== item.id
-                                  ),
-                                });
-                              }
-                            }}
+                            onChange={(val) => toggleWaterSource(item.id, val)}
                           />
                           <Text tone="primary" variant="action-label">
                             {item.name}
@@ -69,7 +71,11 @@ export const StepFive = ({
               text="Is the compound fenced or gated?"
             >
               <Container className="flex gap-4">
-                <ContentWrapper>
+                <ContentWrapper
+                  onClick={() => {
+                        handleUpdateDraft({ fencedOrGated: true });
+                      }}
+                >
                   <Container className="flex items-center gap-3">
                     <Radio
                       value="new"
@@ -83,7 +89,11 @@ export const StepFive = ({
                     </Text>
                   </Container>
                 </ContentWrapper>
-                <ContentWrapper>
+                <ContentWrapper
+                  onClick={() => {
+                        handleUpdateDraft({ fencedOrGated: false });
+                      }}
+                >
                   <Container className="flex items-center gap-3">
                     <Radio
                       value="new"
@@ -101,7 +111,11 @@ export const StepFive = ({
             </NumberWrapper>
             <NumberWrapper serialNo="ii" text="Is parking available">
               <Container className="flex gap-4">
-                <ContentWrapper>
+                <ContentWrapper
+                  onClick={() => {
+                        handleUpdateDraft({ parkingAvailable: true });
+                      }}
+                >
                   <Container className="flex items-center gap-3">
                     <Radio
                       value="new"
@@ -115,7 +129,11 @@ export const StepFive = ({
                     </Text>
                   </Container>
                 </ContentWrapper>
-                <ContentWrapper>
+                <ContentWrapper
+                  onClick={() => {
+                        handleUpdateDraft({ parkingAvailable: false });
+                      }}
+                >
                   <Container className="flex items-center gap-3">
                     <Radio
                       value="new"

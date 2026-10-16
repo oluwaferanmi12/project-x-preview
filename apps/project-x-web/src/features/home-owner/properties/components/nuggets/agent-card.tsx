@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { Container } from "@repo/ui";
+import { Button, Container } from "@repo/ui";
 import { Text } from "@repo/ui";
 import { ChatIcon as MessageCircleMore, Phone, VerifiedCheck } from "@repo/icons";
 import { getInitials } from "@repo/utils";
@@ -14,9 +14,15 @@ type AgentCardUser = {
 export const AgentCard = ({
   user,
   verified,
+  roleLabel = "Owner",
+  onMessage,
+  onCall,
 }: {
   user?: AgentCardUser | null;
   verified?: boolean;
+  roleLabel?: string;
+  onMessage?: () => void;
+  onCall?: () => void;
 }) => {
   const fullName = user ? `${user.firstName} ${user.lastName}`.trim() : "";
 
@@ -35,26 +41,30 @@ export const AgentCard = ({
               modeled distinction yet between the lister's own account and a
               separate agent/owner contact. */}
           <Container as="span" className="inline-flex items-center gap-1 text-xs font-medium text-primary">
-            Owner
+            {roleLabel}
             {verified && <VerifiedCheck className="h-3 w-3" />}
           </Container>
         </Container>
       </Container>
 
       <Container className="flex items-center gap-2">
-        <Container
-          className="flex h-10 w-10 items-center justify-center rounded-xl bg-s75"
+        <Button
+          shorter
           aria-label="Message agent"
+          onClick={onMessage}
+          className="!h-10 !w-10 !rounded-xl !bg-s75 !p-0 hover:!bg-s100"
         >
-          <MessageCircleMore className="h-5 w-5 text-s500" />
-        </Container>
+          <MessageCircleMore className="h-5 w-5 text-p300" />
+        </Button>
 
-        <Container
-          className="flex h-10 w-10 items-center justify-center rounded-xl bg-s75"
+        <Button
+          shorter
           aria-label="Call agent"
+          onClick={onCall}
+          className="!h-10 !w-10 !rounded-xl !bg-s75 !p-0 hover:!bg-s100"
         >
-          <Phone className="h-5 w-5 text-s500" />
-        </Container>
+          <Phone className="h-5 w-5 text-p300" />
+        </Button>
       </Container>
     </Container>
   );

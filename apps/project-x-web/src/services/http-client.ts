@@ -112,6 +112,7 @@ const handleResponseError = async (error: AxiosError) => {
       processQueue(refreshError as AxiosError, null);
       clearAuth();
       if (typeof window !== "undefined") {
+        alert("Logging you out")
         window.location.replace("/login");
       }
       return Promise.reject(refreshError);
