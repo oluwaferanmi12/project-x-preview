@@ -1,3 +1,5 @@
+import type { StaticImageData } from "next/image";
+
 export interface PropertySearchFilters {
   stateId: string;
   lgaId: string;
@@ -50,4 +52,10 @@ export interface GuestPropertyDetails {
     serviceCharge: number;
   };
   lister: { firstName: string; lastName: string; role: "Agent" | "Owner" };
+}
+
+export interface GalleryMedia {
+  id: string;
+  type: "image" | "video";
+  src: StaticImageData;
 }

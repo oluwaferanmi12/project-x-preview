@@ -33,17 +33,22 @@ export const PropertyThumbnails = ({
   thumbnails,
   alt,
   className = "",
+  onOpen,
 }: {
   thumbnails: StaticImageData[];
   alt: string;
   className?: string;
+  onOpen?: (index: number | null) => void;
 }) => (
   <Container className={`flex flex-col gap-3 ${className}`}>
     <Container className="grid grid-cols-4 gap-2 lg:grid-cols-2 lg:gap-3">
       {thumbnails.slice(0, 4).map((src, index) => (
-        <Container
+        <Button
           key={index}
-          className="relative aspect-[1.4] overflow-hidden rounded-lg lg:rounded-xl bg-muted"
+          variant="transparent"
+          aria-label={`Open photo ${index + 1}`}
+          onClick={() => onOpen?.(index)}
+          className="relative aspect-[1.4] !w-full overflow-hidden !rounded-lg !p-0 lg:!rounded-xl"
         >
           <Image
             src={src}
@@ -52,13 +57,14 @@ export const PropertyThumbnails = ({
             sizes="150px"
             className="object-cover"
           />
-        </Container>
+        </Button>
       ))}
     </Container>
     <Button
       variant="muted"
       shorter
       fullWidth
+      onClick={() => onOpen?.(null)}
       rightIcon={<IconImage size={16} />}
     >
       View property gallery

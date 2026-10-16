@@ -1,4 +1,15 @@
-import { GuestPropertyDetails } from "../guest.types";
+import thumbnail from "@/assets/images/image-thumbnail.png";
+import { GalleryMedia, GuestPropertyDetails } from "../guest.types";
+
+// Placeholder media until the listing endpoint returns real photos/video.
+export const GALLERY_MEDIA_MOCK: GalleryMedia[] = Array.from(
+  { length: 9 },
+  (_, index) => ({
+    id: `media-${index + 1}`,
+    type: index === 8 ? "video" : "image",
+    src: thumbnail,
+  }),
+);
 
 // Placeholder until the guest property-details endpoint is wired up.
 export const getPropertyDetailsMock = (id: string): GuestPropertyDetails => ({

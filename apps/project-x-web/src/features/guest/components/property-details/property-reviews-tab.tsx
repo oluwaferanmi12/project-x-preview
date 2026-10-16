@@ -18,7 +18,11 @@ import { PropertyReviewRow } from "./property-review-row";
 const reviewedProperty = reviewedProperties[0]!;
 const REVIEWS_PER_PAGE = 8;
 
-export const PropertyReviewsTab = () => {
+export const PropertyReviewsTab = ({
+  onAddReview,
+}: {
+  onAddReview?: () => void;
+}) => {
   const [page, setPage] = useState(1);
   const [expandedId, setExpandedId] = useState<string | null>(null);
   const totalPages = Math.ceil(
@@ -62,7 +66,11 @@ export const PropertyReviewsTab = () => {
           <Text variant="body-sm" tone="primary">
             All Reviews
           </Text>
-          <Button shorter rightIcon={<OutlineMessageIcon />}>
+          <Button
+            shorter
+            rightIcon={<OutlineMessageIcon />}
+            onClick={onAddReview}
+          >
             Add a Review
           </Button>
         </Container>

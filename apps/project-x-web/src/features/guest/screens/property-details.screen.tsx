@@ -3,7 +3,6 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import largeView from "@/assets/images/gallery/large-view.png";
-import thumbnail from "@/assets/images/image-thumbnail.png";
 import { ArrowLeft, LightClock } from "@repo/icons";
 import { Button, Container, GeneralSpacer, Text } from "@repo/ui";
 import { FeaturePill } from "@/features/home-owner/properties/components/nuggets/feature-pill";
@@ -22,14 +21,23 @@ import {
   PropertyMapCard,
 } from "../components/property-details/property-sidebar";
 import { AVAILABLE_PROPERTIES_MOCK } from "../data/available-properties.mock";
-import { getPropertyDetailsMock } from "../data/property-details.mock";
+import { LoginRequiredModal } from "../components/property-details/login-required-modal";
+import { PropertyGalleryModal } from "../components/property-details/property-gallery-modal";
+import {
+  GALLERY_MEDIA_MOCK,
+  getPropertyDetailsMock,
+} from "../data/property-details.mock";
 import { PropertyDetailsTab as TabKey } from "../guest.types";
 
-const THUMBNAILS = [thumbnail, thumbnail, thumbnail, thumbnail];
+const THUMBNAILS = GALLERY_MEDIA_MOCK.slice(0, 4).map((item) => item.src);
 
 function PropertyDetailsScreen({ propertyId }: { propertyId: string }) {
   const router = useRouter();
   const [tab, setTab] = useState<TabKey>("details");
+  const [loginOpen, setLoginOpen] = useState(false);
+  // undefined = closed, null = grid view, number = single image.
+  const [gallery, setGallery] = useState<number | null | undefined>(undefined);
+  const requireLogin = () => setLoginOpen(true);
   const property = getPropertyDetailsMock(propertyId);
   const similar = AVAILABLE_PROPERTIES_MOCK.filter(
     (item) => item.id !== propertyId,
@@ -92,7 +100,7 @@ function PropertyDetailsScreen({ propertyId }: { propertyId: string }) {
                 {tab === "details" ? (
                   <PropertyDetailsTab property={property} />
                 ) : (
-                  <PropertyReviewsTab />
+                  <PropertyReviewsTab onAddReview={requireLogin} />
                 )}
               </Container>
             </Container>
@@ -101,13 +109,21 @@ function PropertyDetailsScreen({ propertyId }: { propertyId: string }) {
               <PropertyThumbnails
                 thumbnails={THUMBNAILS}
                 alt={property.location}
+                onOpen={setGallery}
                 className="order-2"
               />
               <PropertyAgentCard
                 property={property}
                 className="order-4 hidden lg:block"
+                onMessage={requireLogin}
+                onCall={requireLogin}
               />
-              <PropertyMapCard property={property} className="order-5" />
+              <PropertyMapCard
+                property={property}
+                className="order-5"
+                onMessage={requireLogin}
+                onCall={requireLogin}
+              />
               <PropertyCheckoutCard className="order-7" />
             </Container>
           </Container>
@@ -123,6 +139,15 @@ function PropertyDetailsScreen({ propertyId }: { propertyId: string }) {
         </Container>
       </GeneralSpacer>
       <HomeFooter />
+      {loginOpen && <LoginRequiredModal onClose={() => setLoginOpen(false)} />}
+      {gallery !== undefined && (
+        <PropertyGalleryModal
+          items={GALLERY_MEDIA_MOCK}
+          alt={property.location}
+          initialIndex={gallery}
+          onClose={() => setGallery(undefined)}
+        />
+      )}
     </Container>
   );
 }

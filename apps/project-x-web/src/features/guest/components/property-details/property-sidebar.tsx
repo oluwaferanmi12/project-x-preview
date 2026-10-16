@@ -7,18 +7,24 @@ import { Button, Container, Text } from "@repo/ui";
 import { AgentCard } from "@/features/home-owner/properties/components/nuggets/agent-card";
 import { GuestPropertyDetails } from "../../guest.types";
 
+type ContactActions = { onMessage?: () => void; onCall?: () => void };
+
 export const PropertyAgentCard = ({
   property,
   className,
+  onMessage,
+  onCall,
 }: {
   property: GuestPropertyDetails;
   className?: string;
-}) => (
+} & ContactActions) => (
   <Container className={className}>
     <AgentCard
       user={property.lister}
       verified
       roleLabel={property.lister.role}
+      onMessage={onMessage}
+      onCall={onCall}
     />
   </Container>
 );
@@ -26,10 +32,12 @@ export const PropertyAgentCard = ({
 export const PropertyMapCard = ({
   property,
   className = "",
+  onMessage,
+  onCall,
 }: {
   property: GuestPropertyDetails;
   className?: string;
-}) => (
+} & ContactActions) => (
   <Container className={`overflow-hidden rounded-xl bg-surface ${className}`}>
     <Container className="relative h-50 w-full bg-muted lg:h-40">
       <Image
@@ -44,6 +52,8 @@ export const PropertyMapCard = ({
           user={property.lister}
           verified
           roleLabel={property.lister.role}
+          onMessage={onMessage}
+          onCall={onCall}
         />
       </Container>
     </Container>
