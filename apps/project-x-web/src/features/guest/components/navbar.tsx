@@ -4,6 +4,7 @@ import { useState } from "react";
 import { CloseIcon, LogoPlaceholderIcon, Menu } from "@repo/icons";
 import { Button, Container, GeneralSpacer, Text } from "@repo/ui";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 const NAV_ITEMS = [
   { text: "Available Properties", link: "/available-properties" },
@@ -14,6 +15,8 @@ const NAV_ITEMS = [
 
 export const Navbar = () => {
   const [open, setOpen] = useState(false);
+  const pathname = usePathname();
+  const isActive = (link: string) => !!link && pathname.startsWith(link);
 
   return (
     <Container className="relative bg-surface py-4.5">
@@ -25,9 +28,13 @@ export const Navbar = () => {
 
           <Container className="hidden items-center lg:flex">
             {NAV_ITEMS.map((item) => (
-              <Link key={item.text} href={item.link}>
+              <Link key={item.text} href={item.link} className="group">
                 <Container className="px-3 py-2">
-                  <Text variant="action-button" tone="p300">
+                  <Text
+                    variant="action-button"
+                    tone="p300"
+                    className={`transition-colors group-hover:!text-s300 ${isActive(item.link) ? "!text-s300" : ""}`}
+                  >
                     {item.text}
                   </Text>
                 </Container>
@@ -65,10 +72,15 @@ export const Navbar = () => {
                 <Link
                   key={item.text}
                   href={item.link}
+                  className="group"
                   onClick={() => setOpen(false)}
                 >
                   <Container className="py-3">
-                    <Text variant="action-button" tone="p300">
+                    <Text
+                      variant="action-button"
+                      tone="p300"
+                      className={`transition-colors group-hover:!text-s300 ${isActive(item.link) ? "!text-s300" : ""}`}
+                    >
                       {item.text}
                     </Text>
                   </Container>

@@ -1,4 +1,4 @@
-import Image, { type StaticImageData } from "next/image";
+import Image, { type ImageProps } from "next/image";
 import { BookmarkIcon, IconImage, VideoPlayIcon } from "@repo/icons";
 import { Button, Container } from "@repo/ui";
 
@@ -6,18 +6,22 @@ export const PropertyMainMedia = ({
   src,
   alt,
   className = "",
+  hasVideo = false,
 }: {
-  src: StaticImageData;
+  src: ImageProps["src"];
   alt: string;
   className?: string;
+  hasVideo?: boolean;
 }) => (
   <Container
     className={`relative aspect-[1.75] w-full overflow-hidden rounded-2xl bg-muted ${className}`}
   >
     <Image src={src} alt={alt} fill priority className="object-cover" />
-    <Container className="absolute inset-0 flex items-center justify-center text-inverted">
-      <VideoPlayIcon size={56} />
-    </Container>
+    {hasVideo && (
+      <Container className="absolute inset-0 flex items-center justify-center text-inverted">
+        <VideoPlayIcon size={56} />
+      </Container>
+    )}
     <Button
       variant="surface"
       shorter
@@ -35,7 +39,7 @@ export const PropertyThumbnails = ({
   className = "",
   onOpen,
 }: {
-  thumbnails: StaticImageData[];
+  thumbnails: ImageProps["src"][];
   alt: string;
   className?: string;
   onOpen?: (index: number | null) => void;

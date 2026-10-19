@@ -106,14 +106,21 @@ export const PropertyGalleryModal = ({
 
       {current ? (
         <Container className="relative min-h-0 flex-1">
-          <Image
-            src={current.src}
-            alt={`${alt} ${(index ?? 0) + 1}`}
-            fill
-            sizes="100vw"
-            className="object-contain"
-          />
-          {current.type === "video" && <VideoBadge />}
+          {current.type === "video" && typeof current.src === "string" ? (
+            <video
+              src={current.src}
+              controls
+              className="h-full w-full object-contain"
+            />
+          ) : (
+            <Image
+              src={current.src}
+              alt={`${alt} ${(index ?? 0) + 1}`}
+              fill
+              sizes="100vw"
+              className="object-contain"
+            />
+          )}
           <ChromeButton
             label="Previous"
             onClick={() => step(-1)}
@@ -139,13 +146,17 @@ export const PropertyGalleryModal = ({
               onClick={() => setIndex(itemIndex)}
               className="relative aspect-[1.75] !w-full overflow-hidden !rounded-xl !p-0"
             >
-              <Image
-                src={item.src}
-                alt={`${alt} ${itemIndex + 1}`}
-                fill
-                sizes="(max-width: 640px) 100vw, 33vw"
-                className="object-cover"
-              />
+              {item.type === "image" || typeof item.src !== "string" ? (
+                <Image
+                  src={item.src}
+                  alt={`${alt} ${itemIndex + 1}`}
+                  fill
+                  sizes="(max-width: 640px) 100vw, 33vw"
+                  className="object-cover"
+                />
+              ) : (
+                <Container className="absolute inset-0 bg-[#2a2a2a]" />
+              )}
               {item.type === "video" && <VideoBadge />}
             </Button>
           ))}
