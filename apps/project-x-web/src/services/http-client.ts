@@ -5,6 +5,7 @@ import type {
   InternalAxiosRequestConfig,
 } from "axios";
 import { useAuthStore } from "@/store/useAuthStore";
+import { useSessionExpiredStore } from "@/store/useSessionExpiredStore";
 
 const baseURL = process.env.NEXT_PUBLIC_API_BASE_URL;
 
@@ -112,8 +113,7 @@ const handleResponseError = async (error: AxiosError) => {
       processQueue(refreshError as AxiosError, null);
       clearAuth();
       if (typeof window !== "undefined") {
-        alert("Logging you out")
-        window.location.replace("/login");
+        useSessionExpiredStore.getState().show();
       }
       return Promise.reject(refreshError);
     } finally {

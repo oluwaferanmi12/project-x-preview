@@ -5,6 +5,7 @@ import { AntdRegistry } from "@ant-design/nextjs-registry";
 import { ReactQueryProvider } from "@/react-query/provider";
 import { ToastProvider, Toaster } from "@repo/ui";
 import { ThemeProvider } from "@/context/ThemeContext";
+import { SessionExpiredModal } from "@/features/auth/components/session-expired-modal";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -46,6 +47,7 @@ export default function RootLayout({
             <ReactQueryProvider>
               <AntdRegistry>{children}</AntdRegistry>
             </ReactQueryProvider>
+            <SessionExpiredModal />
             <Toaster />
           </ToastProvider>
         </ThemeProvider>
