@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import largeView from "@/assets/images/gallery/large-view.png";
 import { ArrowLeft, LightClock } from "@repo/icons";
 import { Button, Container, GeneralSpacer, Text } from "@repo/ui";
 import { FeaturePill } from "@/features/home-owner/properties/components/nuggets/feature-pill";
@@ -20,16 +19,19 @@ import {
   PropertyCheckoutCard,
   PropertyMapCard,
 } from "../components/property-details/property-sidebar";
-import { AVAILABLE_PROPERTIES_MOCK } from "../data/available-properties.mock";
 import { LoginRequiredModal } from "../components/property-details/login-required-modal";
 import { PropertyGalleryModal } from "../components/property-details/property-gallery-modal";
 import {
-  GALLERY_MEDIA_MOCK,
-  getPropertyDetailsMock,
-} from "../data/property-details.mock";
+  useGetPublishedListing,
+  useGetPublishedListings,
+} from "../hooks/guest.hooks";
+import {
+  PLACEHOLDER_IMAGE,
+  toGalleryMedia,
+  toGuestProperty,
+  toGuestPropertyDetails,
+} from "../guest.mappers";
 import { PropertyDetailsTab as TabKey } from "../guest.types";
-
-const THUMBNAILS = GALLERY_MEDIA_MOCK.slice(0, 4).map((item) => item.src);
 
 function PropertyDetailsScreen({ propertyId }: { propertyId: string }) {
   const router = useRouter();
@@ -38,10 +40,34 @@ function PropertyDetailsScreen({ propertyId }: { propertyId: string }) {
   // undefined = closed, null = grid view, number = single image.
   const [gallery, setGallery] = useState<number | null | undefined>(undefined);
   const requireLogin = () => setLoginOpen(true);
-  const property = getPropertyDetailsMock(propertyId);
-  const similar = AVAILABLE_PROPERTIES_MOCK.filter(
-    (item) => item.id !== propertyId,
-  ).slice(0, 8);
+  const { data: listing, isLoading, isError } = useGetPublishedListing(propertyId);
+  const { data: listingsPage } = useGetPublishedListings(1);
+
+  if (isLoading || !listing) {
+    return (
+      <Container>
+        <GeneralSpacer>
+          <Container className="py-24 text-center">
+            <Text variant="body-sm" tone="secondary">
+              {isError
+                ? "We couldn't load this property. Please try again."
+                : "Loading property..."}
+            </Text>
+          </Container>
+        </GeneralSpacer>
+        <HomeFooter />
+      </Container>
+    );
+  }
+
+  const property = toGuestPropertyDetails(listing);
+  const media = toGalleryMedia(listing);
+  const images = media.filter((item) => item.type === "image");
+  const thumbnails = images.slice(0, 4).map((item) => item.src);
+  const similar = (listingsPage?.listings ?? [])
+    .filter((item) => item.id !== propertyId)
+    .slice(0, 8)
+    .map(toGuestProperty);
 
   return (
     <Container>
@@ -64,7 +90,8 @@ function PropertyDetailsScreen({ propertyId }: { propertyId: string }) {
           <Container className="flex flex-col gap-5 lg:grid lg:grid-cols-[minmax(0,1fr)_320px] lg:items-start lg:gap-6">
             <Container className="contents min-w-0 lg:flex lg:flex-col lg:gap-5">
               <PropertyMainMedia
-                src={largeView}
+                src={images[0]?.src ?? PLACEHOLDER_IMAGE}
+                hasVideo={media.length > images.length}
                 alt={property.location}
                 className="order-1"
               />
@@ -107,7 +134,7 @@ function PropertyDetailsScreen({ propertyId }: { propertyId: string }) {
 
             <Container className="contents min-w-0 lg:flex lg:flex-col lg:gap-4">
               <PropertyThumbnails
-                thumbnails={THUMBNAILS}
+                thumbnails={thumbnails}
                 alt={property.location}
                 onOpen={setGallery}
                 className="order-2"
@@ -128,21 +155,25 @@ function PropertyDetailsScreen({ propertyId }: { propertyId: string }) {
             </Container>
           </Container>
 
-          <Text variant="h4" tone="primary" className="mb-6 mt-12 !font-bold">
-            See similar properties
-          </Text>
-          <Container className="grid grid-cols-1 gap-x-4 gap-y-8 sm:grid-cols-2 lg:grid-cols-4">
-            {similar.map((item) => (
-              <PropertyListingCard key={item.id} property={item} />
-            ))}
-          </Container>
+          {similar.length > 0 && (
+            <>
+              <Text variant="h4" tone="primary" className="mb-6 mt-12 !font-bold">
+                See similar properties
+              </Text>
+              <Container className="grid grid-cols-1 gap-x-4 gap-y-8 sm:grid-cols-2 lg:grid-cols-4">
+                {similar.map((item) => (
+                  <PropertyListingCard key={item.id} property={item} />
+                ))}
+              </Container>
+            </>
+          )}
         </Container>
       </GeneralSpacer>
       <HomeFooter />
       {loginOpen && <LoginRequiredModal onClose={() => setLoginOpen(false)} />}
       {gallery !== undefined && (
         <PropertyGalleryModal
-          items={GALLERY_MEDIA_MOCK}
+          items={media}
           alt={property.location}
           initialIndex={gallery}
           onClose={() => setGallery(undefined)}

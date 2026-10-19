@@ -57,5 +57,5 @@ export interface GuestPropertyDetails {
 export interface GalleryMedia {
   id: string;
   type: "image" | "video";
-  src: StaticImageData;
+  src: string | StaticImageData;
 }
