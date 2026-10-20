@@ -1,8 +1,10 @@
 import {
   FacebookIcon,
+  FBIcon,
   InstagramIcon,
   LogoPlaceholderIcon,
   TiktokIcon,
+  TTIcon,
   XIcon,
 } from "@repo/icons";
 import { Button, Container, GeneralSpacer, Text } from "@repo/ui";
@@ -34,7 +36,7 @@ export const HomeFooter = () => {
       <GeneralSpacer>
         <Container>
           <LogoPlaceholderIcon />
-          <Container className="mt-6 flex justify-between">
+          <Container className="mt-6 flex lg:flex-row flex-col justify-between">
             <Container>
               <Text as="div" tone="primary" variant="h1">
                 Find dream{" "}
@@ -52,7 +54,7 @@ export const HomeFooter = () => {
                 <Button>Search Properties</Button>
               </Container>
             </Container>
-            <Container className="flex flex-row gap-6">
+            <Container className="flex flex-row gap-6 lg:mt-0 mt-14">
               <Container className="flex flex-col gap-4 pr-6.5">
                 {footerItemsOne.map((item) => {
                   return (
@@ -77,11 +79,11 @@ export const HomeFooter = () => {
               </Container>
             </Container>
           </Container>
-          <Container className="mt-62.5 mb-41 flex justify-between items-center">
+          <Container className="lg:mt-62.5 mt-20 mb-41 flex lg:flex-row flex-col gap-9 justify-between items-center">
             <Container className="flex items-center gap-6">
               <InstagramIcon size={20} className="text-secondary" />
-              <FacebookIcon size={20} className="text-secondary" />
-              <TiktokIcon size={20} className="text-secondary" />
+              <FBIcon size={20} className="text-secondary" />
+              <TTIcon size={20} className="text-secondary" />
               <XIcon size={20} className="text-secondary" />
             </Container>
             <Text variant="body-sm" tone="secondary">

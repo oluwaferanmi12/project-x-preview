@@ -64,7 +64,7 @@ const HowItWorksCard = ({
   cornerClassName,
 }: HowItWorksCardProps) => (
   <Container
-    className="relative h-147.5 min-w-0 flex-1 flex items-center justify-center rounded-4xl bg-cover bg-center overflow-hidden bg-no-repeat"
+    className="relative lg:min-h-147.5 min-h-126.25 min-w-0 flex-1 flex items-center justify-center rounded-4xl bg-cover bg-center overflow-hidden bg-no-repeat"
     style={{ backgroundImage: toBackgroundImage(image) }}
   >
     <Container
@@ -73,7 +73,7 @@ const HowItWorksCard = ({
       style={{ background: gradient }}
     />
     <Container
-      className={`${tabClassName} rounded-br-4xl absolute top-0 left-0 px-12 py-6`}
+      className={`${tabClassName} rounded-br-4xl absolute top-0 left-0 lg:px-12  lg:py-6 px-6 py-4`}
     >
       <Text variant="h3" tone="inverted">
         {label}
@@ -88,7 +88,7 @@ const HowItWorksCard = ({
     <Container className="bg-muted px-3.5 py-1.5 rounded-lg absolute bottom-6 right-12">
       <NextIcon className="text-primary" />
     </Container>
-    <Container className="z-10 mx-12 flex flex-col gap-2">
+    <Container className="z-10 lg:mx-12 mx-6 flex flex-col gap-2">
       <Text variant="h1" tone="inverted">
         {heading}
       </Text>
@@ -102,9 +102,9 @@ const HowItWorksCard = ({
 export const HowItWorks = () => {
   return (
     <GeneralSpacer>
-      <Container className="py-28 flex flex-col items-center">
+      <Container className="lg:py-28 pb-20 flex flex-col items-center">
         <HomePill text="How it works" />
-        <Container className="mt-4 mb-32 w-1/2 text-center">
+        <Container className="mt-4 lg:mb-32 mb-12 lg:w-1/2 w-full text-center">
           <Text variant="h1">
             Easier solution to getting a{" "}
             <Text as="span" variant="h1" className="text-s300">
@@ -116,7 +116,7 @@ export const HowItWorks = () => {
             </Text>
           </Text>
         </Container>
-        <Container className="flex w-full items-center gap-6">
+        <Container className="flex w-full lg:flex-row flex-col items-center gap-6">
           <HowItWorksCard
             image={RenterImage}
             gradient={RENTER_GRADIENT}
