@@ -42,7 +42,7 @@ export const SelectTrigger = ({
   };
 
   const classes = [
-    "flex w-full items-center gap-3 rounded-2xl border-[0.5px] border-line bg-background px-3 py-2 text-left",
+    "flex w-full items-center gap-3 rounded-2xl border-[0.5px] border-line bg-background px-3 py-4 text-left",
     "cursor-pointer outline-none transition-colors focus-visible:border-p75",
     "disabled:cursor-not-allowed disabled:opacity-60",
     className ?? "",
@@ -59,7 +59,7 @@ export const SelectTrigger = ({
       {...props}
     >
       {leftIcon ? <span className="shrink-0">{leftIcon}</span> : null}
-      <Text as="span" variant="bodyRegular" tone="primary" className="block min-w-0 flex-1 truncate">
+      <Text as="span" variant="action-label" tone="primary" className="block min-w-0 flex-1 truncate">
         {label}
       </Text>
       <span
