@@ -1,3 +1,5 @@
+export const PLACEHOLDER_IMAGE = "/guest/property-placeholder.png";
+
 export const HERO_PINS = [
   { top: "36%", left: "56%" },
   { top: "56%", left: "26%" },

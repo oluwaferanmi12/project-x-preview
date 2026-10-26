@@ -1,6 +1,6 @@
 import { Container, GeneralSpacer, Text } from "@repo/ui";
-import React from "react";
 import { HomePill } from "./home-pill";
+import { AvailablePropertyListing } from "../properties/available-property-listing";
 
 export const AvailableProperties = () => {
   return (
@@ -12,6 +12,7 @@ export const AvailableProperties = () => {
             Explore different options for your dream home.
           </Text>
         </Container>
+        <AvailablePropertyListing />
       </Container>
     </GeneralSpacer>
   );

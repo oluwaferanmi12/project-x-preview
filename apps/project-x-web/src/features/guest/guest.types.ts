@@ -1,17 +1,18 @@
 import type { StaticImageData } from "next/image";
+import type { ListingResponse } from "@/features/home-owner/properties/types/property.types";
 
-export interface GuestProperty {
+export interface GuestPropertyOwner {
   id: string;
-  image: string;
-  location: string;
-  price: number;
-  period: "annually" | "bi-annually" | "monthly";
-  type: string;
-  beds: number;
-  baths: number;
-  listerRole: "Agent" | "House Owner";
-  listerInitials: string;
-  date: string;
+  firstName: string;
+  lastName: string;
+  avatar: string | null;
+}
+
+/** A listing from the public /properties list: the full listing plus its owner and cover image. */
+export interface GuestPropertyListing extends ListingResponse {
+  owner: GuestPropertyOwner;
+  coverImageUrl: string;
+  neighbourhood: string;
 }
 
 export type PropertyDetailsTab = "details" | "reviews";
@@ -19,7 +20,7 @@ export type PropertyDetailsTab = "details" | "reviews";
 export interface GuestPropertyDetails {
   id: string;
   price: number;
-  period: GuestProperty["period"];
+  period: "annually" | "bi-annually" | "monthly";
   date: string;
   location: string;
   type: string;
