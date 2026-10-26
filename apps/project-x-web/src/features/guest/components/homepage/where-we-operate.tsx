@@ -21,7 +21,7 @@ export const WhereWeOperate = () => {
         <Row gutter={24}>
           <Col xs={24} lg={8}>
             <Container className="flex flex-col gap-6">
-              <Container className="bg-[#2A2A2A] lg:min-h-70 rounded-4xl py-10 px-6 lg:p-8">
+              <Container className="bg-background-dark lg:min-h-70 rounded-4xl py-10 px-6 lg:p-8">
                 <Container as="div" className="text-[64px]">
                   🇳🇬
                 </Container>
@@ -35,7 +35,7 @@ export const WhereWeOperate = () => {
                   </Text>
                 </Container>
               </Container>
-              <Container className="bg-[#2A2A2A] lg:min-h-70 rounded-4xl py-10 px-6 lg:p-8">
+              <Container className="bg-background-dark lg:min-h-70 rounded-4xl py-10 px-6 lg:p-8">
                 <Container as="div" className="text-[64px]">
                   📍
                 </Container>
@@ -66,7 +66,7 @@ export const WhereWeOperate = () => {
           </Col>
           <Col xs={24} lg={8}>
             <Container className="flex flex-col gap-6">
-              <Container className="bg-[#2A2A2A] lg:min-h-70 rounded-4xl py-10 px-6 lg:p-8">
+              <Container className="bg-background-dark lg:min-h-70 rounded-4xl py-10 px-6 lg:p-8">
                 <Container as="div" className="text-[64px]">
                   🏠
                 </Container>
@@ -79,7 +79,7 @@ export const WhereWeOperate = () => {
                   </Text>
                 </Container>
               </Container>
-              <Container className="bg-[#2A2A2A] lg:min-h-70 rounded-4xl py-10 px-6 lg:p-8">
+              <Container className="bg-background-dark lg:min-h-70 rounded-4xl py-10 px-6 lg:p-8">
                 <Container as="div" className="text-[64px]">
                   🚀
                 </Container>
