@@ -8,7 +8,7 @@ import { usePathname } from "next/navigation";
 
 const NAV_ITEMS = [
   { text: "Available Properties", link: "/available-properties" },
-  { text: "How It Works", link: "" },
+  { text: "How It Works", link: "/how-it-works" },
   { text: "Coverage", link: "" },
   { text: "Contact us", link: "" },
 ];
@@ -19,7 +19,7 @@ export const Navbar = () => {
   const isActive = (link: string) => !!link && pathname.startsWith(link);
 
   return (
-    <Container className="relative bg-surface py-4.5">
+    <Container className="sticky top-0 z-[60] bg-surface py-4.5">
       <GeneralSpacer>
         <Container className="flex items-center justify-between">
           <Link href="/" aria-label="Go to home page">

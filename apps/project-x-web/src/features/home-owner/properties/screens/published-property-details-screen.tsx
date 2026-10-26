@@ -14,7 +14,7 @@ import {
   ChevronArrowDown,
   LightClock,
   RedStarIcon,
-  MessagesIcon,
+  MessagesFillIcon as MessagesIcon,
   BookeepIcon,
   SpinIcon,
   VideoPlayIcon,
