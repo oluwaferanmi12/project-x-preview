@@ -25,7 +25,7 @@ export const ReviewSummary = ({
         suffix="/5.0"
         className="bg-indigo-back"
         valueClassName="text-indigo-fore"
-        icon={<StarIcon size={64}className="text-indigo-fore" />}
+        icon={<StarIcon size={80} className="text-indigo-fore" />}
       />
 
       <MetricBand
@@ -33,7 +33,7 @@ export const ReviewSummary = ({
         value={property.totalReviews.toString().padStart(2, "0")}
         className="bg-purple-fore"
         valueClassName="text-purple-back"
-        icon={<MessagesTwo size={64}className="text-purple-back" />}
+        icon={<MessagesTwo size={80} className="text-purple-back" />}
       />
 
       {!compact && (
@@ -42,7 +42,7 @@ export const ReviewSummary = ({
           value={totalProperties.toString().padStart(2, "0")}
           className="bg-mossgreen-back"
           valueClassName="text-mossgreen-fore"
-          icon={<PropertyIcon size={64}className="text-mossgreen-fore" />}
+          icon={<PropertyIcon size={80} className="text-mossgreen-fore" />}
         />
       )}
     </Container>
@@ -186,7 +186,7 @@ export const MetricBand = ({
     </Container>
 
     {/* Oversized and nudged past the corner so the card clips it, per Figma */}
-    <Container className="pointer-events-none absolute -bottom-6 -right-5 rotate-12 opacity-90">
+    <Container className="pointer-events-none absolute -bottom-7 -right-2 -rotate-12 opacity-90">
       {icon}
     </Container>
   </Container>
