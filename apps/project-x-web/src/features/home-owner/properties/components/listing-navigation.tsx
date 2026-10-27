@@ -27,7 +27,6 @@ export const ListingNavigation = ({
         as="div"
         className="pointer-events-none nav-listing-background absolute h-50 inset-x-0 bottom-0  overflow-hidden "
       >
-        {/* <ListingBackground className="block w-[140%] max-w-none -translate-x-[14%] text-s300" /> */}
       </Container>
 
       {steps.map((step) => {
@@ -63,14 +62,6 @@ export const ListingNavigation = ({
                 } `}
                 transition={{ layout: layoutTransition }}
               >
-                {/* {active === step.num ? (
-                <Container
-                  as={motion.div}
-                  layoutId="listing-navigation-active-step"
-                  className="absolute inset-0 rounded-xl bg-p300"
-                  transition={{ type: "spring", stiffness: 360, damping: 30 }}
-                />
-              ) : null} */}
                 <Container className="relative z-10">
                   <Text
                     variant="h5"

@@ -1,6 +1,6 @@
 import { Button } from "@repo/ui";
 import { Container } from "@repo/ui";
-import { ArrowRight, SaveDraftIcon } from "@repo/icons";
+import { ArrowRight, DraftIcon } from "@repo/icons";
 import React from "react";
 
 export const ButtonNavigation = ({
@@ -21,7 +21,7 @@ export const ButtonNavigation = ({
       <Button
         disabled={isLoading}
         onClick={handleSaveAsDraft}
-        rightIcon={<SaveDraftIcon className="text-primary" size={20} />}
+        rightIcon={<DraftIcon className="text-primary" size={20} />}
         variant="muted"
         loading={isLoading && savingMode === "draft"}
       >

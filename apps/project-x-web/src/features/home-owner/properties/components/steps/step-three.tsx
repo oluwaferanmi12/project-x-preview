@@ -36,6 +36,8 @@ export const StepThree = ({
                 label=""
                 loading={isLoadingStates}
                 loadingText="Loading states..."
+                searchable
+                searchPlaceholder="Search state..."
                 options={
                   data
                     ? [
@@ -66,6 +68,8 @@ export const StepThree = ({
                 }
                 loading={isLoadingLGA}
                 loadingText="Loading local governments..."
+                searchable
+                searchPlaceholder="Search LGA..."
                 value={payload?.lgaId ?? ""}
                 onChange={({ target }) => {
                   handleUpdateDraft({ lgaId: target.value });

@@ -5,7 +5,7 @@ import Image from "next/image";
 
 import { Container } from "@repo/ui";
 import { Text } from "@repo/ui";
-import { UploadImage as UploadIcon } from "@repo/icons";
+import { ImageIcon as UploadIcon } from "@repo/icons";
 import { PropertyImage } from "../../types/property.types";
 
 export const PropertyGallery = ({

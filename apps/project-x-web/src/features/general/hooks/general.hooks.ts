@@ -26,12 +26,13 @@ export const useGetLGA = (id: string) => {
 
 export const useUploadImage = (
   sc: (val: { publicId: string; optimizedUrl: string }) => void,
+  options?: { silent?: boolean },
 ) => {
   return useMutation({
     mutationFn: (payload: { file: File; folderType: FolderType }) =>
       uploadImage(payload),
     onSuccess: sc,
-    meta: { errorTitle: "Upload failed" },
+    meta: { errorTitle: "Upload failed", silent: options?.silent },
   });
 };
 

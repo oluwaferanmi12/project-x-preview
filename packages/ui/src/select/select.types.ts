@@ -19,4 +19,6 @@ export type SelectProps = ComponentPropsWithoutRef<"select"> & {
   variant?: SelectVariant;
   loading?: boolean;
   loadingText?: string;
+  searchable?: boolean;
+  searchPlaceholder?: string;
 };

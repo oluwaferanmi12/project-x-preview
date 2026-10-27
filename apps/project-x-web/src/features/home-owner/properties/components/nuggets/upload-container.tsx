@@ -3,7 +3,7 @@
 import { Container } from "@repo/ui";
 import { Text } from "@repo/ui";
 import React, { useRef } from "react";
-import { UploadImage as UploadIcon, SpinIcon } from "@repo/icons";
+import { ImageIcon as UploadIcon, SpinIcon } from "@repo/icons";
 import Image from "next/image";
 
 type UploadBoxProps = {
@@ -13,6 +13,7 @@ type UploadBoxProps = {
   accept?: string;
   type?: "image" | "video";
   loading?: boolean;
+  hasError?: boolean;
 };
 
 export const UploadBox = ({
@@ -22,6 +23,7 @@ export const UploadBox = ({
   accept = "image/*",
   type = "image",
   loading = false,
+  hasError = false,
 }: UploadBoxProps) => {
   const inputRef = useRef<HTMLInputElement | null>(null);
 
@@ -41,7 +43,8 @@ export const UploadBox = ({
         handleFiles(e.dataTransfer.files);
       }}
       aria-busy={loading}
-      className={`relative border border-dashed border-s75 rounded-2xl bg-s50 flex items-center justify-center overflow-hidden ${loading ? "cursor-not-allowed" : "cursor-pointer"} ${className}`}
+      aria-invalid={hasError || undefined}
+      className={`relative rounded-2xl bg-s50 flex items-center justify-center overflow-hidden ${hasError ? "border-2 border-solid border-d300" : "border border-dashed border-s75"} ${loading ? "cursor-not-allowed" : "cursor-pointer"} ${className}`}
     >
       <input
         ref={inputRef}
@@ -60,6 +63,14 @@ export const UploadBox = ({
           </Container>
           <Text variant="body-sm" tone="p300">
             Uploading {type}…
+          </Text>
+        </Container>
+      )}
+
+      {hasError && (
+        <Container className="absolute inset-x-0 bottom-0 z-10 bg-d300 px-2 py-1">
+          <Text variant="body-xs" tone="inverted" className="text-center">
+            Upload failed. Click to replace
           </Text>
         </Container>
       )}

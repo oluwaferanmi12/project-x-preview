@@ -3,6 +3,7 @@ import {
   useUploadImage,
   useUploadVideo,
 } from "@/features/general/hooks/general.hooks";
+import { useToast } from "@repo/ui";
 import { DraftProperty, PropertyImage } from "../types/property.types";
 import { useGenerateSummaryWithAi } from "./property.hook";
 
@@ -51,7 +52,52 @@ export const useStepSix = (
     (PropertyImage | null)[]
   >(() => buildSeededUploaded(payload?.images as PropertyImage[] | undefined));
 
-  const { mutate: uploadPropertyImage } = useUploadImage(() => {});
+  const [failedImages, setFailedImages] = useState<Set<number>>(new Set());
+  const setImageFailed = (index: number, failed: boolean) =>
+    setFailedImages((prev) => {
+      if (prev.has(index) === failed) return prev;
+      const next = new Set(prev);
+      if (failed) next.add(index);
+      else next.delete(index);
+      return next;
+    });
+
+  const { show } = useToast();
+  // Property photos report failures themselves (per-tile border + one batched
+  // toast) instead of the global one-toast-per-file handler.
+  const { mutateAsync: uploadPropertyImage } = useUploadImage(() => {}, {
+    silent: true,
+  });
+
+  const failureBatch = useRef<{ count: number; message: string }>({
+    count: 0,
+    message: "",
+  });
+  const flushTimer = useRef<ReturnType<typeof setTimeout> | undefined>(
+    undefined,
+  );
+  const reportFailure = (error: unknown) => {
+    const message =
+      (error as { message?: unknown })?.message &&
+      typeof (error as { message?: unknown }).message === "string"
+        ? ((error as { message: string }).message)
+        : "Something went wrong. Please try again.";
+    failureBatch.current.count += 1;
+    failureBatch.current.message = message;
+    clearTimeout(flushTimer.current);
+    flushTimer.current = setTimeout(() => {
+      const { count, message: msg } = failureBatch.current;
+      failureBatch.current = { count: 0, message: "" };
+      show(
+        "Upload failed",
+        count > 1
+          ? `${count} images could not be uploaded (${msg}). They are outlined in red.`
+          : msg,
+        "error",
+      );
+    }, 400);
+  };
+  useEffect(() => () => clearTimeout(flushTimer.current), []);
   const { mutate: uploadPropertyVideo, isPending: isVideoUploading } =
     useUploadVideo(() => {});
   const { mutate: uploadOwnershipProof } = useUploadImage(() => {});
@@ -94,46 +140,45 @@ export const useStepSix = (
     if (!file) return;
 
     const previewUrl = URL.createObjectURL(file);
+    setImageFailed(index, false);
     setImages((prev) => {
       const copy = [...prev];
+      if (copy[index]?.startsWith("blob:")) URL.revokeObjectURL(copy[index]);
       copy[index] = previewUrl;
       return copy;
     });
 
-    uploadPropertyImage(
-      { file, folderType: "properties" },
-      {
-        onSuccess: (result) => {
-          setUploadedImages((prev) => {
-            const copy = [...prev];
-            copy[index] = {
-              publicId: result.publicId,
-              optimizedUrl: result.optimizedUrl,
-              resourceType: result.resourceType,
-              format: result.format,
-            };
-            return copy;
-          });
+    // mutateAsync gives each file its own promise; mutate()'s per-call
+    // callbacks only fire for the latest call, which hid earlier failures.
+    uploadPropertyImage({ file, folderType: "properties" })
+      .then((result) => {
+        setUploadedImages((prev) => {
+          const copy = [...prev];
+          copy[index] = {
+            publicId: result.publicId,
+            optimizedUrl: result.optimizedUrl,
+            resourceType: result.resourceType,
+            format: result.format,
+          };
+          return copy;
+        });
 
-          setImages((prev) => {
-            const copy = [...prev];
-            const previousPreview = copy[index];
-            if (previousPreview?.startsWith("blob:")) {
-              URL.revokeObjectURL(previousPreview);
-            }
-            copy[index] = result.optimizedUrl;
-            return copy;
-          });
-        },
-        onError: () => {
-          setImages((prev) => {
-            const copy = [...prev];
-            copy[index] = null;
-            return copy;
-          });
-        },
-      },
-    );
+        setImages((prev) => {
+          const copy = [...prev];
+          const previousPreview = copy[index];
+          if (previousPreview?.startsWith("blob:")) {
+            URL.revokeObjectURL(previousPreview);
+          }
+          copy[index] = result.optimizedUrl;
+          return copy;
+        });
+      })
+      .catch((error) => {
+        // Keep the preview so the user can see which image failed; it is not
+        // in uploadedImages, so it never reaches the draft.
+        setImageFailed(index, true);
+        reportFailure(error);
+      });
   };
 
   const handleIdUpload = (file: File | null) => {
@@ -187,6 +232,7 @@ export const useStepSix = (
     ownershipImage,
     video,
     images,
+    failedImages,
     handleImageChange,
     handleIdUpload,
     handleOwnershipUpload,

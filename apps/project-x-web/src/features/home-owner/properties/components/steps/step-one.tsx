@@ -4,7 +4,7 @@ import { Container } from "@repo/ui";
 import { NumberWrapper } from "../nuggets/number-wrapper";
 import { ContentWrapper } from "../nuggets/content-wrapper";
 import { useState } from "react";
-import { Crown as CrownIcon, Briefcase as BriefcaseIcon } from "@repo/icons";
+import { OwnerIcon as CrownIcon, AgentIcon as BriefcaseIcon } from "@repo/icons";
 import { Text } from "@repo/ui";
 import { Radio } from "@repo/ui";
 import { DraftProperty } from "../../types/property.types";
