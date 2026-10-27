@@ -99,10 +99,12 @@ const HowItWorksCard = ({
   </Container>
 );
 
-export const HowItWorks = () => {
+export const HowItWorks = ({ noPadding }: { noPadding?: boolean }) => {
   return (
     <GeneralSpacer>
-      <Container className="lg:py-28 pb-20 flex flex-col items-center">
+      <Container
+        className={`${!noPadding && "lg:py-28"}  pb-20 flex flex-col items-center`}
+      >
         <HomePill text="How it works" />
         <Container className="mt-4 lg:mb-32 mb-12 lg:w-1/2 w-full text-center">
           <Text variant="h1">

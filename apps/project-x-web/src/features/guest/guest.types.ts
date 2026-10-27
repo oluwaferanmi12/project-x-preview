@@ -46,3 +46,12 @@ export interface GalleryMedia {
   type: "image" | "video";
   src: string | StaticImageData;
 }
+
+export interface Coverage {
+  stateId: string;
+  stateName: string;
+  displayName: string;
+  mapKey: string;
+  imageUrl: string;
+  availableListingCount: number;
+}

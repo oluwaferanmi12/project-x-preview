@@ -1,5 +1,47 @@
 export const PLACEHOLDER_IMAGE = "/guest/property-placeholder.png";
 
+// The coverage API's mapKey -> the map SVG's ISO 3166-2 id.
+// Temporary: remove once the API returns isoCode itself.
+export const MAP_KEY_TO_ISO: Record<string, string> = {
+  ABIA: "NG-AB",
+  ADAMAWA: "NG-AD",
+  AKWA_IBOM: "NG-AK",
+  ANAMBRA: "NG-AN",
+  BAUCHI: "NG-BA",
+  BAYELSA: "NG-BY",
+  BENUE: "NG-BE",
+  BORNO: "NG-BO",
+  CROSS_RIVER: "NG-CR",
+  DELTA: "NG-DE",
+  EBONYI: "NG-EB",
+  EDO: "NG-ED",
+  EKITI: "NG-EK",
+  ENUGU: "NG-EN",
+  FEDERAL_CAPITAL_TERRITORY: "NG-FC",
+  GOMBE: "NG-GO",
+  IMO: "NG-IM",
+  JIGAWA: "NG-JI",
+  KADUNA: "NG-KD",
+  KANO: "NG-KN",
+  KATSINA: "NG-KT",
+  KEBBI: "NG-KE",
+  KOGI: "NG-KO",
+  KWARA: "NG-KW",
+  LAGOS: "NG-LA",
+  NASSARAWA: "NG-NA",
+  NIGER: "NG-NI",
+  OGUN: "NG-OG",
+  ONDO: "NG-ON",
+  OSUN: "NG-OS",
+  OYO: "NG-OY",
+  PLATEAU: "NG-PL",
+  RIVERS: "NG-RI",
+  SOKOTO: "NG-SO",
+  TARABA: "NG-TA",
+  YOBE: "NG-YO",
+  ZAMFARA: "NG-ZA",
+};
+
 export const HERO_PINS = [
   { top: "36%", left: "56%" },
   { top: "56%", left: "26%" },

@@ -9,7 +9,7 @@ import { usePathname } from "next/navigation";
 const NAV_ITEMS = [
   { text: "Available Properties", link: "/available-properties" },
   { text: "How It Works", link: "/how-it-works" },
-  { text: "Coverage", link: "" },
+  { text: "Coverage", link: "/coverage" },
   { text: "Contact us", link: "" },
 ];
 
