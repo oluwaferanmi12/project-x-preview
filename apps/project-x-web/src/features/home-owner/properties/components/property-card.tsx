@@ -64,8 +64,8 @@ export const PropertyCard = ({ property }: { property: PropertyItem }) => {
   };
 
   return (
-    <Container className="overflow-hidden rounded-3xl border border-line bg-surface">
-      <Container className="relative h-32 w-full overflow-hidden bg-muted">
+    <Container className="flex h-full flex-col overflow-hidden rounded-3xl border border-line bg-surface">
+      <Container className="relative h-32 w-full shrink-0 overflow-hidden bg-muted">
         <Image
           src={property.image || "/draft-image-placeholder.png"}
           alt={property.title}
@@ -97,7 +97,7 @@ export const PropertyCard = ({ property }: { property: PropertyItem }) => {
         )}
       </Container>
 
-      <Container className="px-3.5 pt-3 pb-1">
+      <Container className="flex flex-1 flex-col px-3.5 pt-3 pb-1">
         <Text
           tone="primary"
           variant="h4"
@@ -106,7 +106,7 @@ export const PropertyCard = ({ property }: { property: PropertyItem }) => {
           {property.title}
         </Text>
 
-        <Container className="mt-3 flex flex-wrap gap-2">
+        <Container className="mt-3 flex flex-1 flex-wrap content-start gap-2">
           <FeaturePill icon="🏠" label={property.meta.type} />
           <FeaturePill icon="🛏️" label={`${property.meta.beds} Beds`} />
           <FeaturePill icon="🛁" label={`${property.meta.baths} Baths`} />
