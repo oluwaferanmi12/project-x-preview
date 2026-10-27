@@ -28,28 +28,31 @@ export const ReviewCommentCard = ({
       }
     }}
   >
-    <Container className="grid grid-cols-[46px_minmax(0,1fr)] gap-3">
-      {/* Left only avatar */}
-      <Container className="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg bg-p50">
-        <Text variant="bodyRegular" className="font-bold" tone="p300">
-          {review.initials}
+    <Container>
+      {/* Header: avatar, name + stars, date */}
+      <Container className="flex items-start gap-3">
+        <Container className="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg bg-p50">
+          <Text variant="bodyRegular" className="font-bold" tone="p300">
+            {review.initials}
+          </Text>
+        </Container>
+
+        <Container className="min-w-0 flex-1">
+          <Text variant="bodyRegular" className="truncate font-semibold" tone="primary">
+            {review.author}
+          </Text>
+          <Container className="mt-1">
+            <StarRating rating={review.rating} />
+          </Container>
+        </Container>
+
+        <Text variant="body-xs" className="shrink-0" tone="secondary">
+          {review.date}
         </Text>
       </Container>
 
-      {/* Right content */}
+      {/* Body spans the full card width, under the avatar */}
       <Container className="min-w-0">
-        <Container className="flex items-start justify-between gap-2">
-          <Container className="min-w-0">
-            <Text variant="bodyRegular" className="truncate font-semibold" tone="primary">
-              {review.author}
-            </Text>
-            <Text variant="body-xs" className="mt-1" tone="secondary">
-              {review.date}
-            </Text>
-          </Container>
-
-          <StarRating rating={review.rating} />
-        </Container>
         <Text
         variant="body-sm"
           className="mt-3 line-clamp-2"
