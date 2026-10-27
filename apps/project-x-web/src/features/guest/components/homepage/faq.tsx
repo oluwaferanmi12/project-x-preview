@@ -49,24 +49,24 @@ export const Faq = () => {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
 
   return (
-    <Container className="relative isolate overflow-hidden py-28 bg-surface">
+    <Container className="relative isolate overflow-hidden lg:py-28 py-20 bg-surface">
       {/* Decorative tilted bars bleeding off each side of the section. Each is
           a 136 × 482 rounded block rotated 25.6° counter-clockwise about its
           top-left corner; top/left give that corner's position. They sit
           behind the content (-z-10 inside the isolated section). */}
       <Container
         aria-hidden="true"
-        className="pointer-events-none absolute -z-10 top-[259px] -left-[226px] h-[481.64px] w-[136.22px] origin-top-left rotate-[-25.6deg] rounded-4xl bg-[#E6BBBA]"
+        className="pointer-events-none absolute -z-10 top-64.75 lg:block hidden -left-56.5 h-[481.64px] w-[136.22px] origin-top-left rotate-[-25.6deg] rounded-4xl bg-[#E6BBBA]"
       />
       <Container
         aria-hidden="true"
-        className="pointer-events-none absolute -z-10 top-[261px] left-[calc(100%-81px)] h-[481.64px] w-[136.22px] origin-top-left rotate-[-25.6deg] rounded-4xl bg-p100"
+        className="pointer-events-none absolute -z-10 top-65.25 lg:block hidden left-[calc(100%-81px)] h-[481.64px] w-[136.22px] origin-top-left rotate-[-25.6deg] rounded-4xl bg-p100"
       />
       <GeneralSpacer>
         <Row>
-          <Col xs={12}>
+          <Col lg={12} xs={24}>
             <HomePill text="Frequently Asked Questions" />
-            <Container className="my-4 w-1/2">
+            <Container className="my-4 lg:w-1/2">
               <Text tone="primary" variant="h2">
                 Answers to your possible questions
               </Text>
@@ -78,8 +78,8 @@ export const Faq = () => {
               </Text>
             </Text>
           </Col>
-          <Col xs={12}>
-            <Container className="py-5 px-16">
+          <Col lg={12} xs={24}>
+            <Container className="py-5 lg:px-16">
               {FAQS.map((faq, index) => (
                 <FaqBox
                   key={faq.question}

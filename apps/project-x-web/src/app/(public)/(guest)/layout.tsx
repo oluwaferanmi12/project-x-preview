@@ -2,6 +2,7 @@ import type { ReactNode } from "react";
 import { ForceLightTheme } from "@/context/ForceLightTheme";
 import { Navbar } from "@/features/guest/components/navbar";
 import { Container, GeneralSpacer } from "@repo/ui";
+import { HomeFooter } from "@/features/guest/components/homepage/footer";
 
 // Landing page and guest views are always light, even if the visitor's
 // saved or OS preference is dark.
@@ -11,6 +12,7 @@ export default function GuestLayout({ children }: { children: ReactNode }) {
       <ForceLightTheme />
       <Navbar />
       {children}
+      <HomeFooter />
     </Container>
   );
 }

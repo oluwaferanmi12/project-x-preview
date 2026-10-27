@@ -1,7 +1,6 @@
 import type { ListingResponse } from "@/features/home-owner/properties/types/property.types";
 import type {
   GalleryMedia,
-  GuestProperty,
   GuestPropertyDetails,
 } from "./guest.types";
 
@@ -46,19 +45,6 @@ const listerRole = (listing: ListingResponse) =>
 
 const yesNo = (value: boolean | null) => (value ? "Yes" : "No");
 
-export const toGuestProperty = (listing: ListingResponse): GuestProperty => ({
-  id: listing.id ?? "",
-  image: sortedImages(listing)[0]?.url ?? PLACEHOLDER_IMAGE,
-  location: formatLocation(listing),
-  price: listing.rentAmount ?? 0,
-  period: PERIOD_MAP[listing.rentPaymentFrequency ?? "ANNUALLY"],
-  type: listing.propertyTypeName ?? "",
-  beds: listing.bedroomCount ?? 0,
-  baths: listing.bathroomCount ?? 0,
-  listerRole: listerRole(listing),
-  listerInitials: listing.relationshipType === "AGENT" ? "AG" : "HO",
-  date: formatDate(listing.createdAt),
-});
 
 export const toGalleryMedia = (listing: ListingResponse): GalleryMedia[] => {
   const images: GalleryMedia[] = sortedImages(listing).map((image, index) => ({

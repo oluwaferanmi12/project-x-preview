@@ -25,12 +25,8 @@ import {
   useGetPublishedListing,
   useGetPublishedListings,
 } from "../hooks/guest.hooks";
-import {
-  PLACEHOLDER_IMAGE,
-  toGalleryMedia,
-  toGuestProperty,
-  toGuestPropertyDetails,
-} from "../guest.mappers";
+import { toGalleryMedia, toGuestPropertyDetails } from "../guest.mappers";
+import { PLACEHOLDER_IMAGE } from "../guest.constants";
 import { PropertyDetailsTab as TabKey } from "../guest.types";
 
 function PropertyDetailsScreen({ propertyId }: { propertyId: string }) {
@@ -41,7 +37,7 @@ function PropertyDetailsScreen({ propertyId }: { propertyId: string }) {
   const [gallery, setGallery] = useState<number | null | undefined>(undefined);
   const requireLogin = () => setLoginOpen(true);
   const { data: listing, isLoading, isError } = useGetPublishedListing(propertyId);
-  const { data: listingsPage } = useGetPublishedListings(1);
+  const { data: listings } = useGetPublishedListings(1);
 
   if (isLoading || !listing) {
     return (
@@ -64,10 +60,9 @@ function PropertyDetailsScreen({ propertyId }: { propertyId: string }) {
   const media = toGalleryMedia(listing);
   const images = media.filter((item) => item.type === "image");
   const thumbnails = images.slice(0, 4).map((item) => item.src);
-  const similar = (listingsPage?.listings ?? [])
+  const similar = (listings ?? [])
     .filter((item) => item.id !== propertyId)
-    .slice(0, 8)
-    .map(toGuestProperty);
+    .slice(0, 8);
 
   return (
     <Container>

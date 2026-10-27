@@ -20,7 +20,7 @@ export function ProfileSettings({
       <Text as="h2" variant="body-sm">
         Settings
       </Text>
-      <SettingsAction kind="key" onClick={onChangePassword}>
+      {/* <SettingsAction kind="key" onClick={onChangePassword}>
         Change Password
       </SettingsAction>
       <SettingsAction kind="user" onClick={onDeleteProfile}>
@@ -28,7 +28,7 @@ export function ProfileSettings({
       </SettingsAction>
       <SettingsAction kind="trash" onClick={onDeleteAccount}>
         Delete Account
-      </SettingsAction>
+      </SettingsAction> */}
     </Container>
   );
 }

@@ -78,7 +78,7 @@ export const Select = ({
   };
 
   const triggerClasses = [
-    "flex w-full items-center justify-between gap-2 rounded-xl p-3 text-left font-sans text-sm outline-none transition-colors",
+    "flex w-full items-center justify-between gap-2 rounded-2xl p-3 text-left font-sans text-sm outline-none transition-colors",
     "focus-visible:border-2 focus-visible:border-p75",
     disabled
       ? `cursor-not-allowed ${loading ? "" : "opacity-60"}`
@@ -135,7 +135,7 @@ export const Select = ({
         {open ? (
           <ul
             role="listbox"
-            className="scrollbar-hide absolute left-0 top-full z-50 mt-2 max-h-60 min-w-full overflow-y-auto rounded-xl border border-line bg-surface p-1 shadow-lg"
+            className="scrollbar-hide absolute left-0 top-full z-50 mt-2 max-h-60 min-w-full overflow-y-auto rounded-2xl border border-line bg-surface p-1 shadow-lg"
           >
             {options.map((option) => {
               const isSelected = option.value === currentValue;

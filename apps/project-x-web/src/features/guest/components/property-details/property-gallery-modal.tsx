@@ -28,14 +28,14 @@ const ChromeButton = ({
     shorter
     aria-label={label}
     onClick={onClick}
-    className={`!h-9 !w-9 !rounded-lg !bg-[#2a2a2a] !p-0 !text-inverted hover:!bg-[#3a3a3a] ${className}`}
+    className={`!h-9 !w-9 !rounded-lg !bg-background-dark !p-0 !text-inverted hover:!bg-[#3a3a3a] ${className}`}
   >
     {children}
   </Button>
 );
 
 const CountPill = ({ children }: { children: ReactNode }) => (
-  <Container className="flex h-9 items-center gap-2 rounded-lg bg-[#2a2a2a] px-3 text-inverted">
+  <Container className="flex h-9 items-center gap-2 rounded-lg bg-background-dark px-3 text-inverted">
     <IconImage size={16} />
     <Text as="span" variant="action-label" tone="inverted">
       {children}
@@ -155,7 +155,7 @@ export const PropertyGalleryModal = ({
                   className="object-cover"
                 />
               ) : (
-                <Container className="absolute inset-0 bg-[#2a2a2a]" />
+                <Container className="absolute inset-0 bg-background-dark" />
               )}
               {item.type === "video" && <VideoBadge />}
             </Button>

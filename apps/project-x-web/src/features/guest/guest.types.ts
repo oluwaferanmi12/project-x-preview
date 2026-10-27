@@ -1,31 +1,18 @@
 import type { StaticImageData } from "next/image";
+import type { ListingResponse } from "@/features/home-owner/properties/types/property.types";
 
-export interface PropertySearchFilters {
-  stateId: string;
-  lgaId: string;
-  area: string;
-  propertyTypeIds: string[];
-  minRent: number | null;
-  maxRent: number | null;
-  bedrooms: string;
-  bathrooms: string;
-  toilets: string;
+export interface GuestPropertyOwner {
+  id: string;
+  firstName: string;
+  lastName: string;
+  avatar: string | null;
 }
 
-export type SearchFilterKey = "location" | "propertyType" | "bedroom" | "bathToilet" | "rent";
-
-export interface GuestProperty {
-  id: string;
-  image: string;
-  location: string;
-  price: number;
-  period: "annually" | "bi-annually" | "monthly";
-  type: string;
-  beds: number;
-  baths: number;
-  listerRole: "Agent" | "House Owner";
-  listerInitials: string;
-  date: string;
+/** A listing from the public /properties list: the full listing plus its owner and cover image. */
+export interface GuestPropertyListing extends ListingResponse {
+  owner: GuestPropertyOwner;
+  coverImageUrl: string;
+  neighbourhood: string;
 }
 
 export type PropertyDetailsTab = "details" | "reviews";
@@ -33,7 +20,7 @@ export type PropertyDetailsTab = "details" | "reviews";
 export interface GuestPropertyDetails {
   id: string;
   price: number;
-  period: GuestProperty["period"];
+  period: "annually" | "bi-annually" | "monthly";
   date: string;
   location: string;
   type: string;
@@ -58,4 +45,13 @@ export interface GalleryMedia {
   id: string;
   type: "image" | "video";
   src: string | StaticImageData;
+}
+
+export interface Coverage {
+  stateId: string;
+  stateName: string;
+  displayName: string;
+  mapKey: string;
+  imageUrl: string;
+  availableListingCount: number;
 }
