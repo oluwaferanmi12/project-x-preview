@@ -22,7 +22,6 @@ function AvailablePropertiesScreen() {
           <AvailablePropertyListing />
         </Container>
       </GeneralSpacer>
-      <HomeFooter />
     </Container>
   );
 }
