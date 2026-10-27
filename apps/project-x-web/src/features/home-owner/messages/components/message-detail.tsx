@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { ArrowLeft, BuildingIcon, ChevronRight, IconImage } from "@repo/icons";
 import { Button, Text, Container, Textarea } from "@repo/ui";
 import { MessageThread } from "../types/messages.types";
@@ -17,6 +17,13 @@ export function MessageDetail({ thread }: MessageDetailProps) {
   const [selectedImage, setSelectedImage] = useState<File | null>(null);
 
   const imageInputRef = useRef<HTMLInputElement>(null);
+  const messagesRef = useRef<HTMLDivElement>(null);
+
+  // Open each conversation at its latest message.
+  useEffect(() => {
+    const el = messagesRef.current;
+    if (el) el.scrollTop = el.scrollHeight;
+  }, [thread?.id, thread?.messages.length]);
 
   const handleOpenImagePicker = () => {
     imageInputRef.current?.click();
@@ -66,9 +73,9 @@ export function MessageDetail({ thread }: MessageDetailProps) {
   }
 
   return (
-    <Container className="flex flex-col h-full bg-surface">
+    <Container className="flex flex-col h-full min-h-0 bg-surface">
       {/* MOBILE Header */}
-      <Container className="sm:hidden flex items-center rounded-tl-xl md:rounded-tl-none rounded-tr-xl border border-line px-5 py-2">
+      <Container className="shrink-0 sm:hidden flex items-center rounded-tl-xl md:rounded-tl-none rounded-tr-xl border border-line px-5 py-2">
         <Container className="flex min-w-0 items-center gap-3">
           <Container className="flex h-[48px] w-[48px] shrink-0 items-center justify-center rounded-xl bg-p300">
             <Text variant="h4" tone="inverted" className="font-bold">
@@ -105,7 +112,7 @@ export function MessageDetail({ thread }: MessageDetailProps) {
 
 
       {/* DESKTOP Header */}
-      <Container className="hidden md:flex items-center justify-between rounded-tr-xl border border-line px-5 py-2">
+      <Container className="shrink-0 hidden md:flex items-center justify-between rounded-tr-xl border border-line px-5 py-2">
         <Container className="flex min-w-0 items-center gap-3">
           <Container className="flex h-[48px] w-[48px] shrink-0 items-center justify-center rounded-xl bg-p300">
             <Text variant="h4" tone="inverted" className="font-bold">
@@ -138,7 +145,10 @@ export function MessageDetail({ thread }: MessageDetailProps) {
 
 
       {/* Messages */}
-      <Container className="flex-1 overflow-y-auto px-5 pb-4">
+      <Container
+        ref={messagesRef}
+        className="min-h-0 flex-1 overflow-y-auto px-5 pb-4 pt-4"
+      >
         {thread.messages.map((message, index) => {
           const currentDay = getMessageDay(message.timestamp);
 
@@ -233,7 +243,7 @@ export function MessageDetail({ thread }: MessageDetailProps) {
       </Container>
 
       {/* Input */}
-      <Container className="p-4">
+      <Container className="shrink-0 p-4">
         {/* Hidden image input */}
         <input
           ref={imageInputRef}
