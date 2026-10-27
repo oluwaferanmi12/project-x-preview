@@ -11,6 +11,13 @@ const variantClass: Record<SelectVariant, string> = {
   secondary: "bg-[var(--s50)] text-[var(--s300)]",
 };
 
+const normalize = (text: string) =>
+  text
+    .normalize("NFD")
+    .replace(/[̀-ͯ]/g, "")
+    .toLowerCase()
+    .trim();
+
 export const Select = ({
   label,
   hideLabel = false,
@@ -27,6 +34,8 @@ export const Select = ({
   disabled: disabledProp,
   loading = false,
   loadingText = "Loading...",
+  searchable = false,
+  searchPlaceholder = "Search...",
   id,
   "aria-label": ariaLabel,
 }: SelectProps) => {
@@ -49,6 +58,39 @@ export const Select = ({
     : isPlaceholder
     ? (selected?.label ?? placeholder ?? "")
     : selected.label;
+
+  const [query, setQuery] = React.useState("");
+  const deferredQuery = React.useDeferredValue(query);
+
+  // Normalise labels once per options change, not on every keystroke.
+  const indexed = React.useMemo(
+    () =>
+      searchable
+        ? options.map((option) => ({
+            option,
+            key: normalize(option.label),
+          }))
+        : [],
+    [options, searchable],
+  );
+
+  const visibleOptions = React.useMemo(() => {
+    const q = normalize(deferredQuery);
+    if (!searchable || !q) return options;
+    const prefix: typeof options = [];
+    const contains: typeof options = [];
+    for (const { option, key } of indexed) {
+      // The empty-value placeholder option isn't a real result.
+      if (option.value === "") continue;
+      if (key.startsWith(q)) prefix.push(option);
+      else if (key.includes(q)) contains.push(option);
+    }
+    return prefix.concat(contains);
+  }, [options, indexed, deferredQuery, searchable]);
+
+  React.useEffect(() => {
+    if (!open) setQuery("");
+  }, [open]);
 
   React.useEffect(() => {
     if (!open) return;
@@ -133,11 +175,35 @@ export const Select = ({
           )}
         </button>
         {open ? (
+          <div className="absolute left-0 top-full z-50 mt-2 min-w-full rounded-2xl border border-line bg-surface p-1 shadow-lg">
+          {searchable ? (
+            <input
+              autoFocus
+              type="text"
+              value={query}
+              onChange={(event) => setQuery(event.target.value)}
+              onKeyDown={(event) => {
+                if (event.key === "Enter") {
+                  event.preventDefault();
+                  const first = visibleOptions.find((o) => !o.disabled);
+                  if (first && query) handleSelect(first.value);
+                }
+              }}
+              placeholder={searchPlaceholder}
+              aria-label={searchPlaceholder}
+              className="mb-1 w-full rounded-lg border border-line bg-surface px-3 py-2 font-sans text-sm text-primary outline-none focus:border-p75"
+            />
+          ) : null}
           <ul
             role="listbox"
-            className="scrollbar-hide absolute left-0 top-full z-50 mt-2 max-h-60 min-w-full overflow-y-auto rounded-2xl border border-line bg-surface p-1 shadow-lg"
+            className="scrollbar-hide max-h-60 overflow-y-auto"
           >
-            {options.map((option) => {
+            {searchable && visibleOptions.length === 0 ? (
+              <li className="px-3 py-2 font-sans text-sm text-secondary">
+                No results found
+              </li>
+            ) : null}
+            {visibleOptions.map((option) => {
               const isSelected = option.value === currentValue;
               return (
                 <li
@@ -161,6 +227,7 @@ export const Select = ({
               );
             })}
           </ul>
+          </div>
         ) : null}
       </Container>
       {error && (

@@ -3,8 +3,8 @@
 import { useState } from "react";
 import {
   OutlineMessageIcon,
-  RatingMessagesIcon,
-  RatingStarIcon,
+  MessagesTwo,
+  StarIcon,
 } from "@repo/icons";
 import { Button, Container, Pagination, Text } from "@repo/ui";
 import { reviewedProperties } from "@/features/home-owner/reviews/data/reviews.mock";
@@ -42,7 +42,7 @@ export const PropertyReviewsTab = ({
           suffix="/5.0"
           className="bg-indigo-back"
           valueClassName="text-indigo-fore"
-          icon={<RatingStarIcon className="text-indigo-fore" />}
+          icon={<StarIcon size={72} className="text-indigo-fore" />}
           singleBandFullWidth
         />
         <MetricBand
@@ -50,7 +50,7 @@ export const PropertyReviewsTab = ({
           value={reviewedProperty.totalReviews.toString()}
           className="bg-purple-fore"
           valueClassName="text-purple-back"
-          icon={<RatingMessagesIcon className="text-purple-back" />}
+          icon={<MessagesTwo size={72} className="text-purple-back" />}
           singleBandFullWidth
         />
       </Container>

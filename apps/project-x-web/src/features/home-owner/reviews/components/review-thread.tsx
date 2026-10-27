@@ -1,4 +1,4 @@
-import { ArrowLeft, OutlineMessageIcon, OutlineThumbUpIcon, RatingStarIcon } from "@repo/icons";
+import { ArrowLeft, OutlineMessageIcon, OutlineThumbUpIcon, StarIcon } from "@repo/icons";
 import { Button, Container, Text } from "@repo/ui";
 import type { ReviewedProperty, ReviewItem, ReviewReply } from "../data/reviews.mock";
 import { StarRating } from "./star-rating";
@@ -187,7 +187,7 @@ export const ReviewThread = ({ property, review, totalProperties, onBack }: Revi
             suffix="/5.0"
             className="bg-indigo-back"
             valueClassName="text-indigo-fore"
-            icon={<RatingStarIcon className="text-indigo-fore" />}
+            icon={<StarIcon size={72} className="text-indigo-fore" />}
             singleBandFullWidth
           />
           <RatingBreakdown property={property} />

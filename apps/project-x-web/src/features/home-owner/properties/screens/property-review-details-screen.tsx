@@ -11,7 +11,7 @@ import {
   ChevronArrowDown,
   Close,
   DetailsReviewCheckIcon,
-  LightClock,
+  DateIcon,
   PropertyFinalisingIcon,
   PropertyInProgressIcon,
   PropertyPendingIcon,
@@ -186,7 +186,7 @@ export const PropertyReviewDetailsScreen = ({
               </Container>
 
               <Container className="flex items-center gap-1 text-secondary">
-                <LightClock size={16} />
+                <DateIcon size={16} />
                 <Text variant="body-xs" tone="secondary">
                   {property.date}
                 </Text>

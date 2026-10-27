@@ -29,11 +29,11 @@ export function MessageList({
   );
 
   return (
-    <Container className="flex flex-col h-full ">
+    <Container className="flex flex-col h-full min-h-0">
       {/* Header */}
-      <Container className="pt-6 px-3.5 pb-3 rounded-tr-xl rounded-tl-xl md:rounded-tr-none border border-b-0 border-line">
+      <Container className="shrink-0 pt-6 px-3.5 pb-3 rounded-tr-xl rounded-tl-xl md:rounded-tr-none border border-b-0 border-line">
         <Container className="flex items-center gap-3 mb-3">
-          <Text variant="h5" className="font-semibold">
+          <Text variant="h5" className="font-semibold" tone="primary">
             All Messages
           </Text>
 
@@ -46,7 +46,7 @@ export function MessageList({
       </Container>
 
       {/* Messages List */}
-      <Container className="flex-1 overflow-y-auto border border-line">
+      <Container className="min-h-0 flex-1 overflow-y-auto border border-line">
         {filteredThreads.map((thread) => {
           const isActive = selectedThreadId === thread.id;
 
@@ -63,7 +63,7 @@ export function MessageList({
               key={thread.id}
               onClick={() => onSelectThread(thread.id)}
               className={`
-               relative cursor-pointer border-b border-line  py-3 `}
+               relative cursor-pointer border-b border-line py-3 last:border-b-0`}
             >
               <Container className={`pl-2 pr-4 py-3  hover:bg-s50 ${isActive && "bg-s50 border-r-8 border-s300"}`}>
 

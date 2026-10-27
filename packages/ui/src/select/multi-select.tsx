@@ -17,6 +17,32 @@ type MultiSelectProps = {
   className?: string;
 };
 
+const isImageSource = (icon: string) => /^(https?:)?\/\//.test(icon) || icon.startsWith("/");
+
+const OptionIcon = ({ icon, label }: { icon?: string; label: string }) => {
+  const [failed, setFailed] = React.useState(false);
+  if (!icon) return null;
+
+  if (isImageSource(icon)) {
+    if (failed) return null;
+    return (
+      // eslint-disable-next-line @next/next/no-img-element
+      <img
+        src={icon}
+        alt={label}
+        width={16}
+        height={16}
+        loading="lazy"
+        onError={() => setFailed(true)}
+        className="h-4 w-4 shrink-0 rounded-sm object-cover"
+      />
+    );
+  }
+
+  // Short strings are treated as emoji; anything longer is not a usable icon.
+  return icon.length <= 4 ? <span aria-hidden="true">{icon}</span> : null;
+};
+
 export const MultiSelect = ({
   options,
   value,
@@ -41,7 +67,7 @@ export const MultiSelect = ({
             key={option.value}
             isClickable
             isActive={isSelected}
-            icon={option.icon}
+            icon={<OptionIcon icon={option.icon} label={option.label} />}
             label={option.label}
             handleClick={() => toggleOption(option.value)}
           />

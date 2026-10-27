@@ -23,6 +23,7 @@ export const StepSix = ({
     ownershipImage,
     video,
     images,
+    failedImages,
     handleImageChange,
     handleIdUpload,
     handleOwnershipUpload,
@@ -51,6 +52,7 @@ export const StepSix = ({
                 key={i}
                 value={img}
                 onChange={(file) => handleImageChange(i, file)}
+                hasError={failedImages.has(i)}
                 className="h-32"
               />
             ))}

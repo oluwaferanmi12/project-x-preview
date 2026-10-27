@@ -83,15 +83,17 @@ export function MessagesScreen({ propertyId }: MessagesScreenProps) {
         </Text>
       )}
 
-      <Container className="flex h-screen flex-col gap-0">
+      {/* Fixed to the space left under the navbar and title so the page itself
+          doesn't scroll; the list and the conversation scroll internally. */}
+      <Container className="flex h-[calc(100dvh-14rem)] min-h-[28rem] flex-col gap-0">
         <Container
           as="div"
-          className="flex flex-1 gap-0 overflow-hidden rounded-xl bg-surface shadow-sm"
+          className="flex min-h-0 flex-1 gap-0 overflow-hidden rounded-xl bg-surface shadow-sm"
         >
           {!isMobileView ? (
             <>
               {/* Desktop message list */}
-              <Container as="div" className="w-[30%]">
+              <Container as="div" className="h-full min-h-0 w-[30%]">
                 <MessageList
                   threads={threads}
                   selectedThreadId={selectedThreadId}
@@ -100,7 +102,7 @@ export function MessagesScreen({ propertyId }: MessagesScreenProps) {
               </Container>
 
               {/* Desktop message detail */}
-              <Container as="div" className="flex-1">
+              <Container as="div" className="h-full min-h-0 flex-1">
                 <MessageDetail
                   thread={selectedThread}
                 />
@@ -108,7 +110,7 @@ export function MessagesScreen({ propertyId }: MessagesScreenProps) {
             </>
           ) : selectedThreadId === null ? (
             // Mobile always begins with the message list
-            <Container as="div" className="w-full">
+            <Container as="div" className="h-full min-h-0 w-full">
               <MessageList
                 threads={threads}
                 selectedThreadId={null}
@@ -117,7 +119,7 @@ export function MessagesScreen({ propertyId }: MessagesScreenProps) {
             </Container>
           ) : (
             // A chat opens only after the user selects it
-            <Container as="div" className="w-full">
+            <Container as="div" className="h-full min-h-0 w-full">
               <MessageDetail
                 thread={selectedThread}
               />

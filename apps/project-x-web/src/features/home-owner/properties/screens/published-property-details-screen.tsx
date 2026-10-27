@@ -12,7 +12,7 @@ import {
   BuildingIcon,
   CheckIcon,
   ChevronArrowDown,
-  LightClock,
+  DateIcon,
   RedStarIcon,
   MessagesFillIcon as MessagesIcon,
   BookeepIcon,
@@ -194,7 +194,7 @@ export const PublishedPropertyDetailsScreen = ({
               </Container>
 
               <Container className="flex items-center gap-1 text-secondary">
-                <LightClock size={16} />
+                <DateIcon size={16} />
                 <Text variant="body-xs" tone="secondary">
                   {property.date}
                 </Text>

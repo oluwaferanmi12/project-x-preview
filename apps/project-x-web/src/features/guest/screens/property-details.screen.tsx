@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { ArrowLeft, LightClock } from "@repo/icons";
+import { ArrowLeft, DateIcon } from "@repo/icons";
 import { Button, Container, GeneralSpacer, Text } from "@repo/ui";
 import { FeaturePill } from "@/features/home-owner/properties/components/nuggets/feature-pill";
 import { HomeFooter } from "../components/homepage/footer";
@@ -102,7 +102,7 @@ function PropertyDetailsScreen({ propertyId }: { propertyId: string }) {
                     </Text>
                   </Container>
                   <Container className="flex items-center gap-1 text-secondary">
-                    <LightClock size={14} />
+                    <DateIcon size={14} />
                     <Text variant="body-xs" tone="secondary">
                       {property.date}
                     </Text>
