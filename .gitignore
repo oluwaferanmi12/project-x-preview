@@ -21,7 +21,11 @@ out
 # Build outputs
 dist
 build
-coverage
+
+# Test coverage reports (anchored so app folders named "coverage" are not ignored)
+/coverage
+apps/*/coverage
+packages/*/coverage
 
 # TypeScript
 *.tsbuildinfo

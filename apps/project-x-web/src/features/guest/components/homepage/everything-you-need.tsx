@@ -1,4 +1,4 @@
-import { Button, Container, Text } from "@repo/ui";
+import { Button, Container, GeneralSpacer, Text } from "@repo/ui";
 import Image from "next/image";
 import React from "react";
 import { figmaGradient } from "@/features/guest/lib/figma-gradient";
@@ -30,6 +30,7 @@ const OVERLAY = [
 
 export const EverythingYouNeed = () => {
   return (
+
     <Container className="relative overflow-hidden py-28">
       {/* Background photo via next/image so the 4096px source is resized for
           the viewport. The 32.5% vertical position matches the design's crop. */}
@@ -46,34 +47,37 @@ export const EverythingYouNeed = () => {
         className="absolute inset-0"
         style={{ background: OVERLAY }}
       />
-      <Container className="relative flex flex-col items-center text-center">
-        <Container className="flex max-w-2xl flex-col items-center gap-4">
-          {/* The design's heading is ~52px, slightly above the h1 scale (48px);
+      <GeneralSpacer>
+        <Container className="relative flex flex-col items-center text-center">
+          <Container className="flex max-w-2xl flex-col items-center gap-4">
+            {/* The design's heading is ~52px, slightly above the h1 scale (48px);
               larger only from lg up so it still shrinks on small screens.
               The ! beats the custom .text-h1 rule, which a plain class doesn't. */}
-          <Text
-            variant="h1"
-            tone="inverted"
-            className="lg:text-[52px]! lg:leading-[1.125]!"
-          >
-            Everything you need to find or list a home.
-          </Text>
-          <Text variant="body-lg" tone="inverted">
-            Whether you’re looking for your next home or managing properties,
-            our mobile app will make the experience easier, faster, and more
-            convenient.
-          </Text>
+            <Text
+              variant="h1"
+              tone="inverted"
+              className="lg:text-[52px]! lg:leading-[1.125]!"
+            >
+              Everything you need to find or list a home.
+            </Text>
+            <Text variant="body-lg" tone="inverted">
+              Whether you’re looking for your next home or managing properties,
+              our mobile app will make the experience easier, faster, and more
+              convenient.
+            </Text>
+          </Container>
+          <Container className="mt-10 flex flex-wrap justify-center gap-6">
+            {/* min-w, not w: Button's own w-auto would win over a w-* class. */}
+            <Button variant="muted" shorter className="h-10 min-w-46.5">
+              Renters
+            </Button>
+            <Button variant="secondary" shorter className="h-10 min-w-46.5">
+              Property Listers
+            </Button>
+          </Container>
         </Container>
-        <Container className="mt-10 flex flex-wrap justify-center gap-6">
-          {/* min-w, not w: Button's own w-auto would win over a w-* class. */}
-          <Button variant="muted" shorter className="h-10 min-w-46.5">
-            Renters
-          </Button>
-          <Button variant="secondary" shorter className="h-10 min-w-46.5">
-            Property Listers
-          </Button>
-        </Container>
-      </Container>
+      </GeneralSpacer>
+
     </Container>
   );
 };

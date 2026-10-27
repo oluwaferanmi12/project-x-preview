@@ -6,7 +6,7 @@ import { AvailableProperties } from "../components/homepage/available-properties
 import { WhereWeOperate } from "../components/homepage/where-we-operate";
 import { Faq } from "../components/homepage/faq";
 import { EverythingYouNeed } from "../components/homepage/everything-you-need";
-import { HomeFooter } from "../components/homepage/footer";
+
 
 function HomePage() {
   return (
@@ -17,7 +17,6 @@ function HomePage() {
       <WhereWeOperate />
       <Faq />
       <EverythingYouNeed />
-      <HomeFooter />
     </Container>
   );
 }

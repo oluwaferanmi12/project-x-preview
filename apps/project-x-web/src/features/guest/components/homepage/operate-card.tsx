@@ -11,7 +11,7 @@ export const OperateCard = ({
   title: string;
   description: string;
 }) => (
-  <Container className="flex flex-1 flex-col justify-between gap-8 rounded-3xl bg-[#2a2a2a] p-6">
+  <Container className="flex flex-1 flex-col justify-between gap-8 rounded-3xl bg-background-dark p-6">
     <Image src={icon} alt="" width={40} height={40} quality={100} />
     <Container className="flex flex-col gap-2">
       <Text variant="action-label" className="!font-bold text-white">

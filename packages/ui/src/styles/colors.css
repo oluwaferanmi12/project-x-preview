@@ -255,6 +255,10 @@ html.dark {
   --color-indigo-fore: var(--indigo-fore);
   --color-pink-back: var(--pink-back);
   --color-pink-fore: var(--pink-fore);
+  /* Always the dark-mode value, for dark sections on light pages */
+  --color-pink-back-dark: #4c0d19;
+  --color-pink-fore-dark: #ff5777;
+  --color-background-dark: #2a2a2a;
   --color-blue-back: var(--blue-back);
   --color-blue-fore: var(--blue-fore);
   --color-purple-fore: var(--purple-fore);

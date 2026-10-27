@@ -1,4 +1,4 @@
-import HomePage from "@/features/guest/screens/homepage";
+import HomePage from "@/features/guest/screens/homepage.screen";
 
 
 export default function Home() {

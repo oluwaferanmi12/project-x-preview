@@ -1,35 +1,46 @@
-import { PropertySearchFilters } from "./guest.types";
+export const PLACEHOLDER_IMAGE = "/guest/property-placeholder.png";
 
-export const ANY_OPTION = "any";
-
-export const DEFAULT_SEARCH_FILTERS: PropertySearchFilters = {
-  stateId: "",
-  lgaId: "",
-  area: "",
-  propertyTypeIds: [],
-  minRent: null,
-  maxRent: null,
-  bedrooms: ANY_OPTION,
-  bathrooms: ANY_OPTION,
-  toilets: ANY_OPTION,
+// The coverage API's mapKey -> the map SVG's ISO 3166-2 id.
+// Temporary: remove once the API returns isoCode itself.
+export const MAP_KEY_TO_ISO: Record<string, string> = {
+  ABIA: "NG-AB",
+  ADAMAWA: "NG-AD",
+  AKWA_IBOM: "NG-AK",
+  ANAMBRA: "NG-AN",
+  BAUCHI: "NG-BA",
+  BAYELSA: "NG-BY",
+  BENUE: "NG-BE",
+  BORNO: "NG-BO",
+  CROSS_RIVER: "NG-CR",
+  DELTA: "NG-DE",
+  EBONYI: "NG-EB",
+  EDO: "NG-ED",
+  EKITI: "NG-EK",
+  ENUGU: "NG-EN",
+  FEDERAL_CAPITAL_TERRITORY: "NG-FC",
+  GOMBE: "NG-GO",
+  IMO: "NG-IM",
+  JIGAWA: "NG-JI",
+  KADUNA: "NG-KD",
+  KANO: "NG-KN",
+  KATSINA: "NG-KT",
+  KEBBI: "NG-KE",
+  KOGI: "NG-KO",
+  KWARA: "NG-KW",
+  LAGOS: "NG-LA",
+  NASSARAWA: "NG-NA",
+  NIGER: "NG-NI",
+  OGUN: "NG-OG",
+  ONDO: "NG-ON",
+  OSUN: "NG-OS",
+  OYO: "NG-OY",
+  PLATEAU: "NG-PL",
+  RIVERS: "NG-RI",
+  SOKOTO: "NG-SO",
+  TARABA: "NG-TA",
+  YOBE: "NG-YO",
+  ZAMFARA: "NG-ZA",
 };
-
-export const BEDROOM_OPTIONS = [
-  { label: "Any", value: ANY_OPTION },
-  { label: "1", value: "1" },
-  { label: "2", value: "2" },
-  { label: "3", value: "3" },
-  { label: "4", value: "4" },
-  { label: "5+", value: "5+" },
-];
-
-export const TOILET_OPTIONS = [
-  { label: "Any", value: ANY_OPTION },
-  { label: "1", value: "1" },
-  { label: "2", value: "2" },
-  { label: "3", value: "3" },
-  { label: "4+", value: "4+" },
-];
 
 export const HERO_PINS = [
   { top: "36%", left: "56%" },
