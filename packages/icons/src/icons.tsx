@@ -528,7 +528,7 @@ export const InstagramIcon = ({
   </svg>
 );
 
-export const LightClock = ({
+export const DateIcon = ({
   size = 20,
   className,
   color = "currentColor",

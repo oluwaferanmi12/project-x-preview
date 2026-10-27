@@ -3,7 +3,7 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import {
   ArrowRight,
-  LightClock,
+  DateIcon,
   PropertyFinalisingIcon,
   PropertyInProgressIcon,
   PropertyPendingIcon,
@@ -116,7 +116,7 @@ export const PropertyCard = ({ property }: { property: PropertyItem }) => {
 
         <Container className="w-full mt-2 flex items-center justify-between">
           <Container className="flex items-center gap-1 text-secondary">
-            <LightClock size={16} />
+            <DateIcon size={16} />
             <Text variant="body-xs" tone="secondary">
               {property.date}
             </Text>

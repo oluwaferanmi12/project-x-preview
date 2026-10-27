@@ -1,5 +1,5 @@
 import { Button, Container, Text } from "@repo/ui";
-import { BookmarkIcon, LightClock, Location, VerifiedCheck } from "@repo/icons";
+import { BookmarkIcon, DateIcon, Location, VerifiedCheck } from "@repo/icons";
 import Image from "next/image";
 import Link from "next/link";
 import { getInitials } from "@repo/utils";
@@ -90,7 +90,7 @@ export const PropertyListingCard = ({
           <VerifiedCheck size={12} />
         </Container>
         <Container className="flex items-center gap-1 text-secondary">
-          <LightClock size={14} />
+          <DateIcon size={14} />
           <Text variant="body-xs" tone="secondary">
             {formatListingDate(property.createdAt)}
           </Text>
