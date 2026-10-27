@@ -4,13 +4,13 @@ import {
   ChevronRight,
   PasswordIcon,
   UserIcon,
-  MenuTrashIcon,
+  DeleteIcon,
 } from "@repo/icons";
 
 const settingsIcons = {
   key: PasswordIcon,
   user: UserIcon,
-  trash: MenuTrashIcon,
+  trash: DeleteIcon,
 };
 
 export function SettingsAction({
@@ -22,7 +22,7 @@ export function SettingsAction({
   onClick: () => void;
   children: ReactNode;
 }) {
-  // const Icon = settingsIcons[kind];
+  const Icon = settingsIcons[kind];
 
   return (
     <Button
@@ -35,7 +35,7 @@ export function SettingsAction({
       <Container
         as="span"
         aria-hidden="true"
-        className={`relative w-10 shrink-0 overflow-hidden rounded-[12px_4px_4px_12px] [&_svg]:absolute [&_svg]:top-3 [&_svg]:left-[7px] [&_svg]:size-[26px] ${kind === "trash" ? "bg-d50" : kind === "key" ? "bg-muted text-indigo-fore" : "bg-muted text-persian-red-fore"}`}
+        className={`flex h-9 w-10 shrink-0 items-end justify-center overflow-hidden rounded-[12px_4px_4px_12px] [&_svg]:-mb-1 [&_svg]:size-[26px] [&_svg]:shrink-0 ${kind === "trash" ? "bg-d50" : kind === "key" ? "bg-muted text-indigo-fore" : "bg-muted text-persian-red-fore"}`}
       >
         <Icon size={26} className="[&_path]:fill-current" />
       </Container>

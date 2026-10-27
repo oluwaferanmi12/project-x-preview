@@ -63,7 +63,12 @@ export const Navbar = ({ onNavigate }: NavbarProps) => {
     >
       <GeneralSpacer>
         <Container className="flex justify-between items-center">
-          <Container as="span">
+          <Container
+            as="button"
+            aria-label="Go to home page"
+            onClick={() => onNavigate("/")}
+            className="cursor-pointer"
+          >
             <LogoPlaceholderIcon className="text-primary" />
           </Container>
 
