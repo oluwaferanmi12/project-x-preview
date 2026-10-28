@@ -9,7 +9,7 @@ export const Banner = () => {
         <Text variant="bodyRegular" tone="inverted">
           Simple from search to move-in
         </Text>
-        <Container className="w-1/2">
+        <Container className="lg:w-1/2 w-full">
           <Text variant="h1" tone="inverted" className="mt-4 text-center">
             A better way to find and list a home or property.
           </Text>

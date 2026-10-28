@@ -32,9 +32,9 @@ export const GetYourProperty = () => {
   return (
     <Container className="py-9.5 bg-p50">
       <GeneralSpacer>
-        <Row className="pt-12">
-          <Col xs={8}>
-            <Container className="flex flex-col gap-6">
+        <Row justify={"center"} className="pt-12">
+          <Col lg={8} xs={24}>
+            <Container className="flex flex-col gap-6 pb-12">
               <Text className="w-[90%]" tone="primary" variant="h2">
                 Get your property in front of the right people.
               </Text>
@@ -42,19 +42,18 @@ export const GetYourProperty = () => {
                 Whether you’re an owner or an agent, connect with renters
                 looking for a home.
               </Text>
-              <Container className="flex">
+              <Container className="lg:flex hidden">
                 <Button variant="primary">Get Started!</Button>
               </Container>
             </Container>
           </Col>
-          <Col xs={16}>
-            <Container className="px-12">
+          <Col lg={16} xs={24}>
+            <Container className="lg:px-12">
               <Row gutter={[32, 72]}>
                 {items.map((item) => {
                   return (
-                    <Col key={item.title} xs={12}>
+                    <Col key={item.title} lg={12} xs={24}>
                       <Container className="flex flex-col items-start gap-5">
-                        {/* Only the background is tilted; the icon stays upright. */}
                         <Container className="relative p-2.5">
                           <Container className="absolute inset-0 rotate-[8deg] bg-p300 rounded-t-sm rounded-bl-sm rounded-br-2xl" />
                           <Container className="relative">
@@ -73,6 +72,11 @@ export const GetYourProperty = () => {
                 })}
               </Row>
             </Container>
+          </Col>
+          <Col lg={0} xs={16}>
+            <Button className="w-full mt-12" shorter variant="primary">
+              Get Started
+            </Button>
           </Col>
         </Row>
       </GeneralSpacer>
