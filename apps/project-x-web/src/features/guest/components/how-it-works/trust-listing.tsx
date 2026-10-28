@@ -2,6 +2,33 @@ import { Container, GeneralSpacer, Text } from "@repo/ui";
 import { Col, Row } from "antd";
 import React from "react";
 
+const TRUST_MEASURES = [
+  {
+    emoji: "🏠",
+    title: "Property Information",
+    description:
+      "We check and verify all details submitted with each property.",
+  },
+  {
+    emoji: "🗺️",
+    title: "Location Checks",
+    description:
+      "Property locations and address information are reviewed as part of the listing process.",
+  },
+  {
+    emoji: "🗂️",
+    title: "Documentation",
+    description:
+      "Required ownership or authorisation documents may be requested depending on who is listing the property.",
+  },
+  {
+    emoji: "✅",
+    title: "Listing checks",
+    description:
+      "Listings are reviewed before they’re published on the platform.",
+  },
+];
+
 export const TrustListing = () => {
   return (
     <Container className="bg-primary py-28">
@@ -16,7 +43,7 @@ export const TrustListing = () => {
             Trust starts with better listings
           </Text>
           <Text
-            className="w-1/2 text-center"
+            className="lg:w-1/2 text-center"
             variant="bodyRegular"
             tone="secondary"
           >
@@ -26,64 +53,25 @@ export const TrustListing = () => {
         </Container>
         <Container className="pt-16">
           <Row justify={"center"}>
-            <Col xs={20}>
+            <Col lg={20} xs={24}>
               <Row justify={"center"} gutter={[24, 24]}>
-                <Col xs={12}>
-                  <Container className="bg-background-dark rounded-4xl p-8 min-h-70 flex flex-col gap-16">
-                    <Container className="text-[64px]">🏠</Container>
-                    <Container className="flex flex-col gap-4">
-                      <Text variant="h4" tone="inverted">
-                        Property Information
-                      </Text>
-                      <Text variant="bodyRegular" tone="secondary">
-                        We check and verify all details submitted with each
-                        property.
-                      </Text>
+                {TRUST_MEASURES.map((item) => (
+                  <Col key={item.title} lg={12} xs={24}>
+                    <Container className="bg-background-dark rounded-4xl p-8 lg:min-h-70 flex flex-col gap-10 lg:gap-16">
+                      <Container className="text-[64px]">
+                        {item.emoji}
+                      </Container>
+                      <Container className="flex flex-col gap-4">
+                        <Text variant="h4" tone="inverted">
+                          {item.title}
+                        </Text>
+                        <Text variant="bodyRegular" tone="secondary">
+                          {item.description}
+                        </Text>
+                      </Container>
                     </Container>
-                  </Container>
-                </Col>
-                <Col xs={12}>
-                  <Container className="bg-background-dark rounded-4xl p-8 min-h-70 flex flex-col gap-16">
-                    <Container className="text-[64px]">🗺️</Container>
-                    <Container className="flex flex-col gap-4">
-                      <Text variant="h4" tone="inverted">
-                        Location Checks
-                      </Text>
-                      <Text variant="bodyRegular" tone="secondary">
-                        Property locations and address information are reviewed
-                        as part of the listing process.
-                      </Text>
-                    </Container>
-                  </Container>
-                </Col>
-                <Col xs={12}>
-                  <Container className="bg-background-dark rounded-4xl p-8 min-h-70 flex flex-col gap-16">
-                    <Container className="text-[64px]">🗂️</Container>
-                    <Container className="flex flex-col gap-4">
-                      <Text variant="h4" tone="inverted">
-                        Documentation
-                      </Text>
-                      <Text variant="bodyRegular" tone="secondary">
-                        Required ownership or authorisation documents may be
-                        requested depending on who is listing the property.
-                      </Text>
-                    </Container>
-                  </Container>
-                </Col>
-                <Col xs={12}>
-                  <Container className="bg-background-dark rounded-4xl p-8 min-h-70 flex flex-col gap-16">
-                    <Container className="text-[64px]">✅</Container>
-                    <Container className="flex flex-col gap-4">
-                      <Text variant="h4" tone="inverted">
-                        Listing checks
-                      </Text>
-                      <Text variant="bodyRegular" tone="secondary">
-                        Listings are reviewed before they’re published on the
-                        platform.
-                      </Text>
-                    </Container>
-                  </Container>
-                </Col>
+                  </Col>
+                ))}
               </Row>
             </Col>
           </Row>
