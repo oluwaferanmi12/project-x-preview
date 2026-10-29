@@ -8,6 +8,7 @@ import {
   XIcon,
 } from "@repo/icons";
 import { Button, Container, GeneralSpacer, Text } from "@repo/ui";
+import Link from "next/link";
 import React from "react";
 
 export const HomeFooter = () => {
@@ -26,9 +27,11 @@ export const HomeFooter = () => {
     },
     {
       title: "Privacy Policy",
+      link: "/privacy-policy",
     },
     {
       title: "Terms of Use",
+      link: "/terms-of-use",
     },
   ];
   return (
@@ -68,12 +71,19 @@ export const HomeFooter = () => {
               </Container>
               <Container className="flex flex-col gap-4 pr-6.5">
                 {footerItemsTwo.map((item) => {
-                  return (
-                    <Container key={item.title} className="px-3 py-2">
+                  const content = (
+                    <Container className="px-3 py-2">
                       <Text variant="action-button" tone="p300">
                         {item.title}
                       </Text>
                     </Container>
+                  );
+                  return item.link ? (
+                    <Link key={item.title} href={item.link}>
+                      {content}
+                    </Link>
+                  ) : (
+                    <React.Fragment key={item.title}>{content}</React.Fragment>
                   );
                 })}
               </Container>

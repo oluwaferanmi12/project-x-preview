@@ -1,7 +1,7 @@
 import { ComponentPropsWithoutRef, ReactNode } from "react";
 
 export type TextareaProps = ComponentPropsWithoutRef<"textarea"> & {
-  label: string;
+  label?: string;
   error?: ReactNode;
   endAdornment?: ReactNode;
 };
