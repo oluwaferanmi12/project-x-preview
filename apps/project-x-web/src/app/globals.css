@@ -263,3 +263,16 @@ input[type="number"]::-webkit-outer-spin-button {
   margin-top: 40px;
   
 }
+
+.contact-us{
+  background-image:
+    linear-gradient(#3B356166, #3B356166),
+    url("/contact-us.jpg");
+  height: 80vh;
+  width: 100%;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  margin-top: 40px;
+  
+}
