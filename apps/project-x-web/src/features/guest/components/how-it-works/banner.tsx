@@ -5,7 +5,7 @@ import React from "react";
 export const Banner = () => {
   return (
     <GeneralSpacer>
-      <Container className="how-it-works rounded-2xl flex items-center flex-col justify-center">
+      <Container className="how-it-works rounded-2xl flex items-center flex-col justify-center px-4 lg:px-0">
         <Text variant="bodyRegular" tone="inverted">
           Simple from search to move-in
         </Text>
