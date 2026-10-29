@@ -1,14 +1,13 @@
 import { FBIcon, InstagramIcon, TTIcon, XIcon } from "@repo/icons";
 import { Container, GeneralSpacer, Text } from "@repo/ui";
-import { Col, Row } from "antd";
 import { ContactForm } from "./contact-form";
 
 export const ContactBanner = () => {
   return (
     <GeneralSpacer>
-      <Container className="contact-us !h-auto min-h-[80vh] rounded-2xl flex items-center px-6 py-10 lg:px-16">
-        <Row gutter={[32, 32]} align="middle" className="w-full">
-          <Col xs={24} lg={14}>
+      <Container className="relative">
+        <Container className="contact-us !h-[650px] lg:!h-auto lg:min-h-[80vh] rounded-2xl flex lg:items-center px-5 pt-24 lg:pt-0 lg:px-16">
+          <Container className="lg:w-1/2 w-full">
             <Text variant="body-sm" tone="inverted">
               Have a question? Let&apos;s talk.
             </Text>
@@ -26,11 +25,13 @@ export const ContactBanner = () => {
               <TTIcon size={20} className="text-inverted" />
               <XIcon size={20} className="text-inverted" />
             </Container>
-          </Col>
-          <Col xs={24} lg={10}>
+          </Container>
+        </Container>
+        <Container className="relative z-10 -mt-48 px-4 lg:absolute lg:right-16 lg:top-1/2 lg:mt-0 lg:w-[40%] lg:-translate-y-1/2 lg:px-0">
+          <Container className="rounded-3xl shadow-lg">
             <ContactForm />
-          </Col>
-        </Row>
+          </Container>
+        </Container>
       </Container>
     </GeneralSpacer>
   );
