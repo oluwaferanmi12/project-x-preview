@@ -1,6 +1,4 @@
 import { Container, GeneralSpacer, Text } from "@repo/ui";
-import Image from "next/image";
-import React from "react";
 
 export const Banner = () => {
   return (
